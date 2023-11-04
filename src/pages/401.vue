@@ -3,38 +3,38 @@
     <div h-full min-w-500px flex-col-center>
       <div
         class="text-$el-color-info"
-        mb-15px animate-head-shake text-56px
+        mb-15px animate-head-shake text-55px
       >
-        404
+        401
       </div>
 
       <div
         class="text-$el-text-color-primary"
         mb-10px animate-head-shake text-22px
       >
-        地址输入错误，请重新输入地址~
+        您未被授权，或授权已过期~
       </div>
 
       <div
         class="text-$el-text-color-secondary"
         mb-30px animate-head-shake text-12px
       >
-        您可以先检查网址，然后重新输入或给管理员反馈问题。
+        您可以先检查用户重新授权或给管理员反馈问题。
       </div>
 
       <div animate-head-shake>
         <el-button
-          type="primary"
+          type="warning"
           round
-          @click="router.replace('/')"
+          @click="userStore.handleLogout()"
         >
-          返回首页
+          重新授权
         </el-button>
       </div>
     </div>
 
     <div ml-40px animate-head-shake>
-      <img class="full dark:turn-dark" src="@/assets/404.png">
+      <img class="full dark:turn-dark" src="@/assets/401.png">
     </div>
   </div>
 </template>
@@ -45,5 +45,5 @@ meta:
 </route>
 
 <script setup lang="ts">
-const router = useRouter()
+const userStore = useUserStore()
 </script>

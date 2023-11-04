@@ -1,34 +1,43 @@
-import { acceptHMRUpdate, defineStore } from 'pinia'
+import { authLogin } from '@/apis/login'
+import type { LoginInfo, UserInfo } from '@/types/login'
+import { router } from '@/modules/router'
 
-export const useUserStore = defineStore('user', () => {
-  /**
-   * Current name of the user.
-   */
-  const savedName = ref('')
-  const previousNames = ref(new Set<string>())
+export const useUserStore = defineStore(
+  'user',
+  () => {
+    const isLogin = ref(false)
+    const userInfo = ref<UserInfo>()
 
-  const usedNames = computed(() => Array.from(previousNames.value))
-  const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
+    const menuStore = useMenuStore()
 
-  /**
-   * Changes the current name of the user and saves the one that was used
-   * before.
-   *
-   * @param name - new name to set
-   */
-  function setNewName(name: string) {
-    if (savedName.value)
-      previousNames.value.add(savedName.value)
+    function handleLogin(data: LoginInfo) {
+      return authLogin(data).then(async (res) => {
+        isLogin.value = true
+        userInfo.value = res.data.data
+        await menuStore.getMenu()
+        router.replace('/')
+      })
+    }
 
-    savedName.value = name
-  }
+    function handleLogout() {
+      return new Promise((resolve) => {
+        isLogin.value = false
+        userInfo.value = undefined
+        router.replace('/login')
+        resolve(true)
+      })
+    }
 
-  return {
-    setNewName,
-    otherNames,
-    savedName,
-  }
-})
+    return {
+      isLogin,
+      userInfo,
+      handleLogin,
+      handleLogout,
+    }
+  },
+  {
+    persist: true,
+  },
+)
 
-if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
+if (import.meta.hot) import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))

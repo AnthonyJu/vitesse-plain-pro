@@ -1,3 +1,19 @@
-.el-message {
+// * ElMessage
+div.el-message {
   --el-message-bg-color: #fff;
+
+  margin-top: 13px;
+  border: none;
+  box-shadow: 0 0 4px 4px rgb(0, 0, 0, 0.05);
+}
+
+// * ElScrollbar
+.el-scrollbar__thumb {
+  background-color: var(--el-layout-bg-color);
+  opacity: 0.85;
+}
+
+// * ElNotification
+.el-notification {
+  margin-top: 3px;
 }

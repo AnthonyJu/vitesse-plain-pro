@@ -5,3 +5,18 @@
     ),
   )
 );
+
+.dark {
+  // * ElMessage
+  div.el-message {
+    --el-message-bg-color: #1f1f1f;
+
+    box-shadow: 0 0 4px 4px rgb(255, 255, 255, 0.05);
+  }
+
+  // * ElScrollbar
+  .el-scrollbar__thumb {
+    background-color: var(--el-layout-bg-color-dark);
+    opacity: 1;
+  }
+}
