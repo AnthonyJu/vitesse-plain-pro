@@ -9,7 +9,20 @@ export const useMenuStore = defineStore(
     function getMenu() {
       // TODO 模拟从接口获取菜单
       return new Promise((resolve) => {
-        menu.value = pages
+        const allPages = pages.filter(page => !['/login', '/401', '/:all(.*)*'].includes(page.path))
+        menu.value = [
+          {
+            ...allPages.find(page => page.path === '/home')!,
+          },
+          {
+            name: 'j-components',
+            path: '/j-components',
+            meta: {
+              name: 'J 组件',
+            },
+            children: allPages.filter(page => page.path.startsWith('/j-components'))!,
+          },
+        ]
         resolve(true)
       })
     }

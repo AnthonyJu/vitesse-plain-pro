@@ -52,6 +52,7 @@ function exitLogin() {
     title: '退出登陆',
     message: '此操作将退出登录, 是否继续?',
     showCancelButton: true,
+    lockScroll: false,
     beforeClose: (action, instance, done) => {
       if (action === 'confirm') {
         instance.confirmButtonLoading = true
