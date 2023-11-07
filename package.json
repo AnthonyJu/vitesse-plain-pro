@@ -22,7 +22,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
-    "vue": "^3.3.7",
+    "vue": "^3.3.8",
     "vue-request": "^2.0.4",
     "vue-router": "^4.2.5"
   },
@@ -52,7 +52,7 @@
     "unplugin-element-plus": "^0.8.0",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.5.0",
-    "vite-bundle-visualizer": "^0.10.0",
+    "vite-bundle-visualizer": "^0.10.1",
     "vite-plugin-pages": "^0.31.0",
     "vite-plugin-vue-devtools": "1.0.0-rc.5",
     "vite-plugin-vue-layouts": "^0.8.0",

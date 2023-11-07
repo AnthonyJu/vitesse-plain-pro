@@ -12,3 +12,7 @@
     <div h-1000px w-full rounded-2 bg-blue />
   </div>
 </template>
+
+<script setup lang="ts">
+
+</script>
