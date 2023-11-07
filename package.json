@@ -16,6 +16,7 @@
     "sizecheck": "npx vite-bundle-visualizer"
   },
   "dependencies": {
+    "@arcgis/core": "^4.28.7",
     "@vueuse/core": "^10.5.0",
     "axios": "^1.6.0",
     "echarts": "^5.4.3",

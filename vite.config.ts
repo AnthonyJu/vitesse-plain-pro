@@ -66,7 +66,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
       dts: 'src/auto-imports.d.ts',
       dirs: [
-        'src/composables',
+        'src/composables/**/*',
         'src/stores',
         'src/utils',
       ],

@@ -23,10 +23,18 @@ export const useMenuStore = defineStore(
             children: allPages.filter(page => page.path.startsWith('/j-components'))!,
           },
           {
+            name: 'arcgis',
+            path: '/arcgis',
+            meta: {
+              name: 'ArcGIS',
+            },
+            children: allPages.filter(page => page.path.startsWith('/arcgis'))!,
+          },
+          {
             name: 'vue-echarts',
             path: '/vue-echarts',
             meta: {
-              name: 'vue-echarts',
+              name: 'Vue-ECharts',
             },
             children: allPages.filter(page => page.path.startsWith('/vue-echarts'))!,
           },
