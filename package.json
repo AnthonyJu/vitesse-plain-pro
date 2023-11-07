@@ -33,6 +33,7 @@
     "@antfu/eslint-config": "^1.1.0",
     "@anthony-ju/eslint-config": "^0.2.2",
     "@anthony-ju/stylelint-config": "^0.2.2",
+    "@iconify/vue": "^4.1.1",
     "@types/node": "^20.8.10",
     "@types/nprogress": "^0.2.2",
     "@unocss/eslint-config": "^0.57.2",

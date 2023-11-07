@@ -13,12 +13,17 @@ export const useMenuStore = defineStore(
         menu.value = [
           {
             ...allPages.find(page => page.path === '/home')!,
+            meta: {
+              name: '首页',
+              icon: 'carbon-home',
+            },
           },
           {
             name: 'j-components',
             path: '/j-components',
             meta: {
               name: 'J 组件',
+              icon: 'carbon-dicom-overlay',
             },
             children: allPages.filter(page => page.path.startsWith('/j-components'))!,
           },
@@ -27,6 +32,7 @@ export const useMenuStore = defineStore(
             path: '/arcgis',
             meta: {
               name: 'ArcGIS',
+              icon: 'carbon-map',
             },
             children: allPages.filter(page => page.path.startsWith('/arcgis'))!,
           },
@@ -35,6 +41,7 @@ export const useMenuStore = defineStore(
             path: '/vue-echarts',
             meta: {
               name: 'Vue-ECharts',
+              icon: 'carbon-chart-multitype',
             },
             children: allPages.filter(page => page.path.startsWith('/vue-echarts'))!,
           },

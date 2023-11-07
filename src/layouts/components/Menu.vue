@@ -4,14 +4,14 @@
       <template v-for="menu in menuStore.menu">
         <el-sub-menu v-if="menu.children?.length" :key="menu.path" :index="menu.path">
           <template #title>
-            <!-- <Iconify v-if="menu.icon" mr-5px h-16px w-16px :icon="menu.icon" /> -->
+            <Iconify v-if="menu.meta?.icon" mr-8px h-16px w-16px :icon="menu.meta?.icon" />
             <span>{{ menu.meta?.name }}</span>
           </template>
           <SubMenu :children="menu.children" />
         </el-sub-menu>
 
         <el-menu-item v-else :key="menu.path!" :index="menu.path">
-          <!-- <Iconify v-if="menu.icon" mr-5px h-16px w-16px :icon="menu.icon" /> -->
+          <Iconify v-if="menu.meta?.icon" mr-8px h-16px w-16px :icon="menu.meta?.icon" />
           <span>{{ menu.meta?.name }}</span>
         </el-menu-item>
       </template>
