@@ -38,7 +38,6 @@ declare module '@vue/runtime-core' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    Ip: typeof import('./components/Ip.vue')['default']
     JDialog: typeof import('./components/JDialog/JDialog.vue')['default']
     JForm: typeof import('./components/JForm/JForm.vue')['default']
     JPagination: typeof import('./components/JPagination/JPagination.vue')['default']

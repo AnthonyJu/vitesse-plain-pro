@@ -22,6 +22,14 @@ export const useMenuStore = defineStore(
             },
             children: allPages.filter(page => page.path.startsWith('/j-components'))!,
           },
+          {
+            name: 'vue-echarts',
+            path: '/vue-echarts',
+            meta: {
+              name: 'vue-echarts',
+            },
+            children: allPages.filter(page => page.path.startsWith('/vue-echarts'))!,
+          },
         ]
         resolve(true)
       })
