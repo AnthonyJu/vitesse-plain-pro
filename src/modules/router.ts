@@ -14,7 +14,9 @@ export const router = createRouter({
 const WhiteList: string[] = ['/login', '/401'] // TODO 路由白名单
 
 router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
   if (WhiteList.includes(to.path)) next()
+  if (!userStore.isLogin) next('/login')
   // TODO 其他权限判断
   else next()
 })
