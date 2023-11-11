@@ -35,6 +35,8 @@ declare global {
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
+  const defineLoader: typeof import('vue-router/auto')['defineLoader']
+  const definePage: typeof import('unplugin-vue-router/runtime')['_definePage']
   const defineStore: typeof import('pinia')['defineStore']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
@@ -64,8 +66,8 @@ declare global {
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
-  const onBeforeRouteLeave: typeof import('vue-router')['onBeforeRouteLeave']
-  const onBeforeRouteUpdate: typeof import('vue-router')['onBeforeRouteUpdate']
+  const onBeforeRouteLeave: typeof import('vue-router/auto')['onBeforeRouteLeave']
+  const onBeforeRouteUpdate: typeof import('vue-router/auto')['onBeforeRouteUpdate']
   const onBeforeUnmount: typeof import('vue')['onBeforeUnmount']
   const onBeforeUpdate: typeof import('vue')['onBeforeUpdate']
   const onClickOutside: typeof import('@vueuse/core')['onClickOutside']
@@ -155,6 +157,7 @@ declare global {
   const useBrowserLocation: typeof import('@vueuse/core')['useBrowserLocation']
   const useCached: typeof import('@vueuse/core')['useCached']
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
+  const useClipboardItems: typeof import('@vueuse/core')['useClipboardItems']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
@@ -206,7 +209,7 @@ declare global {
   const useIntervalFn: typeof import('@vueuse/core')['useIntervalFn']
   const useKeyModifier: typeof import('@vueuse/core')['useKeyModifier']
   const useLastChanged: typeof import('@vueuse/core')['useLastChanged']
-  const useLink: typeof import('vue-router')['useLink']
+  const useLink: typeof import('vue-router/auto')['useLink']
   const useLocalStorage: typeof import('@vueuse/core')['useLocalStorage']
   const useMagicKeys: typeof import('@vueuse/core')['useMagicKeys']
   const useManualRefHistory: typeof import('@vueuse/core')['useManualRefHistory']
@@ -245,8 +248,8 @@ declare global {
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useRequest: typeof import('./composables/vueRequest')['useRequest']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
-  const useRoute: typeof import('vue-router')['useRoute']
-  const useRouter: typeof import('vue-router')['useRouter']
+  const useRoute: typeof import('vue-router/auto')['useRoute']
+  const useRouter: typeof import('vue-router/auto')['useRouter']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
   const useScriptTag: typeof import('@vueuse/core')['useScriptTag']
@@ -325,6 +328,7 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly Local: UnwrapRef<typeof import('./utils/storage')['Local']>
     readonly Session: UnwrapRef<typeof import('./utils/storage')['Session']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
@@ -352,6 +356,8 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly defineLoader: UnwrapRef<typeof import('vue-router/auto')['defineLoader']>
+    readonly definePage: UnwrapRef<typeof import('unplugin-vue-router/runtime')['_definePage']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
@@ -381,8 +387,8 @@ declare module 'vue' {
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
-    readonly onBeforeRouteLeave: UnwrapRef<typeof import('vue-router')['onBeforeRouteLeave']>
-    readonly onBeforeRouteUpdate: UnwrapRef<typeof import('vue-router')['onBeforeRouteUpdate']>
+    readonly onBeforeRouteLeave: UnwrapRef<typeof import('vue-router/auto')['onBeforeRouteLeave']>
+    readonly onBeforeRouteUpdate: UnwrapRef<typeof import('vue-router/auto')['onBeforeRouteUpdate']>
     readonly onBeforeUnmount: UnwrapRef<typeof import('vue')['onBeforeUnmount']>
     readonly onBeforeUpdate: UnwrapRef<typeof import('vue')['onBeforeUpdate']>
     readonly onClickOutside: UnwrapRef<typeof import('@vueuse/core')['onClickOutside']>
@@ -472,6 +478,7 @@ declare module 'vue' {
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
+    readonly useClipboardItems: UnwrapRef<typeof import('@vueuse/core')['useClipboardItems']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
@@ -514,7 +521,6 @@ declare module 'vue' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
-    readonly useHead: UnwrapRef<typeof import('@vueuse/head')['useHead']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
     readonly useInfiniteScroll: UnwrapRef<typeof import('@vueuse/core')['useInfiniteScroll']>
@@ -523,7 +529,7 @@ declare module 'vue' {
     readonly useIntervalFn: UnwrapRef<typeof import('@vueuse/core')['useIntervalFn']>
     readonly useKeyModifier: UnwrapRef<typeof import('@vueuse/core')['useKeyModifier']>
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
-    readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useLink: UnwrapRef<typeof import('vue-router/auto')['useLink']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
@@ -562,14 +568,13 @@ declare module 'vue' {
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useRequest: UnwrapRef<typeof import('./composables/vueRequest')['useRequest']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
-    readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
+    readonly useRoute: UnwrapRef<typeof import('vue-router/auto')['useRoute']>
+    readonly useRouter: UnwrapRef<typeof import('vue-router/auto')['useRouter']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>
     readonly useScroll: UnwrapRef<typeof import('@vueuse/core')['useScroll']>
     readonly useScrollLock: UnwrapRef<typeof import('@vueuse/core')['useScrollLock']>
-    readonly useSeoMeta: UnwrapRef<typeof import('@vueuse/head')['useSeoMeta']>
     readonly useSessionStorage: UnwrapRef<typeof import('@vueuse/core')['useSessionStorage']>
     readonly useShare: UnwrapRef<typeof import('@vueuse/core')['useShare']>
     readonly useSketch: UnwrapRef<typeof import('./composables/arcgis/sketch')['useSketch']>
@@ -636,6 +641,7 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly Local: UnwrapRef<typeof import('./utils/storage')['Local']>
     readonly Session: UnwrapRef<typeof import('./utils/storage')['Session']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
@@ -663,6 +669,8 @@ declare module '@vue/runtime-core' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly defineLoader: UnwrapRef<typeof import('vue-router/auto')['defineLoader']>
+    readonly definePage: UnwrapRef<typeof import('unplugin-vue-router/runtime')['_definePage']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
@@ -692,8 +700,8 @@ declare module '@vue/runtime-core' {
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
-    readonly onBeforeRouteLeave: UnwrapRef<typeof import('vue-router')['onBeforeRouteLeave']>
-    readonly onBeforeRouteUpdate: UnwrapRef<typeof import('vue-router')['onBeforeRouteUpdate']>
+    readonly onBeforeRouteLeave: UnwrapRef<typeof import('vue-router/auto')['onBeforeRouteLeave']>
+    readonly onBeforeRouteUpdate: UnwrapRef<typeof import('vue-router/auto')['onBeforeRouteUpdate']>
     readonly onBeforeUnmount: UnwrapRef<typeof import('vue')['onBeforeUnmount']>
     readonly onBeforeUpdate: UnwrapRef<typeof import('vue')['onBeforeUpdate']>
     readonly onClickOutside: UnwrapRef<typeof import('@vueuse/core')['onClickOutside']>
@@ -783,6 +791,7 @@ declare module '@vue/runtime-core' {
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
+    readonly useClipboardItems: UnwrapRef<typeof import('@vueuse/core')['useClipboardItems']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
@@ -825,7 +834,6 @@ declare module '@vue/runtime-core' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
-    readonly useHead: UnwrapRef<typeof import('@vueuse/head')['useHead']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
     readonly useInfiniteScroll: UnwrapRef<typeof import('@vueuse/core')['useInfiniteScroll']>
@@ -834,7 +842,7 @@ declare module '@vue/runtime-core' {
     readonly useIntervalFn: UnwrapRef<typeof import('@vueuse/core')['useIntervalFn']>
     readonly useKeyModifier: UnwrapRef<typeof import('@vueuse/core')['useKeyModifier']>
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
-    readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useLink: UnwrapRef<typeof import('vue-router/auto')['useLink']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
@@ -873,14 +881,13 @@ declare module '@vue/runtime-core' {
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useRequest: UnwrapRef<typeof import('./composables/vueRequest')['useRequest']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
-    readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
+    readonly useRoute: UnwrapRef<typeof import('vue-router/auto')['useRoute']>
+    readonly useRouter: UnwrapRef<typeof import('vue-router/auto')['useRouter']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>
     readonly useScroll: UnwrapRef<typeof import('@vueuse/core')['useScroll']>
     readonly useScrollLock: UnwrapRef<typeof import('@vueuse/core')['useScrollLock']>
-    readonly useSeoMeta: UnwrapRef<typeof import('@vueuse/head')['useSeoMeta']>
     readonly useSessionStorage: UnwrapRef<typeof import('@vueuse/core')['useSessionStorage']>
     readonly useShare: UnwrapRef<typeof import('@vueuse/core')['useShare']>
     readonly useSketch: UnwrapRef<typeof import('./composables/arcgis/sketch')['useSketch']>

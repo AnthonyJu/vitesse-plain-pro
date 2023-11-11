@@ -1,10 +1,11 @@
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import VueRouter from 'unplugin-vue-router/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Unocss from 'unocss/vite'
 import WebfontDownload from 'vite-plugin-webfont-dl'
@@ -44,10 +45,10 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/hannoeru/vite-plugin-pages
-    Pages({
-      exclude: ['**/components/*.vue'],
-      extensions: ['vue'],
+    // https://github.com/posva/unplugin-vue-router
+    VueRouter({
+      extensions: ['.vue', '.md'],
+      dts: 'src/typed-router.d.ts',
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
@@ -58,9 +59,12 @@ export default defineConfig({
       imports: [
         'vue',
         'pinia',
-        'vue-router',
-        '@vueuse/head',
         '@vueuse/core',
+        VueRouterAutoImports,
+        {
+          // add any other imports you were relying on
+          'vue-router/auto': ['useLink'],
+        },
       ],
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
       dts: 'src/auto-imports.d.ts',

@@ -1,7 +1,7 @@
 <template>
   <el-scrollbar w-full flex-1>
     <el-menu :default-active="route.path" router unique-opened collapse-transition my-16px>
-      <template v-for="menu in menuStore.menu">
+      <template v-for="menu in menuStore.menus">
         <el-sub-menu v-if="menu.children?.length" :key="menu.path" :index="menu.path">
           <template #title>
             <Iconify v-if="menu.meta?.icon" mr-8px h-16px w-16px :icon="menu.meta?.icon" />

@@ -17,7 +17,7 @@ export default defineConfig({
     'flex-b-c': 'flex justify-between items-center',
     'flex-center': 'flex justify-center items-center',
     'flex-col-center': 'flex flex-col justify-center items-center',
-    'turn-dark': 'invert-100 hue-rotate-180',
+    'turn-dark': 'invert-93 hue-rotate-180',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
     'icon-btn': 'color-blue inline-block cursor-pointer select-none transition duration-200 ease-in-out hover:opacity-100 hover:text-green-600',
   },

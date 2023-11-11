@@ -1,14 +1,15 @@
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { routes } from 'vue-router/auto/routes'
 import type { App } from 'vue'
-import pages from '~pages'
-
-export const routes = setupLayouts(pages)
 
 // 重定向
 routes.push({ path: '/', redirect: '/home' })
 
-export const router = createRouter({ routes, history: createWebHashHistory() })
+export const router = createRouter({
+  routes: setupLayouts(routes),
+  history: createWebHashHistory(),
+})
 
 const WhiteList: string[] = ['/login', '/401'] // TODO 路由白名单
 
