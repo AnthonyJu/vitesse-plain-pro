@@ -1,5 +1,5 @@
 <template>
-  <div id="map" full bg="light dark:dark" />
+  <div id="map" w-full :style="{ height: `${height - 108}px` }" bg="light dark:dark" />
 </template>
 
 <route lang='yaml'>
@@ -12,6 +12,7 @@ import Graphic from '@arcgis/core/Graphic'
 import Point from '@arcgis/core/geometry/Point'
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 
+const { height } = useWindowSize()
 const arcgis = useArcgis('map')
 
 onMounted(() => {
