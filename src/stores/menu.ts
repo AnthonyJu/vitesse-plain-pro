@@ -13,7 +13,9 @@ export const useMenuStore = defineStore(
         menus.value = [
           {
             meta: { name: '首页', icon: 'carbon-home' },
-            ...generateInfo(allPages, 'home'),
+            name: 'home',
+            path: '/home',
+            children: [],
           },
           {
             meta: { name: 'J 组件', icon: 'carbon-dicom-overlay' },
@@ -33,10 +35,11 @@ export const useMenuStore = defineStore(
     }
 
     function generateInfo(allPages: RouteRecordRaw[], name: string) {
+      const children = allPages.find(page => page.path === `/${name}`)?.children
       return {
         name,
         path: `/${name}`,
-        children: allPages.find(page => page.path === `/${name}`)?.children || [],
+        children: children?.map(el => ({ ...el, path: `/${name}/${el.path}` })) || [],
       }
     }
     return {
