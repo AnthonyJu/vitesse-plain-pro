@@ -1,7 +1,7 @@
-@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+@forward "element-plus/theme-chalk/src/dark/var.scss" with (
   $colors: (
-    'primary': (
-      'base': #2fc8fc,
+    "primary": (
+      "base": #2fc8fc,
     ),
   )
 );
@@ -11,7 +11,7 @@
   div.el-message {
     --el-message-bg-color: #1f1f1f;
 
-    box-shadow: 0 0 4px 4px rgb(255, 255, 255, 0.05);
+    box-shadow: 0 0 4px 4px rgb(255 255 255 / 5%);
   }
 
   // * ElScrollbar

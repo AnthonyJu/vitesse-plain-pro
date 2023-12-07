@@ -92,7 +92,7 @@ function gotoLogin() {
   &::after {
     position: absolute;
     z-index: -1;
-    content: '';
+    content: "";
     background: var(--el-color-primary-light-5);
     transition: all 0.3s ease;
   }
@@ -138,7 +138,7 @@ function gotoLogin() {
   &::before,
   &::after {
     position: absolute;
-    content: '';
+    content: "";
   }
 }
 
