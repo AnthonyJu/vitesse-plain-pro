@@ -48,7 +48,7 @@ export default defineConfig({
 
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
-      extensions: ['.vue'],
+      routeBlockLang: 'yaml',
       dts: 'src/typed-router.d.ts',
     }),
 
