@@ -10,7 +10,7 @@
       <!-- 头部 -->
       <el-header mr-16px flex-b-c rounded-10px pl-16px pr-0 bg-default>
         <Logo v-if="smallScreen" />
-        <Weather v-else />
+        <div v-else />
         <User mr-4px />
       </el-header>
 
@@ -31,7 +31,6 @@
 <script setup lang='ts'>
 import Logo from './components/Logo.vue'
 import Menu from './components/Menu.vue'
-import Weather from './components/Weather.vue'
 import User from './components/User.vue'
 
 const { width } = useWindowSize()
