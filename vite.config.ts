@@ -48,8 +48,10 @@ export default defineConfig({
 
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
+      extensions: ['.vue'],
       routeBlockLang: 'yaml',
       dts: 'src/typed-router.d.ts',
+      exclude: ['**/components/**/*'],
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
@@ -71,6 +73,7 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
       dirs: [
         'src/composables/**/*',
+        'src/events',
         'src/stores',
         'src/utils',
       ],
@@ -83,6 +86,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/],
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
       dts: 'src/components.d.ts',
+      exclude: [],
     }),
 
     // https://github.com/antfu/unocss

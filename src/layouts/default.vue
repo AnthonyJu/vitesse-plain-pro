@@ -1,7 +1,10 @@
 <template>
   <div class="bg-$el-color-primary dark:bg-transparent" flex flex-1 p="l16px y16px" overflow-auto>
     <!-- 侧边栏 -->
-    <el-aside v-show="!smallScreen" w-210px flex-col-center overflow-hidden rounded-10px bg-default>
+    <el-aside
+      v-show="!smallScreen"
+      class="flex-col-center overflow-hidden rounded-10px !w-210px bg-default"
+    >
       <Logo />
       <Menu />
     </el-aside>

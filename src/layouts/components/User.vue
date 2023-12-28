@@ -13,7 +13,7 @@
     <!-- 用户头像 -->
     <el-dropdown v-if="userStore.userInfo">
       <el-avatar
-        class="cursor-pointer bg-$el-color-primary"
+        class="cursor-pointer !bg-$el-color-primary"
         :src="userStore.userInfo?.avatar || avatar"
       />
       <template #dropdown>

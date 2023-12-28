@@ -7,7 +7,7 @@ export const useMenuStore = defineStore(
     const menus = ref<RouteRecordRaw[]>([])
 
     function getMenu() {
-      // TODO 模拟从接口获取菜单
+      // TODO 使用真实接口获取菜单
       return new Promise((resolve) => {
         const allPages = routes.filter(page => !['/', '/login', '/401', '/:all(.*)'].includes(page.path))
         menus.value = [
@@ -42,6 +42,7 @@ export const useMenuStore = defineStore(
         children: children?.map(el => ({ ...el, path: `/${name}/${el.path}` })) || [],
       }
     }
+
     return {
       menus,
       getMenu,

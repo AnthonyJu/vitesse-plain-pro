@@ -1,24 +1,23 @@
 <template>
-  <div id="map" w-full :style="{ height: `${height - 108}px` }" bg="light dark:dark" />
+  <div id="map" full bg="light dark:dark" />
 </template>
 
 <route lang='yaml'>
-  meta:
-    name: 创建地图
-  </route>
+meta:
+  name: 创建地图
+</route>
 
 <script setup lang='ts'>
 import Graphic from '@arcgis/core/Graphic'
 import Point from '@arcgis/core/geometry/Point'
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 
-const { height } = useWindowSize()
 const arcgis = useArcgis('map')
 
 onMounted(() => {
   const point = new Point({
-    x: 120.2,
-    y: 36.6,
+    x: 120.38,
+    y: 36.06,
     spatialReference: { wkid: 4326 },
   })
   arcgis.view?.graphics.add(new Graphic({

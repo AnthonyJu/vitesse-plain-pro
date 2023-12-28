@@ -46,12 +46,12 @@ export function useArcgis(container: string) {
     //   ],
     // })
 
-    arcgis.map = new Map({ basemap: 'topo-vector' })
+    arcgis.map = new Map({ basemap: 'streets-navigation-vector' })
     arcgis.view = new MapView({
       container,
       map: arcgis.map,
-      zoom: 8,
-      center: [116.6, 35.5],
+      zoom: 13,
+      center: [120.38, 36.06],
       ui: {
         components: [],
       },
