@@ -5,12 +5,12 @@ export {}
 declare global {
   /**
    * @interface Arcgis Arcgis实例
-   * @property {__esri.Map | null} map 地图实例
-   * @property {__esri.MapView | __esri.SceneView | null} view 视图实例
+   * @property {__esri.Map} map 地图实例
+   * @property {__esri.MapView} view 视图实例
    */
   interface Arcgis {
-    map: __esri.Map | null
-    view: __esri.MapView | __esri.SceneView | null
+    map: __esri.Map
+    view: __esri.MapView
   }
 
   /**

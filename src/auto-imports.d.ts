@@ -455,7 +455,6 @@ declare module 'vue' {
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
-    readonly useArcgis3d: UnwrapRef<typeof import('./composables/arcgis/arcgis3d')['useArcgis3d']>
     readonly useArcgis: UnwrapRef<typeof import('./composables/arcgis/arcgis')['useArcgis']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
@@ -770,7 +769,6 @@ declare module '@vue/runtime-core' {
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
-    readonly useArcgis3d: UnwrapRef<typeof import('./composables/arcgis/arcgis3d')['useArcgis3d']>
     readonly useArcgis: UnwrapRef<typeof import('./composables/arcgis/arcgis')['useArcgis']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>

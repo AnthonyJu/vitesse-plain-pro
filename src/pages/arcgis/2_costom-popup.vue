@@ -1,51 +1,78 @@
 <template>
-  <div id="map" full bg="light dark:dark" />
+  <div id="map" full bg="light dark:dark" overflow-hidden />
 </template>
 
 <route lang="yaml">
 meta:
-  name: 自定义弹窗
+  name: 自定义弹窗 4.28
 </route>
 
 <script setup lang='ts'>
+import type { App } from 'vue'
 import { createApp } from 'vue'
-import Map from '@arcgis/core/Map'
-import MapView from '@arcgis/core/views/MapView'
+import Point from '@arcgis/core/geometry/Point'
+import Graphic from '@arcgis/core/Graphic'
+import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 import CustomPopup from './components/CustomPopup.vue'
-import '@arcgis/core/assets/esri/themes/light/main.css'
+
+const { view } = useArcgis('map')
+
+// 创建点
+const point = new Point({ x: 120.38, y: 36.06 })
+const graphic = new Graphic({
+  geometry: point,
+  symbol: new SimpleMarkerSymbol({
+    color: [226, 119, 40],
+    outline: {
+      color: [255, 255, 255],
+      width: 2,
+    },
+  }),
+  attributes: {
+    name: '自定义弹窗',
+  },
+})
+
+// 定义 Popup 组件
+let popup: App<Element> | null = null
 
 onMounted(() => {
-  // 创建 Map 实例
-  const map = new Map({ basemap: 'streets-navigation-vector' })
-
-  // 创建 MapView 实例
-  const view = new MapView({
-    container: 'map',
-    map,
-    center: [120.38, 36.06],
-    zoom: 13,
-  })
-
   // 创建 Popup 组件的 content
   const content = document.createElement('div')
-  createApp(CustomPopup, {
-    view,
-    onEventEmit: (arg: any) => {
-      // eslint-disable-next-line no-alert
-      alert(arg)
-    },
-  }).mount(content)
+  content.style.position = 'absolute'
+  // 将 constent 添加到地图容器中
+  document.getElementById('map')!.appendChild(content)
 
-  view.when(() => {
-    // 禁用弹出窗口自动出现，并使用单击事件手动打开弹出窗口。
-    view.popupEnabled = false
-    view.on('click', (e) => {
-      // 把title当做id，通过title来判断是否是当前自定义的Popup组件
-      if (!view.popup.visible && view.popup.title !== 'custom popup') {
-        document.body.style.cursor = 'progress'
+  // 创建点的 Graphic
+  view.graphics.add(graphic)
+
+  // 监听点击事件
+  view.on('click', (event) => {
+    view.hitTest(event).then((response) => {
+      const res = response.results[0]
+      if (res?.type === 'graphic' && res?.graphic?.attributes?.name === '自定义弹窗') {
+        if (!popup) {
+          popup = createApp(CustomPopup, {
+            view,
+            attributes: res.graphic.attributes,
+            onClosePopup: () => {
+              popup!.unmount()
+              popup = null
+            },
+          })
+          popup.mount(content)
+        }
       }
-      view.openPopup({ title: 'custom popup', content, location: e.mapPoint })
     })
+  })
+
+  // 监听地图中心点变化
+  view.watch('center', () => {
+    // 将Popup点坐标转为屏幕坐标
+    const screenPoint = view.toScreen(point)
+    // content 的定位改为屏幕坐标
+    content.style.left = `${screenPoint.x - 200}px`
+    content.style.top = `${screenPoint.y - 200}px`
   })
 })
 </script>

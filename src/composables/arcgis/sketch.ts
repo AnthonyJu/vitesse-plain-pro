@@ -27,9 +27,9 @@ export function useSketch(arcgis: Arcgis, asTool?: 'measure' | 'editor'): Sketch
   })
 
   onMounted(() => {
-    arcgis.map?.add(sketch.layer)
+    arcgis.map.add(sketch.layer)
     sketch.viewModel = new SketchViewModel({
-      view: arcgis.view!,
+      view: arcgis.view,
       layer: sketch.layer,
       // 为true时将是横切线与横切面，为false时则直绘制在3d地图上
       // defaultCreateOptions: {

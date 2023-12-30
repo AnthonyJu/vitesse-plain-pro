@@ -26,7 +26,7 @@ export function useMeasure(arcgis: Arcgis) {
       geometry: new Point({
         x: xy[0],
         y: xy[1],
-        spatialReference: arcgis.view!.spatialReference,
+        spatialReference: arcgis.view.spatialReference,
       }),
       symbol: new SimpleMarkerSymbol({
         color,
@@ -49,7 +49,7 @@ export function useMeasure(arcgis: Arcgis) {
       geometry: new Point({
         x: point[0],
         y: point[1],
-        spatialReference: arcgis.view!.spatialReference,
+        spatialReference: arcgis.view.spatialReference,
       }),
       symbol: new TextSymbol({
         text,
@@ -81,7 +81,7 @@ export function useMeasure(arcgis: Arcgis) {
       geometry: new Point({
         x: polygon.centroid.x,
         y: polygon.centroid.y,
-        spatialReference: arcgis.view!.spatialReference,
+        spatialReference: arcgis.view.spatialReference,
       }),
       symbol: new TextSymbol({
         text,
@@ -89,9 +89,9 @@ export function useMeasure(arcgis: Arcgis) {
       }),
     })
 
-    arcgis.view!.graphics.removeAll()
+    arcgis.view.graphics.removeAll()
     if (state === 'complete') layer.graphics.add(graphic)
-    else arcgis.view!.graphics.add(graphic)
+    else arcgis.view.graphics.add(graphic)
   }
 
   onMounted(() => {
