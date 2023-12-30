@@ -4,7 +4,7 @@
 
 <route lang="yaml">
 meta:
-  name: 自定义弹窗 4.28
+  name: 自定义弹窗
 </route>
 
 <script setup lang='ts'>

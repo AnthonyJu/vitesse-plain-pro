@@ -11,4 +11,6 @@
 
 <script setup lang="ts">
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+
+if (import.meta.env.DEV) useMenuStore().getMenu()
 </script>
