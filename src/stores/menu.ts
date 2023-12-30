@@ -18,6 +18,12 @@ export const useMenuStore = defineStore(
             children: [],
           },
           {
+            meta: { name: 'Unity 交互', icon: 'carbon-map' },
+            name: 'unity',
+            path: '/unity-in-web',
+            children: [],
+          },
+          {
             meta: { name: 'J 组件', icon: 'carbon-dicom-overlay' },
             ...generateInfo(allPages, 'j-components'),
           },
