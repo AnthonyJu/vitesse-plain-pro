@@ -1,5 +1,15 @@
 <template>
   <el-space :size="10" spacer="|">
+    <!-- GitHub -->
+    <a
+      class="pt-3px text-dark dark:text-light"
+      target="_blank"
+      href="https://github.com/AnthonyJu/vitesse-plain"
+      title="GitHub"
+    >
+      <Iconify :width="24" icon="carbon:logo-github" />
+    </a>
+
     <!-- 切换主题 -->
     <el-switch
       v-model="isDark"
@@ -29,7 +39,7 @@
     </el-dropdown>
     <el-avatar
       v-else
-      class="cursor-pointer bg-$el-color-primary"
+      class="cursor-pointer !bg-$el-color-primary"
       @click="router.push('/login')"
     >
       登录

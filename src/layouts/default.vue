@@ -14,7 +14,7 @@
       <el-header mr-16px flex-b-c rounded-10px pl-16px pr-0 bg-default>
         <Logo v-if="smallScreen" />
         <div v-else />
-        <User mr-4px />
+        <User />
       </el-header>
 
       <!-- 主体 -->
