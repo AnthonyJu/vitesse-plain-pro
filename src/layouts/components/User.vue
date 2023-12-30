@@ -119,4 +119,10 @@ const Dark = h('svg', { viewBox: '0 0 24 24' }, [
     }
   }
 }
+
+::v-deep(.el-space__item) {
+  &:last-child {
+    margin-right: 0 !important;
+  }
+}
 </style>

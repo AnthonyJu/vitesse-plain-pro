@@ -1,5 +1,12 @@
 <template>
-  <div class="bg-$el-color-primary dark:bg-transparent" flex flex-1 p="l16px y16px" overflow-auto>
+  <RouterView v-if="route.query.demo" />
+
+  <div
+    v-else
+    class="flex flex-1 bg-$el-color-primary dark:bg-transparent"
+    p="l16px y16px"
+    overflow-auto
+  >
     <!-- 侧边栏 -->
     <el-aside
       v-show="!smallScreen"
@@ -38,6 +45,8 @@ import User from './components/User.vue'
 
 const { width } = useWindowSize()
 const smallScreen = computed(() => width.value <= 1000)
+
+const route = useRoute()
 </script>
 
 <style lang='scss' scoped>
