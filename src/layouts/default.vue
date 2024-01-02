@@ -25,15 +25,15 @@
       </el-header>
 
       <!-- 主体 -->
-      <router-view v-slot="{ Component }">
-        <div mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
-          <el-scrollbar class="custom-scrollbar">
+      <div mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
+        <el-scrollbar class="custom-scrollbar">
+          <router-view v-slot="{ Component }">
             <transition name="opacity" mode="out-in">
               <component :is="Component" />
             </transition>
-          </el-scrollbar>
-        </div>
-      </router-view>
+          </router-view>
+        </el-scrollbar>
+      </div>
     </el-container>
   </div>
 </template>
