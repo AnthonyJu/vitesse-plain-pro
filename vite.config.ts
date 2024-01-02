@@ -83,7 +83,6 @@ export default defineConfig({
     Components({
       dts: 'src/components.d.ts',
       globs: ['src/components/*.{vue}'],
-      include: [/\.vue$/, /\.vue\?vue/],
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     }),
 
