@@ -82,6 +82,7 @@ export default defineConfig({
     // https://github.com/antfu/unplugin-vue-components
     Components({
       dts: 'src/components.d.ts',
+      include: [/\.vue$/, /\.vue\?vue/],
       exclude: ['src/components/**/components/**/*'],
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     }),
