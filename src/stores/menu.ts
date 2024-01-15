@@ -35,6 +35,11 @@ export const useMenuStore = defineStore(
             meta: { name: 'Vue-ECharts', icon: 'carbon-chart-multitype' },
             ...generateInfo(allPages, 'vue-echarts'),
           },
+          {
+            meta: { name: '正则合集', icon: 'carbon-test-tool' },
+            path: '/regexps',
+            children: [],
+          },
         ]
         resolve(true)
       })

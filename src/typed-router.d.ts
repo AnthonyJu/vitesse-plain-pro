@@ -49,6 +49,7 @@ declare module 'vue-router/auto/routes' {
     '/home/': RouteRecordInfo<'/home/', '/home', Record<never, never>, Record<never, never>>,
     '/j-components/j-table-pro': RouteRecordInfo<'/j-components/j-table-pro', '/j-components/j-table-pro', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
+    '/regexps/': RouteRecordInfo<'/regexps/', '/regexps', Record<never, never>, Record<never, never>>,
     '/unity-in-web/': RouteRecordInfo<'/unity-in-web/', '/unity-in-web', Record<never, never>, Record<never, never>>,
     '/vue-echarts/pie-chart': RouteRecordInfo<'/vue-echarts/pie-chart', '/vue-echarts/pie-chart', Record<never, never>, Record<never, never>>,
   }
