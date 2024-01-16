@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar w-full flex-1>
+  <el-scrollbar mt-10px w-full flex-1>
     <el-menu :default-active="route.path" router unique-opened collapse-transition my-16px>
       <template v-for="menu in menuStore.menus">
         <el-sub-menu v-if="menu.children?.length" :key="menu.path" :index="menu.path">
