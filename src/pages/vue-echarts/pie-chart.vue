@@ -1,5 +1,5 @@
 <template>
-  <VChart class="chart bg-light dark:bg-dark" :option="option" />
+  <VChart class="main-container" autoresize :option="option" />
 </template>
 
 <route lang="yaml">
@@ -16,7 +16,7 @@ import {
   TitleComponent,
   TooltipComponent,
 } from 'echarts/components'
-import VChart from 'vue-echarts'
+import VChart, { THEME_KEY } from 'vue-echarts'
 
 import type { ComposeOption } from 'echarts/core'
 import type { PieSeriesOption } from 'echarts/charts'
@@ -42,7 +42,14 @@ use([
   LegendComponent,
 ])
 
+const theme = computed(() => {
+  return isDark.value ? 'dark' : 'light'
+})
+
+provide(THEME_KEY, theme)
+
 const option = ref<EChartsOption>({
+  backgroundColor: 'transparent',
   title: {
     text: 'Traffic Sources',
     left: 'center',
@@ -80,9 +87,3 @@ const option = ref<EChartsOption>({
   ],
 })
 </script>
-
-<style scoped>
-.chart {
-  height: 400px;
-}
-</style>
