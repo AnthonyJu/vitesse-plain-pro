@@ -64,7 +64,9 @@ export const useMenuStore = defineStore(
     }
   },
   {
-    persist: true,
+    persist: {
+      storage: sessionStorage,
+    },
   },
 )
 
