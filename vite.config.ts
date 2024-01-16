@@ -101,8 +101,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'vitesse plain',
-        short_name: 'vitesse plain',
+        name: 'vitesse plain pro',
+        short_name: 'vitesse plain pro',
         theme_color: '#ffffff',
         icons: [
           {
