@@ -3,7 +3,7 @@
     <el-card shadow="always" :body-style="{ padding: '20px' }">
       <template #header>
         <div>
-          <span>card title</span>
+          <span>card title1</span>
         </div>
       </template>
       card body content
