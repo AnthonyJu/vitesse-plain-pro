@@ -44,7 +44,7 @@ function openDrawer() {
   }
 
   .el-drawer__body {
-    padding: 0;
+    padding: 10px 0;
   }
 }
 </style>

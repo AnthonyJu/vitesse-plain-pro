@@ -13,7 +13,7 @@
       class="flex-col-center overflow-hidden rounded-10px !w-210px bg-default"
     >
       <Logo />
-      <Menu />
+      <Menu mt-10px />
     </el-aside>
 
     <el-container :class="{ 'ml-16px': !smallScreen }">
