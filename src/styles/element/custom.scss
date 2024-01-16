@@ -9,8 +9,8 @@ div.el-message {
 
 // * ElScrollbar
 .el-scrollbar__thumb {
-  background-color: var(--el-layout-bg-color);
-  opacity: 0.85;
+  background-color: #fff !important;
+  opacity: 0.8 !important;
 }
 
 .el-scrollbar__view {

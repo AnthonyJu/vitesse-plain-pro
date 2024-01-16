@@ -1,10 +1,10 @@
 <template>
-  <RouterView v-if="route.query.demo" />
+  <RouterView v-if="$route.query.demo" />
 
   <div
     v-else
     class="flex flex-1 bg-$el-color-primary dark:bg-transparent"
-    p="l16px y16px"
+    p="l-16px y-16px"
     overflow-auto
   >
     <!-- 侧边栏 -->
@@ -26,6 +26,7 @@
 
       <!-- 主体 -->
       <div mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
+        <!-- BUG 滚动条显示问题 -->
         <el-scrollbar class="custom-scrollbar">
           <router-view v-slot="{ Component }">
             <transition name="opacity" mode="out-in">
@@ -45,8 +46,6 @@ import User from './components/User.vue'
 
 const { width } = useWindowSize()
 const smallScreen = computed(() => width.value <= 1000)
-
-const route = useRoute()
 </script>
 
 <style lang='scss' scoped>
@@ -54,7 +53,7 @@ const route = useRoute()
   ::v-deep(.el-scrollbar__bar.is-vertical) {
     position: fixed;
     top: 95px;
-    right: 5px;
+    right: 4.5px;
   }
 }
 

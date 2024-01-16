@@ -19,7 +19,7 @@ export default defineConfig({
     'flex-col-center': 'flex flex-col justify-center items-center',
     'turn-dark': 'invert-93 hue-rotate-180',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
-    'icon-btn': 'color-blue inline-block cursor-pointer select-none transition duration-200 ease-in-out hover:opacity-100 hover:text-green-600',
+    'main-container': 'full bg-default p-16px',
   },
   presets: [
     presetUno(),
