@@ -40,6 +40,10 @@ export const useMenuStore = defineStore(
             path: '/regexps',
             children: [],
           },
+          {
+            meta: { name: '组件封装', icon: 'carbon-cics-system-group' },
+            ...generateInfo(allPages, 'excellent-components'),
+          },
         ]
         resolve(true)
       })
