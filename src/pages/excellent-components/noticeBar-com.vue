@@ -1,25 +1,27 @@
 <template>
   <div class="noticeBar">
     <el-card shadow="hover" header="滚动通知栏：默认">
-      <!-- <NoticeBar
-        text="、Typescript、vite、Element plus等，适配手机、平板、pc 🎉🎉🔥基于vue3.x
+      <NoticeBar
+        text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc
 				的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
-      /> -->
+      />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：设置样式" class="mt15">
-      <!-- <NoticeBar
-        text="、Typescript、vite、Element plus等，适配手机、平板、pc 🎉🎉🔥基于vue3.x
+      <NoticeBar
+        text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc
 				的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
-        left-icon="iconfont icon-tongzhi2"
-        right-icon="ele-ArrowRight"
+        left-icon="carbon:user-speaker"
+        right-icon="carbon:chevron-right"
         background="#ecf5ff"
+        mode="link"
         color="#409eff"
-      /> -->
+        @link="linkFn"
+      />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：搭配 NoticeBar 和 Carousel 走马灯 组件可以实现垂直滚动的效果" class="mt15">
-      <!-- <NoticeBar :scrollable="true">
+      <NoticeBar :scrollable="true">
         <el-carousel
           height="40px"
           direction="vertical"
@@ -29,7 +31,7 @@
         >
           <el-carousel-item v-for="v in state.noticeList" :key="v">{{ v }} </el-carousel-item>
         </el-carousel>
-      </NoticeBar> -->
+      </NoticeBar>
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：参数" class="mt15">
@@ -161,6 +163,10 @@ const state = reactive({
     },
   ],
 })
+
+function linkFn() {
+  window.open('https://github.com/lyt-Top/vue-next-admin')
+}
 </script>
 
 <style lang="scss" scoped>

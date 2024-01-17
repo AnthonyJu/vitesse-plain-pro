@@ -1,15 +1,19 @@
 <template>
   <div v-show="!state.isMode" class="notice-bar" :style="{ background, height: `${height}px` }">
     <div class="notice-bar-warp" :style="{ color, fontSize: `${size}px` }">
-      <i v-if="leftIcon" class="notice-bar-warp-left-icon" :class="leftIcon" />
+      <Iconify
+        v-if="leftIcon"
+        class="notice-bar-warp-left-icon"
+        :icon="leftIcon"
+      />
       <div ref="noticeBarWarpRef" class="notice-bar-warp-text-box">
         <div v-if="!scrollable" ref="noticeBarTextRef" class="notice-bar-warp-text">{{ text }}</div>
         <div v-else class="notice-bar-warp-slot"><slot /></div>
       </div>
-      <SvgIcon
+      <Iconify
         v-if="rightIcon"
-        :name="rightIcon"
         class="notice-bar-warp-right-icon"
+        :icon="rightIcon"
         @click="onRightIconClick"
       />
     </div>
