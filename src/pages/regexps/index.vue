@@ -1,49 +1,47 @@
 <template>
-  <div class="regexp">
-    <div class="content">
-      <!-- 在线测试 -->
-      <div>
-        <div class="my-10px text-18px">在线测试</div>
-        <el-form :model="form" label-width="120px">
-          <el-form-item label="正则表达式">
-            <el-input v-model="form.regex" />
-          </el-form-item>
-          <el-form-item label="测试字符串">
-            <el-input v-model="form.testStr" />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="testFn">测试</el-button>
-            <el-button type="primary" @click="clearFn">清除</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <!-- 列表 -->
-      <div v-for="item in regexpsList" :key="item.name">
-        <div class="my-10px text-18px">{{ item.name }}</div>
-        <div v-for="child in item.children" :key="child.name" class="my-10px pl-28px">
-          <div>
-            <!-- TODO：类型报错 -->
-            <el-input v-model="child.regex" readonly>
-              <template #prepend>
-                <el-tooltip
-                  effect="dark"
-                  :content="child.name"
-                  placement="top"
-                >
-                  <div class="w-150px truncate">
-                    {{ child.name }}
-                  </div>
-                </el-tooltip>
-              </template>
-              <template #append>
-                <el-button
-                  type="default"
-                  :icon="CopyDocument"
-                  @click="copyFn(child.regex.toString())"
-                />
-              </template>
-            </el-input>
-          </div>
+  <div class="main-container">
+    <!-- 在线测试 -->
+    <div>
+      <div class="my-10px text-18px">在线测试</div>
+      <el-form :model="form" label-width="120px">
+        <el-form-item label="正则表达式">
+          <el-input v-model="form.regex" />
+        </el-form-item>
+        <el-form-item label="测试字符串">
+          <el-input v-model="form.testStr" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="testFn">测试</el-button>
+          <el-button type="primary" @click="clearFn">清除</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <!-- 列表 -->
+    <div v-for="item in regexpsList" :key="item.name">
+      <div class="my-10px text-18px">{{ item.name }}</div>
+      <div v-for="child in item.children" :key="child.name" class="my-10px pl-28px">
+        <div>
+          <!-- TODO：类型报错 -->
+          <el-input v-model="child.regex" readonly>
+            <template #prepend>
+              <el-tooltip
+                effect="dark"
+                :content="child.name"
+                placement="top"
+              >
+                <div class="w-150px truncate">
+                  {{ child.name }}
+                </div>
+              </el-tooltip>
+            </template>
+            <template #append>
+              <el-button
+                type="default"
+                :icon="CopyDocument"
+                @click="copyFn(child.regex.toString())"
+              />
+            </template>
+          </el-input>
         </div>
       </div>
     </div>
@@ -264,13 +262,3 @@ onMounted(() => {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.regexp {
-  background-color: #fff;
-
-  .content {
-    padding: 20px;
-  }
-}
-</style>
