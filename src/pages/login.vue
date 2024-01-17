@@ -3,7 +3,7 @@
     <img src="@/assets/login-bg.svg" class="absolute bottom-0 left-0 w-40% -z-1">
 
     <!-- 登陆框 -->
-    <div class="login-box flex-col-center" :style="style">
+    <div class="login-box flex-col-center bg-default" :style="style">
       <h2 class="my-50px flex text-$el-color-primary">
         <img src="@/assets/logo.svg" mr-10px w-40px>
         <span>vitesse plain pro</span>
@@ -93,7 +93,7 @@ function gotoLogin() {
     position: absolute;
     z-index: -1;
     content: "";
-    background: var(--el-color-primary-light-5);
+    background: var(--el-color-primary);
     transition: all 0.3s ease;
   }
 
@@ -123,8 +123,7 @@ function gotoLogin() {
   padding: 0 30px;
   margin: auto;
   overflow: hidden;
-  background-color: var(--el-color-primary-light-9);
-  border: 1px solid var(--el-color-primary-light-3);
+  border: 4px solid var(--el-color-primary-light-3);
   border-radius: 3px;
 }
 
@@ -144,8 +143,8 @@ function gotoLogin() {
 
 .login-box-line-one {
   &::before {
-    top: 2px;
-    left: 0;
+    top: 4px;
+    left: 4px;
     width: 100%;
     height: 3px;
     background: linear-gradient(90deg, transparent, var(--el-color-primary));
@@ -155,7 +154,7 @@ function gotoLogin() {
 
   &::after {
     top: -100%;
-    right: 2px;
+    right: 4px;
     width: 3px;
     height: 100%;
     background: linear-gradient(180deg, transparent, var(--el-color-primary));
@@ -168,7 +167,7 @@ function gotoLogin() {
 .login-box-line-two {
   &::before {
     right: -100%;
-    bottom: 2px;
+    bottom: 4px;
     width: 100%;
     height: 3px;
     background: linear-gradient(270deg, transparent, var(--el-color-primary));
@@ -179,7 +178,7 @@ function gotoLogin() {
 
   &::after {
     bottom: -100%;
-    left: 1px;
+    left: 4px;
     width: 3px;
     height: 100%;
     background: linear-gradient(360deg, transparent, var(--el-color-primary));
