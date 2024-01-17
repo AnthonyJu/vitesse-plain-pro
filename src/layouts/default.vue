@@ -1,6 +1,8 @@
 <template>
+  <!-- Blog 中演示用 -->
   <RouterView v-if="$route.query.demo" />
 
+  <!-- 正式layout -->
   <div
     v-else
     class="flex flex-1 bg-$el-color-primary dark:bg-transparent"
@@ -16,7 +18,8 @@
       <Menu mt-10px />
     </el-aside>
 
-    <el-container :class="{ 'ml-16px': !isSmallScreen }">
+    <!-- 主体 -->
+    <el-container :class="isSmallScreen ? '' : 'ml-16px'">
       <!-- 头部 -->
       <el-header mr-16px flex-b-c rounded-10px pl-16px pr-0 bg-default>
         <Logo v-if="isSmallScreen" />
@@ -24,8 +27,8 @@
         <User />
       </el-header>
 
-      <!-- 主体 -->
-      <div mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
+      <!-- 内容 -->
+      <main mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
         <!-- BUG 滚动条显示问题 -->
         <el-scrollbar class="custom-scrollbar">
           <router-view v-slot="{ Component }">
@@ -34,7 +37,7 @@
             </transition>
           </router-view>
         </el-scrollbar>
-      </div>
+      </main>
     </el-container>
   </div>
 </template>
