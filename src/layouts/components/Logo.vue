@@ -1,7 +1,7 @@
 <template>
   <div
     class="h-60px flex-center animate-bounce-in cursor-default"
-    :class="width > 1000 ? 'custom-class' : 'cursor-pointer'"
+    :class="isSmallScreen ? 'cursor-pointer' : 'custom-class'"
     @click="openDrawer"
   >
     <img class="w-26px" src="@/assets/logo.svg">
@@ -24,11 +24,9 @@
 <script setup lang="ts">
 import Menu from './Menu.vue'
 
-const { width } = useWindowSize()
-
 const drawer = ref(false)
 function openDrawer() {
-  if (width.value <= 1000) drawer.value = true
+  if (isSmallScreen.value) drawer.value = true
 }
 </script>
 

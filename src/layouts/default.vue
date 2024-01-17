@@ -9,17 +9,17 @@
   >
     <!-- 侧边栏 -->
     <el-aside
-      v-show="!smallScreen"
+      v-show="!isSmallScreen"
       class="flex-col-center overflow-hidden rounded-10px !w-210px bg-default"
     >
       <Logo />
       <Menu mt-10px />
     </el-aside>
 
-    <el-container :class="{ 'ml-16px': !smallScreen }">
+    <el-container :class="{ 'ml-16px': !isSmallScreen }">
       <!-- 头部 -->
       <el-header mr-16px flex-b-c rounded-10px pl-16px pr-0 bg-default>
-        <Logo v-if="smallScreen" />
+        <Logo v-if="isSmallScreen" />
         <div v-else />
         <User />
       </el-header>
@@ -44,8 +44,16 @@ import Logo from './components/Logo.vue'
 import Menu from './components/Menu.vue'
 import User from './components/User.vue'
 
-const { width } = useWindowSize()
-const smallScreen = computed(() => width.value <= 1000)
+onMounted(() => {
+  if (isSmallScreen.value) {
+    // 侧边栏收起时，点击菜单项收起侧边栏
+    const menu = document.querySelector('.el-menu')
+    menu?.addEventListener('click', () => {
+      const aside = document.querySelector('.el-aside')
+      aside?.classList.remove('el-aside--collapse')
+    })
+  }
+})
 </script>
 
 <style lang='scss' scoped>
