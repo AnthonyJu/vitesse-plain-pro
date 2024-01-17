@@ -53,6 +53,7 @@ declare module 'vue-router/auto/routes' {
     '/regexps/': RouteRecordInfo<'/regexps/', '/regexps', Record<never, never>, Record<never, never>>,
     '/unity-in-web/': RouteRecordInfo<'/unity-in-web/', '/unity-in-web', Record<never, never>, Record<never, never>>,
     '/vue-echarts/pie-chart': RouteRecordInfo<'/vue-echarts/pie-chart', '/vue-echarts/pie-chart', Record<never, never>, Record<never, never>>,
+    '/vue-echarts/wordCloud-chart': RouteRecordInfo<'/vue-echarts/wordCloud-chart', '/vue-echarts/wordCloud-chart', Record<never, never>, Record<never, never>>,
   }
 }
 
