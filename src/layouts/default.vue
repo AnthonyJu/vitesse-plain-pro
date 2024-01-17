@@ -29,14 +29,13 @@
 
       <!-- 内容 -->
       <main mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
-        <!-- BUG 滚动条显示问题 -->
-        <el-scrollbar class="custom-scrollbar">
+        <Scrollbar>
           <router-view v-slot="{ Component }">
             <transition name="opacity" mode="out-in">
               <component :is="Component" />
             </transition>
           </router-view>
-        </el-scrollbar>
+        </Scrollbar>
       </main>
     </el-container>
   </div>
@@ -49,14 +48,6 @@ import User from './components/User.vue'
 </script>
 
 <style lang='scss' scoped>
-.custom-scrollbar {
-  ::v-deep(.el-scrollbar__bar.is-vertical) {
-    position: fixed;
-    top: 95px;
-    right: 4.5px;
-  }
-}
-
 .opacity-enter-active,
 .opacity-leave-active {
   will-change: transform;
