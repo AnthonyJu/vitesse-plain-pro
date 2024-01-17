@@ -45,9 +45,8 @@
 <script setup lang="ts">
 import { CircleCloseFilled, SuccessFilled, WarningFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { onMounted, ref } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import { info_regex, regexTest } from '@/utils/validate'
+import { data_regex, info_regex, regexTest, special_regex } from '@/utils/validate'
 
 const regexpsList = ref([
   {
