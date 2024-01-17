@@ -1,64 +1,60 @@
 <template>
   <div class="main-container">
-    <NoticeBar text="Tips：点击表单头部区域可以复制标识，在表单输入可以验证规则，持续更新~" />
+    <NoticeBar text="🎉 Tips：点击表单头部区域可以复制标识，在表单输入可以验证规则，持续更新~" />
     <!-- 列表 -->
     <div v-for="item in regexpsList" :key="item.name">
       <div class="my-10px text-18px">{{ item.name }}</div>
-      <div v-for="child in item.children" :key="child.name" class="my-10px pl-28px">
-        <div>
-          <el-input v-model="child.value" :title="child.id">
-            <template #prepend>
-              <div class="cursor-pointer" title="点击复制标识" @click="copyFn(child.id)">
-                {{ child.name }} | {{ child.id }}
-              </div>
-              <div class="mx-10px h-20px w-2px bg-gray-300" />
-              <div class="line-height-0">
-                <el-icon
-                  v-if="regexTest(child.id!, child.value)"
-                  color="#67C23A"
-                  title="符合校验规则"
-                >
-                  <SuccessFilled />
-                </el-icon>
-                <el-icon
-                  v-else-if="child.value"
-                  color="#F56C6C"
-                  title="不符合校验规则"
-                >
-                  <CircleCloseFilled />
-                </el-icon>
-                <el-icon v-else color="#909399" title="未填写校验内容"><WarningFilled /></el-icon>
-              </div>
-            </template>
-          </el-input>
-        </div>
-      </div>
+      <el-input
+        v-for="regex in item.children"
+        :key="regex.name"
+        v-model="regex.value"
+        class="my-10px pl-28px"
+        placeholder="请输入内容进行校验"
+      >
+        <template #prepend>
+          <div class="mr-15px cursor-pointer" title="点击复制校验标识" @click="copyFn(regex.id)">
+            {{ regex.name }}
+          </div>
+          <div class="line-height-0">
+            <el-icon
+              v-if="regex.value && regexTest(regex.id, regex.value)"
+              color="#67C23A"
+            >
+              <SuccessFilled />
+            </el-icon>
+            <el-icon v-else-if="regex.value" color="#F56C6C">
+              <CircleCloseFilled />
+            </el-icon>
+            <el-icon v-else color="#909399">
+              <WarningFilled />
+            </el-icon>
+          </div>
+        </template>
+      </el-input>
     </div>
   </div>
 </template>
 
 <route lang="yaml">
-  meta:
-    name: RegExps
+meta:
+  name: RegExps
 </route>
 
 <script setup lang="ts">
-import { CircleCloseFilled, SuccessFilled, WarningFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { useClipboard } from '@vueuse/core'
-import { data_regex, info_regex, regexTest, special_regex } from '@/utils/validate'
+import { CircleCloseFilled, SuccessFilled, WarningFilled } from '@element-plus/icons-vue'
 
 const regexpsList = ref([
   {
-    name: '1.信息验证',
+    name: '1. 信息验证',
     children: info_regex,
   },
   {
-    name: '2.数据验证',
+    name: '2. 数据验证',
     children: data_regex,
   },
   {
-    name: '3.特殊验证',
+    name: '3. 特殊验证',
     children: special_regex,
   },
 ])
@@ -71,12 +67,8 @@ function copyFn(text: string) {
     ElMessage.warning('您的浏览器可能不支持自动复制,请手动复制~')
     return
   }
-  copy(text)
+  copy(text).then(() => {
+    ElMessage.success('复制成功~')
+  })
 }
-
-onMounted(() => {
-  if (!isSupported.value) {
-    ElMessage.warning('您的浏览器可能不支持自动复制,请手动复制~')
-  }
-})
 </script>
