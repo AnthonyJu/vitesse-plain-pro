@@ -43,17 +43,6 @@
 import Logo from './components/Logo.vue'
 import Menu from './components/Menu.vue'
 import User from './components/User.vue'
-
-onMounted(() => {
-  if (isSmallScreen.value) {
-    // 侧边栏收起时，点击菜单项收起侧边栏
-    const menu = document.querySelector('.el-menu')
-    menu?.addEventListener('click', () => {
-      const aside = document.querySelector('.el-aside')
-      aside?.classList.remove('el-aside--collapse')
-    })
-  }
-})
 </script>
 
 <style lang='scss' scoped>
