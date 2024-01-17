@@ -1,5 +1,5 @@
 <template>
-  <div class="noticeBar">
+  <div class="main-container">
     <el-card shadow="hover" header="滚动通知栏：默认">
       <NoticeBar
         text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc
@@ -173,11 +173,3 @@ function linkFn() {
   window.open('https://github.com/lyt-Top/vue-next-admin')
 }
 </script>
-
-<style lang="scss" scoped>
-.noticeBar {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-</style>
