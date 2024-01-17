@@ -2,15 +2,13 @@
   <div class="main-container">
     <el-card shadow="hover" header="滚动通知栏：默认">
       <NoticeBar
-        text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc
-				的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
+        text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
       />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：设置样式" class="mt-15px">
       <NoticeBar
-        text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc
-				的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
+        text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
         left-icon="carbon:user-speaker"
         right-icon="carbon:chevron-right"
         background="#ecf5ff"

@@ -3,8 +3,8 @@
 </template>
 
 <route lang="yaml">
-  meta:
-    name: WorldCloud Chart
+meta:
+  name: WorldCloud Chart
 </route>
 
 <script setup lang='ts'>
