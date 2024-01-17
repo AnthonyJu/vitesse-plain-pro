@@ -1,5 +1,6 @@
 <template>
   <div class="main-container">
+    <NoticeBar text="Tips：点击表单头部区域可以复制标识，在表单输入可以验证规则，持续更新~" />
     <!-- 列表 -->
     <div v-for="item in regexpsList" :key="item.name">
       <div class="my-10px text-18px">{{ item.name }}</div>
