@@ -7,7 +7,7 @@
       />
     </el-card>
 
-    <el-card shadow="hover" header="滚动通知栏：设置样式" class="mt15">
+    <el-card shadow="hover" header="滚动通知栏：设置样式" class="mt-15px">
       <NoticeBar
         text="🎉🎉🔥基于vue3.x、Typescript、vite、Element-plus等，适配手机、平板、pc
 				的后台开源免费模板库（vue2.x请切换vue-prev-admin分支），仓库地址：https://gitee.com/lyt-top/vue-next-admin"
@@ -16,11 +16,16 @@
         background="#ecf5ff"
         mode="link"
         color="#409eff"
+        :speed="200"
         @link="linkFn"
       />
     </el-card>
 
-    <el-card shadow="hover" header="滚动通知栏：搭配 NoticeBar 和 Carousel 走马灯 组件可以实现垂直滚动的效果" class="mt15">
+    <el-card
+      shadow="hover"
+      header="滚动通知栏：搭配 NoticeBar 和 Carousel 走马灯 组件可以实现垂直滚动的效果"
+      class="mt-15px"
+    >
       <NoticeBar :scrollable="true">
         <el-carousel
           height="40px"
@@ -34,7 +39,7 @@
       </NoticeBar>
     </el-card>
 
-    <el-card shadow="hover" header="滚动通知栏：参数" class="mt15">
+    <el-card shadow="hover" header="滚动通知栏：参数" class="mt-15px">
       <el-table :data="state.tableData" style="width: 100%;">
         <el-table-column prop="a1" label="参数" />
         <el-table-column prop="a2" label="说明" />
@@ -44,7 +49,7 @@
       </el-table>
     </el-card>
 
-    <el-card shadow="hover" header="图标选择器(宽度自动)：事件" class="mt15">
+    <el-card shadow="hover" header="图标选择器(宽度自动)：事件" class="mt-15px">
       <el-table :data="state.tableData1" style="width: 100%;">
         <el-table-column prop="a1" label="事件名称" />
         <el-table-column prop="a2" label="说明" />
