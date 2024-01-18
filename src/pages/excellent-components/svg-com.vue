@@ -1,7 +1,8 @@
 <template>
   <div class="main-container">
     Svg-icon
-    <SvgIcon name="iconfont icon-shuju1" color="red" :size="30" />
+    <SvgIcon :name="Pinia" color="#09f" :size="30" />
+    <SvgIcon name="ele-Plus" color="#09f" :size="30" />
   </div>
 </template>
 
@@ -11,4 +12,5 @@
 </route>
 
 <script setup lang='ts'>
+import Pinia from '@/assets/pinia.svg'
 </script>
