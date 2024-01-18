@@ -50,8 +50,10 @@ import User from './components/User.vue'
 const scrollbar = ref<InstanceType<typeof ElScrollbar>>()
 
 function handleBeforeEnter() {
-  scrollbar.value?.update()
-  scrollbar.value?.scrollTo({ top: 0 })
+  nextTick(() => {
+    scrollbar.value?.update()
+    scrollbar.value?.scrollTo({ top: 0 })
+  })
 }
 </script>
 
