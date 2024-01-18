@@ -36,7 +36,6 @@ declare module 'vue' {
     NoticeBar: typeof import('./components/NoticeBar/NoticeBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Scrollbar: typeof import('./components/Scrollbar/Scrollbar.vue')['default']
     SvgIcon: typeof import('./components/SvgIcon/SvgIcon.vue')['default']
   }
 }

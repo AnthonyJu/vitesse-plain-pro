@@ -42,6 +42,8 @@ declare global {
   const defineStore: typeof import('pinia')['defineStore']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
+  const elRegexValidate: typeof import('./utils/validate')['elRegexValidate']
+  const eleRegexValidate: typeof import('./utils/validate')['eleRegexValidate']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const generateRestfulApi: typeof import('./utils/generateRestfulApi')['generateRestfulApi']
   const getActivePinia: typeof import('pinia')['getActivePinia']
@@ -106,6 +108,7 @@ declare global {
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
   const regexTest: typeof import('./utils/validate')['regexTest']
+  const regexValidate: typeof import('./utils/validate')['regexValidate']
   const request: typeof import('./utils/request')['default']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
@@ -370,6 +373,7 @@ declare module 'vue' {
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
+    readonly eleRegexValidate: UnwrapRef<typeof import('./utils/validate')['eleRegexValidate']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly generateRestfulApi: UnwrapRef<typeof import('./utils/generateRestfulApi')['generateRestfulApi']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
@@ -685,6 +689,7 @@ declare module '@vue/runtime-core' {
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
+    readonly eleRegexValidate: UnwrapRef<typeof import('./utils/validate')['eleRegexValidate']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly generateRestfulApi: UnwrapRef<typeof import('./utils/generateRestfulApi')['generateRestfulApi']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
