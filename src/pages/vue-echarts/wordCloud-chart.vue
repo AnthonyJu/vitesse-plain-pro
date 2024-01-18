@@ -370,6 +370,7 @@ const option = ref<EChartsOption>()
 
 maskImage.onload = function () {
   option.value = {
+    backgroundColor: 'transparent',
     grid: {
       top: 15,
       right: 15,
