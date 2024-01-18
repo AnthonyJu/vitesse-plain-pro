@@ -1,5 +1,5 @@
 <template>
-  <VChart ref="chart" class="main-container" autoresize :option="option" />
+  <VChart class="main-container" autoresize :option="option" />
 </template>
 
 <route lang="yaml">
@@ -14,12 +14,12 @@ import { CanvasRenderer } from 'echarts/renderers'
 import type { ComposeOption } from 'echarts/core'
 import type { TooltipComponentOption } from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
-import type { EChartsType } from 'echarts/types/dist/shared'
+import maskImagePath from '@/assets/maskImage.png'
 
 type EChartsOption = ComposeOption<TooltipComponentOption>
 
 use([TooltipComponent, CanvasRenderer, GridComponent])
-const chart = ref<EChartsType>()
+
 const keywords: Record<string, number> = {
   'visualMap': 22199,
   'continuous': 10288,
@@ -366,50 +366,49 @@ const data = Object.keys(keywords).map((item) => {
   }
 })
 const maskImage = new Image()
-maskImage.onload = function () {
-  // 图像已经加载完成，现在可以在Canvas上绘制它
-  ctx.drawImage(maskImage, 0, 0)
-}
-maskImage.src = '../../assets/maskImage.png'
+const option = ref<EChartsOption>()
 
-const option = ref<EChartsOption>({
-  grid: {
-    top: 15,
-    right: 15,
-    bottom: 20,
-    left: 30,
-  },
-  tooltip: {},
-  series: [
-    {
-      type: 'wordCloud',
-      sizeRange: [4, 150],
-      rotationRange: [0, 0],
-      gridSize: 0,
-      shape: 'pentagon',
-      maskImage,
-      drawOutOfBound: false,
-      // layoutAnimation: true,
-      keepAspect: true,
-      textStyle: {
-        fontWeight: 'bold',
-        color() {
-          return `rgb(${[
-            Math.round(Math.random() * 200) + 50,
-            Math.round(Math.random() * 50),
-            Math.round(Math.random() * 50) + 50,
-          ].join(',')})`
-        },
-      },
-      emphasis: {
-        textStyle: {
-          color: '#528',
-        },
-      },
-      data,
+maskImage.onload = function () {
+  option.value = {
+    grid: {
+      top: 15,
+      right: 15,
+      bottom: 20,
+      left: 30,
     },
-  ],
-})
+    tooltip: {},
+    series: [
+      {
+        type: 'wordCloud',
+        sizeRange: [4, 150],
+        rotationRange: [0, 0],
+        gridSize: 0,
+        shape: 'pentagon',
+        maskImage,
+        drawOutOfBound: false,
+        // layoutAnimation: true,
+        keepAspect: true,
+        textStyle: {
+          fontWeight: 'bold',
+          color() {
+            return `rgb(${[
+          Math.round(Math.random() * 200) + 50,
+          Math.round(Math.random() * 50),
+          Math.round(Math.random() * 50) + 50,
+        ].join(',')})`
+          },
+        },
+        emphasis: {
+          textStyle: {
+            color: '#528',
+          },
+        },
+        data,
+      },
+    ],
+  }
+}
+maskImage.src = maskImagePath
 
 const theme = computed(() => {
   return isDark.value ? 'dark' : 'light'
