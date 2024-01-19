@@ -1,5 +1,5 @@
 <template>
-  <ElTable v-bind="tableProps">
+  <ElTable :data="data" v-bind="tableProps">
     <ElTableColumn
       v-for="col in columns"
       :key="col.prop"
@@ -18,6 +18,7 @@
 import type { TableProps } from 'element-plus'
 
 interface Props {
+  data: any[]
   columns: JTableColumn<any>[]
   tableProps?: Partial<TableProps<any>>
 }

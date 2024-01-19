@@ -43,21 +43,23 @@ declare global {
    * @property {string} prop FormItem的prop
    * @property {string} type FormItem下field类型
    * @property {number} span Dialog中el-col的span
-   * @property {string | number} value FormItem下field的value
+   * @property {string | number} defaultValue FormItem下field的value
    * @property {object} options Select的options选项
    * @property {FieldEvents} fieldProps FormItem下field的props与events
    */
-  interface JFormItem extends Partial<FormItemProps> {
-    prop: string
-    type: 'input' | 'textarea' | 'select' | 'slot'
+  interface JFormItem {
     span?: number
-    value?: string | number
+    prop: string
+    label: string
+    type: 'input' | 'textarea' | 'select' | 'dateTime' | 'slot'
+    defaultValue?: string | number | string[]
+    formItemProps?: Partial<Writable<FormItemProps>>
+    fieldProps?: Partial<Writable<InputProps>> & Partial<ISelectProps> & JFieldEvents
     options?: {
       label: string | number
       value: string | number | boolean | Record<string, any>
       disabled?: boolean
     }[]
-    fieldProps?: Partial<Writable<InputProps>> & Partial<ISelectProps> & JFieldEvents
   }
 
   /**
@@ -67,8 +69,7 @@ declare global {
    * @property {Partial<FormProps>} formProps Form其他Attributes
    */
   interface JFormOptions {
-    renderForms: JFormItem[]
-    rules?: FormRules
+    formItems: JFormItem[]
     formProps?: Partial<Writable<FormProps>>
   }
 

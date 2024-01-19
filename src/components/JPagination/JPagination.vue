@@ -39,16 +39,20 @@ withDefaults(defineProps<Props>(), {
   pageSizes: () => [15, 30, 50, 100],
 })
 
-const emit = defineEmits(['update:current', 'update:size', 'handleSearch'])
+const emit = defineEmits<{
+  'update:current': [number]
+  'update:size': [number]
+  'handleSearch': []
+}>()
 
 /** 当前页变化 */
-function handleSizeChange(val: number) {
-  emit('update:size', val)
+function handleSizeChange(size: number) {
+  emit('update:size', size)
   emit('handleSearch')
 }
 /** 每页数量变化 */
-function handleCurrentChange(val: number) {
-  emit('update:current', val)
+function handleCurrentChange(current: number) {
+  emit('update:current', current)
   emit('handleSearch')
 }
 </script>

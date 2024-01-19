@@ -3,11 +3,11 @@
     <!-- 检索表单 -->
     <JForm
       v-if="formOptions"
-      :form-props="formOptions.formProps"
-      :render-forms="formOptions.renderForms"
-      :rules="formOptions.rules"
+      inline
       :is-search="true"
       :loading="loading"
+      :form-props="formOptions.formProps"
+      :form-items="formOptions.formItems"
       @search="handleSearch"
     >
       <template v-for="{ prop } in formSlots" :key="prop" #[prop]="scope">
@@ -15,36 +15,44 @@
       </template>
 
       <template #toolbar>
-        <el-button v-if="isCrud" type="primary" @click="addFn()">新增</el-button>
+        <el-button v-if="!!API.create" type="primary" @click="addFn()">新增</el-button>
         <slot name="toolbar" />
       </template>
     </JForm>
 
     <!-- 表格数据 -->
     <JTable
-      v-if="tableOptions"
       v-loading="loading"
       :data="data"
       :columns="tableOptions.columns"
       :table-props="tableOptions.tableProps"
     >
       <template
-        v-for="{ prop } in tableSlots!.filter((v) => v.prop !== 'control')"
+        v-for="{ prop } in tableSlots"
         :key="prop"
         #[prop]="scope"
       >
         <slot :name="prop" :row="scope.row" />
-      </template>
 
-      <template v-if="isCrud || tableSlots!.find((v) => v.prop === 'control')" #control="scope">
-        <slot name="control" :row="scope.row" />
-
-        <el-button type="primary" link @click="editFn(scope.row)">修改</el-button>
-        <el-popconfirm title="确定要删除吗?" @confirm="deleteFn(scope.row.id)">
-          <template #reference>
-            <el-button type="primary" link>删除</el-button>
-          </template>
-        </el-popconfirm>
+        <template v-if="prop === 'control'">
+          <el-button
+            v-if="!!API.update"
+            type="primary"
+            link
+            @click="editFn(scope.row)"
+          >
+            修改
+          </el-button>
+          <el-popconfirm
+            v-if="!!API.delete"
+            title="确定要删除吗?"
+            @confirm="deleteFn(scope.row.id)"
+          >
+            <template #reference>
+              <el-button type="primary" link>删除</el-button>
+            </template>
+          </el-popconfirm>
+        </template>
       </template>
     </JTable>
 
@@ -94,7 +102,7 @@ interface Props {
   noPagenation?: boolean // 是否不需要分页
   dataFormator?: (data: any[]) => any[] // 数据格式化
   formOptions?: JFormOptions
-  tableOptions?: JTableOptions<any>
+  tableOptions: JTableOptions<any>
   dialogOptions?: JDialogOptions
 }
 interface Api {
@@ -107,8 +115,6 @@ interface Api {
 const props = defineProps<Props>()
 const emit = defineEmits(['onOriginDataChange']) // 原始数据变化会触发（例如增删改）
 
-// TODO: 通过props传入url，url可以是对象，也可以是字符串，如果是对象，那么就是增删改查
-const isCrud = computed(() => typeof props.url === 'object')
 const API: Api = {
   get: (params?: any) => request({
     url: typeof props.url === 'object' ? props.url.get : props.url,
@@ -143,7 +149,7 @@ if (typeof props.url === 'object') {
 
 // 计算需要自定义的表单插槽
 const formSlots = computed(() => {
-  return props.formOptions?.renderForms.filter(v => v.type === 'slot')
+  return props.formOptions?.formItems.filter(v => v.type === 'slot')
 })
 
 // 计算需要自定义的表格插槽
@@ -153,7 +159,7 @@ const tableSlots = computed(() => {
 
 // 计算需要自定义的弹窗插槽
 const dialogSlots = computed(() => {
-  return props.dialogOptions?.formOption.renderForms.filter(v => v.type === 'slot')
+  return props.dialogOptions?.formOption.formItems.filter(v => v.type === 'slot')
 })
 
 // 表格相关
@@ -173,9 +179,9 @@ async function handleSearch(page: number = current.value, params: Record<string,
   const limit = props.noPagenation ? 0 : size.value
   API.get({ ...form, current: page, size: limit })
     .then((res: any) => {
-      if (props.dataFormator) data.value = props.dataFormator(res.data.data.records)
-      else data.value = res.data.data.records
-      total.value = res.data.data.total
+      if (props.dataFormator) data.value = props.dataFormator(res.data.records)
+      else data.value = res.data.records
+      total.value = res.data.total
     })
     .finally(() => {
       loading.value = false
@@ -193,8 +199,8 @@ if (props.dialogOptions) initDialogForm()
 function initDialogForm() {
   const form: Record<string, any> = {}
   // TODO:新增value初始值
-  props.dialogOptions!.formOption.renderForms.forEach((item) => {
-    form[item.prop] = item.value ?? ''
+  props.dialogOptions!.formOption.formItems.forEach((item) => {
+    form[item.prop] = item.defaultValue ?? ''
   })
   dialogForm.value = form
 }
