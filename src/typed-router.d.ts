@@ -47,7 +47,6 @@ declare module 'vue-router/auto/routes' {
     '/arcgis/4_draw-arc-custom': RouteRecordInfo<'/arcgis/4_draw-arc-custom', '/arcgis/4_draw-arc-custom', Record<never, never>, Record<never, never>>,
     '/arcgis/5_feature-reduction': RouteRecordInfo<'/arcgis/5_feature-reduction', '/arcgis/5_feature-reduction', Record<never, never>, Record<never, never>>,
     '/excellent-components/noticeBar-com': RouteRecordInfo<'/excellent-components/noticeBar-com', '/excellent-components/noticeBar-com', Record<never, never>, Record<never, never>>,
-    '/excellent-components/svg-com': RouteRecordInfo<'/excellent-components/svg-com', '/excellent-components/svg-com', Record<never, never>, Record<never, never>>,
     '/home/': RouteRecordInfo<'/home/', '/home', Record<never, never>, Record<never, never>>,
     '/j-components/j-table-pro': RouteRecordInfo<'/j-components/j-table-pro', '/j-components/j-table-pro', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
