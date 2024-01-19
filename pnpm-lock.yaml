@@ -38,6 +38,9 @@ dependencies:
   vue:
     specifier: ^3.4.13
     version: 3.4.13(typescript@5.3.3)
+  vue-countup-v3:
+    specifier: ^1.4.1
+    version: 1.4.1(vue@3.4.13)
   vue-echarts:
     specifier: ^6.6.8
     version: 6.6.8(echarts@5.4.3)(vue@3.4.13)
@@ -4144,6 +4147,10 @@ packages:
       parse-json: 5.2.0
       typescript: 5.3.3
     dev: true
+
+  /countup.js@2.8.0:
+    resolution: {integrity: sha512-f7xEhX0awl4NOElHulrl4XRfKoNH3rB+qfNSZZyjSZhaAoUk6elvhH+MNxMmlmuUJ2/QNTWPSA7U4mNtIAKljQ==}
+    dev: false
 
   /critters@0.0.20:
     resolution: {integrity: sha512-CImNRorKOl5d8TWcnAz5n5izQ6HFsvz29k327/ELy6UFcmbiZNOsinaKvzv16WZR0P6etfSWYzE47C4/56B3Uw==}
@@ -9310,6 +9317,15 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /vue-countup-v3@1.4.1(vue@3.4.13):
+    resolution: {integrity: sha512-umhQyf4rGdH5tL+ZuWgnoEbq7VpqxC0NH3Yd5TfaYVggGhuD5ihMd2TuNo9PU+F+SCwIGho8Muvfu2LYQBft0A==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      countup.js: 2.8.0
+      vue: 3.4.13(typescript@5.3.3)
+    dev: false
 
   /vue-demi@0.13.11(vue@3.4.13):
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
