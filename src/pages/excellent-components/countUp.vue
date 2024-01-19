@@ -8,7 +8,7 @@
     />
     <el-card class="mt-15px" shadow="hover" header="数字滚动：简单示例">
       <el-row :gutter="10" class="flex w-full">
-        <el-col v-for="item in list" :key="item.name" :span="6">
+        <el-col v-for="item in list" :key="item.name" :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
           <div
             class="card"
             :style="{
@@ -34,7 +34,7 @@
     </el-card>
 
     <el-card class="mt-15px" shadow="hover" header="数字滚动：常用事件">
-      <div class="w-420px card">
+      <div class="w-385px card">
         <div class="text-left w-full text-12px">今日用户访问量：</div>
         <CountUp :end-val="count" @init="initFn">
           <template #prefix>
