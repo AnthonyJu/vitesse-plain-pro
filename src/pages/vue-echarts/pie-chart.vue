@@ -1,5 +1,11 @@
 <template>
-  <VChart class="main-container" autoresize :option="option" />
+  <VChart
+    class="main-container"
+    :init-options="{ renderer: 'svg' }"
+    :theme="isDark ? 'dark' : 'light'"
+    autoresize
+    :option="option"
+  />
 </template>
 
 <route lang="yaml">
@@ -8,15 +14,15 @@ meta:
 </route>
 
 <script setup lang="ts">
+import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
+import { SVGRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
 import {
   LegendComponent,
   TitleComponent,
   TooltipComponent,
 } from 'echarts/components'
-import VChart, { THEME_KEY } from 'vue-echarts'
 
 import type { ComposeOption } from 'echarts/core'
 import type { PieSeriesOption } from 'echarts/charts'
@@ -35,18 +41,12 @@ type EChartsOption = ComposeOption<
 >
 
 use([
-  CanvasRenderer,
+  SVGRenderer,
   PieChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
 ])
-
-const theme = computed(() => {
-  return isDark.value ? 'dark' : 'light'
-})
-
-provide(THEME_KEY, theme)
 
 const option = ref<EChartsOption>({
   backgroundColor: 'transparent',

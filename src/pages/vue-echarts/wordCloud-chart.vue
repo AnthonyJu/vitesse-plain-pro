@@ -1,5 +1,11 @@
 <template>
-  <VChart class="main-container" :theme="isDark ? 'dark' : 'light'" autoresize :option="option" />
+  <VChart
+    class="main-container"
+    :init-options="{ renderer: 'svg' }"
+    :theme="isDark ? 'dark' : 'light'"
+    autoresize
+    :option="option"
+  />
 </template>
 
 <route lang="yaml">
@@ -10,7 +16,7 @@ meta:
 <script setup lang='ts'>
 import { use } from 'echarts/core'
 import VChart from 'vue-echarts'
-import { CanvasRenderer } from 'echarts/renderers'
+import { SVGRenderer } from 'echarts/renderers'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 
 import type { ComposeOption } from 'echarts/core'
@@ -30,10 +36,10 @@ type EChartsOption = ComposeOption<
   WordCloudSeries
 >
 
-use([TooltipComponent, CanvasRenderer, GridComponent])
+use([TooltipComponent, SVGRenderer, GridComponent])
 
 const option = ref<EChartsOption>()
-
+// 数据初始化
 function initChart(maskImage: HTMLImageElement) {
   option.value = {
     backgroundColor: 'transparent',
