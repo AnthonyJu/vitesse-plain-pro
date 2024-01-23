@@ -1,5 +1,5 @@
 <template>
-  <ElForm ref="formRef" :model="form" v-bind="formProps">
+  <ElForm ref="formRef" :model="form" :disabled="loading" v-bind="formProps">
     <!-- 检索条件 -->
     <template
       v-for="{ prop, label, type, options, fieldProps, formItemProps } in formItems"
@@ -9,7 +9,8 @@
       <el-form-item
         v-if="type === 'input'"
         :prop="prop"
-        :label="label" v-bind="formItemProps"
+        :label="label"
+        v-bind="formItemProps"
       >
         <el-input
           v-model="form[prop]"
@@ -23,7 +24,8 @@
       <el-form-item
         v-else-if="type === 'textarea'"
         :prop="prop"
-        :label="label" v-bind="formItemProps"
+        :label="label"
+        v-bind="formItemProps"
       >
         <el-input
           v-model="form[prop]"
@@ -89,13 +91,13 @@
     </template>
 
     <!-- 搜索与重置 -->
-    <el-form-item v-if="isSearch" class="!mr-0">
+    <el-form-item v-if="!hideSearch" class="mr-0">
       <el-button :loading="loading" :icon="Search" type="primary" @click="onSearch">搜索</el-button>
       <el-button :icon="RefreshLeft" @click="onReset">重置</el-button>
     </el-form-item>
 
     <!-- 工具栏 -->
-    <el-form-item class="!mr-0" float-right pl-80px>
+    <el-form-item class="mr-0" float-right pl-80px>
       <slot name="toolbar" />
     </el-form-item>
   </ElForm>
@@ -104,24 +106,27 @@
 <script setup lang="ts">
 import { ElForm } from 'element-plus'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
-import type { FormInstance, FormProps } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 
 interface Props {
-  isSearch?: boolean // 是否显示搜索按钮
   loading: boolean // 是否为loading状态
-  formItems: JFormItem[]
-  formProps?: Partial<Writable<FormProps>>
+  formItems: JFormItem[] // 表单项
+  inputWidth?: number // 输入框宽度,不包含时间选择器及自定义的非输入框和选择器
+  hideSearch?: boolean // 是否显示搜索按钮
+  searchOnMounted?: boolean // 是否在mounted后执行搜索
+  formProps?: JFormProps
 }
 
 const props = withDefaults(
   defineProps<Props>(),
   {
-    isSearch: true,
+    inputWidth: 220,
+    searchOnMounted: true,
   },
 )
 
 const emit = defineEmits<{
-  search: [number, any]
+  search: [any]
 }>()
 
 // 默认时间
@@ -155,40 +160,44 @@ const shortcuts = [
 
 // 定义表单ref
 const formRef = ref<FormInstance>()
-const originForm = props.formItems.reduce(
-  (acc, item) => {
-    acc[item.prop] = item.defaultValue || ''
-    return acc
+const form = defineModel<any>('form', { default: {} })
+form.value = props.formItems.reduce(
+  (newForm, item) => {
+    newForm[item.prop] = item.defaultValue
+    return newForm
   },
   {} as any,
 )
-const form = reactive(originForm)
 
-// 搜索
+/** 搜索 */
 function onSearch() {
   // 校验表单，校验不通过则不执行搜索
   formRef.value?.validate().then(() => {
-    emit('search', 1, form)
+    emit('search', form)
   })
 }
 
-// 重置
+/** 重置 */
 function onReset() {
   formRef.value?.resetFields()
 }
 
 // 默认onMounted后执行搜索
 onMounted(() => {
-  if (props.isSearch) onSearch()
+  if (props.searchOnMounted) onSearch()
 })
 </script>
 
 <style scoped lang="scss">
+.mr-0 {
+  margin-right: 0;
+}
+
 .el-input {
-  --el-input-width: 220px;
+  --el-input-width: v-bind(`${inputWidth}px`);
 }
 
 .el-select {
-  --el-select-width: 220px;
+  --el-select-width: v-bind(`${inputWidth}px`);
 }
 </style>

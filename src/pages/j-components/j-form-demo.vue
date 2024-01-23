@@ -1,6 +1,7 @@
 <template>
   <div main-container>
     <JForm
+      v-model:form="formData"
       :loading="loading"
       :form-items="formItems"
       :form-props="{
@@ -21,19 +22,11 @@ meta:
 </route>
 
 <script setup lang='ts'>
-interface Form {
-  name: string
-  age: string
-  timeFrame: [string, string]
-}
-
-const loading = ref(false)
 const formItems: JFormItem[] = [
   {
     prop: 'name',
     label: '姓名',
     type: 'input',
-    defaultValue: '张三',
   },
   {
     prop: 'age',
@@ -65,9 +58,14 @@ const formItems: JFormItem[] = [
   },
 ]
 
-function onSearch(page: number, form: Form) {
-  // eslint-disable-next-line no-console
-  console.log('🚀 ~ form:', form)
+const loading = ref(false)
+const formData = ref({
+  name: '张三',
+  age: '',
+  timeFrame: ['', ''],
+})
+
+function onSearch() {
   loading.value = true
   setTimeout(() => {
     loading.value = false

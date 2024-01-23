@@ -12,8 +12,8 @@
     <JPagination
       v-model:current="current"
       v-model:size="size"
-      :loading="loading"
       :total="total"
+      :loading="loading"
       @handle-search="handleSearch"
     />
   </div>
@@ -27,11 +27,10 @@ meta:
 <script setup lang='ts'>
 import { ElMessage } from 'element-plus'
 
-const loading = ref(false)
-
 const current = ref(1)
 const size = ref(15)
 const total = ref(89)
+const loading = ref(false)
 
 function handleSearch() {
   ElMessage.success('搜索')
