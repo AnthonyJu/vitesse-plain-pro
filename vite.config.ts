@@ -83,7 +83,7 @@ export default defineConfig({
     Components({
       dts: 'src/components.d.ts',
       include: [/\.vue$/, /\.vue\?vue/],
-      exclude: ['src/components/**/components/**/*'],
+      exclude: ['src/components/**/components/**/*data/*.ts'],
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     }),
 
