@@ -41,6 +41,11 @@ export const useMenuStore = defineStore(
             children: [],
           },
           {
+            meta: { name: '拖拽布局', icon: 'carbon-test-tool' },
+            path: '/dragLayout',
+            children: [],
+          },
+          {
             meta: { name: '组件封装', icon: 'carbon-cics-system-group' },
             ...generateInfo(allPages, 'excellent-components'),
           },
