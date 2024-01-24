@@ -27,6 +27,8 @@ declare module 'vue' {
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     JDialog: typeof import('./components/JDialog/JDialog.vue')['default']
     JForm: typeof import('./components/JForm/JForm.vue')['default']
     JPagination: typeof import('./components/JPagination/JPagination.vue')['default']
