@@ -18,6 +18,7 @@
     "@arcgis/core": "^4.28.10",
     "@vueuse/core": "^10.7.2",
     "axios": "^1.6.5",
+    "cropperjs": "^1.6.1",
     "echarts": "^5.4.3",
     "echarts-wordcloud": "^2.1.0",
     "element-plus": "^2.5.3",
