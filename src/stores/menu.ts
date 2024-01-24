@@ -18,9 +18,15 @@ export const useMenuStore = defineStore(
             children: [],
           },
           {
-            meta: { name: 'Unity 交互', icon: 'carbon-map' },
+            meta: { name: 'Unity 交互', icon: 'carbon-3d-mpr-toggle' },
             name: 'unity',
             path: '/unity-in-web',
+            children: [],
+          },
+          {
+            meta: { name: 'i18n 国际化', icon: 'carbon-ibm-watson-language-translator' },
+            name: 'i18n',
+            path: '/i18n',
             children: [],
           },
           {
