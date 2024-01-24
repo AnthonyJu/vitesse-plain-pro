@@ -1,5 +1,11 @@
 <template>
-  <VChart class="main-container" autoresize :option="option" />
+  <VChart
+    class="main-container"
+    autoresize
+    :option="option"
+    :init-options="{ renderer: 'svg' }"
+    :theme="isDark ? 'dark' : 'light'"
+  />
 </template>
 
 <route lang="yaml">
@@ -8,48 +14,33 @@ meta:
 </route>
 
 <script setup lang="ts">
+import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
-import {
-  LegendComponent,
-  TitleComponent,
-  TooltipComponent,
-} from 'echarts/components'
-import VChart, { THEME_KEY } from 'vue-echarts'
+import { SVGRenderer } from 'echarts/renderers'
+import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
 
 import type { ComposeOption } from 'echarts/core'
 import type { PieSeriesOption } from 'echarts/charts'
-import type {
-  LegendComponentOption,
-  TitleComponentOption,
-  TooltipComponentOption,
-} from 'echarts/components'
+import type { LegendComponentOption, TitleComponentOption, TooltipComponentOption } from 'echarts/components'
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
 type EChartsOption = ComposeOption<
-  | TitleComponentOption
-  | TooltipComponentOption
-  | LegendComponentOption
-  | PieSeriesOption
+  TitleComponentOption |
+  TooltipComponentOption |
+  LegendComponentOption |
+  PieSeriesOption
 >
 
-use([
-  CanvasRenderer,
-  PieChart,
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-])
-
-const theme = computed(() => {
-  return isDark.value ? 'dark' : 'light'
-})
-
-provide(THEME_KEY, theme)
+use([SVGRenderer, LegendComponent, TitleComponent, TooltipComponent, PieChart])
 
 const option = ref<EChartsOption>({
   backgroundColor: 'transparent',
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines'],
+  },
   title: {
     text: 'Traffic Sources',
     left: 'center',
@@ -57,11 +48,6 @@ const option = ref<EChartsOption>({
   tooltip: {
     trigger: 'item',
     formatter: '{a} <br/>{b} : {c} ({d}%)',
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left',
-    data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines'],
   },
   series: [
     {

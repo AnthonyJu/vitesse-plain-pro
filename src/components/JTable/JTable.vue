@@ -19,7 +19,7 @@ import type { TableProps } from 'element-plus'
 
 interface Props {
   data: any[]
-  columns: JTableColumn<any>[]
+  columns: JTableColumn[]
   tableProps?: Partial<TableProps<any>>
 }
 

@@ -17,7 +17,7 @@ meta:
 </route>
 
 <script setup lang='ts'>
-const columns = ref<JTableColumn<any>[]>([
+const columns = ref<JTableColumn[]>([
   {
     label: '姓名',
     prop: 'name',

@@ -3,11 +3,11 @@
     <!-- 检索表单 -->
     <JForm
       v-if="formOptions"
+      v-model:form="form"
       inline
-      :is-search="true"
       :loading="loading"
-      :form-props="formOptions.formProps"
       :form-items="formOptions.formItems"
+      :form-props="formOptions.formProps"
       @search="handleSearch"
     >
       <template v-for="{ prop } in formSlots" :key="prop" #[prop]="scope">
@@ -15,7 +15,7 @@
       </template>
 
       <template #toolbar>
-        <el-button v-if="!!API.create" type="primary" @click="addFn()">新增</el-button>
+        <el-button v-if="!!API.create" type="primary" @click="createFn()">新增</el-button>
         <slot name="toolbar" />
       </template>
     </JForm>
@@ -23,7 +23,7 @@
     <!-- 表格数据 -->
     <JTable
       v-loading="loading"
-      :data="data"
+      :data="tableData"
       :columns="tableOptions.columns"
       :table-props="tableOptions.tableProps"
     >
@@ -39,7 +39,7 @@
             v-if="!!API.update"
             type="primary"
             link
-            @click="editFn(scope.row)"
+            @click="updateFn(scope.row)"
           >
             修改
           </el-button>
@@ -73,13 +73,14 @@
       v-model:form="dialogForm"
       :title="title"
       :loading="dialogLoading"
-      :form-options="dialogOptions.formOption"
+      :form-items="dialogOptions.formItems"
+      :form-props="dialogOptions.formProps"
       :dialog-props="dialogOptions.dialogProps"
       @on-submit="dialogSubmit"
       @on-closed="initDialogForm"
     >
       <template v-for="{ prop } in dialogSlots" :key="prop" #[prop]="scope">
-        <!-- TODO: dialog slot前缀 -->
+        <!-- 注意: dialog slot前缀 -->
         <slot :name="`dialog-${prop}`" :row="scope.form" />
       </template>
     </JDialog>
@@ -102,7 +103,7 @@ interface Props {
   noPagenation?: boolean // 是否不需要分页
   dataFormator?: (data: any[]) => any[] // 数据格式化
   formOptions?: JFormOptions
-  tableOptions: JTableOptions<any>
+  tableOptions: JTableOptions
   dialogOptions?: JDialogOptions
 }
 interface Api {
@@ -159,7 +160,7 @@ const tableSlots = computed(() => {
 
 // 计算需要自定义的弹窗插槽
 const dialogSlots = computed(() => {
-  return props.dialogOptions?.formOption.formItems.filter(v => v.type === 'slot')
+  return props.dialogOptions?.formItems.filter(v => v.type === 'slot')
 })
 
 // 表格相关
@@ -167,20 +168,27 @@ const current = ref(1)
 const size = ref(15)
 const total = ref(0)
 const loading = ref(false)
-const data = ref<any[]>([])
+const tableData = defineModel<any[]>('data', { default: [] })
 
+const form = ref<Record<string, any>>({})
+form.value = props.dialogOptions?.formItems.reduce(
+  (newForm, item) => {
+    newForm[item.prop] = item.defaultValue
+    return newForm
+  },
+  {} as any,
+)
 // 检索表单函数
-async function handleSearch(page: number = current.value, params: Record<string, any> = {}) {
+function handleSearch(page: number = current.value, params: Record<string, any> = {}) {
   loading.value = true
   const form = JSON.parse(JSON.stringify(params))
   for (const key in form) form[key] = form[key].toString()
 
   // TODO：根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体情况来决定入参
-  const limit = props.noPagenation ? 0 : size.value
-  API.get({ ...form, current: page, size: limit })
+  API.get({ ...form, current: page, size: props.noPagenation ? 0 : size.value })
     .then((res: any) => {
-      if (props.dataFormator) data.value = props.dataFormator(res.data.records)
-      else data.value = res.data.records
+      if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
+      else tableData.value = res.data.records
       total.value = res.data.total
     })
     .finally(() => {
@@ -193,23 +201,30 @@ const title = ref('')
 const visible = ref(false)
 const dialogLoading = ref(false)
 const dialogForm = ref<Record<string, any>>({})
+dialogForm.value = props.dialogOptions?.formItems.reduce(
+  (newForm, item) => {
+    newForm[item.prop] = item.defaultValue
+    return newForm
+  },
+  {} as any,
+)
 
 // 若是有弹窗，则初始化弹窗表单
 if (props.dialogOptions) initDialogForm()
 function initDialogForm() {
   const form: Record<string, any> = {}
   // TODO:新增value初始值
-  props.dialogOptions!.formOption.formItems.forEach((item) => {
-    form[item.prop] = item.defaultValue ?? ''
+  props.dialogOptions!.formItems.forEach((item) => {
+    form[item.prop] = item.defaultValue
   })
   dialogForm.value = form
 }
 
-function addFn() {
+function createFn() {
   title.value = '新增'
   visible.value = true
 }
-function editFn(row: Record<string, any>) {
+function updateFn(row: Record<string, any>) {
   title.value = '编辑'
   dialogForm.value = JSON.parse(JSON.stringify(row))
   visible.value = true
@@ -265,5 +280,5 @@ onMounted(() => {
 })
 
 // 暴露给父组件的方法
-defineExpose({ dialogForm, addFn, data })
+defineExpose({ form, dialogForm, createFn })
 </script>

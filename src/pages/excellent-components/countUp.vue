@@ -7,7 +7,7 @@
       @link="linkFn"
     />
     <el-card class="mt-15px" shadow="hover" header="数字滚动：简单示例">
-      <el-row :gutter="10" class="flex w-full">
+      <el-row :gutter="10" class="w-full flex">
         <el-col v-for="item in list" :key="item.name" :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
           <div
             class="card"
@@ -17,13 +17,13 @@
               border: `1px solid ${item.bgColor}`,
             }"
           >
-            <div class="text-left w-full text-12px">{{ item.name }}：</div>
+            <div class="w-full text-left text-12px">{{ item.name }}：</div>
             <CountUp ref="countUpRef" :end-val="item.value">
               <template v-if="item.prefix" #prefix>
-                <span class="mr-10px text-#fff text-14px">{{ item.prefix }}</span>
+                <span class="mr-10px text-14px text-#fff">{{ item.prefix }}</span>
               </template>
               <template v-if="item.suffix" #suffix>
-                <span class="text-#fff ml-10px text-14px">{{ item.suffix }}</span>
+                <span class="ml-10px text-14px text-#fff">{{ item.suffix }}</span>
               </template>
             </CountUp>
           </div>
@@ -34,14 +34,14 @@
     </el-card>
 
     <el-card class="mt-15px" shadow="hover" header="数字滚动：常用事件">
-      <div class="w-385px card">
-        <div class="text-left w-full text-12px">今日用户访问量：</div>
+      <div class="card w-385px">
+        <div class="w-full text-left text-12px">今日用户访问量：</div>
         <CountUp :end-val="count" @init="initFn">
           <template #prefix>
-            <span class="mr-10px text-#fff text-14px">共点击</span>
+            <span class="mr-10px text-14px text-#fff">共点击</span>
           </template>
           <template #suffix>
-            <span class="text-#fff ml-10px text-14px">次</span>
+            <span class="ml-10px text-14px text-#fff">次</span>
           </template>
         </CountUp>
       </div>

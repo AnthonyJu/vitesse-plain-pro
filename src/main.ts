@@ -8,7 +8,7 @@ const app = createApp(App)
 
 const modules = import.meta.glob('./modules/*.ts', { eager: true })
 Object.values(modules).reverse().forEach((ctx: any) => {
-  ctx.default?.(app)
+  ctx.default(app)
 })
 
 app.mount('#app')

@@ -15,44 +15,85 @@
 </template>
 
 <script setup lang="ts">
-/**
- * 分页组件
- * @param current 当前页
- * @param size 每页数量
- * @param total 总数
- * @param loading 是否加载中
- * @param layout 组件布局
- * @param pageSizes 每页数量选项
- */
+import request from '@/utils/request'
+
 interface Props {
-  current: number // 当前页
-  size: number // 每页数量
-  total: number // 总数
-  loading: boolean // 是否加载中
+  url?: string // 请求地址
+  params?: Record<string, any> // 请求参数
   layout?: string // 组件布局
   pageSizes?: number[] // 每页数量选项
 }
 
-// 默认第一页，每页15条
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   layout: 'total, sizes, prev, pager, next, jumper',
   pageSizes: () => [15, 30, 50, 100],
 })
 
 const emit = defineEmits<{
-  'update:current': [number]
-  'update:size': [number]
   'handleSearch': []
+  'handleError': [error: any]
 }>()
 
+// 默认第一页，每页15条
+const size = defineModel<number>('size', { default: 15 })
+const current = defineModel<number>('current', { default: 1 })
+const total = defineModel<number>('total', { default: 0 })
+const loading = defineModel<boolean>('loading', { default: false })
+
 /** 当前页变化 */
-function handleSizeChange(size: number) {
-  emit('update:size', size)
-  emit('handleSearch')
+function handleSizeChange(newSize: number) {
+  size.value = newSize
+  if (!props.url) emit('handleSearch')
+  else handleSearch()
 }
 /** 每页数量变化 */
-function handleCurrentChange(current: number) {
-  emit('update:current', current)
-  emit('handleSearch')
+function handleCurrentChange(newCurrent: number) {
+  current.value = newCurrent
+  if (!props.url) emit('handleSearch')
+  else handleSearch()
 }
+
+/** 数据 */
+const data = defineModel<any[]>('data', { default: [] })
+
+/** 搜索 */
+function handleSearch() {
+  loading.value = true
+  request({
+    url: props.url,
+    method: 'get',
+    params: {
+      ...props.params,
+      size: size.value,
+      current: current.value,
+    },
+  })
+    .then((res) => {
+      // TODO 处理返回数据
+      data.value = res.data.records
+      total.value = res.data.total
+    })
+    .catch((err) => {
+      emit('handleError', err)
+    })
+    .finally(() => {
+      loading.value = false
+    })
+}
+
+onMounted(() => {
+  if (props.url) handleSearch()
+})
+
+defineExpose({ handleSearch })
 </script>
+
+<style scoped lang="scss">
+.mt-18px {
+  margin-top: 18px;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+</style>

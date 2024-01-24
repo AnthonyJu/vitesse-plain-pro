@@ -15,6 +15,24 @@
     "pnpm"
   ],
 
+  // i18n Ally
+  "i18n-ally.annotationInPlace": false,
+  "i18n-ally.autoDetection": false,
+  "i18n-ally.displayLanguage": "zh-CN",
+  "i18n-ally.editor.preferEditor": true,
+  "i18n-ally.extract.parsers.html": {
+    "ignoredTags": [
+      "script",
+      "style",
+      "route"
+    ]
+  },
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.theme.annotation": "#409eff",
+
   // Disable the default formatter
   "prettier.enable": false,
   "editor.formatOnSave": false,

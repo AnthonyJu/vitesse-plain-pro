@@ -1,4 +1,4 @@
-import type { DialogProps, FormItemProps, FormProps, FormRules, ISelectProps, InputProps, TableColumnCtx, TableProps } from 'element-plus'
+import type { DialogProps, FormItemProps, FormProps, ISelectProps, InputProps, TableColumnCtx, TableProps } from 'element-plus'
 
 export {}
 
@@ -63,6 +63,11 @@ declare global {
   }
 
   /**
+   * @Type JFormProps Form配置项
+   */
+  type JFormProps = Partial<Writable<FormProps>>
+
+  /**
    * @interface JFormOptions Form配置项
    * @property {RenderForm[]} renderForms FormItem渲染项
    * @property {FormRules} rules Form验证规则
@@ -70,15 +75,20 @@ declare global {
    */
   interface JFormOptions {
     formItems: JFormItem[]
-    formProps?: Partial<Writable<FormProps>>
+    formProps?: JFormProps
   }
+
+  /**
+   * @Type JTableProps Table配置项
+   */
+  type JTableProps = Partial<Writable<TableProps<T>>>
 
   /**
    * @interface JTableColumn Table列配置项
    * @template T Table数据类型(data)
    * @property {boolean} slot 是否为自定义插槽列
    */
-  interface JTableColumn<T> extends Partial<TableColumnCtx<T>> {
+  interface JTableColumn extends Partial<TableColumnCtx<T>> {
     prop: string
     slot?: boolean
   }
@@ -89,18 +99,22 @@ declare global {
    * @property {TableColumn<T>[]} columns Table列
    * @property {TableProps<T>} tableProps Table其他Attributes
    */
-  interface JTableOptions<T> {
-    columns: JTableColumn<T>[]
-    tableProps?: Partial<TableProps<T>>
+  interface JTableOptions {
+    columns: JTableColumn[]
+    tableProps?: JTableProps
   }
+
+  /**
+   * @Type JDialogProps Dialog配置项
+   */
+  type JDialogProps = Partial<Writable<DialogProps>>
 
   /**
    * @interface JDialogOptions Dialog配置项
    * @property {FormOption} formOption Form配置项
    * @property {Partial<DialogProps>} dialogProps Dialog其他Attributes
    */
-  interface JDialogOptions {
-    formOption: JFormOptions
-    dialogProps?: Partial<Writable<DialogProps>>
+  interface JDialogOptions extends JFormOptions {
+    dialogProps?: JDialogProps
   }
 }
