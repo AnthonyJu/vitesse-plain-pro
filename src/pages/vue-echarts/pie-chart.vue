@@ -1,7 +1,7 @@
 <template>
   <VChart
-    class="main-container"
     autoresize
+    main-container
     :option="option"
     :init-options="{ renderer: 'svg' }"
     :theme="isDark ? 'dark' : 'light'"
@@ -10,7 +10,7 @@
 
 <route lang="yaml">
 meta:
-  name: Pie Chart
+  name: Basic usage
 </route>
 
 <script setup lang="ts">
