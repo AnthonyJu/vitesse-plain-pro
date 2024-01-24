@@ -8,6 +8,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Unocss from 'unocss/vite'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import WebfontDownload from 'vite-plugin-webfont-dl'
 import ElementPlus from 'unplugin-element-plus/vite'
@@ -67,6 +68,7 @@ export default defineConfig({
       imports: [
         'vue',
         'pinia',
+        'vue-i18n',
         '@vueuse/core',
         VueRouterAutoImports,
         {
@@ -96,6 +98,14 @@ export default defineConfig({
     // https://github.com/element-plus/unplugin-element-plus
     ElementPlus({
       useSource: true,
+    }),
+
+    // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
+    VueI18n({
+      runtimeOnly: true,
+      compositionOnly: true,
+      fullInstall: true,
+      include: [path.resolve(__dirname, 'locales/**')],
     }),
 
     // https://github.com/antfu/unocss
