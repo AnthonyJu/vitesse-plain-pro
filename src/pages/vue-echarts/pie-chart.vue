@@ -3,7 +3,7 @@
     class="main-container"
     autoresize
     :option="option"
-    :initOptions="{ renderer: 'svg' }"
+    :init-options="{ renderer: 'svg' }"
     :theme="isDark ? 'dark' : 'light'"
   />
 </template>
