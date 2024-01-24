@@ -1,9 +1,10 @@
 <template>
   <VChart
     class="main-container"
-    :theme="isDark ? 'dark' : 'light'"
     autoresize
     :option="option"
+    :initOptions="{ renderer: 'svg' }"
+    :theme="isDark ? 'dark' : 'light'"
   />
 </template>
 
