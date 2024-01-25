@@ -4,6 +4,8 @@
       <NoticeBar
         text="😎孩儿立志出乡关,👨‍💻学不成名誓不还。🌳埋骨何须桑梓地,🏕人生无处不青山。"
       />
+      <div class="my-10px">代码:</div>
+      <div id="simple-demo" />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：设置样式" class="mt-15px">
@@ -17,6 +19,8 @@
         :speed="100"
         @link="linkFn"
       />
+      <div class="my-10px">代码:</div>
+      <div id="icon-demo" />
     </el-card>
 
     <el-card
@@ -35,6 +39,8 @@
           <el-carousel-item v-for="v in state.noticeList" :key="v">{{ v }} </el-carousel-item>
         </el-carousel>
       </NoticeBar>
+      <div class="my-10px">代码:</div>
+      <div id="scroll-demo" />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：参数" class="mt-15px">
@@ -64,6 +70,12 @@
 </route>
 
 <script setup lang='ts'>
+import { noticeBarIconStr, noticeBarScrollStr, noticeBarSimpleStr } from './data/highlight'
+
+useSyntaxHighlighter(noticeBarSimpleStr, 'vue', '#simple-demo')
+useSyntaxHighlighter(noticeBarIconStr, 'vue', '#icon-demo')
+useSyntaxHighlighter(noticeBarScrollStr, 'html', '#scroll-demo')
+
 // 定义变量内容
 const state = reactive({
   textStr: '🎼我肯定在几百年前就说过爱你👩‍💼只是你忘了我也没记起🚶‍♀️走过 路过 没遇过🚶‍♂️回头 转头 还是错🎈你我不曾感受过 相撞在街口🎶相撞在街口...',
