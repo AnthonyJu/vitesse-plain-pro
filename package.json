@@ -23,6 +23,7 @@
     "echarts-liquidfill": "^3.1.0",
     "echarts-wordcloud": "^2.1.0",
     "element-plus": "^2.5.3",
+    "file-saver": "^2.0.5",
     "mitt": "^3.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
@@ -35,7 +36,8 @@
     "vue-grid-layout": "3.0.0-beta1",
     "vue-i18n": "^9.9.0",
     "vue-request": "^2.0.4",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.3",
