@@ -1,5 +1,6 @@
 <template>
   <div main-container>
+    <div id="usage" mb-16px />
     <div id="vue" />
   </div>
 </template>
@@ -10,7 +11,8 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import { vueStr } from './data/highlight'
+import { tsStr, vueStr } from './data/highlight'
 
+useSyntaxHighlighter(tsStr, 'ts', '#usage')
 useSyntaxHighlighter(vueStr, 'vue', '#vue')
 </script>

@@ -1,5 +1,12 @@
 import { codeToHtml } from 'shikiji'
 
+/**
+ * @description: Syntax highlighter
+ * @param {string} str code string
+ * @param {string} lang language
+ * @param {string} container container selector
+ * @return { html: Ref<string> } html: highlight HTML string
+ */
 export function useSyntaxHighlighter(str: string, lang: string, container?: string) {
   const html = ref('')
 

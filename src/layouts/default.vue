@@ -12,7 +12,7 @@
     <!-- 侧边栏 -->
     <el-aside
       v-show="!isSmallScreen"
-      class="flex-col-center overflow-hidden rounded-10px !w-210px bg-default"
+      class="flex-col-center rounded-10px !w-210px !overflow-hidden bg-default"
     >
       <Logo />
       <Menu mt-10px />
