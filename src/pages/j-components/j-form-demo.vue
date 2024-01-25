@@ -1,5 +1,5 @@
 <template>
-  <div main-container>
+  <div>
     <JForm
       v-model:form="formData"
       :loading="loading"

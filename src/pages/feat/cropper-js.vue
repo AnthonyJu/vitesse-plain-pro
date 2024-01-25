@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div>
     <NoticeBar
       text="🎉图片剪裁组件cropperjs，地址：https://github.com/fengyuanchen/cropperjs，点击前往"
       right-icon="carbon:chevron-right"

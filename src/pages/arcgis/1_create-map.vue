@@ -5,6 +5,7 @@
 <route lang='yaml'>
 meta:
   name: 创建地图
+  fullContent: true
 </route>
 
 <script setup lang='ts'>

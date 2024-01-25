@@ -8,6 +8,7 @@
 <route lang='yaml'>
 meta:
   title: unity 与 web 交互
+  fullContent: true
 </route>
 
 <script setup lang="ts">
@@ -31,8 +32,7 @@ const config = {
 
 // 这是 Unity 调用 Web 端的方法，在 jslib 文件中定义的函数
 window.WebMethod = function (str: string) {
-  // eslint-disable-next-line no-alert
-  alert(str)
+  ElMessage.success(str)
 }
 
 onMounted(() => {
@@ -81,14 +81,14 @@ onMounted(() => {
 </script>
 
 <style lang='scss' scoped>
-  #btn {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    left: 0;
-    z-index: 999;
-    width: 100px;
-    height: 40px;
-    margin: auto;
-  }
+#btn {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  width: 100px;
+  height: 40px;
+  margin: auto;
+}
 </style>

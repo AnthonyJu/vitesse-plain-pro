@@ -1,14 +1,12 @@
 <template>
-  <div main-container>
-    <JTable
-      :data="data"
-      :columns="columns"
-      :table-props="{
-        border: true,
-        stripe: true,
-      }"
-    />
-  </div>
+  <JTable
+    :data="data"
+    :columns="columns"
+    :table-props="{
+      border: true,
+      stripe: true,
+    }"
+  />
 </template>
 
 <route lang='yaml'>

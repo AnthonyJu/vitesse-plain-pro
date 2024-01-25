@@ -1,6 +1,5 @@
 <template>
   <VChart
-    class="h-full w-full main-container"
     autoresize
     :option="option"
     :init-options="{ renderer: 'svg' }"
@@ -11,6 +10,7 @@
 <route lang="yaml">
 meta:
   name: Water liquid fill
+  fullContent: true
 </route>
 
 <script setup lang="ts">

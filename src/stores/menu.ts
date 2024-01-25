@@ -18,6 +18,11 @@ export const useMenuStore = defineStore(
             children: [],
           },
           {
+            meta: { name: '正则合集', icon: 'carbon-test-tool' },
+            path: '/regexps',
+            children: [],
+          },
+          {
             meta: { name: 'Unity 交互', icon: 'carbon-3d-mpr-toggle' },
             name: 'unity',
             path: '/unity-in-web',
@@ -34,26 +39,20 @@ export const useMenuStore = defineStore(
             ...generateInfo(allPages, 'j-components'),
           },
           {
+            meta: { name: '组件封装', icon: 'carbon-cics-system-group' },
+            ...generateInfo(allPages, 'comp'),
+          },
+          {
+            meta: { name: '功能示例', icon: 'carbon-layers' },
+            ...generateInfo(allPages, 'feat'),
+          },
+          {
             meta: { name: 'ArcGIS', icon: 'carbon-map' },
             ...generateInfo(allPages, 'arcgis'),
           },
           {
             meta: { name: 'Vue-ECharts', icon: 'carbon-chart-multitype' },
             ...generateInfo(allPages, 'vue-echarts'),
-          },
-          {
-            meta: { name: '正则合集', icon: 'carbon-test-tool' },
-            path: '/regexps',
-            children: [],
-          },
-          // {
-          //   meta: { name: '拖拽布局', icon: 'carbon-test-tool' },
-          //   path: '/dragLayout',
-          //   children: [],
-          // },
-          {
-            meta: { name: '组件封装', icon: 'carbon-cics-system-group' },
-            ...generateInfo(allPages, 'excellent-components'),
           },
         ]
         resolve(true)

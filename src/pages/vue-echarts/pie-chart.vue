@@ -1,8 +1,6 @@
 <template>
   <VChart
-    class="h-full w-full"
     autoresize
-    main-container
     :option="option"
     :init-options="{ renderer: 'svg' }"
     :theme="isDark ? 'dark' : 'light'"
@@ -12,6 +10,7 @@
 <route lang="yaml">
 meta:
   name: Basic usage
+  fullContent: true
 </route>
 
 <script setup lang="ts">

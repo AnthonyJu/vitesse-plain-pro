@@ -1,13 +1,11 @@
 <template>
-  <ElScrollbar ref="scrollbar" w-full flex-1>
+  <el-scrollbar w-full>
     <el-menu
       :default-active="route.path"
       router
       unique-opened
       collapse-transition
       my-16px
-      @open="handleOpen"
-      @close="handleOpen"
     >
       <template v-for="menu in menuStore.menus">
         <el-sub-menu v-if="menu.children?.length" :key="menu.path" :index="menu.path">
@@ -24,23 +22,14 @@
         </el-menu-item>
       </template>
     </el-menu>
-  </ElScrollbar>
+  </el-scrollbar>
 </template>
 
 <script setup lang="ts">
-import { ElScrollbar } from 'element-plus'
 import SubMenu from './SubMenu.vue'
 
 const route = useRoute()
 const menuStore = useMenuStore()
-
-const scrollbar = ref<InstanceType<typeof ElScrollbar>>()
-
-function handleOpen() {
-  setTimeout(() => {
-    scrollbar.value?.update()
-  }, 300)
-}
 </script>
 
 <style lang="scss" scoped>

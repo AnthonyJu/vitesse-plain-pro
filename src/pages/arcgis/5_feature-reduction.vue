@@ -5,6 +5,7 @@
 <route lang='yaml'>
 meta:
   name: 特征缩减（点聚合）
+  fullContent: true
 </route>
 
 <script setup lang="ts">

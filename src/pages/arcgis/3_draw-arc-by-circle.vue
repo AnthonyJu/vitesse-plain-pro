@@ -5,6 +5,7 @@
 <route lang='yaml'>
 meta:
   name: 通过 Circle 绘制圆弧
+  fullContent: true
 </route>
 
 <script setup lang='ts'>

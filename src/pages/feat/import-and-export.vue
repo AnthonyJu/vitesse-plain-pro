@@ -1,7 +1,7 @@
 <template>
-  <div class="main-container">
+  <div>
     <el-card class="mt-15px" shadow="hover" header="导入数据查看控制台">
-      <el-row :gutter="10" class="flex w-full">
+      <el-row :gutter="10" class="w-full flex">
         <el-button type="primary" @click="importTem()">导入</el-button>
         <el-button type="primary" @click="exportTem(data, '导出模板.xlsx')">导出</el-button>
         <el-button
@@ -56,5 +56,4 @@ const data = [
   { name: 'John', age: 30, city: 'New York' },
   { name: 'Jane', age: 40, city: 'Chicago' },
 ]
-
 </script>

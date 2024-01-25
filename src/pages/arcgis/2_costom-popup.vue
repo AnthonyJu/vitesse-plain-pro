@@ -5,6 +5,7 @@
 <route lang="yaml">
 meta:
   name: 自定义弹窗
+  fullContent: true
 </route>
 
 <script setup lang='ts'>

@@ -1,5 +1,5 @@
 <template>
-  <div main-container>
+  <div>
     <el-button type="primary" @click="visible = true">Open dialog</el-button>
 
     <JDialog

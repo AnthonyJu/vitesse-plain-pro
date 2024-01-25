@@ -1,18 +1,17 @@
 <template>
   <!-- Blog 中演示用 -->
-  <RouterView v-if="$route.query.demo" />
+  <router-view v-if="$route.query.demo" />
 
   <!-- 正式layout -->
   <div
     v-else
-    class="flex flex-1 bg-$el-color-primary dark:bg-transparent"
-    p="l-16px y-16px"
-    overflow-auto
+    class="flex flex-1 bg-$el-color-primary py-16px pl-16px dark:bg-transparent"
+    overflow="hidden"
   >
     <!-- 侧边栏 -->
     <el-aside
       v-show="!isSmallScreen"
-      class="flex-col-center rounded-10px !w-210px !overflow-hidden bg-default"
+      class="flex-col rounded-10px !w-210px !overflow-hidden bg-default"
     >
       <Logo />
       <Menu mt-10px />
@@ -29,25 +28,29 @@
 
       <!-- 内容 -->
       <main mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
-        <ElScrollbar ref="scrollbar" class="custom-scrollbar">
-          <RouterView v-slot="{ Component }">
-            <Transition mode="out-in" name="opacity" @before-enter="handleBeforeEnter">
+        <router-view v-slot="{ Component, route }">
+          <el-scrollbar
+            ref="scrollbar"
+            class="custom-scrollbar"
+            :class="{ 'full-content': route.meta.fullContent }"
+          >
+            <transition mode="out-in" name="opacity" @before-enter="handleBeforeEnter">
               <component :is="Component" />
-            </Transition>
-          </RouterView>
-        </ElScrollbar>
+            </transition>
+          </el-scrollbar>
+        </router-view>
       </main>
     </el-container>
   </div>
 </template>
 
 <script setup lang='ts'>
-import { ElScrollbar } from 'element-plus'
+import type { ScrollbarInstance } from 'element-plus'
 import Logo from './components/Logo.vue'
 import Menu from './components/Menu.vue'
 import User from './components/User.vue'
 
-const scrollbar = ref<InstanceType<typeof ElScrollbar>>()
+const scrollbar = ref<ScrollbarInstance>()
 
 function handleBeforeEnter() {
   nextTick(() => {
@@ -59,10 +62,18 @@ function handleBeforeEnter() {
 
 <style lang='scss' scoped>
 .custom-scrollbar {
+  ::v-deep(.el-scrollbar__wrap) {
+    @apply bg-default p-16px min-h-full;
+  }
+
   ::v-deep(.el-scrollbar__bar.is-vertical) {
-    position: fixed;
-    top: 95px;
-    right: 4.5px;
+    @apply fixed top-95px right-4.5px;
+  }
+
+  &.full-content {
+    ::v-deep(.el-scrollbar__view) {
+      height: 100%;
+    }
   }
 }
 

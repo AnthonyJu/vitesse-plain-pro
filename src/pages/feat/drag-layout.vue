@@ -1,5 +1,5 @@
 <template>
-  <div class="gridDrag main-container">
+  <div class="gridDrag">
     <el-tabs v-model="activeName" class="demo-tabs">
       <el-tab-pane label="拖拽类型一" name="first">
         <NoticeBar text="项目地址：https://github.com/jbaysolutions/vue-grid-layout" />
@@ -29,7 +29,7 @@
       </el-tab-pane>
       <el-tab-pane label="拖拽类型二" name="second">
         <NoticeBar text="项目地址：https://github.com/mauricius/vue-draggable-resizable?tab=readme-ov-file" />
-        <div class="h-600px w-800px dragResizable">
+        <div class="dragResizable h-600px w-800px">
           <vueDraggableResizable
             :min-width="250" :min-height="100" :w="300" :h="200"
             :parent="true"
@@ -64,7 +64,7 @@ const state = reactive({
 const activeName = ref('first')
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .gridDrag {
   .vue-grid-item {
     color: #fff;
@@ -75,10 +75,5 @@ const activeName = ref('first')
 .dragResizable {
   border: 1px solid #2fc8fc;
   border-radius: 5px;
-}
-
-.main-container .vdr {
-  background-color: #2fc8fc;
-  border: 1px solid #2fc8fc;
 }
 </style>

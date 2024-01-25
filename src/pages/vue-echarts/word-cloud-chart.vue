@@ -1,16 +1,16 @@
 <template>
   <VChart
-    class="h-full w-full main-container"
-    :init-options="{ renderer: 'svg' }"
-    :theme="isDark ? 'dark' : 'light'"
     autoresize
     :option="option"
+    :init-options="{ renderer: 'svg' }"
+    :theme="isDark ? 'dark' : 'light'"
   />
 </template>
 
 <route lang="yaml">
 meta:
   name: WordCloud Chart
+  fullContent: true
 </route>
 
 <script setup lang='ts'>

@@ -1,16 +1,14 @@
 <template>
-  <div main-container>
-    <JTablePro
-      :url="url"
-      :table-options="tableOptions"
-      :form-options="formOptions"
-      :dialog-options="dialogOptions"
-    >
-      <template #control="{ row }">
-        <el-button type="primary" link @click="otherFn(row)">点我获取名字</el-button>
-      </template>
-    </JTablePro>
-  </div>
+  <JTablePro
+    :url="url"
+    :table-options="tableOptions"
+    :form-options="formOptions"
+    :dialog-options="dialogOptions"
+  >
+    <template #control="{ row }">
+      <el-button type="primary" link @click="otherFn(row)">点我获取名字</el-button>
+    </template>
+  </JTablePro>
 </template>
 
 <route lang="yaml">

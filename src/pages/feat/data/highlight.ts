@@ -31,9 +31,7 @@ export function useSyntaxHighlighter(str: string, lang: string, container?: stri
 }`
 
 export const vueStr = `<template>
-  <div main-container>
-    <div id="vue" />
-  </div>
+  <div id="vue" />
 </template>
 
 <route lang='yaml'>
@@ -48,34 +46,7 @@ useSyntaxHighlighter(vueStr, 'vue', '#vue')
 </script>
 `
 
-export const noticeBarSimpleStr = `<NoticeBar text="😎孩儿立志出乡关,👨‍💻学不成名誓不还。🌳埋骨何须桑梓地,🏕人生无处不青山。"/>`
-
-export const noticeBarIconStr = `<NoticeBar
- :text="state.textStr"
- left-icon="carbon:user-speaker"
- right-icon="carbon:chevron-right"
- background="#ecf5ff"
- mode="link"
- color="#409eff"
- :speed="100"
- @link="window.open('xxxxx')"
-/>`
-
-export const noticeBarScrollStr
-= `<NoticeBar :scrollable="true">
-  <el-carousel
-    height="40px"
-    direction="vertical"
-    :autoplay="true"
-    indicator-position="none"
-    :interval="3000"
-  >
-    <el-carousel-item v-for="v in state.noticeList" :key="v">{{ v }} </el-carousel-item>
-  </el-carousel>
-</NoticeBar>`
-
-export const countUpStr
-= `<CountUp ref="countUpRef" :end-val="data.count">
+export const countUpStr = `<CountUp ref="countUpRef" :end-val="data.count">
   <template v-if="data.prefix" #prefix>
     <span class="mr-10px text-#fff text-14px">{{ data.prefix }}</span>
   </template>
@@ -84,8 +55,7 @@ export const countUpStr
   </template>
 </CountUp>`
 
-export const cropperjsStr
-= `<template>
+export const cropperjsStr = `<template>
   <div class="mx-auto h-300px w-300px">
     <img id="image" class="max-w-100%" src="@/assets/cropper_avatar.png">
   </div>
@@ -109,7 +79,7 @@ function initCropper(id: string, options: Cropper.Options) {
   image.addEventListener('cropend', () => {
     previewImage.value = cropper.getCroppedCanvas().toDataURL('image/jpeg')
   })
-  
+
   return cropper
 }
 
@@ -131,8 +101,7 @@ onMounted(() => {
 </script>
 `
 
-export const tourDemoStr
-= `<template>
+export const tourDemoStr = `<template>
   <el-button type="primary" @click="open = true">开始漫游</el-button>
   <el-divider />
   <el-space>

@@ -1,5 +1,5 @@
 <template>
-  <div main-container>
+  <div>
     <div id="usage" mb-16px />
     <div id="vue" />
   </div>

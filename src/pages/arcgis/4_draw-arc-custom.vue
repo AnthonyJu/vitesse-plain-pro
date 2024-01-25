@@ -5,6 +5,7 @@
 <route lang='yaml'>
 meta:
   name: 自定义方法 绘制圆弧
+  fullContent: true
 </route>
 
 <script setup lang="ts">

@@ -9,9 +9,9 @@ export function importTem() {
   inputElement.onchange = (event) => {
     // 文件名称
     // fileName.value = event.target?.files[0].name
-    const file = event.target?.files[0]
+    const file = (event.target as HTMLInputElement)?.files?.[0]
     // 检查文件类型
-    if (file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    if (file?.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       ElMessage.error('请上传一个 .xlsx 文件')
       return
     }
@@ -24,6 +24,7 @@ export function importTem() {
       const workbook = XLSX.read(data, { type: 'array' })
       const sheet_name_list = workbook.SheetNames
       const json = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]])
+      // eslint-disable-next-line no-console
       console.log('json,导入的数据', json)
     }
     reader.readAsArrayBuffer(file)

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div>
     <NoticeBar
       text="🎉Tour 漫游式引导-ElementPlus-v2.5.0，地址：https://element-plus.org/zh-CN/component/tour.html，点击前往"
       right-icon="carbon:chevron-right"

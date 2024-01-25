@@ -19,7 +19,7 @@ export function autoImports() {
     resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     dts: 'src/auto-imports.d.ts',
     dirs: [
-      'src/composables',
+      'src/composables/**/*',
       'src/events',
       'src/stores',
       'src/utils',

@@ -5,7 +5,7 @@
     :button="{ autoInsertSpace: true }"
     :message="{ max: 3 }"
   >
-    <RouterView />
+    <router-view />
   </el-config-provider>
 </template>
 

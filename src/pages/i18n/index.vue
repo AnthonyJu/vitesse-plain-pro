@@ -1,5 +1,5 @@
 <template>
-  <div main-container>
+  <div>
     <el-input v-model="locale" readonly style="width: 220px;" />
     <el-button
       ml-20px

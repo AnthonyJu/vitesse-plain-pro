@@ -19,7 +19,6 @@ export default defineConfig({
     'flex-col-center': 'flex flex-col justify-center items-center',
     'turn-dark': 'invert-93 hue-rotate-180',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
-    'main-container': 'bg-default p-16px min-h-full h-fit',
   },
   presets: [
     presetUno(),
