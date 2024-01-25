@@ -43,6 +43,10 @@
           description="这是一个子组件的漫游"
         />
       </el-tour>
+
+      <el-divider />
+      <div class="my-10px">代码</div>
+      <div id="tour-demo" />
     </el-card>
   </div>
 </template>
@@ -56,6 +60,9 @@
 import { MoreFilled } from '@element-plus/icons-vue'
 import type { ButtonInstance } from 'element-plus'
 import Child from './components/child.vue'
+import { tourDemoStr } from './data/highlight'
+
+useSyntaxHighlighter(tourDemoStr, 'html', '#tour-demo')
 
 const open = ref(false)
 const ref1 = ref<ButtonInstance>()

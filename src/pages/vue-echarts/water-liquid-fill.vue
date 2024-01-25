@@ -1,6 +1,6 @@
 <template>
   <VChart
-    class="main-container"
+    class="h-full w-full main-container"
     autoresize
     :option="option"
     :init-options="{ renderer: 'svg' }"

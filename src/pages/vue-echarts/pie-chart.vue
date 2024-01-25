@@ -1,5 +1,6 @@
 <template>
   <VChart
+    class="h-full w-full"
     autoresize
     main-container
     :option="option"

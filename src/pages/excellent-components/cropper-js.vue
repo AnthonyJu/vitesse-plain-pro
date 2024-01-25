@@ -49,6 +49,9 @@
           </div>
         </el-col>
       </el-row>
+
+      <div class="my-10px">代码</div>
+      <div id="cropper-demo" />
     </el-card>
   </div>
 </template>
@@ -60,6 +63,9 @@
 
 <script setup lang='ts'>
 import Cropper from 'cropperjs'
+import { cropperjsStr } from './data/highlight'
+
+useSyntaxHighlighter(cropperjsStr, 'html', '#cropper-demo')
 
 interface MoveData {
   width: number

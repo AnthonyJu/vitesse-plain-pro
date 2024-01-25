@@ -1,4 +1,5 @@
 import App from './App.vue'
+import 'echarts-wordcloud'
 
 import './styles/main.scss'
 import 'uno.css'

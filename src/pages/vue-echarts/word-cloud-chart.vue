@@ -1,6 +1,6 @@
 <template>
   <VChart
-    class="main-container"
+    class="h-full w-full main-container"
     :init-options="{ renderer: 'svg' }"
     :theme="isDark ? 'dark' : 'light'"
     autoresize
@@ -14,7 +14,6 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import 'echarts-wordcloud'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { SVGRenderer } from 'echarts/renderers'
