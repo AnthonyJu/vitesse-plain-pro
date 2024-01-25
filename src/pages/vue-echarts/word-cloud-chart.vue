@@ -14,8 +14,9 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import { use } from 'echarts/core'
+import 'echarts-wordcloud'
 import VChart from 'vue-echarts'
+import { use } from 'echarts/core'
 import { SVGRenderer } from 'echarts/renderers'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 

@@ -1,8 +1,8 @@
-import VueGridLayout from 'vue-grid-layout'
 import App from './App.vue'
+
 import './styles/main.scss'
 import 'uno.css'
-import 'echarts-wordcloud'
+
 import 'cropperjs/dist/cropper.css'
 import 'vue-draggable-resizable/style.css'
 
@@ -14,4 +14,3 @@ Object.values(modules).reverse().forEach((ctx: any) => {
 })
 
 app.mount('#app')
-app.use(VueGridLayout)
