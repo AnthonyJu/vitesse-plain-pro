@@ -51,7 +51,7 @@
       </el-row>
 
       <div class="my-10px">代码</div>
-      <div id="cropper-demo" />
+      <CodeBlock :code-data="cropperData" />
     </el-card>
   </div>
 </template>
@@ -65,7 +65,11 @@
 import Cropper from 'cropperjs'
 import { cropperjsStr } from './data/highlight'
 
-useSyntaxHighlighter(cropperjsStr, 'html', '#cropper-demo')
+const cropperData = reactive({
+  id: '#cropper-demo',
+  code: cropperjsStr,
+  language: 'html',
+})
 
 interface MoveData {
   width: number

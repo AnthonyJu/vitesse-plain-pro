@@ -33,7 +33,7 @@
       <el-button type="primary" @click="restart">重置动画</el-button>
 
       <div class="my-10px">代码</div>
-      <div id="countUp" />
+      <CodeBlock :code-data="countUpCodeData" />
     </el-card>
 
     <el-card class="mt-15px" shadow="hover" header="数字滚动：常用事件">
@@ -90,7 +90,11 @@ import CountUp from 'vue-countup-v3'
 import type { ICountUp } from 'vue-countup-v3'
 import { countUpStr } from './data/highlight'
 
-useSyntaxHighlighter(countUpStr, 'html', '#countUp')
+const countUpCodeData = reactive({
+  id: '#countUp',
+  code: countUpStr,
+  language: 'html',
+})
 
 interface refEmits {
   restart: () => void

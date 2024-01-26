@@ -46,7 +46,7 @@
 
       <el-divider />
       <div class="my-10px">代码</div>
-      <div id="tour-demo" />
+      <CodeBlock :code-data="tourData" />
     </el-card>
   </div>
 </template>
@@ -62,7 +62,11 @@ import type { ButtonInstance } from 'element-plus'
 import Child from './components/child.vue'
 import { tourDemoStr } from './data/highlight'
 
-useSyntaxHighlighter(tourDemoStr, 'html', '#tour-demo')
+const tourData = reactive({
+  id: '#tour-demo',
+  code: tourDemoStr,
+  language: 'html',
+})
 
 const open = ref(false)
 const ref1 = ref<ButtonInstance>()
