@@ -1,9 +1,16 @@
 <template>
-  <el-card shadow="hover" header="打印页面：简单示例">
+  <NoticeBar
+    text="🎆🎆🎆打印插件print-js，地址：https://github.com/crabbly/Print.js，点击前往"
+    right-icon="carbon:chevron-right"
+    mode="link"
+    @link="linkFn"
+  />
+  <el-card class="mt-15px" shadow="hover" header="打印页面：简单示例">
     <div id="demo1" class="mb-10px">
       这是一条需要打印的内容
     </div>
     <el-button type="primary" @click="print({ printable: 'demo1', type: 'html' })">打印</el-button>
+    <code-block class="mt-15px" :code-data="printData" />
   </el-card>
   <el-card class="mt-15px" shadow="hover" header="打印图片：简单示例">
     <div id="demo2" class="my-10px">
@@ -11,18 +18,15 @@
     </div>
     <el-button type="primary" @click="print({ printable: PiniaImg, type: 'image' })">打印</el-button>
   </el-card>
-  <!-- <el-card class="mt-15px" shadow="hover" header="打印JSON：简单示例">
+  <el-card class="mt-15px" shadow="hover" header="打印JSON数据：简单示例">
+    <div class="my-10px">{{ someJSONdata }}</div>
     <el-button
       type="primary"
-      @click="print({
-        printable: someJSONdata,
-        type: 'json',
-        properties: ['name', 'email', 'phone'],
-      })"
+      @click="printJson"
     >
       打印
     </el-button>
-  </el-card> -->
+  </el-card>
 </template>
 
 <route lang="yaml">
@@ -32,6 +36,7 @@
 
 <script setup lang='ts'>
 import printJS from 'print-js'
+import { printjsStr } from './data/highlight'
 import PiniaImg from '@/assets/pinia.svg'
 
 interface printConfiguration {
@@ -56,6 +61,12 @@ interface printConfiguration {
   base64?: boolean
 }
 
+const printData = reactive({
+  id: '#print-js-code',
+  code: printjsStr,
+  language: 'vue',
+})
+
 const someJSONdata = [
   {
     name: 'John Doe',
@@ -74,6 +85,14 @@ const someJSONdata = [
   },
 ]
 
+function printJson() {
+  printJS({
+    printable: someJSONdata,
+    type: 'json',
+    properties: ['name', 'email', 'phone'],
+  })
+}
+
 /**
  * 打印
  * @param printable 打印目标Dom
@@ -85,5 +104,9 @@ function print(configuration?: printConfiguration) {
     type: configuration?.type,
     ...configuration,
   })
+}
+
+function linkFn() {
+  window.open('https://github.com/crabbly/Print.js')
 }
 </script>

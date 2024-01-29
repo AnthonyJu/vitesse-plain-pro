@@ -141,8 +141,8 @@ const ref2 = ref<ButtonInstance>()
 const ref3 = ref<ButtonInstance>()
 </script>
 `
-export const qrcodeStr = 
-`<template>
+export const qrcodeStr
+= `<template>
   <input v-model="text" type="text" />
   <img :src="qrcode" alt="QR Code" />
 </template>
@@ -153,5 +153,23 @@ import { useQRCode } from '@vueuse/integrations/useQRCode'
 
 const text = ref('https://www.baidu.com/')
 const qrcode = useQRCode(text)
+</script>
+`
+export const printjsStr = `<template>
+  <div id="demo1" class="mb-10px">
+    这是一条需要打印的内容
+  </div>
+</template>
+
+<script setup lang='ts'>
+import { print } from 'print-js'
+
+onMounted(() => {
+  print({
+    printable: 'demo1',
+    type: 'html',
+    targetStyles: ['*'],
+  })
+})
 </script>
 `
