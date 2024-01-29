@@ -141,3 +141,17 @@ const ref2 = ref<ButtonInstance>()
 const ref3 = ref<ButtonInstance>()
 </script>
 `
+export const qrcodeStr = 
+`<template>
+  <input v-model="text" type="text" />
+  <img :src="qrcode" alt="QR Code" />
+</template>
+
+<script setup lang='ts'>
+import { ref } from 'vue'
+import { useQRCode } from '@vueuse/integrations/useQRCode'
+
+const text = ref('https://www.baidu.com/')
+const qrcode = useQRCode(text)
+</script>
+`

@@ -17,6 +17,7 @@
   "dependencies": {
     "@arcgis/core": "^4.28.10",
     "@vueuse/core": "^10.7.2",
+    "@vueuse/integrations": "^10.7.2",
     "axios": "^1.6.6",
     "cropperjs": "^1.6.1",
     "echarts": "^5.4.3",
@@ -28,6 +29,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
+    "qrcode": "^1",
     "shikiji": "^0.10.0",
     "vue": "^3.4.15",
     "vue-countup-v3": "^1.4.1",
