@@ -35,6 +35,9 @@ dependencies:
   file-saver:
     specifier: ^2.0.5
     version: 2.0.5
+  howler:
+    specifier: ^2.2.4
+    version: 2.2.4
   mitt:
     specifier: ^3.0.1
     version: 3.0.1
@@ -6170,6 +6173,10 @@ packages:
     dependencies:
       lru-cache: 10.0.1
     dev: true
+
+  /howler@2.2.4:
+    resolution: {integrity: sha512-iARIBPgcQrwtEr+tALF+rapJ8qSc+Set2GJQl7xT1MQzWaVkFebdJhR3alVlSiUf5U7nAANKuj3aWpwerocD5w==}
+    dev: false
 
   /hpack.js@2.1.6:
     resolution: {integrity: sha512-zJxVehUdMGIKsRaNt7apO2Gqp0BdqW5yaiGHXXmbpvxgBYVZnAql+BJb4RO5ad2MgpbZKn5G6nMnegrH1FcNYQ==}

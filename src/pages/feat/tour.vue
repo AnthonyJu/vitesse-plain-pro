@@ -46,7 +46,7 @@
 
       <el-divider />
       <div class="my-10px">代码</div>
-      <CodeBlock :code-data="tourData" />
+      <CodeBlock :code="tourDemoStr" lang="html" />
     </el-card>
   </div>
 </template>
@@ -61,12 +61,6 @@ import { MoreFilled } from '@element-plus/icons-vue'
 import type { ButtonInstance } from 'element-plus'
 import Child from './components/child.vue'
 import { tourDemoStr } from './data/highlight'
-
-const tourData = reactive({
-  id: '#tour-demo',
-  code: tourDemoStr,
-  language: 'html',
-})
 
 const open = ref(false)
 const ref1 = ref<ButtonInstance>()

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card shadow="hover" header="代码高亮：右上角添加了展示语言和复制功能">
-      <CodeBlock :code-data="codeData" />
+      <CodeBlock :code="noticeBarIconStr" lang="html" />
     </el-card>
   </div>
 </template>
@@ -13,10 +13,4 @@
 
 <script setup lang='ts'>
 import { noticeBarIconStr } from './data/highlight'
-
-const codeData = reactive({
-  id: '#noticeBarIcon',
-  code: noticeBarIconStr,
-  language: 'html',
-})
 </script>

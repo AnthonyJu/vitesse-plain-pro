@@ -1,33 +1,36 @@
 <template>
   <div class="code-block">
-    <div :id="codeData.id.substring(1)" />
-    <div class="code-language">{{ codeData.language }}</div>
+    <div ref="refVal" />
+    <div class="code-language">{{ lang }}</div>
     <div
       v-if="isSupported" class="code-copy"
-      :title="copied ? 'success' : 'copy code'"
       @click="copyFn"
     >
-      <Iconify v-if="!copied" class="icon" icon="carbon:copy" />
-      <Iconify v-else class="checked-icon" icon="carbon:checkbox-checked" />
+      <Iconify class="icon" icon="carbon:copy" />
     </div>
   </div>
 </template>
 
 <script setup lang='ts'>
-interface CodeData {
-  id: string
+const { code, lang } = defineProps<{
   code: string
-  language: string
-}
+  lang: string
+}>()
 
-const props = defineProps<{ codeData: CodeData }>()
-useSyntaxHighlighter(props.codeData.code, props.codeData.language, props.codeData.id)
+const refVal = ref<HTMLElement>()
 
-const sourceCode = ref(props.codeData.code)
-const { copy, copied, isSupported } = useClipboard()
+const { copy, isSupported } = useClipboard()
 function copyFn() {
-  copy(sourceCode.value)
+  copy(code)
+    .then(() => {
+      ElMessage.success('Copied!')
+    })
+    .catch(() => {
+      ElMessage.error('Copy failed!')
+    })
 }
+
+useSyntaxHighlighter(code, lang, refVal)
 </script>
 
 <style scoped lang='scss'>
@@ -56,11 +59,6 @@ function copyFn() {
     }
 
     .icon {
-      cursor: pointer;
-    }
-
-    .checked-icon {
-      color: #fff;
       cursor: pointer;
     }
   }

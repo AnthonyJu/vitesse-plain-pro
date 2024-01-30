@@ -116,7 +116,7 @@ function computeAnimationTime() {
 // 改变 animation 动画调用
 function changeAnimation() {
   if (state.order === 1) {
-    noticeBarTextRef.value.style.cssText = `animation: oneAnimation ${state.oneTime}s linear; opacity: 1;}`
+    noticeBarTextRef.value.style!.cssText = `animation: oneAnimation ${state.oneTime}s linear; opacity: 1;}`
     state.order = 2
   }
   else {
