@@ -1,10 +1,12 @@
 <template>
-  <el-card class="mt-15px" shadow="hover" header="table无限滚动">
-    <tableRull :table-data="tableData" :columns="columns" :speed="speed" />
-  </el-card>
-  <el-card class="mt-15px" shadow="hover" header="echarts提示无限转动">
-    <pieChartHint :echarts-data="option" :speed="echartsSpeed" />
-  </el-card>
+  <div>
+    <el-card class="mt-15px" shadow="hover" header="table无限滚动">
+      <tableRull :table-data="tableData" :columns="columns" :speed="speed" />
+    </el-card>
+    <el-card class="mt-15px" shadow="hover" header="echarts提示无限转动">
+      <pieChartHint :echarts-data="option" :speed="echartsSpeed" />
+    </el-card>
+  </div>
 </template>
 
 <route lang="yaml">

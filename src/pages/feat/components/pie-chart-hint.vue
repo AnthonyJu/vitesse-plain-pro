@@ -47,20 +47,20 @@ function startPolling() {
   timerId = setInterval(() => {
     const dataLen = props.echartsData.series[0].data.length
     // 取消之前高亮的图形
-    chartRef.value.dispatchAction({
+    chartRef.value?.dispatchAction({
       type: 'downplay',
       seriesIndex: 0,
       dataIndex: currentIndex.value,
     })
     currentIndex.value = (currentIndex.value + 1) % dataLen
     // 高亮当前图形
-    chartRef.value.dispatchAction({
+    chartRef.value?.dispatchAction({
       type: 'highlight',
       seriesIndex: 0,
       dataIndex: currentIndex.value,
     })
     // 显示 tooltip
-    chartRef.value.dispatchAction({
+    chartRef.value?.dispatchAction({
       type: 'showTip',
       seriesIndex: 0,
       dataIndex: currentIndex.value,
@@ -82,6 +82,10 @@ function stopPolling() {
 
 onMounted(() => {
   startPolling()
+})
+
+onBeforeUnmount(() => {
+  clearInterval(timerId)
 })
 </script>
 
