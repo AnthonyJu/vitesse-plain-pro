@@ -62,17 +62,19 @@ function handleBeforeEnter() {
 
 <style lang='scss' scoped>
 .custom-scrollbar {
-  ::v-deep(.el-scrollbar__wrap) {
+  & > ::v-deep(.el-scrollbar__wrap) {
     @apply bg-default p-16px min-h-full;
   }
 
-  ::v-deep(.el-scrollbar__bar.is-vertical) {
+  & > ::v-deep(.el-scrollbar__bar.is-vertical) {
     @apply fixed top-95px right-4.5px;
   }
 
   &.full-content {
-    ::v-deep(.el-scrollbar__view) {
-      height: 100%;
+    & > ::v-deep(.el-scrollbar__wrap) {
+      .el-scrollbar__view {
+        height: 100%;
+      }
     }
   }
 }
