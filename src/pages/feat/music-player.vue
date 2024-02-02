@@ -8,6 +8,7 @@
     />
     <el-card class="mt-15px" shadow="hover" header="音频播放器：简单示例">
       <div class="player-box">
+        <div id="autoplayer" />
         <div class="flex-center">
           <img class="poster h-120px w-120px rounded-full" :src="songsData.poster">
         </div>
@@ -103,7 +104,13 @@ function linkFn() {
   window.open('https://github.com/goldfire/howler.js')
 }
 
+onMounted(() => {
+  document.getElementById('autoplayer')!.addEventListener('click', () => initSound())
+  document.getElementById('autoplayer')!.click()
+})
+
 onBeforeUnmount(() => {
+  document.getElementById('autoplayer')!.removeEventListener('click', () => initSound())
   clearInterval(timer.value)
   sound.unload()
 })
