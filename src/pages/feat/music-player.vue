@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-card shadow="hover" header="音频播放器：简单示例">
+    <NoticeBar
+      text="🎉优秀的音频播放组件：howler.js，地址：https://github.com/goldfire/howler.js，点击前往"
+      right-icon="carbon:chevron-right"
+      mode="link"
+      @link="linkFn"
+    />
+    <el-card class="mt-15px" shadow="hover" header="音频播放器：简单示例">
       <div class="player-box">
         <div class="flex-center">
           <img class="poster h-120px w-120px rounded-full" :src="songsData.poster">
@@ -14,11 +20,14 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="mt-15px">
         <el-button type="primary" @click="initSound">播放</el-button>
         <el-button type="primary" @click="sound.pause()">暂停</el-button>
-        <el-button type="primary" @click="sound.stop(0)">重播</el-button>
+        <el-button type="primary" @click="replayFn">重播</el-button>
+        <el-button type="primary" @click="mutedFn">{{ muted ? '取消' : '静音' }}</el-button>
       </div>
+
+      <code-block class="mt-15px" :code="soundStr" lang="vue" />
     </el-card>
   </div>
 </template>
@@ -30,6 +39,7 @@
 
 <script setup lang='ts'>
 import { Howl } from 'howler'
+import { soundStr } from './data/highlight'
 import poster from '@/assets/images/audios-poster/poster-1.png'
 
 const songsData = reactive({
@@ -43,6 +53,7 @@ const durationText = ref('00:00')
 
 const timer = ref()
 const percentage = ref(0)
+const muted = ref(false)
 
 // 计算音频总时长 格式化为 00:00
 function getDurationText(time: number) {
@@ -56,6 +67,7 @@ function initSound() {
     sound = new Howl({
       src: ['/audios/song-1.mp3'],
       html5: true,
+      preload: true,
       autoplay: true,
       loop: true,
       volume: 0.5,
@@ -68,11 +80,32 @@ function initSound() {
       },
     })
   }
+  if (percentage.value) {
+    sound.seek(sound.duration() * (percentage.value / 100))
+    sound.play()
+  }
+  else {
+    sound.play()
+  }
+}
+
+function replayFn() {
+  sound.seek(0)
   sound.play()
+}
+
+function mutedFn() {
+  muted.value = !muted.value
+  sound.mute(muted.value)
+}
+
+function linkFn() {
+  window.open('https://github.com/goldfire/howler.js')
 }
 
 onBeforeUnmount(() => {
   clearInterval(timer.value)
+  sound.unload()
 })
 
 // 获取当前播放时间

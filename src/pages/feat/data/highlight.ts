@@ -173,3 +173,14 @@ onMounted(() => {
 })
 </script>
 `
+
+export const soundStr
+= `<script setup lang='ts'>
+
+var sound = new Howl({
+  src: ['sound.mp3']
+});
+
+sound.play();
+
+</script>`
