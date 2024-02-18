@@ -16,12 +16,12 @@ import Konva from 'konva'
 import Maker from '@/assets/maker.png'
 
 interface KonvaMouseEvent extends MouseEvent {
-  layerX: number;
+  layerX: number
   layerY: number
 }
 
 interface KonvaPointerEvent extends PointerEvent {
-  layerX: number;
+  layerX: number
   layerY: number
 }
 
@@ -58,7 +58,7 @@ function initKonva() {
     if (!type.value) {
       if (!e.target.attrs.type) tr.nodes([e.target as Konva.Node])
       // 不是画布并且不是图标和工具栏
-      if (!e.target.content && !e.target.attrs.type) {
+      if (!e.target.attrs.container && !e.target.attrs.type) {
         removeFn(e.target as Konva.Node)
         e.target.draggable(!type.value)
       }
@@ -91,7 +91,7 @@ function initKonva() {
           ...polygon.getAttr('points'),
           xy.x,
           xy.y,
-        ], { draggable: !type.value })
+        ])
       }
       else {
         polygon = new Konva.Line({
@@ -102,7 +102,7 @@ function initKonva() {
           stroke: '#00D2FF',
           strokeWidth: 2,
           draggable: !type.value,
-          name: tagNumber.value++,
+          name: (tagNumber.value++).toString(),
         })
         layer.add(polygon)
       }
@@ -121,7 +121,7 @@ function initKonva() {
         stroke: '#00D2FF',
         strokeWidth: 2,
         draggable: !type.value,
-        name: tagNumber.value++,
+        name: (tagNumber.value++).toString(),
       })
       layer.add(rect)
       tagFn(rect)
@@ -226,7 +226,7 @@ function removeFn(target: Konva.Node) {
     document.body.style.cursor = 'default'
     // 删除标识
     tagLayer.children.forEach((item: any) => {
-      if (item.attrs.text === target.attrs.name?.toString()) {
+      if (item.attrs.text === target.attrs.name) {
         item.remove()
       }
     })
