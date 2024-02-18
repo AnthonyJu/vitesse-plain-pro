@@ -16,12 +16,12 @@ import Konva from 'konva'
 import Maker from '@/assets/maker.png'
 
 interface KonvaMouseEvent extends MouseEvent {
-  layerX: number
+  layerX: number;
   layerY: number
 }
 
 interface KonvaPointerEvent extends PointerEvent {
-  layerX: number
+  layerX: number;
   layerY: number
 }
 
@@ -29,6 +29,13 @@ const type = ref<'point' | 'rect' | 'polygon'>()
 
 let stage: Konva.Stage
 const layer = new Konva.Layer()
+const toolsLayer = new Konva.Layer()
+const tagLayer = new Konva.Layer()
+
+// 选中工具
+const tr = new Konva.Transformer()
+
+const tagNumber = ref<number>(1)
 
 let rect: Konva.Rect | undefined
 let polygon: Konva.Line | undefined
@@ -41,8 +48,24 @@ function initKonva() {
   })
 
   stage.add(layer)
+  stage.add(toolsLayer)
+  stage.add(tagLayer)
+
+  layer.add(tr)
 
   stage.on('click', (e) => {
+    // select a shape with click
+    if (!type.value) {
+      if (!e.target.attrs.type) tr.nodes([e.target as Konva.Node])
+      // 不是画布并且不是图标和工具栏
+      if (!e.target.content && !e.target.attrs.type) {
+        removeFn(e.target as Konva.Node)
+        e.target.draggable(!type.value)
+      }
+      else {
+        toolsLayer.removeChildren()
+      }
+    }
     const xy = {
       x: (e.evt as KonvaMouseEvent).layerX,
       y: (e.evt as KonvaMouseEvent).layerY,
@@ -57,6 +80,7 @@ function initKonva() {
             x: 10,
             y: 10,
           },
+          draggable: !type.value,
         })
         layer.add(darthNode)
       })
@@ -67,7 +91,7 @@ function initKonva() {
           ...polygon.getAttr('points'),
           xy.x,
           xy.y,
-        ])
+        ], { draggable: !type.value })
       }
       else {
         polygon = new Konva.Line({
@@ -77,6 +101,8 @@ function initKonva() {
           fill: '#00D2FF55',
           stroke: '#00D2FF',
           strokeWidth: 2,
+          draggable: !type.value,
+          name: tagNumber.value++,
         })
         layer.add(polygon)
       }
@@ -94,8 +120,11 @@ function initKonva() {
         fill: '#00D2FF55',
         stroke: '#00D2FF',
         strokeWidth: 2,
+        draggable: !type.value,
+        name: tagNumber.value++,
       })
       layer.add(rect)
+      tagFn(rect)
     }
   })
 
@@ -145,6 +174,71 @@ function initKonva() {
       }
     }
   })
+}
+
+// 绘制标识
+function tagFn(target: Konva.Node) {
+  const tag = new Konva.Text({
+    x: target.x() + 10,
+    y: target.y() + 10,
+    text: target.attrs.name,
+    fontSize: 20,
+    fill: 'blue',
+    type: 'tag',
+  })
+  target.on('dragmove', () => {
+    tag.setAttrs({
+      x: target.x() + 10,
+      y: target.y() + 10,
+    })
+  })
+  tagLayer.add(tag)
+}
+
+// 删除图标
+function removeFn(target: Konva.Node) {
+  // 绘制一个删除图标
+  const removeIcon = new Konva.Text({
+    x: target.x() + target.width() * target.scaleX() - 30,
+    y: target.y() + 10,
+    text: '❌',
+    fontSize: 20,
+    fill: 'red',
+    type: 'tools',
+  })
+  removeIcon.on('mouseenter', () => {
+    document.body.style.cursor = 'pointer'
+  })
+  removeIcon.on('mouseleave', () => {
+    document.body.style.cursor = 'default'
+  })
+  // 大小改变时更新删除图标位置
+  target.on('transform', () => {
+    removeIcon.setAttrs({
+      x: target.x() + target.width() * target.scaleX() - 30,
+      y: target.y() + 10,
+    })
+  })
+  removeIcon.on('click', () => {
+    target.remove()
+    removeIcon.remove()
+    tr.nodes([])
+    document.body.style.cursor = 'default'
+    // 删除标识
+    tagLayer.children.forEach((item: any) => {
+      if (item.attrs.text === target.attrs.name?.toString()) {
+        item.remove()
+      }
+    })
+  })
+  // 监听拖动事件 更新删除图标位置
+  target.on('dragmove', () => {
+    removeIcon.setAttrs({
+      x: target.x() + target.width() * target.scaleX() - 30,
+      y: target.y() + 10,
+    })
+  })
+  toolsLayer.add(removeIcon)
 }
 
 onMounted(() => {
