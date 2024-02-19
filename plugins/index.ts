@@ -8,6 +8,7 @@ import { vueDevTools } from './vue-devtools'
 import { vueI18n } from './vue-i18n'
 import { vueRouter } from './vue-router'
 import { vue } from './vue'
+import { supportSetupName } from './vue-support-setup-name'
 import { webFontDownload } from './web-font-download'
 
 export const plugins = [
@@ -21,5 +22,6 @@ export const plugins = [
   vueRouter(),
   vueI18n(),
   vue(),
+  supportSetupName(),
   webFontDownload(),
 ]
