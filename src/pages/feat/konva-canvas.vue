@@ -28,14 +28,14 @@ interface KonvaPointerEvent extends PointerEvent {
 const type = ref<'point' | 'rect' | 'polygon'>()
 
 let stage: Konva.Stage
-const layer = new Konva.Layer()
-const toolsLayer = new Konva.Layer()
-const tagLayer = new Konva.Layer()
+const layer = reactive(new Konva.Layer()) as Konva.Layer
+const toolsLayer = reactive(new Konva.Layer()) as Konva.Layer
+const tagLayer = reactive(new Konva.Layer()) as Konva.Layer
 
 // 选中工具
 const tr = new Konva.Transformer()
 
-const tagNumber = ref<number>(1)
+const tagNumber = ref<number>(0)
 
 let rect: Konva.Rect | undefined
 let polygon: Konva.Line | undefined
@@ -47,22 +47,24 @@ function initKonva() {
     height: 500,
   })
 
+  layer.add(tr)
+
   stage.add(layer)
   stage.add(toolsLayer)
   stage.add(tagLayer)
 
-  layer.add(tr)
-
   stage.on('click', (e) => {
     // select a shape with click
     if (!type.value) {
-      if (!e.target.attrs.type) tr.nodes([e.target as Konva.Node])
       // 不是画布并且不是图标和工具栏
       if (!e.target.attrs.container && !e.target.attrs.type) {
+        tr.nodes([e.target as Konva.Node])
+        toolsLayer.removeChildren()
         removeFn(e.target as Konva.Node)
         e.target.draggable(!type.value)
       }
       else {
+        tr.nodes([])
         toolsLayer.removeChildren()
       }
     }
@@ -102,7 +104,7 @@ function initKonva() {
           stroke: '#00D2FF',
           strokeWidth: 2,
           draggable: !type.value,
-          name: (tagNumber.value++).toString(),
+          name: tagNumber.value.toString(),
         })
         layer.add(polygon)
       }
@@ -121,15 +123,29 @@ function initKonva() {
         stroke: '#00D2FF',
         strokeWidth: 2,
         draggable: !type.value,
-        name: (tagNumber.value++).toString(),
+        name: tagNumber.value.toString(),
       })
       layer.add(rect)
-      tagFn(rect)
     }
   })
 
-  stage.on('mouseup', () => {
+  stage.on('mouseup', (e) => {
     if (type.value === 'rect' && rect) {
+      const end = {
+        x: (e.evt as KonvaMouseEvent).layerX,
+        y: (e.evt as KonvaMouseEvent).layerY,
+      }
+      const start = {
+        x: rect.x(),
+        y: rect.y(),
+      }
+
+      if (!isRectFn(start, end)) {
+        rect.remove()
+        rect = undefined
+        return
+      }
+      tagFn(rect)
       rect = undefined
     }
   })
@@ -161,7 +177,7 @@ function initKonva() {
     }
   })
 
-  stage.on('dblclick', () => {
+  stage.on('dblclick', (e) => {
     if (polygon) {
       const points = polygon.getAttr('points').slice(0, -2)
       const x1 = points[points.length - 2]
@@ -170,41 +186,99 @@ function initKonva() {
       const y2 = points[points.length - 3]
       if (x1 === x2 && y1 === y2) {
         polygon.setAttr('points', points.slice(0, -2))
+        tagFn(polygon)
         polygon = undefined
       }
+    }
+    console.log('🚀 ~ e:', e)
+    // TODO 添加多边形的顶点 用来更改多边形的形状
+    if (e.target.attrs.points) {
+
     }
   })
 }
 
+watch(() => tagLayer.children.length, (newVal) => {
+  tagLayer.removeChildren()
+  layer.children.forEach((item: any, index: number) => {
+    // 不是画布 不是Transformer
+    if (item.attrs.width && item.attrs.height || item.attrs.points) {
+      item.attrs.name = (index).toString()
+      tagFn(item)
+    }
+  })
+  tagNumber.value = newVal + 1
+})
+
 // 绘制标识
 function tagFn(target: Konva.Node) {
-  const tag = new Konva.Text({
-    x: target.x() + 10,
-    y: target.y() + 10,
-    text: target.attrs.name,
-    fontSize: 20,
-    fill: 'blue',
-    type: 'tag',
-  })
-  target.on('dragmove', () => {
-    tag.setAttrs({
-      x: target.x() + 10,
-      y: target.y() + 10,
+  // 如果是多边形
+  if (target.attrs.points) {
+    const { x, y } = getPolygonCenter(target.attrs.points)
+    const tag = new Konva.Text({
+      x: x + target.x(),
+      y: y + target.y(),
+      text: target.attrs.name,
+      fontSize: 20,
+      fill: 'blue',
+      type: 'tag',
     })
-  })
-  tagLayer.add(tag)
+    target.on('dragmove', () => {
+      const { x, y } = getPolygonCenter(target.attrs.points)
+      tag.setAttrs({
+        x: x + target.x(),
+        y: y + target.y(),
+      })
+    })
+    tagLayer.add(tag)
+  }
+  else {
+    const { x, y } = getRectCenter(target as Konva.Rect)
+    const tag = new Konva.Text({
+      x,
+      y,
+      text: target.attrs.name,
+      fontSize: 20,
+      fill: 'blue',
+      type: 'tag',
+    })
+    target.on('dragmove', () => {
+      const { x, y } = getRectCenter(target as Konva.Rect)
+      tag.setAttrs({
+        x,
+        y,
+      })
+    })
+    tagLayer.add(tag)
+  }
 }
 
 // 删除图标
 function removeFn(target: Konva.Node) {
+  if (toolsLayer.children.find((item: any) => item.attrs.name === target.attrs.name)) {
+    return
+  }
   // 绘制一个删除图标
+  // 判断是否是多边形
+  let x: number
+  let y: number
+  if (target.attrs.points) {
+    const center = getPolygonRightTop(target.attrs.points)
+    x = center.x + target.x()
+    y = center.y + target.y()
+  }
+  else {
+    x = target.x() + target.width() * Number(target.scaleX().toFixed(2)) - 30
+    y = target.y() + 10
+  }
   const removeIcon = new Konva.Text({
-    x: target.x() + target.width() * target.scaleX() - 30,
-    y: target.y() + 10,
+    x,
+    y,
     text: '❌',
     fontSize: 20,
     fill: 'red',
     type: 'tools',
+    name: target.attrs.name,
   })
   removeIcon.on('mouseenter', () => {
     document.body.style.cursor = 'pointer'
@@ -212,12 +286,10 @@ function removeFn(target: Konva.Node) {
   removeIcon.on('mouseleave', () => {
     document.body.style.cursor = 'default'
   })
-  // 大小改变时更新删除图标位置
   target.on('transform', () => {
-    removeIcon.setAttrs({
-      x: target.x() + target.width() * target.scaleX() - 30,
-      y: target.y() + 10,
-    })
+    // eslint-disable-next-line max-len
+    const tag = tagLayer.children.find((item: any) => item.attrs.text === target.attrs.name) as Konva.Text
+    tr.nodes([target, removeIcon, tag])
   })
   removeIcon.on('click', () => {
     target.remove()
@@ -233,12 +305,70 @@ function removeFn(target: Konva.Node) {
   })
   // 监听拖动事件 更新删除图标位置
   target.on('dragmove', () => {
+    if (target.attrs.points) {
+      const center = getPolygonRightTop(target.attrs.points)
+      x = center.x + target.x()
+      y = center.y + target.y()
+    }
+    else {
+      x = target.x() + target.width() * Number(target.scaleX().toFixed(2)) - 30
+      y = target.y() + 10
+    }
     removeIcon.setAttrs({
-      x: target.x() + target.width() * target.scaleX() - 30,
-      y: target.y() + 10,
+      x,
+      y,
     })
+    // eslint-disable-next-line max-len
+    const tag = tagLayer.children.find((item: any) => item.attrs.text === target.attrs.name) as Konva.Text
+    tr.nodes([target, removeIcon, tag])
   })
   toolsLayer.add(removeIcon)
+}
+
+// 判断绘制的是否是合规的矩形
+function isRectFn(start: Konva.Vector2d, end: Konva.Vector2d) {
+  // 如果矩形起点终点相同则不绘制
+  if (start.x === end.x && start.y === end.y) {
+    return false
+  }
+  else if (Math.abs(start.x - end.x) < 10 || Math.abs(start.y - end.y) < 10) {
+    // 如果长度或者宽度小于10则不绘制
+    return false
+  }
+  else {
+    return true
+  }
+}
+
+// 获取多边形中心点
+function getPolygonCenter(points: number[]) {
+  const x = points.reduce((prev: any, next: any, index: any) => {
+    if (index % 2 === 0) {
+      return prev + next
+    }
+    return prev
+  }, 0) / (points.length / 2)
+  const y = points.reduce((prev: any, next: any, index: any) => {
+    if (index % 2 !== 0) {
+      return prev + next
+    }
+    return prev
+  }, 0) / (points.length / 2)
+  return { x, y }
+}
+
+// 获取多边形的右上方顶点
+function getPolygonRightTop(points: number[]) {
+  const x = Math.max(...points.filter((item, index) => index % 2 === 0)) - 30
+  const y = Math.min(...points.filter((item, index) => index % 2 !== 0)) + 10
+  return { x, y }
+}
+
+// 获取矩形中心点
+function getRectCenter(rect: Konva.Rect) {
+  const x = rect.x() + rect.width() / 2 - 5
+  const y = rect.y() + rect.height() / 2 - 5
+  return { x, y }
 }
 
 onMounted(() => {
