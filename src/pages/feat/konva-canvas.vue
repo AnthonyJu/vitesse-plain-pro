@@ -31,9 +31,14 @@ let stage: Konva.Stage
 const layer = reactive(new Konva.Layer()) as Konva.Layer
 const toolsLayer = reactive(new Konva.Layer()) as Konva.Layer
 const tagLayer = reactive(new Konva.Layer()) as Konva.Layer
+const topPointLayer = new Konva.Layer()
 
 // 选中工具
-const tr = new Konva.Transformer()
+const tr = new Konva.Transformer({
+  // 选中的图形是否可以旋转
+  rotateLineVisible: false,
+  rotateEnabled: false,
+})
 
 const tagNumber = ref<number>(0)
 
@@ -52,6 +57,7 @@ function initKonva() {
   stage.add(layer)
   stage.add(toolsLayer)
   stage.add(tagLayer)
+  stage.add(topPointLayer)
 
   stage.on('click', (e) => {
     // select a shape with click
@@ -187,13 +193,12 @@ function initKonva() {
       if (x1 === x2 && y1 === y2) {
         polygon.setAttr('points', points.slice(0, -2))
         tagFn(polygon)
+        drawPointFn(polygon)
         polygon = undefined
       }
     }
-    console.log('🚀 ~ e:', e)
-    // TODO 添加多边形的顶点 用来更改多边形的形状
     if (e.target.attrs.points) {
-
+      drawPointFn(e.target)
     }
   })
 }
@@ -214,7 +219,7 @@ watch(() => tagLayer.children.length, (newVal) => {
 function tagFn(target: Konva.Node) {
   // 如果是多边形
   if (target.attrs.points) {
-    const { x, y } = getPolygonCenter(target.attrs.points)
+    const { x, y } = getPolygonCenter(target)
     const tag = new Konva.Text({
       x: x + target.x(),
       y: y + target.y(),
@@ -224,7 +229,7 @@ function tagFn(target: Konva.Node) {
       type: 'tag',
     })
     target.on('dragmove', () => {
-      const { x, y } = getPolygonCenter(target.attrs.points)
+      const { x, y } = getPolygonCenter(target)
       tag.setAttrs({
         x: x + target.x(),
         y: y + target.y(),
@@ -294,6 +299,7 @@ function removeFn(target: Konva.Node) {
   removeIcon.on('click', () => {
     target.remove()
     removeIcon.remove()
+    topPointLayer.removeChildren()
     tr.nodes([])
     document.body.style.cursor = 'default'
     // 删除标识
@@ -325,6 +331,30 @@ function removeFn(target: Konva.Node) {
   toolsLayer.add(removeIcon)
 }
 
+// 绘制顶点 用于拖拽多边形
+function drawPointFn(target: Konva.Node) {
+  topPointLayer.removeChildren()
+  const points = target.attrs.points
+  for (let i = 0; i < points.length; i += 2) {
+    const circle = new Konva.Circle({
+      x: points[i] + target.x(),
+      y: points[i + 1] + target.y(),
+      radius: 5,
+      fill: 'red',
+      draggable: true,
+    })
+    circle.on('dragmove', () => {
+      points[i] = circle.x() - target.x()
+      points[i + 1] = circle.y() - target.y()
+      target.setAttr('points', points)
+    })
+    topPointLayer.add(circle)
+  }
+  target.on('dragmove', () => {
+    topPointLayer.removeChildren()
+  })
+}
+
 // 判断绘制的是否是合规的矩形
 function isRectFn(start: Konva.Vector2d, end: Konva.Vector2d) {
   // 如果矩形起点终点相同则不绘制
@@ -341,7 +371,8 @@ function isRectFn(start: Konva.Vector2d, end: Konva.Vector2d) {
 }
 
 // 获取多边形中心点
-function getPolygonCenter(points: number[]) {
+function getPolygonCenter(target: Konva.Node) {
+  const points = target.attrs.points
   const x = points.reduce((prev: any, next: any, index: any) => {
     if (index % 2 === 0) {
       return prev + next
