@@ -1,9 +1,11 @@
 <template>
-  <el-button type="primary" @click="type = 'point'">point</el-button>
-  <el-button type="primary" @click="type = 'rect'">rect</el-button>
-  <el-button type="primary" @click="type = 'polygon'">polygon</el-button>
-  <el-button type="danger" @click="type = undefined">cancel</el-button>
-  <div id="container" class="mt-20px w-500px" style="border: 1px solid #000;" />
+  <div>
+    <el-button type="primary" @click="type = 'point'">point</el-button>
+    <el-button type="primary" @click="type = 'rect'">rect</el-button>
+    <el-button type="primary" @click="type = 'polygon'">polygon</el-button>
+    <el-button type="danger" @click="type = undefined">cancel</el-button>
+    <div id="container" class="mt-20px w-500px" style="border: 1px solid #000;" />
+  </div>
 </template>
 
 <route lang='yaml'>
@@ -339,8 +341,8 @@ function drawPointFn(target: Konva.Node) {
     const circle = new Konva.Circle({
       x: points[i] + target.x(),
       y: points[i + 1] + target.y(),
-      radius: 5,
-      fill: 'red',
+      radius: 8,
+      fill: '#00D2FF',
       draggable: true,
     })
     circle.on('dragmove', () => {
