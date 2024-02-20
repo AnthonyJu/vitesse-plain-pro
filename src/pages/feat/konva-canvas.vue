@@ -28,8 +28,8 @@ interface KonvaPointerEvent extends PointerEvent {
 const type = ref<'point' | 'rect' | 'polygon'>()
 
 let stage: Konva.Stage
-const layer = reactive(new Konva.Layer()) as Konva.Layer
-const toolsLayer = reactive(new Konva.Layer()) as Konva.Layer
+const layer = new Konva.Layer()
+const toolsLayer = new Konva.Layer()
 const tagLayer = reactive(new Konva.Layer()) as Konva.Layer
 const topPointLayer = new Konva.Layer()
 
