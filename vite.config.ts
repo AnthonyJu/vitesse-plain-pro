@@ -32,5 +32,19 @@ export default defineConfig({
     },
   },
 
+  optimizeDeps: {
+    include: [
+      '@element-plus/icons-vue',
+      '@vueuse/core',
+      'axios',
+      'element-plus/es',
+      'element-plus/es/components/base/style/index',
+      'element-plus/es/components/message/style/index',
+      'element-plus/es/components/message-box/style/index',
+      'element-plus/es/components/notification/style/index',
+      'unplugin-vue-router/runtime',
+    ],
+  },
+
   plugins,
 })
