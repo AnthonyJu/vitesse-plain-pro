@@ -46,7 +46,6 @@ const formItems: JFormItem[] = [
     prop: 'name',
     label: '姓名',
     type: 'input',
-    defaultValue: '张三',
   },
   {
     prop: 'age',
@@ -74,9 +73,8 @@ const formItems: JFormItem[] = [
 ]
 
 const formData = ref({
-  name: '',
+  name: '张三',
   age: '',
-  timeFrame: ['', ''],
 })
 
 function onSubmit() {

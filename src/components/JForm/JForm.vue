@@ -161,19 +161,15 @@ const shortcuts = [
 // 定义表单ref
 const formRef = ref<FormInstance>()
 const form = defineModel<any>('form', { default: {} })
-form.value = props.formItems.reduce(
-  (newForm, item) => {
-    newForm[item.prop] = item.defaultValue
-    return newForm
-  },
-  {} as any,
-)
+if (JSON.stringify(form.value) === '{}') {
+  form.value = generateForm(props.formItems)
+}
 
 /** 搜索 */
 function onSearch() {
   // 校验表单，校验不通过则不执行搜索
   formRef.value?.validate().then(() => {
-    emit('search', form)
+    emit('search', JSON.parse(JSON.stringify(form.value)))
   })
 }
 

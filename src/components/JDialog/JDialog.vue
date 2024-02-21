@@ -100,13 +100,9 @@ const emit = defineEmits<{
 
 const visible = defineModel<boolean>('visible')
 const form = defineModel<Record<string, any>>('form', { default: {} })
-form.value = props.formItems.reduce(
-  (newForm, item) => {
-    newForm[item.prop] = item.defaultValue
-    return newForm
-  },
-  {} as any,
-)
+if (JSON.stringify(form.value) === '{}') {
+  form.value = generateForm(props.formItems)
+}
 
 const formRef = ref<FormInstance>()
 

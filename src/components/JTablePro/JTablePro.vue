@@ -77,7 +77,6 @@
       :form-props="dialogOptions.formProps"
       :dialog-props="dialogOptions.dialogProps"
       @on-submit="dialogSubmit"
-      @on-closed="initDialogForm"
     >
       <template v-for="{ prop } in dialogSlots" :key="prop" #[prop]="scope">
         <!-- 注意: dialog slot前缀 -->
@@ -171,25 +170,15 @@ const loading = ref(false)
 const tableData = defineModel<any[]>('data', { default: [] })
 
 const form = ref<Record<string, any>>({})
-form.value = props.dialogOptions?.formItems.reduce(
-  (newForm, item) => {
-    newForm[item.prop] = item.defaultValue
-    return newForm
-  },
-  {} as any,
-)
-// 检索表单函数
-function handleSearch(page: number = current.value, params: Record<string, any> = {}) {
-  loading.value = true
-  const form = JSON.parse(JSON.stringify(params))
-  for (const key in form) form[key] = form[key].toString()
 
+// 检索表单函数
+function handleSearch() {
   // TODO：根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体情况来决定入参
-  API.get({ ...form, current: page, size: props.noPagenation ? 0 : size.value })
+  API.get({ ...form.value, current: current.value, size: props.noPagenation ? 0 : size.value })
     .then((res: any) => {
       if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
       else tableData.value = res.data.records
-      total.value = res.data.total
+      total.value = 300
     })
     .finally(() => {
       loading.value = false
@@ -201,24 +190,7 @@ const title = ref('')
 const visible = ref(false)
 const dialogLoading = ref(false)
 const dialogForm = ref<Record<string, any>>({})
-dialogForm.value = props.dialogOptions?.formItems.reduce(
-  (newForm, item) => {
-    newForm[item.prop] = item.defaultValue
-    return newForm
-  },
-  {} as any,
-)
-
-// 若是有弹窗，则初始化弹窗表单
-if (props.dialogOptions) initDialogForm()
-function initDialogForm() {
-  const form: Record<string, any> = {}
-  // TODO:新增value初始值
-  props.dialogOptions!.formItems.forEach((item) => {
-    form[item.prop] = item.defaultValue
-  })
-  dialogForm.value = form
-}
+if (props.dialogOptions) dialogForm.value = generateForm(props.dialogOptions.formItems)
 
 function createFn() {
   title.value = '新增'

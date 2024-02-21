@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <JForm
-      v-model:form="formData"
-      :loading="loading"
-      :form-items="formItems"
-      :form-props="{
-        inline: true,
-      }"
-      @search="onSearch"
-    >
-      <template #toolbar>
-        <el-button type="primary">+ 新增</el-button>
-      </template>
-    </JForm>
-  </div>
+  <JForm
+    v-model:form="formData"
+    :loading="loading"
+    :form-items="formItems"
+    :form-props="{
+      inline: true,
+    }"
+    @search="onSearch"
+  >
+    <template #toolbar>
+      <el-button type="primary">+ 新增</el-button>
+    </template>
+  </JForm>
 </template>
 
 <route lang="yaml">
@@ -65,7 +63,9 @@ const formData = ref({
   timeFrame: ['', ''],
 })
 
-function onSearch() {
+function onSearch(form: any) {
+  // eslint-disable-next-line no-console
+  console.log('🚀 ~ form:', form)
   loading.value = true
   setTimeout(() => {
     loading.value = false
