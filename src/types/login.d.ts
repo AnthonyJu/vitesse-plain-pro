@@ -1,9 +1,9 @@
-export interface LoginInfo {
+interface LoginInfo {
   username: string
   password: string
 }
 
-export interface UserInfo {
+interface UserInfo {
   id: number
   username: string
   nikeName: string

@@ -1,5 +1,4 @@
 import { authLogin } from '@/apis/login'
-import type { LoginInfo, UserInfo } from '@/types/login'
 import { router } from '@/modules/router'
 
 export const useUserStore = defineStore(

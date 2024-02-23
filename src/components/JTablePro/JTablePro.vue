@@ -1,5 +1,5 @@
 <template>
-  <div full flex-col>
+  <div full flex-col overflow-hidden>
     <!-- 检索表单 -->
     <JForm
       v-if="formOptions"
@@ -20,51 +20,54 @@
       </template>
     </JForm>
 
-    <!-- 表格数据 -->
-    <JTable
-      v-loading="loading"
-      :data="tableData"
-      :columns="tableOptions.columns"
-      :table-props="tableOptions.tableProps"
-    >
-      <template
-        v-for="{ prop } in tableSlots"
-        :key="prop"
-        #[prop]="scope"
+    <div full flex-col overflow-hidden>
+      <!-- 表格数据 -->
+      <JTable
+        v-loading="loading"
+        flex-1
+        :data="tableData"
+        :columns="tableOptions.columns"
+        :table-props="tableOptions.tableProps"
       >
-        <slot :name="prop" :row="scope.row" />
+        <template
+          v-for="{ prop } in tableSlots"
+          :key="prop"
+          #[prop]="scope"
+        >
+          <slot :name="prop" :row="scope.row" />
 
-        <template v-if="prop === 'control'">
-          <el-button
-            v-if="!!API.update"
-            type="primary"
-            link
-            @click="updateFn(scope.row)"
-          >
-            修改
-          </el-button>
-          <el-popconfirm
-            v-if="!!API.delete"
-            title="确定要删除吗?"
-            @confirm="deleteFn(scope.row.id)"
-          >
-            <template #reference>
-              <el-button type="primary" link>删除</el-button>
-            </template>
-          </el-popconfirm>
+          <template v-if="prop === 'control'">
+            <el-button
+              v-if="!!API.update"
+              type="primary"
+              link
+              @click="updateFn(scope.row)"
+            >
+              修改
+            </el-button>
+            <el-popconfirm
+              v-if="!!API.delete"
+              title="确定要删除吗?"
+              @confirm="deleteFn(scope.row.id)"
+            >
+              <template #reference>
+                <el-button type="primary" link>删除</el-button>
+              </template>
+            </el-popconfirm>
+          </template>
         </template>
-      </template>
-    </JTable>
+      </JTable>
 
-    <!-- 分页 -->
-    <JPagination
-      v-if="!noPagenation"
-      v-model:current="current"
-      v-model:size="size"
-      :loading="loading"
-      :total="total"
-      @handle-search="handleSearch"
-    />
+      <!-- 分页 -->
+      <JPagination
+        v-if="!noPagenation"
+        v-model:current="current"
+        v-model:size="size"
+        :loading="loading"
+        :total="total"
+        @handle-search="handleSearch"
+      />
+    </div>
 
     <!-- 弹窗 -->
     <JDialog
@@ -88,7 +91,6 @@
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import type { AxiosResponse } from 'axios'
 import request from '@/utils/request'
 
 interface UrlObject {
@@ -106,10 +108,10 @@ interface Props {
   dialogOptions?: JDialogOptions
 }
 interface Api {
-  get: (params?: any) => Promise<AxiosResponse>
-  create?: (data: any) => Promise<AxiosResponse>
-  update?: (data: any) => Promise<AxiosResponse>
-  delete?: (id: string | number) => Promise<AxiosResponse>
+  get: (params?: any) => Promise<Res<any>>
+  create?: (data: any) => Promise<Res<any>>
+  update?: (data: any) => Promise<Res<any>>
+  delete?: (id: string | number) => Promise<Res<any>>
 }
 
 const props = defineProps<Props>()

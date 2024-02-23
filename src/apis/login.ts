@@ -1,6 +1,3 @@
-import type { LoginInfo, UserInfo } from '../types/login'
-import type { Res } from '@/types/res'
-
 export function authLogin(data: LoginInfo) {
   return new Promise<Res<UserInfo>>((resolve) => {
     setTimeout(() => {
