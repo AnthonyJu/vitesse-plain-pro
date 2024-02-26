@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { routes } from 'vue-router/auto/routes'
+import { routes } from 'vue-router/auto-routes'
 
 export const useMenuStore = defineStore(
   'menu',
