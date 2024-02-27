@@ -102,7 +102,7 @@ interface UrlObject {
 interface Props {
   url: string | UrlObject
   noPagenation?: boolean // 是否不需要分页
-  dataFormator?: (data: any[]) => any[] // 数据格式化
+  dataFormator?: (data: any[]) => any[] // 数据处理函数
   formOptions?: JFormOptions
   tableOptions: JTableOptions
   dialogOptions?: JDialogOptions
@@ -175,12 +175,13 @@ const form = ref<Record<string, any>>({})
 
 // 检索表单函数
 function handleSearch() {
+  loading.value = true
   // TODO：根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体情况来决定入参
   API.get({ ...form.value, current: current.value, size: props.noPagenation ? 0 : size.value })
     .then((res: any) => {
       if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
       else tableData.value = res.data.records
-      total.value = 300
+      total.value = res.data.total
     })
     .finally(() => {
       loading.value = false
@@ -248,7 +249,7 @@ function dialogSubmit() {
   }
 }
 
-// 若表单不存在，则直接请求数据，否则数据请求将在表单检组建中触发
+// 若表单不存在，则直接请求数据，否则数据请求将在表单检组件中触发
 onMounted(() => {
   if (!props.formOptions) handleSearch()
 })
