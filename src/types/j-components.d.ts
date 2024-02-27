@@ -117,4 +117,14 @@ declare global {
   interface JDialogOptions extends JFormOptions {
     dialogProps?: JDialogProps
   }
+
+  /**
+   * @interface JPaginationOptions 分页配置项
+   * @property {number[]} pageSizes 每页数量选项
+   * @property {string} layout 组件布局
+   */
+  interface JPaginationOptions {
+    layout?: string // 组件布局
+    pageSizes?: number[] // 每页数量选项
+  }
 }
