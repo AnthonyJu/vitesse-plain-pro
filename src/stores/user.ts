@@ -12,7 +12,7 @@ export const useUserStore = defineStore(
     function handleLogin(data: LoginInfo) {
       return authLogin(data).then(async (res) => {
         isLogin.value = true
-        userInfo.value = res.data.data
+        userInfo.value = res.data
         await menuStore.getMenu()
         router.replace('/')
       })
