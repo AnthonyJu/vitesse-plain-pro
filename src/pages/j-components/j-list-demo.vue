@@ -26,7 +26,7 @@ interface Data {
   address: string
 }
 
-const url = new URL('./data/data.json', import.meta.url).href
+const url = '/mock/data.json'
 
 const data = ref<Data[]>([])
 

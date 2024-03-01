@@ -1,6 +1,12 @@
 <template>
-  <el-dialog v-model="visible" class="j-dialog" v-bind="dialogProps" @closed="handleClose">
-    <ElForm ref="formRef" :model="form" :disabled="loading" v-bind="formProps">
+  <el-dialog
+    v-model="visible"
+    class="j-dialog"
+    destroy-on-close
+    v-bind="dialogProps"
+    @closed="handleClose"
+  >
+    <ElForm ref="formRef" :model="form" :disabled="loading" label-width="80px" v-bind="formProps">
       <el-row :gutter="20">
         <el-col
           v-for="{ span = 24, prop, label, type, options, fieldProps, formItemProps } in formItems"

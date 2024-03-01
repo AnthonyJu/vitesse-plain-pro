@@ -6,7 +6,7 @@
     :dialog-options="dialogOptions"
   >
     <template #control="{ row }">
-      <el-button type="primary" link @click="otherFn(row)">点我获取名字</el-button>
+      <el-button type="primary" link @click="otherFn(row)">获取名字</el-button>
     </template>
   </JTablePro>
 </template>
@@ -20,7 +20,7 @@ meta:
 import { ElMessage } from 'element-plus'
 
 const url = {
-  get: new URL('./data/data.json', import.meta.url).href,
+  get: '/mock/data.json',
   create: '1',
   update: '2',
   delete: '3',
@@ -31,7 +31,6 @@ const formItems: JFormItem[] = [
     prop: 'name',
     label: '姓名',
     type: 'input',
-    defaultValue: '张三',
   },
   {
     prop: 'age',
@@ -83,11 +82,21 @@ const tableOptions: JTableOptions = {
       label: '操作',
       slot: true,
       prop: 'control',
+      width: 220,
     },
   ],
 }
 
-const dialogOptions: JDialogOptions = { formItems }
+const dialogOptions: JDialogOptions = {
+  formItems,
+  formProps: {
+    rules: {
+      name: [
+        { required: true, message: '请输入姓名', trigger: 'change' },
+      ],
+    },
+  },
+}
 
 function otherFn(row: any) {
   ElMessage.info(row.name)
