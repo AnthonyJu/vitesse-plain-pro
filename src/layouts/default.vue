@@ -81,8 +81,8 @@ function handleBeforeEnter() {
 
 .opacity-enter-active,
 .opacity-leave-active {
-  will-change: transform;
   transition: all 0.3s ease;
+  will-change: transform;
 }
 
 .opacity-enter-from,

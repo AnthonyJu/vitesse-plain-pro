@@ -193,17 +193,20 @@ const title = ref('')
 const visible = ref(false)
 const dialogLoading = ref(false)
 const dialogForm = ref<Record<string, any>>({})
-if (props.dialogOptions) dialogForm.value = generateForm(props.dialogOptions.formItems)
+const initDialogForm = props.dialogOptions && generateForm(props.dialogOptions.formItems)
 
 function createFn() {
   title.value = '新增'
   visible.value = true
+  dialogForm.value = initDialogForm
 }
+
 function updateFn(row: Record<string, any>) {
   title.value = '编辑'
-  dialogForm.value = JSON.parse(JSON.stringify(row))
   visible.value = true
+  dialogForm.value = JSON.parse(JSON.stringify(row))
 }
+
 function deleteFn(id: string) {
   const message = ElMessage({
     message: 'loading...',
