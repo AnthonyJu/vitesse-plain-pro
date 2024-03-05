@@ -22,6 +22,7 @@
       </el-button>
     </el-card>
     <el-card class="mt-15px" shadow="hover" header="打印JSON数据：简单示例">
+      <!-- Hack：改用代码块高亮 -->
       <div class="my-10px">{{ someJSONdata }}</div>
       <el-button
         type="primary"

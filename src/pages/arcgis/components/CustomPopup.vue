@@ -1,4 +1,5 @@
 <template>
+  <!-- Bug：el-button 无法加载，并且中心点位置偏移 -->
   <div class="relative h-200px w-400px flex-col-center bg-#fff">
     <div mb-10 text-blue>{{ attributes.name }}</div>
     <el-button type="primary" @click="emit('closePopup')">

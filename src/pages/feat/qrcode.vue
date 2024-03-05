@@ -1,4 +1,5 @@
 <template>
+  <!-- Hack：更好的方式，中间图片展示 -->
   <div>
     <NoticeBar
       text="✨✨✨ 使用@vueuse/integrations/useQRCode生成的二维码"
