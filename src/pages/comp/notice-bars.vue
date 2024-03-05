@@ -5,7 +5,7 @@
         text="😎孩儿立志出乡关,👨‍💻学不成名誓不还。🌳埋骨何须桑梓地,🏕人生无处不青山。"
       />
       <div class="my-10px">代码:</div>
-      <CodeBlock :code-data="simpleCodeData" />
+      <CodeBlock :code="noticeBarSimpleStr" lang="vue" />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：设置样式" class="mt-15px">
@@ -20,7 +20,7 @@
         @link="linkFn"
       />
       <div class="my-10px">代码:</div>
-      <CodeBlock :code-data="iconCodeData" />
+      <CodeBlock :code="noticeBarIconStr" lang="vue" />
     </el-card>
 
     <el-card
@@ -40,7 +40,7 @@
         </el-carousel>
       </NoticeBar>
       <div class="my-10px">代码:</div>
-      <CodeBlock :code-data="scrollCodeData" />
+      <CodeBlock :code="noticeBarScrollStr" lang="html" />
     </el-card>
 
     <el-card shadow="hover" header="滚动通知栏：参数" class="mt-15px">
@@ -71,22 +71,6 @@
 
 <script setup lang='ts'>
 import { noticeBarIconStr, noticeBarScrollStr, noticeBarSimpleStr } from './data/highlight'
-
-const simpleCodeData = reactive({
-  id: '#simple-demo',
-  code: noticeBarSimpleStr,
-  language: 'vue',
-})
-const iconCodeData = reactive({
-  id: '#icon-demo',
-  code: noticeBarIconStr,
-  language: 'vue',
-})
-const scrollCodeData = reactive({
-  id: '#scroll-demo',
-  code: noticeBarScrollStr,
-  language: 'html',
-})
 
 // 定义变量内容
 const state = reactive({
