@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: '/api',
+  // baseURL: '/api',
   timeout: 10000,
   withCredentials: true,
   headers: {},
@@ -42,7 +42,7 @@ service.interceptors.response.use(
       return Promise.reject(new Error(res.message || 'Error'))
     }
     // 200: 正常
-    else return res
+    else return response
   },
   (error) => {
     if (error.message.includes('timeout')) ElMessage.error('网络超时！')

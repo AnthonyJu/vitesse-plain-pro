@@ -70,8 +70,8 @@ function handleSearch() {
   })
     .then((res) => {
       // TODO 处理返回数据
-      data.value = res.data.records
-      total.value = res.data.total
+      data.value = res.data.data.records
+      total.value = res.data.data.total
     })
     .catch((err) => {
       emit('handleError', err)

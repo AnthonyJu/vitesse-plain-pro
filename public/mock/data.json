@@ -1,0 +1,27 @@
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "records": [
+      {
+        "id": 1,
+        "name": "张三",
+        "age": 18,
+        "address": "北京市"
+      },
+      {
+        "id": 2,
+        "name": "李四",
+        "age": 20,
+        "address": "上海市"
+      },
+      {
+        "id": 3,
+        "name": "王五",
+        "age": 22,
+        "address": "广州市"
+      }
+    ],
+    "total": 3
+  }
+}

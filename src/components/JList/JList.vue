@@ -18,6 +18,7 @@
     </JForm>
 
     <slot v-if="data.length" />
+    <el-empty v-else />
 
     <JPagination
       v-model:current="current"
@@ -67,9 +68,9 @@ function handleSearch() {
     },
   })
     .then((res) => {
-      if (props.dataFormator) data.value = props.dataFormator(res.data.records)
-      else data.value = res.data.records
-      total.value = res.data.total
+      if (props.dataFormator) data.value = props.dataFormator(res.data.data.records)
+      else data.value = res.data.data.records
+      total.value = res.data.data.total
     })
     .finally(() => {
       loading.value = false

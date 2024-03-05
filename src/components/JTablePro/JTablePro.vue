@@ -180,8 +180,8 @@ function handleSearch() {
   API.get({ ...form.value, current: current.value, size: props.noPagenation ? 0 : size.value })
     .then((res: any) => {
       if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
-      else tableData.value = res.data.records
-      total.value = res.data.total
+      else tableData.value = res.data.data.records
+      total.value = res.data.data.total
     })
     .finally(() => {
       loading.value = false
