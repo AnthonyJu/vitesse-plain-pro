@@ -10,11 +10,11 @@ export default defineConfig({
     open: true,
     port: 9090,
     proxy: {
-      '/api': {
-        target: 'http://localhost:9091/',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, ''),
-      },
+      // '/api': {
+      //   target: 'http://localhost:9091/',
+      //   changeOrigin: true,
+      //   rewrite: path => path.replace(/^\/api/, ''),
+      // },
     },
   },
 
@@ -43,6 +43,7 @@ export default defineConfig({
       'element-plus/es/components/message-box/style/index',
       'element-plus/es/components/notification/style/index',
       'unplugin-vue-router/runtime',
+      'unplugin-vue-router/data-loaders/basic',
     ],
   },
 
