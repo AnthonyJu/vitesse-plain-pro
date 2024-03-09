@@ -8,10 +8,10 @@ export default defineConfig({
     hmr: true,
     host: true,
     open: true,
-    port: 9090,
+    port: 5050,
     proxy: {
       // '/api': {
-      //   target: 'http://localhost:9091/',
+      //   target: 'http://localhost:5500/',
       //   changeOrigin: true,
       //   rewrite: path => path.replace(/^\/api/, ''),
       // },

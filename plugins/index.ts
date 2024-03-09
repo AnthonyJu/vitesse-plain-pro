@@ -9,7 +9,7 @@ import { vueI18n } from './vue-i18n'
 import { vueRouter } from './vue-router'
 import { vue } from './vue'
 import { supportSetupName } from './vue-support-setup-name'
-import { webFontDownload } from './web-font-download'
+import { jsObfuscator } from './obfuscator'
 
 export const plugins = [
   autoImports(),
@@ -23,5 +23,5 @@ export const plugins = [
   vueI18n(),
   vue(),
   supportSetupName(),
-  webFontDownload(),
+  jsObfuscator(),
 ]
