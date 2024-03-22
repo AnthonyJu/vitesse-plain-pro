@@ -25,6 +25,11 @@ const formItems: JFormItem[] = [
     prop: 'name',
     label: '姓名',
     type: 'input',
+    fieldProps: {
+      onInput: (value) => {
+        console.log('🚀 ~ value:', value)
+      },
+    },
   },
   {
     prop: 'age',

@@ -1,4 +1,13 @@
-import type { DialogProps, FormItemProps, FormProps, ISelectProps, InputProps, TableColumnCtx, TableProps } from 'element-plus'
+import type {
+  DialogProps,
+  FormItemProps,
+  FormProps,
+  ISelectProps,
+  InputEmits,
+  InputProps,
+  TableColumnCtx,
+  TableProps,
+} from 'element-plus'
 
 export {}
 

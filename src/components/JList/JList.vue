@@ -76,4 +76,7 @@ function handleSearch() {
       loading.value = false
     })
 }
+
+// 暴露给父组件的方法
+defineExpose({ handleSearch })
 </script>

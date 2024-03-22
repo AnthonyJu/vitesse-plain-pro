@@ -68,14 +68,14 @@
         <el-date-picker
           v-model="form[prop]"
           clearable
-          type="datetimerange"
           value-format="YYYY-MM-DD HH:mm:ss"
           range-separator="-"
           start-placeholder="开始时间"
           end-placeholder="结束时间"
           :shortcuts="shortcuts"
           :default-time="defaultTime"
-          :disabled-date="(time:Date) => time.getTime() > Date.now()"
+          v-bind="fieldProps"
+          type="datetimerange"
         />
       </el-form-item>
 
