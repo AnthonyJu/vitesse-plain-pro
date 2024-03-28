@@ -1,3 +1,4 @@
+import type { ConfigEnv } from 'vite'
 import { autoImports } from './auto-imports'
 import { components } from './components'
 import { elementPlus } from './element-plus'
@@ -10,16 +11,18 @@ import { vueI18n } from './vue-i18n'
 import { vueRouter } from './vue-router'
 import { vue } from './vue'
 
-export const plugins = [
-  vueRouter(),
-  vue(),
-  supportSetupName(),
-  vueI18n(),
-  autoImports(),
-  components(),
-  elementPlus(),
-  layouts(),
-  unocss(),
-  vueDevTools(),
-  vitePWA(),
-]
+export function getPlugins(command: ConfigEnv['command']) {
+  return [
+    vueRouter(),
+    vue(),
+    supportSetupName(),
+    vueI18n(),
+    autoImports(),
+    components(command),
+    elementPlus(command),
+    layouts(),
+    unocss(),
+    vueDevTools(),
+    vitePWA(),
+  ]
+}
