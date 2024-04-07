@@ -1,3 +1,5 @@
+/// <reference path="./login.d.ts" />
+
 export function authLogin(data: LoginInfo) {
   return new Promise<Res<UserInfo>>((resolve) => {
     setTimeout(() => {
