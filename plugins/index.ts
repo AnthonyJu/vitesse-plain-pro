@@ -4,6 +4,7 @@ import { components } from './components'
 import { elementPlus } from './element-plus'
 import { layouts } from './layouts'
 import { supportSetupName } from './vue-support-setup-name'
+import { svgLoader } from './svg-loader'
 import { unocss } from './unocss'
 import { vitePWA } from './vite-pwa'
 import { vueDevTools } from './vue-devtools'
@@ -21,6 +22,7 @@ export function getPlugins(command: ConfigEnv['command']) {
     components(command),
     elementPlus(command),
     layouts(),
+    svgLoader(),
     unocss(),
     vueDevTools(),
     vitePWA(),
