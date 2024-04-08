@@ -21,6 +21,7 @@ export function elementPlus(command: ConfigEnv['command']): Plugin<any> | Plugin
     }
   }
   else {
+    // https://github.com/element-plus/unplugin-element-plus/tree/main/#readme
     return ElementPlus({ useSource: true })
   }
 }
