@@ -1,11 +1,11 @@
 <template>
   <div class="login-layout relative full overflow-hidden">
-    <img src="@/assets/login-bg.svg" class="absolute bottom-0 left-0 w-40% -z-1">
+    <img src="../assets/login-bg.svg" class="absolute bottom-0 left-0 w-40% -z-1">
 
     <!-- 登陆框 -->
     <div class="login-box flex-col-center bg-default" :style="style">
       <h2 class="my-50px flex text-$el-color-primary">
-        <img src="@/assets/logo.svg" mr-10px w-40px>
+        <img src="../assets/logo.svg" mr-10px w-40px>
         <span>vitesse plain pro</span>
       </h2>
 
