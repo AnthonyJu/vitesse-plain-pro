@@ -20,7 +20,7 @@
     <!-- 主体 -->
     <el-container :class="isSmallScreen ? '' : 'ml-16px'">
       <!-- 头部 -->
-      <el-header mr-16px flex-b-c rounded-10px pl-16px pr-0 bg-default>
+      <el-header mr-16px flex-b-c rounded-10px px-16px bg-default>
         <Logo v-if="isSmallScreen" />
         <div v-else />
         <User />
