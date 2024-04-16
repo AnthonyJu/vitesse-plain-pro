@@ -1,15 +1,15 @@
 <template>
-  <!-- Bug：el-button 无法加载，并且中心点位置偏移 -->
   <div class="relative h-200px w-400px flex-col-center bg-#fff">
     <div mb-10 text-blue>{{ attributes.name }}</div>
-    <el-button type="primary" @click="emit('closePopup')">
+    <ElButton type="primary" @click="emit('closePopup')">
       关闭
-    </el-button>
-    <div class="absolute left-0 right-0 m-auto h-5px w-5px bg-red -bottom-5px" />
+    </ElButton>
+    <div class="absolute left-0 right-0 m-auto h-6px w-6px bg-blue -bottom-6px" />
   </div>
 </template>
 
 <script setup lang='ts'>
+import { ElButton } from 'element-plus'
 import type MapView from '@arcgis/core/views/MapView'
 
 const props = defineProps<{
