@@ -174,7 +174,7 @@ const tableData = defineModel<any[]>('data', { default: [] })
 const form = ref<Record<string, any>>({})
 
 // 检索表单函数
-function handleSearch(val: any) {
+function handleSearch(val?: any) {
   loading.value = true
   if (val) current.value = 1
   // TODO：根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体情况来决定入参
