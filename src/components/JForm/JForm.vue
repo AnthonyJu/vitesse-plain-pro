@@ -1,5 +1,9 @@
 <template>
-  <ElForm ref="formRef" :model="form" :disabled="loading" v-bind="formProps">
+  <ElForm
+    ref="formRef"
+    :model="form" :disabled="loading" v-bind="formProps"
+    @keydown.enter="onSearch"
+  >
     <!-- 检索条件 -->
     <template
       v-for="{ prop, label, type, options, fieldProps, formItemProps } in formItems"

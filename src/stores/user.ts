@@ -1,4 +1,4 @@
-import { authLogin } from '@/apis/login'
+import { authLogin } from '@/api/login'
 import { router } from '@/modules/router'
 
 export const useUserStore = defineStore(

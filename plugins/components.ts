@@ -9,6 +9,6 @@ export function components(command: ConfigEnv['command']) {
     include: [/\.vue$/, /\.vue\?vue/],
     exclude: ['src/components/**/components/**/*data/*.ts'],
     // 生产环境下按需引入element-plus
-    resolvers: command === 'build' ? ElementPlusResolver({ importStyle: 'sass' }) : undefined,
+    resolvers: command === 'build' ? ElementPlusResolver() : undefined,
   })
 }

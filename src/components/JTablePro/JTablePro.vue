@@ -259,5 +259,5 @@ onMounted(() => {
 })
 
 // 暴露给父组件的方法
-defineExpose({ form, dialogForm, createFn })
+defineExpose({ form, dialogForm, createFn, updateFn, deleteFn, handleSearch })
 </script>
