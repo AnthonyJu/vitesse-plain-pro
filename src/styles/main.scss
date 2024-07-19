@@ -21,13 +21,17 @@ body,
   margin: 0;
 }
 
-html.dark {
-  color-scheme: dark;
-  background: var(--el-html-color-dark);
+html {
+  background: var(--el-html-bg-color);
+
+  &.dark {
+    color-scheme: dark;
+    background: var(--el-html-bg-color-dark);
+  }
 }
 
 input:-webkit-autofill {
-  transition: color 100s, background-color 100s;
+  transition: color 60s, background-color 60s;
 }
 
 pre.shiki {

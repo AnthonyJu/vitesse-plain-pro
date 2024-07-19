@@ -1,6 +1,5 @@
 <template>
-  <!-- TODO：美化 -->
-  <div>
+  <div class="full flex-col">
     <el-card shadow="always" :body-style="{ padding: '20px' }">
       <template #header>
         <div>
@@ -10,7 +9,7 @@
       card body content
     </el-card>
     <div h-100px w-full rounded-2 bg-red />
-    <div h-1000px w-full rounded-2 bg-blue />
+    <div w-full flex-1 rounded-2 bg-blue />
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <JTablePro
+    layout-default
     :url="url"
     :table-options="tableOptions"
     :form-options="formOptions"

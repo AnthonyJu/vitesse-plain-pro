@@ -1,7 +1,7 @@
 @forward "element-plus/theme-chalk/src/dark/var.scss" with (
   $colors: (
     "primary": (
-      "base": #2fc8fc,
+      "base": #409eff,
     ),
   )
 );
@@ -16,7 +16,6 @@
 
   // * ElScrollbar
   .el-scrollbar__thumb {
-    background-color: var(--el-layout-bg-color-dark);
     opacity: 1;
   }
 }

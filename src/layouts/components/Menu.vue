@@ -33,21 +33,18 @@ const menuStore = useMenuStore()
 
 <style lang="scss" scoped>
 .el-menu {
-  --el-menu-bg-color: var(--el-layout-bg-color);
   --el-menu-item-height: 52px;
 
-  overflow: hidden;
   border: none;
 
   ::v-deep(.el-menu-item),
   ::v-deep(.el-sub-menu__name),
   ::v-deep(.el-sub-menu__title) {
-    padding: 0 8px;
     margin: 4px 10px;
-    border-radius: 10px;
+    border-radius: 4px;
 
     &.is-active {
-      background: var(--el-color-primary-light-7);
+      background: var(--el-color-primary-light-9);
     }
   }
 }
@@ -58,7 +55,13 @@ const menuStore = useMenuStore()
 
 .dark {
   .el-menu {
-    --el-menu-bg-color: var(--el-layout-bg-color-dark);
+    ::v-deep(.el-menu-item),
+    ::v-deep(.el-sub-menu__name),
+    ::v-deep(.el-sub-menu__title) {
+      &.is-active {
+        background: var(--el-color-primary-light-7);
+      }
+    }
   }
 }
 </style>

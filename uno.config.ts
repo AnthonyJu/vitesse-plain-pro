@@ -9,16 +9,26 @@ import {
 } from 'unocss'
 
 export default defineConfig({
+  rules: [
+    [
+      'bd-b',
+      { 'border-bottom': '1px solid var(--el-border-color)' },
+    ],
+    [
+      'bd-r',
+      { 'border-right': '1px solid var(--el-border-color)' },
+    ],
+  ],
   shortcuts: {
     'full': 'w-full h-full',
     'flex-col': 'flex flex-col',
     'flex-items': 'flex items-center',
-    'flex-b-c': 'flex justify-between items-center',
+    'flex-bc': 'flex justify-between items-center',
     'flex-center': 'flex justify-center items-center',
     'flex-col-center': 'flex flex-col justify-center items-center',
     'turn-dark': 'invert-93 hue-rotate-180',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
-    'border-default-b': 'border-solid border-t-0 border-r-0 border-l-0',
+    'layout-default': 'bg-default p-16px rounded-3px',
   },
   presets: [
     // 启用 uno 预设

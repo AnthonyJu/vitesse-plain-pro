@@ -1,5 +1,5 @@
 <template>
-  <div bg-red>footer</div>
+  <div h-20px flex-center>footer</div>
 </template>
 
 <script setup lang='ts'>

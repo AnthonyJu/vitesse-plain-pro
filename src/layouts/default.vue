@@ -5,17 +5,18 @@
   <!-- 正式layout -->
   <el-container v-else>
     <!-- 侧边栏 -->
-    <el-aside v-show="!isSmallScreen" class="flex-col !w-220px" border="red solid r-1 t-0 l-0 b-0">
+    <el-aside v-show="!isSmallScreen" class="flex-col bd-r !w-240px bg-default">
       <Logo />
       <Menu />
     </el-aside>
 
     <!-- 主体 -->
     <el-container>
-      <!-- 头部 -->
-      <el-header class="h-auto! p-0!">
-        <!--  -->
-        <div class="h-60px flex-b-c px-16px" border="red solid  b-1 t-0 l-0 r-0">
+      <!-- 顶部 -->
+      <el-header class="h-auto! bg-default p-0!">
+        <!-- 顶部主体 -->
+        <div class="h-60px flex-bc px-16px bd-b">
+          <!-- 横屏或小屏 -->
           <template v-if="isSmallScreen">
             <Logo />
             <Menu />
@@ -24,22 +25,24 @@
           <!-- 面包屑 -->
           <Breadcrumb v-else />
 
-          <!-- 拥护操作 -->
+          <!-- 用户操作 -->
           <User />
         </div>
 
-        <!--  -->
-        <TagsView border="red solid b-1 t-0 l-0 r-0" />
+        <!-- 标签栏 -->
+        <TagsView />
       </el-header>
 
       <!-- 内容 -->
-      <main flex-1 overflow-hidden>
+      <main class="flex-1 overflow-hidden">
         <el-scrollbar ref="scrollbar" class="custom-scrollbar">
-          <router-view v-slot="{ Component }">
-            <transition mode="out-in" name="opacity">
-              <component :is="Component" />
-            </transition>
-          </router-view>
+          <div class="h-[calc(100vh-120px)] w-full flex-col p-16px">
+            <router-view v-slot="{ Component }">
+              <transition mode="out-in" name="opacity">
+                <component :is="Component" />
+              </transition>
+            </router-view>
+          </div>
         </el-scrollbar>
       </main>
 

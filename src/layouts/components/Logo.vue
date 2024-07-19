@@ -1,7 +1,7 @@
 <template>
   <div
     class="h-60px flex-center animate-bounce-in cursor-default"
-    :class="isSmallScreen ? 'cursor-pointer' : 'custom-class'"
+    :class="isSmallScreen ? 'cursor-pointer' : 'w-full bd-b'"
     @click="openDrawer"
   >
     <img class="w-26px" src="@/assets/logo.svg">
@@ -31,11 +31,6 @@ function openDrawer() {
 </script>
 
 <style lang="scss" socoped>
-.custom-class {
-  width: 100%;
-  border-bottom: 1px solid var(--el-color-primary-light-3);
-}
-
 .menu-drawer {
   .dark & {
     background: var(--el-layout-bg-color-dark);
