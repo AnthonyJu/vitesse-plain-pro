@@ -5,7 +5,7 @@
   <!-- 正式layout -->
   <el-container v-else>
     <!-- 侧边栏 -->
-    <el-aside v-show="!isSmallScreen" class="flex-col bd-r !w-240px bg-default">
+    <el-aside v-show="!isSmallScreen" class="z-10 flex-col shadow-r !w-240px bg-default">
       <Logo />
       <Menu />
     </el-aside>
@@ -15,11 +15,11 @@
       <!-- 顶部 -->
       <el-header class="h-auto! bg-default p-0!">
         <!-- 顶部主体 -->
-        <div class="h-60px flex-bc px-16px bd-b">
+        <div class="h-60px flex-bc px-16px shadow-b">
           <!-- 横屏或小屏 -->
           <template v-if="isSmallScreen">
             <Logo />
-            <Menu />
+            <Menu pl-16px />
           </template>
 
           <!-- 面包屑 -->

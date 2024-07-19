@@ -1,7 +1,7 @@
 <template>
   <div
     class="h-60px flex-center animate-bounce-in cursor-default"
-    :class="isSmallScreen ? 'cursor-pointer' : 'w-full bd-b'"
+    :class="isSmallScreen ? 'cursor-pointer' : 'w-full shadow-b'"
     @click="openDrawer"
   >
     <img class="w-26px" src="@/assets/logo.svg">

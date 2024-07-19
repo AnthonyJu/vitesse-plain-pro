@@ -11,12 +11,12 @@ import {
 export default defineConfig({
   rules: [
     [
-      'bd-b',
-      { 'border-bottom': '1px solid var(--el-border-color)' },
+      'shadow-b',
+      { 'box-shadow': '0px 1px 2px var(--el-border-color)' },
     ],
     [
-      'bd-r',
-      { 'border-right': '1px solid var(--el-border-color)' },
+      'shadow-r',
+      { 'box-shadow': '1px 0px 2px var(--el-border-color)' },
     ],
   ],
   shortcuts: {

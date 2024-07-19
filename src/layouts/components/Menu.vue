@@ -5,6 +5,7 @@
       router
       unique-opened
       collapse-transition
+      :mode="isSmallScreen ? 'horizontal' : 'vertical'"
     >
       <template v-for="menu in menuStore.menus">
         <el-sub-menu v-if="menu.children?.length" :key="menu.path" :index="menu.path">
@@ -40,11 +41,24 @@ const menuStore = useMenuStore()
   ::v-deep(.el-menu-item),
   ::v-deep(.el-sub-menu__name),
   ::v-deep(.el-sub-menu__title) {
-    margin: 4px 10px;
+    margin: 5px 10px;
     border-radius: 4px;
 
     &.is-active {
       background: var(--el-color-primary-light-9);
+    }
+  }
+
+  &.el-menu--horizontal {
+    ::v-deep(.el-menu-item),
+    ::v-deep(.el-sub-menu__name),
+    ::v-deep(.el-sub-menu__title) {
+      margin: 0;
+      border-radius: 0;
+
+      &.is-active {
+        background: none;
+      }
     }
   }
 }
@@ -60,6 +74,16 @@ const menuStore = useMenuStore()
     ::v-deep(.el-sub-menu__title) {
       &.is-active {
         background: var(--el-color-primary-light-7);
+      }
+    }
+
+    &.el-menu--horizontal {
+      ::v-deep(.el-menu-item),
+      ::v-deep(.el-sub-menu__name),
+      ::v-deep(.el-sub-menu__title) {
+        &.is-active {
+          background: none;
+        }
       }
     }
   }
