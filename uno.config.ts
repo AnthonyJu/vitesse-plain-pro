@@ -18,6 +18,7 @@ export default defineConfig({
     'flex-col-center': 'flex flex-col justify-center items-center',
     'turn-dark': 'invert-93 hue-rotate-180',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
+    'border-default-b': 'border-solid border-t-0 border-r-0 border-l-0',
   },
   presets: [
     // 启用 uno 预设

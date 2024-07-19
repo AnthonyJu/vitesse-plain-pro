@@ -4,7 +4,7 @@
     :class="isSmallScreen ? 'cursor-pointer' : 'custom-class'"
     @click="openDrawer"
   >
-    <img class="w-26px" src="../../assets/logo.svg">
+    <img class="w-26px" src="@/assets/logo.svg">
     <span class="ml-8px text-20px text-$el-color-primary">
       vitesse plain pro
     </span>
@@ -33,7 +33,7 @@ function openDrawer() {
 <style lang="scss" socoped>
 .custom-class {
   width: 100%;
-  border-bottom: 2px solid var(--el-color-primary-light-3);
+  border-bottom: 1px solid var(--el-color-primary-light-3);
 }
 
 .menu-drawer {

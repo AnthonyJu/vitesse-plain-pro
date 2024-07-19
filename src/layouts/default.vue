@@ -3,45 +3,50 @@
   <router-view v-if="$route.query.demo" />
 
   <!-- 正式layout -->
-  <div
-    v-else
-    class="flex flex-1 bg-$el-color-primary py-16px pl-16px dark:bg-transparent"
-    overflow="hidden"
-  >
+  <el-container v-else>
     <!-- 侧边栏 -->
-    <el-aside
-      v-show="!isSmallScreen"
-      class="flex-col rounded-10px !w-210px !overflow-hidden bg-default"
-    >
+    <el-aside v-show="!isSmallScreen" class="flex-col !w-220px" border="red solid r-1 t-0 l-0 b-0">
       <Logo />
-      <Menu mt-10px />
+      <Menu />
     </el-aside>
 
     <!-- 主体 -->
-    <el-container :class="isSmallScreen ? '' : 'ml-16px'">
+    <el-container>
       <!-- 头部 -->
-      <el-header mr-16px flex-b-c rounded-10px px-16px bg-default>
-        <Logo v-if="isSmallScreen" />
-        <div v-else />
-        <User />
+      <el-header class="h-auto! p-0!">
+        <!--  -->
+        <div class="h-60px flex-b-c px-16px" border="red solid  b-1 t-0 l-0 r-0">
+          <template v-if="isSmallScreen">
+            <Logo />
+            <Menu />
+          </template>
+
+          <!-- 面包屑 -->
+          <Breadcrumb v-else />
+
+          <!-- 拥护操作 -->
+          <User />
+        </div>
+
+        <!--  -->
+        <TagsView border="red solid b-1 t-0 l-0 r-0" />
       </el-header>
 
       <!-- 内容 -->
-      <main mr-16px mt-16px flex-1 overflow-hidden rounded-10px>
-        <router-view v-slot="{ Component, route }">
-          <el-scrollbar
-            ref="scrollbar"
-            class="custom-scrollbar"
-            :class="{ 'full-content': route.meta.fullContent }"
-          >
-            <transition mode="out-in" name="opacity" @before-enter="handleBeforeEnter">
+      <main flex-1 overflow-hidden>
+        <el-scrollbar ref="scrollbar" class="custom-scrollbar">
+          <router-view v-slot="{ Component }">
+            <transition mode="out-in" name="opacity">
               <component :is="Component" />
             </transition>
-          </el-scrollbar>
-        </router-view>
+          </router-view>
+        </el-scrollbar>
       </main>
+
+      <!-- 底部 -->
+      <Footer />
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script setup lang='ts'>
@@ -49,35 +54,26 @@ import type { ScrollbarInstance } from 'element-plus'
 import Logo from './components/Logo.vue'
 import Menu from './components/Menu.vue'
 import User from './components/User.vue'
+import Breadcrumb from './components/Breadcrumb.vue'
+import Footer from './components/Footer.vue'
+import TagsView from './components/TagsView.vue'
 
 const scrollbar = ref<ScrollbarInstance>()
 
-function handleBeforeEnter() {
-  nextTick(() => {
-    scrollbar.value?.update()
-    scrollbar.value?.scrollTo({ top: 0 })
-  })
-}
+// function handleBeforeEnter() {
+//   nextTick(() => {
+//     scrollbar.value?.update()
+//     scrollbar.value?.scrollTo({ top: 0 })
+//   })
+// }
 </script>
 
 <style lang='scss' scoped>
-.custom-scrollbar {
-  & > ::v-deep(.el-scrollbar__wrap) {
-    @apply bg-default p-16px min-h-full;
-  }
-
-  & > ::v-deep(.el-scrollbar__bar.is-vertical) {
-    @apply fixed top-95px right-4.5px;
-  }
-
-  &.full-content {
-    & > ::v-deep(.el-scrollbar__wrap) {
-      .el-scrollbar__view {
-        height: 100%;
-      }
-    }
-  }
-}
+// .custom-scrollbar {
+//   & > ::v-deep(.el-scrollbar__wrap) {
+//     @apply min-h-full;
+//   }
+// }
 
 .opacity-enter-active,
 .opacity-leave-active {
