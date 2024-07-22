@@ -34,7 +34,7 @@
     </div>
 
     <div ml-40px animate-head-shake>
-      <img class="full dark:turn-dark" src="@/assets/404.png">
+      <img class="full light:turn-light dark:turn-dark" src="@/assets/404.png">
     </div>
   </div>
 </template>

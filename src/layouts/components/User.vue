@@ -95,8 +95,9 @@ const Dark = h('svg', { viewBox: '0 0 24 24' }, [
   --el-switch-on-color: var(--el-html-color-dark);
 
   &.is-checked {
-    .el-switch__action {
+    .el-switch__core {
       background-color: var(--el-color-primary);
+      border: none;
     }
   }
 
