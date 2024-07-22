@@ -5,7 +5,7 @@
   <!-- 正式layout -->
   <el-container v-else>
     <!-- 侧边栏 -->
-    <el-aside v-show="!isSmallScreen" class="z-10 flex-col shadow-r !w-240px bg-default">
+    <el-aside v-if="!isSmallScreen" class="z-10 flex-col shadow-r !w-240px bg-default">
       <Logo />
       <Menu />
     </el-aside>

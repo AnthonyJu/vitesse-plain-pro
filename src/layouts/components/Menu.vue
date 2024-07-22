@@ -5,20 +5,21 @@
       router
       unique-opened
       collapse-transition
-      :mode="isSmallScreen ? 'horizontal' : 'vertical'"
+      :collapse="menu.collapse" width
+      :mode="menu.aside ? 'vertical' : 'horizontal'"
     >
-      <template v-for="menu in menuStore.menus">
-        <el-sub-menu v-if="menu.children?.length" :key="menu.path" :index="menu.path">
+      <template v-for="item in menuStore.menus">
+        <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
           <template #title>
-            <Iconify v-if="menu.meta?.icon" mr-8px h-16px w-16px :icon="menu.meta?.icon" />
-            <span>{{ menu.meta?.name }}</span>
+            <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
+            <span>{{ item.meta?.name }}</span>
           </template>
-          <SubMenu :children="menu.children" />
+          <SubMenu :children="item.children" />
         </el-sub-menu>
 
-        <el-menu-item v-else :key="menu.path!" :index="menu.path">
-          <Iconify v-if="menu.meta?.icon" mr-8px h-16px w-16px :icon="menu.meta?.icon" />
-          <span>{{ menu.meta?.name }}</span>
+        <el-menu-item v-else :key="item.path!" :index="item.path">
+          <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
+          <span>{{ item.meta?.name }}</span>
         </el-menu-item>
       </template>
     </el-menu>
@@ -30,6 +31,8 @@ import SubMenu from './SubMenu.vue'
 
 const route = useRoute()
 const menuStore = useMenuStore()
+const layoutStore = useLayoutStore()
+const { menu } = storeToRefs(layoutStore)
 </script>
 
 <style lang="scss" scoped>
