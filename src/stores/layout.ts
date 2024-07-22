@@ -1,13 +1,39 @@
 export const useLayoutStore = defineStore(
   'layout',
   () => {
-    // const { width } = useWindowSize()
-    // const isSmallScreen = computed(() => width.value <= 1000)
+    const { width } = useWindowSize()
 
     // 侧边栏菜单
     const menu = ref({
       aside: true,
-      collapse: true,
+      collapse: false,
+      drawer: false,
+    })
+
+    watch(width, (w) => {
+      if (w >= 1440) {
+        menu.value = {
+          aside: true,
+          drawer: false,
+          collapse: false,
+        }
+      }
+      else if (w >= 1024) {
+        menu.value = {
+          aside: false,
+          drawer: false,
+          collapse: false,
+        }
+      }
+      else {
+        menu.value = {
+          aside: true,
+          drawer: true,
+          collapse: false,
+        }
+      }
+    }, {
+      immediate: true,
     })
 
     // 顶部栏

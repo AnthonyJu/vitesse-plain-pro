@@ -5,7 +5,7 @@
   <!-- 正式layout -->
   <el-container v-else>
     <!-- 侧边栏 -->
-    <el-aside v-if="!isSmallScreen" class="z-10 flex-col shadow-r !w-240px bg-default">
+    <el-aside v-if="menu.aside && !menu.drawer" class="z-10 flex-col shadow-r !w-240px bg-default">
       <Logo />
       <Menu />
     </el-aside>
@@ -15,20 +15,14 @@
       <!-- 顶部 -->
       <el-header class="h-auto! bg-default p-0!">
         <!-- 顶部主体 -->
-        <div class="h-60px flex-bc px-16px shadow-b">
-          <!-- 横屏或小屏 -->
-          <template v-if="isSmallScreen">
-            <Logo />
-            <Menu pl-16px />
-          </template>
-
+        <div class="h-60px flex-bc px-15px shadow-b">
+          <!-- 小屏Logo -->
+          <Logo v-if="!menu.aside || menu.drawer" />
           <!-- 面包屑 -->
           <Breadcrumb v-else />
-
           <!-- 用户操作 -->
           <User />
         </div>
-
         <!-- 标签栏 -->
         <TagsView />
       </el-header>
@@ -36,15 +30,14 @@
       <!-- 内容 -->
       <main class="flex-1 overflow-hidden">
         <el-scrollbar ref="scrollbar" class="custom-scrollbar">
-          <!-- 主体内容 -->
+          <!-- 内容主体 -->
           <div class="w-full flex-col p-15px pb-0" :style="{ height: mainHeight }">
             <router-view v-slot="{ Component }">
-              <transition mode="out-in" name="opacity">
+              <transition mode="out-in" name="opacity" @before-enter="handleBeforeEnter">
                 <component :is="Component" />
               </transition>
             </router-view>
           </div>
-
           <!-- 底部 -->
           <Footer v-if="footer.show && !footer.fixed" />
         </el-scrollbar>
@@ -66,21 +59,22 @@ import Footer from './components/Footer.vue'
 import TagsView from './components/TagsView.vue'
 
 const layoutStore = useLayoutStore()
-const { mainHeight, footer } = storeToRefs(layoutStore)
+const { menu, footer, mainHeight } = storeToRefs(layoutStore)
 
 const scrollbar = ref<ScrollbarInstance>()
-onBeforeUpdate(() => {
+
+function handleBeforeEnter() {
   nextTick(() => {
     scrollbar.value?.update()
     scrollbar.value?.scrollTo({ top: 0 })
   })
-})
+}
 </script>
 
 <style lang='scss' scoped>
 .custom-scrollbar {
   & > ::v-deep(.el-scrollbar__bar.is-vertical) {
-    top: 4px;
+    top: 6px;
     right: 4px;
   }
 }

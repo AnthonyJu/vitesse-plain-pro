@@ -1,8 +1,8 @@
 <template>
   <div
     class="h-60px flex-center animate-bounce-in cursor-default"
-    :class="isSmallScreen ? 'cursor-pointer' : 'w-full shadow-b'"
-    @click="openDrawer"
+    :class="{ 'cursor-pointer': menu.drawer, 'w-full shadow-b': menu.aside && !menu.drawer }"
+    @click="showDrawer = true"
   >
     <img class="w-26px" src="@/assets/logo.svg">
     <span class="ml-8px text-20px text-$el-color-primary">
@@ -11,7 +11,8 @@
   </div>
 
   <el-drawer
-    v-model="drawer"
+    v-if="menu.drawer"
+    v-model="showDrawer"
     class="menu-drawer"
     direction="ltr"
     size="220px"
@@ -19,15 +20,17 @@
   >
     <Menu />
   </el-drawer>
+
+  <Menu v-else-if="!menu.aside" pl-15px />
 </template>
 
 <script setup lang="ts">
 import Menu from './Menu.vue'
 
-const drawer = ref(false)
-function openDrawer() {
-  if (isSmallScreen.value) drawer.value = true
-}
+const layoutStore = useLayoutStore()
+const { menu } = storeToRefs(layoutStore)
+
+const showDrawer = ref(false)
 </script>
 
 <style lang="scss" socoped>
