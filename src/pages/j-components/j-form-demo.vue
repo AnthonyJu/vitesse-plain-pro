@@ -1,6 +1,7 @@
 <template>
   <JForm
     v-model:form="formData"
+    layout-default
     :loading="loading"
     :form-items="formItems"
     :form-props="{
@@ -27,6 +28,7 @@ const formItems: JFormItem[] = [
     type: 'input',
     fieldProps: {
       onInput: (value) => {
+        // eslint-disable-next-line no-console
         console.log('🚀 ~ value:', value)
       },
     },

@@ -1,5 +1,5 @@
 <template>
-  <div flex-col>
+  <div flex-col layout-default>
     <el-form label-width="80px" inline>
       <el-form-item label="当前页">
         <el-input v-model="current" :max-length="20" />

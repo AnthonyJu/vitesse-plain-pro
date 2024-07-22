@@ -1,5 +1,5 @@
 <template>
-  <JList v-model:data="data" :url="url" :form-options="formOptions">
+  <JList v-model:data="data" layout-default :url="url" :form-options="formOptions">
     <template #age="{ row }">
       <el-input v-model="row.age" placeholder="请输入" />
     </template>

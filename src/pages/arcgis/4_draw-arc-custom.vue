@@ -55,7 +55,9 @@ onMounted(() => {
     map,
     center: [120.38, 36.06],
     zoom: 13,
-
+    ui: {
+      components: [],
+    },
   })
 
   // 获取圆弧的 rings

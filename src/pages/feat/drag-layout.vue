@@ -1,5 +1,5 @@
 <template>
-  <div class="gridDrag">
+  <div class="gridDrag layout-default">
     <el-tabs v-model="activeName" class="demo-tabs">
       <el-tab-pane label="拖拽类型一" name="first">
         <NoticeBar text="项目地址：https://github.com/jbaysolutions/vue-grid-layout" />

@@ -28,6 +28,9 @@ onMounted(() => {
     map,
     center: [120.38, 36.06],
     zoom: 12,
+    ui: {
+      components: [],
+    },
   })
   // 创建要素数据源
 

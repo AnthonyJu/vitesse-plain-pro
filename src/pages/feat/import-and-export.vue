@@ -1,6 +1,6 @@
 <template>
   <!-- Hack:补充 -->
-  <div>
+  <div layout-default>
     <el-card class="mt-15px" shadow="hover" header="导入数据查看控制台">
       <el-row :gutter="10" class="w-full flex">
         <el-button type="primary" @click="importTem()">导入</el-button>

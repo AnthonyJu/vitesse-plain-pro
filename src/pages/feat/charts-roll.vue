@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div layout-default>
     <el-card class="mt-15px" shadow="hover" header="table无限滚动">
       <tableRull :table-data="tableData" :columns="columns" :speed="speed" />
     </el-card>

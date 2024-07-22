@@ -28,6 +28,9 @@ onMounted(() => {
     map,
     center: [120.38, 36.06],
     zoom: 13,
+    ui: {
+      components: [],
+    },
   })
 
   // 创建一个circle，并规定生成圆的点数

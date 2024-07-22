@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div layout-default>
     <NoticeBar
       text="🎆🎆🎆打印插件print-js，地址：https://github.com/crabbly/Print.js，点击前往"
       right-icon="carbon:chevron-right"
@@ -92,11 +92,6 @@ function printJson() {
   })
 }
 
-/**
- * 打印
- * @param printable 打印目标Dom
- * @param type 打印类型
- */
 function print(configuration?: printConfiguration) {
   printJS({
     printable: configuration?.printable,

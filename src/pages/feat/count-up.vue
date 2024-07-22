@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div layout-default>
     <NoticeBar
       text="🎉优秀的数字滚动组件：vue-countup-v3，地址：https://github.com/jizai1125/vue-countup-v3，点击前往"
       right-icon="carbon:chevron-right"

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div layout-default>
     <el-button type="primary" @click="type = 'point'">point</el-button>
     <el-button type="primary" @click="type = 'rect'">rect</el-button>
     <el-button type="primary" @click="type = 'polygon'">polygon</el-button>
@@ -209,7 +209,7 @@ watch(() => tagLayer.children.length, (newVal) => {
   tagLayer.removeChildren()
   layer.children.forEach((item: any, index: number) => {
     // 不是画布 不是Transformer
-    if (item.attrs.width && item.attrs.height || item.attrs.points) {
+    if ((item.attrs.width && item.attrs.height) || item.attrs.points) {
       item.attrs.name = (index).toString()
       tagFn(item)
     }

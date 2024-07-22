@@ -1,5 +1,6 @@
 <template>
   <JTable
+    layout-default
     :data="data"
     :columns="columns"
     :table-props="{

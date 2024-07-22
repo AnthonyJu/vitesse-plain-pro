@@ -1,6 +1,7 @@
 <template>
   <VChart
     autoresize
+    layout-default
     :option="option"
     :init-options="{ renderer: 'svg' }"
     :theme="isDark ? 'dark' : 'light'"
