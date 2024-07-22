@@ -1,7 +1,8 @@
 <template>
-  <div h-40px flex-items px-16px shadow-b>tagsview</div>
+  <div :style="{ height: `${tagsview.height}px` }" flex-items px-16px shadow-b>tagsview</div>
 </template>
 
 <script setup lang='ts'>
-
+const layoutStore = useLayoutStore()
+const { tagsview } = storeToRefs(layoutStore)
 </script>
