@@ -11,12 +11,29 @@ import {
 export default defineConfig({
   rules: [
     [
-      'shadow-b',
-      { 'box-shadow': '0px 1px 2px var(--el-border-color)' },
+      /^shadow-(\D+)$/,
+      ([, d]) => {
+        const s = '2px var(--el-border-color)'
+        switch (d) {
+          case 'b':
+            return { 'box-shadow': `0px 1px ${s}` }
+          case 'r':
+            return { 'box-shadow': `1px 0px ${s}` }
+          case 't':
+            return { 'box-shadow': `0px -1px ${s}` }
+          case 'l':
+            return { 'box-shadow': `-1px 0px ${s}` }
+        }
+      },
     ],
     [
-      'shadow-r',
-      { 'box-shadow': '1px 0px 2px var(--el-border-color)' },
+      /^grid-(\D+)-(\d+)(\D+)$/,
+      ([,a, n, u]) => {
+        return {
+          'display': 'grid',
+          'grid-template-columns': `repeat(auto-${a}, minmax(min(${n + u}, 100%), 1fr))`,
+        }
+      },
     ],
   ],
   shortcuts: {
