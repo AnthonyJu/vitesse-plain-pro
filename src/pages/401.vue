@@ -2,7 +2,7 @@
   <div full flex-center flex-wrap>
     <div h-full min-w-500px flex-col-center>
       <div
-        class="text-$el-color-info"
+        class="text-$el-color-primary"
         mb-15px animate-head-shake text-55px
       >
         401
@@ -34,7 +34,7 @@
     </div>
 
     <div ml-40px animate-head-shake>
-      <img class="full dark:turn-dark" src="@/assets/401.png">
+      <img class="full turn-light dark:turn-dark" src="@/assets/401.png">
     </div>
   </div>
 </template>

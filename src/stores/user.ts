@@ -19,11 +19,16 @@ export const useUserStore = defineStore(
     }
 
     function handleLogout() {
-      return new Promise((resolve) => {
-        isLogin.value = false
-        userInfo.value = undefined
-        router.replace('/login')
-        resolve(true)
+      return new Promise((resolve, reject) => {
+        try {
+          isLogin.value = false
+          userInfo.value = undefined
+          router.replace('/login')
+          resolve(true)
+        }
+        catch (error) {
+          reject(error)
+        }
       })
     }
 
