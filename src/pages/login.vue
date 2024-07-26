@@ -53,9 +53,9 @@ meta:
 <script setup lang="ts">
 defineOptions({ name: 'Login' })
 
-// 宽度小于等于586时，居中显示登录框
+// 宽度小于等于820时，居中显示登录框
 const { width } = useWindowSize()
-const style = computed(() => (width.value > 586 ? { right: '18%' } : { right: 0, left: 0 }))
+const style = computed(() => (width.value > 820 ? { right: '18%' } : { right: 0, left: 0 }))
 
 const userStore = useUserStore()
 const formRef = ref()

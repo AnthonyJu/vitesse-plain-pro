@@ -12,7 +12,7 @@
         class="text-$el-text-color-primary"
         mb-10px animate-head-shake text-22px
       >
-        您未被授权，或授权已过期~
+        权限不足，或授权已过期~
       </div>
 
       <div

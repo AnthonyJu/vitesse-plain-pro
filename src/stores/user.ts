@@ -7,14 +7,11 @@ export const useUserStore = defineStore(
     const isLogin = ref(false)
     const userInfo = ref<UserInfo>()
 
-    const menuStore = useMenuStore()
-
     function handleLogin(data: LoginInfo) {
       return authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        await menuStore.getMenu()
-        router.replace('/')
+        router.replace('/loading')
       })
     }
 

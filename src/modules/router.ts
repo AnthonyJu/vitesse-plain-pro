@@ -4,7 +4,7 @@ import { routes } from 'vue-router/auto-routes'
 import type { App } from 'vue'
 
 // 重定向
-routes.push({ path: '/', redirect: '/home' })
+routes.push({ path: '/', redirect: '/loading' })
 
 export const router = createRouter({
   routes: setupLayouts(routes),
