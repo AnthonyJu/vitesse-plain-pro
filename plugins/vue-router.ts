@@ -7,5 +7,9 @@ export function vueRouter() {
     routeBlockLang: 'yaml',
     dts: 'src/typed-router.d.ts',
     exclude: ['**/components/**/*'],
+    // getRouteName(node) {
+    //   console.log('🚀 ~ node:', node.value.)
+    //   return node.value.path || node.value.rawSegment
+    // },
   })
 }

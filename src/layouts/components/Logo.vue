@@ -4,7 +4,7 @@
     :class="{ 'cursor-pointer': menu.drawer, 'w-full shadow-b': menu.aside && !menu.drawer }"
     @click="showDrawer = true"
   >
-    <img class="w-26px" src="@/assets/logo.svg">
+    <img class="w-25px" src="@/assets/logo.svg">
     <span class="ml-8px text-20px text-$el-color-primary">
       vitesse plain pro
     </span>
