@@ -80,9 +80,7 @@ export const useLayoutStore = defineStore(
     }
   },
   {
-    persist: {
-      storage: localStorage,
-    },
+    persist: true,
   },
 )
 

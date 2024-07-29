@@ -25,7 +25,8 @@ router.beforeEach((to, from, next) => {
   else {
     // 未登录且不是login页面，重定向到login页面
     if (!userStore.isLogin) {
-      next(`/login?redirect=${to.path}`) // TODO redirect
+      if (WhiteList.includes(to.path)) next('/login')
+      else next(`/login?redirect=${to.path}`) // TODO redirect
     }
     // 已登录，再去login页面，则还是进入当前页面
     else if (userStore.isLogin && to.path === '/login') {
