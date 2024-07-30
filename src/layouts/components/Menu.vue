@@ -31,8 +31,8 @@ import SubMenu from './SubMenu.vue'
 
 const route = useRoute()
 const menuStore = useMenuStore()
-const layoutStore = useLayoutStore()
-const { menu } = storeToRefs(layoutStore)
+const themeStore = useThemeStore()
+const { menu } = storeToRefs(themeStore)
 </script>
 
 <style lang="scss" scoped>

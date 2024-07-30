@@ -27,8 +27,8 @@
 <script setup lang="ts">
 import Menu from './Menu.vue'
 
-const layoutStore = useLayoutStore()
-const { menu } = storeToRefs(layoutStore)
+const themeStore = useThemeStore()
+const { menu } = storeToRefs(themeStore)
 
 const showDrawer = ref(false)
 </script>

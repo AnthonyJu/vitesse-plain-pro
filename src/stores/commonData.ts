@@ -1,7 +1,7 @@
 import { router } from '@/modules/router'
 
-export const useCommonStore = defineStore(
-  'common',
+export const useCommonDataStore = defineStore(
+  'commonData',
   () => {
     // 是否加载完毕
     const loading = ref(false)

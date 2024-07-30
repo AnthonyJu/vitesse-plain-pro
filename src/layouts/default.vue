@@ -60,8 +60,8 @@ import TagsView from './components/TagsView.vue'
 
 defineOptions({ name: 'DefaultLayout' })
 
-const layoutStore = useLayoutStore()
-const { menu, footer, mainHeight } = storeToRefs(layoutStore)
+const themeStore = useThemeStore()
+const { menu, footer, mainHeight } = storeToRefs(themeStore)
 
 const scrollbar = ref<ScrollbarInstance>()
 

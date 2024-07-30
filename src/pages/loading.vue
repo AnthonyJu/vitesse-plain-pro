@@ -16,7 +16,7 @@ meta:
 </route>
 
 <script setup lang='ts'>
-const commonStore = useCommonStore()
+const commonStore = useCommonDataStore()
 commonStore.loadCommonData()
 </script>
 
