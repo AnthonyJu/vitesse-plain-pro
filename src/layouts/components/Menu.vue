@@ -12,14 +12,14 @@
         <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
           <template #title>
             <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
-            <span>{{ item.meta?.name }}</span>
+            <span>{{ item.meta?.title }}</span>
           </template>
           <SubMenu :children="item.children" />
         </el-sub-menu>
 
         <el-menu-item v-else :key="item.path!" :index="item.path">
           <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
-          <span>{{ item.meta?.name }}</span>
+          <span>{{ item.meta?.title }}</span>
         </el-menu-item>
       </template>
     </el-menu>
