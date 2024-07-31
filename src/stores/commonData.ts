@@ -8,6 +8,7 @@ export const useCommonDataStore = defineStore(
 
     const menuStore = useMenuStore()
 
+    // TODO 处理失败情况
     // 加载登录后需要请求的数据以及通用数据
     function loadCommonData() {
       loading.value = true
@@ -19,6 +20,7 @@ export const useCommonDataStore = defineStore(
       )
         .finally(() => {
           loading.value = false
+          // 默认跳转到首页，可根据实际情况修改
           router.replace('/home')
         })
     }

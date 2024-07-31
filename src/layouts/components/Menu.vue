@@ -8,6 +8,7 @@
       :collapse="menu.collapse" width
       :mode="menu.aside ? 'vertical' : 'horizontal'"
     >
+      <!-- TODO width 首次进入 mode 变更 -->
       <template v-for="item in menuStore.menus">
         <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
           <template #title>

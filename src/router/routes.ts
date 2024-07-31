@@ -1,8 +1,11 @@
+import type { RouteMeta } from 'vue-router'
+
 // 扩展 RouteMeta 接口
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string // 菜单栏及 tagsView 栏、菜单搜索名称
     icon?: string // 菜单、tagsView 图标
+    isWhite?: boolean // 是否为白名单路由
     isDynamic?: boolean // 是否为动态路由
     roles?: string[] // 当前路由权限标识，由前端控制时可用
     isHide?: boolean // 是否在菜单中隐藏此路由
@@ -11,7 +14,47 @@ declare module 'vue-router' {
   }
 }
 
-export const routes = [
+export interface RouteItem {
+  path: string
+  meta: RouteMeta
+  children?: RouteItem[]
+}
+
+export const routes: RouteItem[] = [
+  {
+    path: '/test',
+    meta: {
+      title: 'ceshi',
+      icon: 'carbon-home',
+    },
+    children: [
+      {
+        path: '/test/:id',
+        meta: {
+          title: 'ceshi_id',
+          icon: 'carbon-home',
+        },
+      },
+      {
+        path: '/test/:e',
+        meta: {
+          title: 'ceshi_e',
+          icon: 'carbon-home',
+        },
+        children: [
+          {
+            path: '/test/:e/:d',
+            meta: {
+              title: 'ceshi_e_d',
+              icon: 'carbon-home',
+              isWhite: true,
+            },
+          },
+        ],
+
+      },
+    ],
+  },
   {
     path: '/home',
     meta: {
