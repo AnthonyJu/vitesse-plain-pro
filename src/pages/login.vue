@@ -24,14 +24,14 @@
         <el-form-item prop="username">
           <el-input
             v-model="form.username"
-            placeholder="请输入账号（随便填）"
+            placeholder="用户名：admin、user"
           />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
             type="password"
-            placeholder="请输入密码（随便填）"
+            placeholder="密码：123456"
             autocomplete="new-password"
           />
         </el-form-item>
