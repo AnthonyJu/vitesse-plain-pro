@@ -17,6 +17,7 @@ const WhiteList = ['/loading', '/401', '/404']
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
   const menuStore = useMenuStore()
+
   // 当前路由匹配路径
   const matchedPath = to.matched.find(item => item.name === to.name)!.path
 
@@ -34,8 +35,13 @@ router.beforeEach((to, from, next) => {
       if (to.path === '/login') {
         next()
       }
+      // 未登录，去loading页面，也跳转到登录页面
+      else if (to.path === '/loading') {
+        next('/login')
+      }
       else {
-        next(`/login?redirect=${to.fullPath}`) // TODO redirect
+        ElMessage.warning('请先登录')
+        next(`/login?redirect=${to.fullPath}`)
       }
     }
     // 已登录，再去login页面，则还是进入当前页面
@@ -51,6 +57,10 @@ router.beforeEach((to, from, next) => {
       // 菜单匹配路径有权限，则进入
       if (menuStore.permissionPaths.includes(matchedPath)) {
         next()
+      }
+      // 匹配不到路由，则跳转到404页面
+      else if (matchedPath === '/:all(.*)') {
+        next('/404')
       }
       // 没有权限，则跳转到401页面
       else {

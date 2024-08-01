@@ -19,16 +19,14 @@ export const useMenuStore = defineStore(
 
     // 过滤白名单菜单
     function filterWhite() {
-      // 过滤出meta.isWhite为true的路由，必须在nextTick中执行，否则会出现初始化store时menus为空的情况
-      nextTick(() => {
-        menus.value = filterWhiteMenus()
-        whitePaths.value = menus.value.reduce<string[]>(computedWhitePath, [])
-      })
+      // 过滤出 meta.isWhite 为true的路由
+      menus.value = filterWhiteMenus(JSON.parse(JSON.stringify(routes)))
+      whitePaths.value = menus.value.reduce<string[]>(computedWhitePath, [])
     }
 
     // 递归过滤函数
-    function filterWhiteMenus(menus: RouteItem[] = routes): RouteItem[] {
-      return menus.filter((route) => {
+    function filterWhiteMenus(arr: RouteItem[]): RouteItem[] {
+      return arr.filter((route) => {
         let isWhite = !!route.meta?.isWhite
         if (isWhite) return true
         if (route.children) {

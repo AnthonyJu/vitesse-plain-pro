@@ -22,40 +22,6 @@ export interface RouteItem {
 
 export const routes: RouteItem[] = [
   {
-    path: '/test',
-    meta: {
-      title: 'ceshi',
-      icon: 'carbon-home',
-    },
-    children: [
-      {
-        path: '/test/:id',
-        meta: {
-          title: 'ceshi_id',
-          icon: 'carbon-home',
-        },
-      },
-      {
-        path: '/test/:e',
-        meta: {
-          title: 'ceshi_e',
-          icon: 'carbon-home',
-        },
-        children: [
-          {
-            path: '/test/:e/:d',
-            meta: {
-              title: 'ceshi_e_d',
-              icon: 'carbon-home',
-              isWhite: true,
-            },
-          },
-        ],
-
-      },
-    ],
-  },
-  {
     path: '/home',
     meta: {
       title: '首页',
@@ -67,6 +33,7 @@ export const routes: RouteItem[] = [
     meta: {
       title: '正则合集',
       icon: 'carbon-test-tool',
+      roles: ['admin'],
     },
   },
   {
@@ -74,6 +41,7 @@ export const routes: RouteItem[] = [
     meta: {
       title: 'Unity 交互',
       icon: 'carbon-3d-mpr-toggle',
+      roles: ['user'],
     },
   },
   {
@@ -81,6 +49,7 @@ export const routes: RouteItem[] = [
     meta: {
       title: 'i18n 国际化',
       icon: 'carbon-ibm-watson-language-translator',
+      roles: ['admin', 'user'],
     },
   },
   {
@@ -94,18 +63,21 @@ export const routes: RouteItem[] = [
         path: '/j-components/j-dialog-demo',
         meta: {
           title: 'JDialog',
+          roles: ['user'],
         },
       },
       {
         path: '/j-components/j-form-demo',
         meta: {
           title: 'JForm',
+          roles: ['admin'],
         },
       },
       {
         path: '/j-components/j-list-demo',
         meta: {
           title: 'JList',
+          roles: [],
         },
       },
       {
