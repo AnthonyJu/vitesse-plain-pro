@@ -1,11 +1,32 @@
 <template>
-  <div class="loading-next flex-center">
-    <div class="loading-next-box-warp">
-      <div
-        v-for="i in 9"
-        :key="`loading_${i}`"
-        class="loading-next-box-item"
-      />
+  <div class="loading-next flex-center pb-100px">
+    <!-- loading -->
+    <div v-show="loading" class="loading-next-box-warp">
+      <div v-for="i in 9" :key="`loading_${i}`" class="loading-next-box-item" />
+    </div>
+
+    <!-- reload -->
+    <div v-if="isFail" class="min-w-500px flex-col-center animate-head-shake gap-10px">
+      <div class="text-55px text-$el-color-danger">
+        <Iconify icon="ep-warning-filled" />
+      </div>
+
+      <div class="text-22px text-$el-text-color-primary">
+        数据加载失败
+      </div>
+
+      <div class="text-12px text-$el-text-color-secondary">
+        请检查您的网络连接，或给管理员进行反馈
+      </div>
+
+      <div mt-30px>
+        <el-button type="success" round @click="commonStore.loadCommonData()">
+          刷新重试
+        </el-button>
+        <el-button type="warning" round @click="goHomePath">
+          进入系统
+        </el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +38,13 @@ meta:
 
 <script setup lang='ts'>
 const commonStore = useCommonDataStore()
+const { loading, isFail } = storeToRefs(commonStore)
 commonStore.loadCommonData()
+
+const router = useRouter()
+function goHomePath() {
+  router.push(window.system.homePath)
+}
 </script>
 
 <style lang='scss' scoped>
