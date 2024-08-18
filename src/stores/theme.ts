@@ -1,5 +1,5 @@
-export const useLayoutStore = defineStore(
-  'layout',
+export const useThemeStore = defineStore(
+  'theme',
   () => {
     const { width } = useWindowSize()
 
@@ -80,9 +80,7 @@ export const useLayoutStore = defineStore(
     }
   },
   {
-    persist: {
-      storage: localStorage,
-    },
+    persist: true,
   },
 )
 

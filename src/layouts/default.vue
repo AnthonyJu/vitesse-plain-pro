@@ -5,7 +5,7 @@
   <!-- 正式layout -->
   <el-container v-else>
     <!-- 侧边栏 -->
-    <el-aside v-if="menu.aside && !menu.drawer" class="z-10 flex-col shadow-r !w-240px bg-default">
+    <el-aside v-if="menu.aside && !menu.drawer" class="z-10 flex-col shadow-r !w-230px bg-default">
       <Logo />
       <Menu />
     </el-aside>
@@ -58,8 +58,10 @@ import Breadcrumb from './components/Breadcrumb.vue'
 import Footer from './components/Footer.vue'
 import TagsView from './components/TagsView.vue'
 
-const layoutStore = useLayoutStore()
-const { menu, footer, mainHeight } = storeToRefs(layoutStore)
+defineOptions({ name: 'DefaultLayout' })
+
+const themeStore = useThemeStore()
+const { menu, footer, mainHeight } = storeToRefs(themeStore)
 
 const scrollbar = ref<ScrollbarInstance>()
 

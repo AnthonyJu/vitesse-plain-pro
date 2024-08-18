@@ -18,6 +18,4 @@ ElNotification({
   message: '网站换代中，内部样式可能会有所变化',
   type: 'warning',
 })
-
-if (import.meta.env.DEV) useMenuStore().getMenu()
 </script>

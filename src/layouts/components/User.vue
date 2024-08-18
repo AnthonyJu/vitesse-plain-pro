@@ -61,13 +61,20 @@ function exitLogin() {
   ElMessageBox({
     title: '退出登陆',
     message: '此操作将退出登录, 是否继续?',
+    cancelButtonText: '取消',
+    confirmButtonText: '确定',
     showCancelButton: true,
     lockScroll: false,
     beforeClose: (action, instance, done) => {
       if (action === 'confirm') {
         instance.confirmButtonLoading = true
         instance.confirmButtonText = '退出中...'
-        userStore.handleLogout().then(() => done())
+        userStore.handleLogout()
+          .then(() => done())
+          .catch(() => {
+            done()
+            ElMessage.error('退出登录失败')
+          })
       }
       else { done() }
     },

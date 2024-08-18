@@ -3,6 +3,6 @@
 </template>
 
 <script setup lang='ts'>
-const layoutStore = useLayoutStore()
-const { tagsview } = storeToRefs(layoutStore)
+const themeStore = useThemeStore()
+const { tagsview } = storeToRefs(themeStore)
 </script>

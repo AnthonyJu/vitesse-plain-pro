@@ -24,14 +24,14 @@
         <el-form-item prop="username">
           <el-input
             v-model="form.username"
-            placeholder="请输入账号（随便填）"
+            placeholder="用户名：admin、user"
           />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
             type="password"
-            placeholder="请输入密码（随便填）"
+            placeholder="密码：123456"
             autocomplete="new-password"
           />
         </el-form-item>
@@ -53,9 +53,9 @@ meta:
 <script setup lang="ts">
 defineOptions({ name: 'Login' })
 
-// 宽度小于等于586时，居中显示登录框
+// 宽度小于等于820时，居中显示登录框
 const { width } = useWindowSize()
-const style = computed(() => (width.value > 586 ? { right: '18%' } : { right: 0, left: 0 }))
+const style = computed(() => (width.value > 820 ? { right: '18%' } : { right: 0, left: 0 }))
 
 const userStore = useUserStore()
 const formRef = ref()

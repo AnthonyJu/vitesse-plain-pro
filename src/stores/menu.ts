@@ -1,76 +1,91 @@
-import type { RouteRecordRaw } from 'vue-router'
-import { routes } from 'vue-router/auto-routes'
+import { getMenuFromBackend, getMenuFromFrontend } from '@/router'
+import type { RouteItem } from '@/router/routes'
+import { routes } from '@/router/routes'
 
 export const useMenuStore = defineStore(
   'menu',
   () => {
-    const menus = ref<RouteRecordRaw[]>([])
+    // 是否前端控制菜单
+    const isFrontendCtrl = true
+    // 菜单
+    const menus = ref<RouteItem[]>([])
+    // 路由白名单
+    const whitePaths = ref<string[]>([])
+    // 权限路径
+    const permissionPaths = ref<string[]>([])
 
-    function getMenu() {
-      // TODO 使用真实接口获取菜单
-      return new Promise((resolve) => {
-        const allPages = routes.filter(page => !['/', '/login', '/401', '/:all(.*)'].includes(page.path))
-        menus.value = [
-          {
-            meta: { name: '首页', icon: 'carbon-home' },
-            name: 'home',
-            path: '/home',
-            children: [],
-          },
-          {
-            meta: { name: '正则合集', icon: 'carbon-test-tool' },
-            path: '/regexps',
-            children: [],
-          },
-          {
-            meta: { name: 'Unity 交互', icon: 'carbon-3d-mpr-toggle' },
-            name: 'unity',
-            path: '/unity-in-web',
-            children: [],
-          },
-          {
-            meta: { name: 'i18n 国际化', icon: 'carbon-ibm-watson-language-translator' },
-            name: 'i18n',
-            path: '/i18n',
-            children: [],
-          },
-          {
-            meta: { name: 'J 组件', icon: 'carbon-dicom-overlay' },
-            ...generateInfo(allPages, 'j-components'),
-          },
-          {
-            meta: { name: '组件封装', icon: 'carbon-cics-system-group' },
-            ...generateInfo(allPages, 'comp'),
-          },
-          {
-            meta: { name: '功能示例', icon: 'carbon-layers' },
-            ...generateInfo(allPages, 'feat'),
-          },
-          {
-            meta: { name: 'ArcGIS', icon: 'carbon-map' },
-            ...generateInfo(allPages, 'arcgis'),
-          },
-          {
-            meta: { name: 'Vue-ECharts', icon: 'carbon-chart-multitype' },
-            ...generateInfo(allPages, 'vue-echarts'),
-          },
-        ]
-        resolve(true)
+    // 初始化，设置默认菜单和白名单
+    filterWhite()
+
+    // 过滤白名单菜单
+    function filterWhite() {
+      // 过滤出 meta.isWhite 为true的路由
+      menus.value = filterWhiteMenus(JSON.parse(JSON.stringify(routes)))
+      whitePaths.value = menus.value.reduce<string[]>(computedWhitePath, [])
+    }
+
+    // 递归过滤函数
+    function filterWhiteMenus(arr: RouteItem[]): RouteItem[] {
+      return arr.filter((route) => {
+        let isWhite = !!route.meta?.isWhite
+        if (isWhite) return true
+        if (route.children) {
+          route.children = filterWhiteMenus(route.children)
+          isWhite = route.children!.length > 0
+        }
+        return isWhite
       })
     }
 
-    function generateInfo(allPages: RouteRecordRaw[], name: string) {
-      const children = allPages.find(page => page.path === `/${name}`)?.children
-      return {
-        name,
-        path: `/${name}`,
-        children: children?.map(el => ({ ...el, path: `/${name}/${el.path}` })) || [],
+    // 计算白名单路径
+    function computedWhitePath(acc: string[], cur: RouteItem) {
+      if (cur.children) {
+        cur.children.forEach(item => computedWhitePath(acc, item))
       }
+      else if (cur.meta?.isWhite) {
+        acc.push(cur.path)
+      }
+      return acc
+    }
+
+    // 获取菜单
+    function getMenu() {
+      return new Promise((resolve, reject) => {
+        if (isFrontendCtrl) {
+          setMenu(getMenuFromFrontend())
+          resolve(true)
+        }
+        else {
+          getMenuFromBackend().then((res) => {
+            setMenu(res)
+            resolve(true)
+          }).catch(reject)
+        }
+      })
+    }
+
+    // 设置菜单
+    function setMenu(val: RouteItem[]) {
+      menus.value = val
+      permissionPaths.value = menus.value.reduce<string[]>(computedPath, [])
+    }
+
+    // 计算权限路径
+    function computedPath(acc: string[], cur: RouteItem) {
+      if (cur.children) {
+        cur.children.forEach(item => computedPath(acc, item))
+      }
+      else {
+        acc.push(cur.path)
+      }
+      return acc
     }
 
     return {
       menus,
       getMenu,
+      whitePaths,
+      permissionPaths,
     }
   },
   {

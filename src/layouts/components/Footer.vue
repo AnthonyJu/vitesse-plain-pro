@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang='ts'>
-const layoutStore = useLayoutStore()
-const { footer } = storeToRefs(layoutStore)
+const themeStore = useThemeStore()
+const { footer } = storeToRefs(themeStore)
 </script>
 
 <style lang="scss" scoped>

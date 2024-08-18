@@ -8,18 +8,19 @@
       :collapse="menu.collapse" width
       :mode="menu.aside ? 'vertical' : 'horizontal'"
     >
+      <!-- TODO width 首次进入 mode 变更 -->
       <template v-for="item in menuStore.menus">
         <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
           <template #title>
             <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
-            <span>{{ item.meta?.name }}</span>
+            <span>{{ item.meta?.title }}</span>
           </template>
           <SubMenu :children="item.children" />
         </el-sub-menu>
 
         <el-menu-item v-else :key="item.path!" :index="item.path">
           <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
-          <span>{{ item.meta?.name }}</span>
+          <span>{{ item.meta?.title }}</span>
         </el-menu-item>
       </template>
     </el-menu>
@@ -31,8 +32,8 @@ import SubMenu from './SubMenu.vue'
 
 const route = useRoute()
 const menuStore = useMenuStore()
-const layoutStore = useLayoutStore()
-const { menu } = storeToRefs(layoutStore)
+const themeStore = useThemeStore()
+const { menu } = storeToRefs(themeStore)
 </script>
 
 <style lang="scss" scoped>

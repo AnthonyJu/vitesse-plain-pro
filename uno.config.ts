@@ -43,7 +43,7 @@ export default defineConfig({
     'flex-bc': 'flex justify-between items-center',
     'flex-center': 'flex justify-center items-center',
     'flex-col-center': 'flex flex-col justify-center items-center',
-    'turn-dark': 'invert-90 hue-rotate-180',
+    'turn-dark': 'invert-88.8 hue-rotate-180',
     'turn-light': 'brightness-98 contrast-98',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
     'layout-default': 'bg-default p-15px rounded-4px',

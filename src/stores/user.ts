@@ -4,26 +4,32 @@ import { router } from '@/modules/router'
 export const useUserStore = defineStore(
   'user',
   () => {
+    const route = useRoute()
+    const menuStore = useMenuStore()
+
     const isLogin = ref(false)
     const userInfo = ref<UserInfo>()
-
-    const menuStore = useMenuStore()
 
     function handleLogin(data: LoginInfo) {
       return authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        await menuStore.getMenu()
-        router.replace('/')
+        router.replace(`/loading${route.query.redirect ? `?redirect=${route.query.redirect}` : ''}`)
       })
     }
 
     function handleLogout() {
-      return new Promise((resolve) => {
-        isLogin.value = false
-        userInfo.value = undefined
-        router.replace('/login')
-        resolve(true)
+      return new Promise((resolve, reject) => {
+        try {
+          menuStore.$reset()
+          isLogin.value = false
+          userInfo.value = undefined
+          router.replace('/login')
+          resolve(true)
+        }
+        catch (error) {
+          reject(error)
+        }
       })
     }
 
