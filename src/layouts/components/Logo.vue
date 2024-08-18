@@ -33,7 +33,7 @@ const { menu } = storeToRefs(layoutStore)
 const showDrawer = ref(false)
 </script>
 
-<style lang="scss" socoped>
+<style lang="scss" scoped>
 .menu-drawer {
   .dark & {
     background: var(--el-layout-bg-color-dark);
