@@ -96,6 +96,13 @@ const { menu } = storeToRefs(themeStore)
         }
       }
     }
+
+    ::v-deep(.el-sub-menu.is-active:not(.is-opened)) {
+      .el-sub-menu__title {
+        color: var(--el-color-primary);
+        background: var(--el-color-primary-light-7);
+      }
+    }
   }
 }
 </style>

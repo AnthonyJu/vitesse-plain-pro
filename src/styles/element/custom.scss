@@ -16,3 +16,9 @@ div.el-message {
 .el-notification {
   margin-top: 3px;
 }
+
+// * ElTable
+.el-table {
+  --el-table-header-text-color: #fff;
+  --el-table-header-bg-color: var(--el-color-primary);
+}
