@@ -10,10 +10,10 @@ meta:
 
 <script setup lang='ts'>
 import type { App } from 'vue'
-import { createApp } from 'vue'
 import Point from '@arcgis/core/geometry/Point'
 import Graphic from '@arcgis/core/Graphic'
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
+import { createApp } from 'vue'
 import CustomPopup from './components/CustomPopup.vue'
 
 const { view } = useArcgis('map')
@@ -74,6 +74,7 @@ onMounted(() => {
     // content 的定位改为屏幕坐标
     content.style.left = `${screenPoint.x - 200}px`
     content.style.top = `${screenPoint.y - 200}px`
+    // TODO 底部中心点
   })
 })
 </script>

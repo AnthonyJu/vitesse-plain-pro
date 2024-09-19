@@ -42,6 +42,13 @@ const { menu } = storeToRefs(themeStore)
 
   border: none;
 
+  ::v-deep(.el-sub-menu.is-active:not(.is-opened)) {
+    .el-sub-menu__title {
+      color: var(--el-color-primary);
+      background: var(--el-color-primary-light-9);
+    }
+  }
+
   ::v-deep(.el-menu-item),
   ::v-deep(.el-sub-menu__name),
   ::v-deep(.el-sub-menu__title) {
