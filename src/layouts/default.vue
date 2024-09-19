@@ -51,12 +51,12 @@
 
 <script setup lang='ts'>
 import type { ScrollbarInstance } from 'element-plus'
-import Logo from './components/Logo.vue'
-import Menu from './components/Menu.vue'
-import User from './components/User.vue'
 import Breadcrumb from './components/Breadcrumb.vue'
 import Footer from './components/Footer.vue'
+import Logo from './components/Logo.vue'
+import Menu from './components/Menu/index.vue'
 import TagsView from './components/TagsView.vue'
+import User from './components/User.vue'
 
 defineOptions({ name: 'DefaultLayout' })
 

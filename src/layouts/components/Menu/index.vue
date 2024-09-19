@@ -12,15 +12,13 @@
       <template v-for="item in menuStore.menus">
         <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
           <template #title>
-            <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
-            <span>{{ item.meta?.title }}</span>
+            <MenuTitle :title="item.meta?.title" :icon="item.meta?.icon" />
           </template>
           <SubMenu :children="item.children" />
         </el-sub-menu>
 
         <el-menu-item v-else :key="item.path!" :index="item.path">
-          <Iconify v-if="item.meta?.icon" mr-8px h-16px w-16px :icon="item.meta?.icon" />
-          <span>{{ item.meta?.title }}</span>
+          <MenuTitle :title="item.meta?.title" :icon="item.meta?.icon" />
         </el-menu-item>
       </template>
     </el-menu>
@@ -28,7 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import SubMenu from './SubMenu.vue'
+import MenuTitle from './components/MenuTitle.vue'
+import SubMenu from './components/SubMenu.vue'
 
 const route = useRoute()
 const menuStore = useMenuStore()
@@ -38,7 +37,7 @@ const { menu } = storeToRefs(themeStore)
 
 <style lang="scss" scoped>
 .el-menu {
-  --el-menu-item-height: 52px;
+  --el-menu-item-height: 48px;
 
   border: none;
 
@@ -52,7 +51,7 @@ const { menu } = storeToRefs(themeStore)
   ::v-deep(.el-menu-item),
   ::v-deep(.el-sub-menu__name),
   ::v-deep(.el-sub-menu__title) {
-    margin: 5px 10px;
+    margin: 4px 10px;
     border-radius: 4px;
 
     &.is-active {

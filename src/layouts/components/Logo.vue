@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import Menu from './Menu.vue'
+import Menu from './Menu/index.vue'
 
 const themeStore = useThemeStore()
 const { menu } = storeToRefs(themeStore)
