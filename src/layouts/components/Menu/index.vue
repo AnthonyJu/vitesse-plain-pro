@@ -71,6 +71,12 @@ const { menu } = storeToRefs(themeStore)
       }
     }
   }
+
+  ::v-deep(.el-sub-menu__hide-arrow) {
+    .el-sub-menu__title {
+      padding: 0 30px;
+    }
+  }
 }
 
 .el-sub-menu ::v-deep(.el-menu) {

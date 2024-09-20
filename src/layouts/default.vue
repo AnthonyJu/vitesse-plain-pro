@@ -13,7 +13,7 @@
     <!-- 主体 -->
     <el-container>
       <!-- 顶部 -->
-      <el-header class="h-auto! bg-default p-0!">
+      <el-header class="z-1 h-auto! bg-default p-0!">
         <!-- 顶部主体 -->
         <div class="h-60px flex-bc px-15px shadow-b">
           <!-- 小屏Logo -->

@@ -29,7 +29,6 @@ export const routes: RouteItem[] = [
     meta: {
       title: '正则合集',
       icon: 'carbon-test-tool',
-      roles: ['admin'],
     },
   },
   {
@@ -37,7 +36,6 @@ export const routes: RouteItem[] = [
     meta: {
       title: 'Unity 交互',
       icon: 'carbon-3d-mpr-toggle',
-      roles: ['user'],
     },
   },
   {
@@ -45,8 +43,50 @@ export const routes: RouteItem[] = [
     meta: {
       title: 'i18n 国际化',
       icon: 'carbon-ibm-watson-language-translator',
-      roles: ['admin', 'user'],
     },
+  },
+  {
+    path: '/menu',
+    meta: {
+      title: '菜单权限',
+      icon: 'carbon-menu',
+    },
+    children: [
+      {
+        path: '/menu/menu-0',
+        meta: {
+          title: '路由参数',
+        },
+      },
+      {
+        path: '/menu/menu-1',
+        meta: {
+          title: 'Admin 权限',
+          roles: ['admin'],
+        },
+      },
+      {
+        path: '/menu/menu-2',
+        meta: {
+          title: 'User 权限',
+          roles: ['user'],
+        },
+      },
+      {
+        path: '/menu/menu-3',
+        meta: {
+          title: '多级菜单',
+        },
+        children: [
+          {
+            path: '/menu/menu-3/menu-3-1',
+            meta: {
+              title: '子菜单',
+            },
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/j-components',
@@ -59,21 +99,18 @@ export const routes: RouteItem[] = [
         path: '/j-components/j-dialog-demo',
         meta: {
           title: 'JDialog',
-          roles: ['user'],
         },
       },
       {
         path: '/j-components/j-form-demo',
         meta: {
           title: 'JForm',
-          roles: ['admin'],
         },
       },
       {
         path: '/j-components/j-list-demo',
         meta: {
           title: 'JList',
-          roles: [],
         },
       },
       {

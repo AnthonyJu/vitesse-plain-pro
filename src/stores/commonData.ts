@@ -3,13 +3,13 @@ import { router } from '@/modules/router'
 export const useCommonDataStore = defineStore(
   'commonData',
   () => {
-    const route = useRoute()
-    const menuStore = useMenuStore()
-
     // 是否加载完毕
     const loading = ref(false)
     // 是否加载失败
     const isFail = ref(false)
+
+    const route = useRoute()
+    const menuStore = useMenuStore()
 
     // 加载登录后需要请求的数据以及通用数据
     function loadCommonData() {

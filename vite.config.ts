@@ -12,7 +12,7 @@ export default defineConfig(({ command }) => {
       port: 5050,
       proxy: {
       // '/api': {
-      //   target: 'http://localhost:5500/',
+      //   target: 'http://192.168.1.117:5500/',
       //   changeOrigin: true,
       //   rewrite: path => path.replace(/^\/api/, ''),
       // },

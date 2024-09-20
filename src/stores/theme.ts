@@ -79,9 +79,6 @@ export const useThemeStore = defineStore(
       mainHeight,
     }
   },
-  {
-    persist: true,
-  },
 )
 
 if (import.meta.hot) import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
