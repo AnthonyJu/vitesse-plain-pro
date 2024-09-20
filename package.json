@@ -9,6 +9,7 @@
     "typecheck": "vue-tsc --noEmit",
     "build": "vite build",
     "build-zip": "vite build && pick-zip",
+    "netlify": "export NODE_OPTIONS=--max_old_space_size=4096 && vite build",
     "preview": "vite preview",
     "preview-https": "serve dist",
     "up": "taze major -I",
