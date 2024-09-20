@@ -5,6 +5,9 @@ export function vitePWA() {
   return VitePWA({
     registerType: 'autoUpdate',
     includeAssets: ['favicon.svg'],
+    workbox: {
+      maximumFileSizeToCacheInBytes: 1024 * 1024 * 50,
+    },
     manifest: {
       name: 'vitesse plain pro',
       short_name: 'vitesse plain pro',
