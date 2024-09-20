@@ -1,5 +1,5 @@
-import Obfuscator from 'rollup-plugin-obfuscator'
 import type { Plugin } from 'vite'
+import Obfuscator from 'rollup-plugin-obfuscator'
 
 // https://github.com/javascript-obfuscator/javascript-obfuscator
 export function jsObfuscator(): Plugin {

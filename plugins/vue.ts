@@ -4,8 +4,5 @@ import Vue from '@vitejs/plugin-vue'
 export function vue() {
   return Vue({
     include: [/\.vue$/],
-    script: {
-      propsDestructure: true,
-    },
   })
 }

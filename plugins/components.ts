@@ -1,6 +1,6 @@
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import type { ConfigEnv } from 'vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 
 // https://github.com/antfu/unplugin-vue-components
 export function components(command: ConfigEnv['command']) {
