@@ -5,20 +5,19 @@
       router
       unique-opened
       collapse-transition
-      :collapse="menu.collapse" width
-      :mode="menu.aside ? 'vertical' : 'horizontal'"
+      :collapse="themeStore.menu.collapse" width
+      :mode="themeStore.menu.aside ? 'vertical' : 'horizontal'"
     >
-      <!-- TODO width 首次进入 mode 变更 -->
-      <template v-for="item in menuStore.menus">
-        <el-sub-menu v-if="item.children?.length" :key="item.path" :index="item.path">
+      <template v-for="menu in menuStore.menus" :key="menu.path">
+        <el-sub-menu v-if="menu.children?.some(v => !v.meta.isHide)" :index="menu.path">
           <template #title>
-            <MenuTitle :title="item.meta?.title" :icon="item.meta?.icon" />
+            <MenuTitle :title="menu.meta?.title" :icon="menu.meta?.icon" />
           </template>
-          <SubMenu :children="item.children" />
+          <SubMenu :children="menu.children" />
         </el-sub-menu>
 
-        <el-menu-item v-else :key="item.path!" :index="item.path">
-          <MenuTitle :title="item.meta?.title" :icon="item.meta?.icon" />
+        <el-menu-item v-else-if="!menu.meta.isHide" :index="menu.path">
+          <MenuTitle :title="menu.meta?.title" :icon="menu.meta?.icon" />
         </el-menu-item>
       </template>
     </el-menu>
@@ -32,7 +31,6 @@ import SubMenu from './components/SubMenu.vue'
 const route = useRoute()
 const menuStore = useMenuStore()
 const themeStore = useThemeStore()
-const { menu } = storeToRefs(themeStore)
 </script>
 
 <style lang="scss" scoped>
@@ -51,7 +49,7 @@ const { menu } = storeToRefs(themeStore)
   ::v-deep(.el-menu-item),
   ::v-deep(.el-sub-menu__name),
   ::v-deep(.el-sub-menu__title) {
-    margin: 4px 10px;
+    margin: 5px 10px;
     border-radius: 4px;
 
     &.is-active {

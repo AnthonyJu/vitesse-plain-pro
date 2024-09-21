@@ -1,7 +1,7 @@
+import type { App } from 'vue'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
-import type { App } from 'vue'
 
 // 重定向
 routes.push({ path: '/', redirect: '/loading' })
@@ -32,13 +32,15 @@ router.beforeEach((to, from, next) => {
   else {
     // 未登录，跳转到登录页面
     if (!userStore.isLogin) {
+      // 未登录，去login页面，则直接进入
       if (to.path === '/login') {
         next()
       }
-      // 未登录，去loading页面，也跳转到登录页面
-      else if (to.path === '/loading') {
+      // 未登录，去非白名单页面，则跳转到登录页面
+      else if (WhiteList.includes(to.path)) {
         next('/login')
       }
+      // 未登录，去非白名单页面，则跳转到登录页面，并记录当前页面
       else {
         ElMessage.warning('请先登录')
         next(`/login?redirect=${to.fullPath}`)
@@ -58,8 +60,8 @@ router.beforeEach((to, from, next) => {
       if (menuStore.permissionPaths.includes(matchedPath)) {
         next()
       }
-      // 匹配不到路由，则跳转到404页面
-      else if (matchedPath === '/:all(.*)') {
+      // 匹配不到路由，或者是layout页面，则跳转到404页面
+      else if (matchedPath === '/:all(.*)' || to.meta.isLayout) {
         next('/404')
       }
       // 没有权限，则跳转到401页面

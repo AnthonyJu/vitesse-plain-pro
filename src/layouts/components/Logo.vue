@@ -15,7 +15,7 @@
     v-model="showDrawer"
     class="menu-drawer"
     direction="ltr"
-    size="220px"
+    size="230px"
     :with-header="false"
   >
     <Menu />
@@ -33,9 +33,9 @@ const { menu } = storeToRefs(themeStore)
 const showDrawer = ref(false)
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .menu-drawer {
-  .dark & {
+  &.dark {
     background: var(--el-layout-bg-color-dark);
   }
 

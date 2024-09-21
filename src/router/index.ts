@@ -22,14 +22,17 @@ function filterAuthMenus(arr: RouteItem[], role: string): RouteItem[] {
     let hasAuth = false
 
     // 当前路由有权限标识，以权限标识为准
-    if (route.meta.roles) hasAuth = route.meta.roles.includes(role)
-    // 无权限标识，且无子路由，则默认有权限
-    else hasAuth = !route.children?.length
-
-    if (hasAuth) return true
-    if (route.children) {
+    if (route.meta.roles) {
+      hasAuth = route.meta.roles.includes(role)
+    }
+    // 递归判断子路由
+    else if (route.children) {
       route.children = filterAuthMenus(route.children, role)
       hasAuth = route.children!.length > 0
+    }
+    // 无权限标识，且无子路由，则默认有权限
+    else {
+      hasAuth = true
     }
     return hasAuth
   })

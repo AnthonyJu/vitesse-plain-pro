@@ -57,6 +57,23 @@ export const routes: RouteItem[] = [
         meta: {
           title: '路由参数',
         },
+        children: [
+          {
+            path: '/menu/menu-0/:id',
+            meta: {
+              title: '动态路由',
+              isHide: true,
+              isDynamic: true,
+            },
+          },
+          {
+            path: '/menu/menu-0/detail',
+            meta: {
+              title: '普通路由',
+              isHide: true,
+            },
+          },
+        ],
       },
       {
         path: '/menu/menu-1',

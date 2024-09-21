@@ -1,5 +1,5 @@
-import { getMenuFromBackend, getMenuFromFrontend } from '@/router'
 import type { RouteItem } from '@/router/routes'
+import { getMenuFromBackend, getMenuFromFrontend } from '@/router'
 import { routes } from '@/router/routes'
 
 export const useMenuStore = defineStore(
@@ -50,16 +50,19 @@ export const useMenuStore = defineStore(
 
     // 获取菜单
     function getMenu() {
+      // TODO 优化
       return new Promise((resolve, reject) => {
         if (isFrontendCtrl) {
           setMenu(getMenuFromFrontend())
           resolve(true)
         }
         else {
-          getMenuFromBackend().then((res) => {
-            setMenu(res)
-            resolve(true)
-          }).catch(reject)
+          getMenuFromBackend()
+            .then((res) => {
+              setMenu(res)
+              resolve(true)
+            })
+            .catch(reject)
         }
       })
     }
@@ -72,9 +75,16 @@ export const useMenuStore = defineStore(
 
     // 计算权限路径
     function computedPath(acc: string[], cur: RouteItem) {
+      // 存在子路由，则递归计算
       if (cur.children) {
-        cur.children.forEach(item => computedPath(acc, item))
+        // 过滤隐藏的子路由
+        const children = cur.children.filter(item => !item.meta.isHide)
+        // 有子路由，则递归计算
+        if (children.length) children.forEach(item => computedPath(acc, item))
+        // 没有展示的子路由，则加入权限路径
+        else acc.push(cur.path)
       }
+      // 没有子路由，则加入权限路径
       else {
         acc.push(cur.path)
       }
