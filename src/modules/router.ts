@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 
 // 重定向
-routes.push({ path: '/', redirect: '/loading' })
+routes.push({ path: '/', redirect: import.meta.env.VITE_REDIRECT_PATH })
 
 export const router = createRouter({
   routes: setupLayouts(routes),
@@ -12,7 +12,7 @@ export const router = createRouter({
 })
 
 // 登录后白名单
-const WhiteList = ['/loading', '/401', '/404']
+const WhiteList = ['/401', '/404']
 
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()

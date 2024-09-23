@@ -14,7 +14,7 @@ export const useUserStore = defineStore(
       return authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        router.replace(`/loading${route.query.redirect ? `?redirect=${route.query.redirect}` : ''}`)
+        router.replace(route.query.redirect as string || '/')
       })
     }
 

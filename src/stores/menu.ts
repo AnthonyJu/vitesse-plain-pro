@@ -53,8 +53,11 @@ export const useMenuStore = defineStore(
       // TODO 优化
       return new Promise((resolve, reject) => {
         if (isFrontendCtrl) {
-          setMenu(getMenuFromFrontend())
-          resolve(true)
+          // ! 模拟异步请求
+          setTimeout(() => {
+            setMenu(getMenuFromFrontend())
+            resolve(true)
+          }, 1000)
         }
         else {
           getMenuFromBackend()
