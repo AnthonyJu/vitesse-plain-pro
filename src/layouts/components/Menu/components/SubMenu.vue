@@ -7,7 +7,7 @@
       <SubMenu :children="menu.children" />
     </el-sub-menu>
 
-    <el-menu-item v-else-if="!menu.meta.isHide" :key="menu.path!" :index="menu.path">
+    <el-menu-item v-else-if="!menu.meta.isHide" :index="menu.path">
       <MenuTitle :title="menu.meta?.title" :icon="menu.meta?.icon" />
     </el-menu-item>
   </template>

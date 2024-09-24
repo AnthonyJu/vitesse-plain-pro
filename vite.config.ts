@@ -44,12 +44,6 @@ export default defineConfig(({ command, mode }) => {
               else if (id.includes('echarts')) {
                 return 'echarts'
               }
-              else if (id.includes('dayjs')) {
-                return 'dayjs'
-              }
-              else if (id.includes('lodash-es')) {
-                return 'lodash-es'
-              }
               else if (id.includes('xlsx')) {
                 return 'xlsx'
               }

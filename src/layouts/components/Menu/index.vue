@@ -9,14 +9,22 @@
       :mode="themeStore.menu.aside ? 'vertical' : 'horizontal'"
     >
       <template v-for="menu in menuStore.menus" :key="menu.path">
-        <el-sub-menu v-if="menu.children?.some(v => !v.meta.isHide)" :index="menu.path">
+        <el-sub-menu
+          v-if="menu.children?.some(v => !v.meta.isHide)"
+          :key="`v-if_${menu.path}`"
+          :index="menu.path"
+        >
           <template #title>
             <MenuTitle :title="menu.meta?.title" :icon="menu.meta?.icon" />
           </template>
           <SubMenu :children="menu.children" />
         </el-sub-menu>
 
-        <el-menu-item v-else-if="!menu.meta.isHide" :index="menu.path">
+        <el-menu-item
+          v-else-if="!menu.meta.isHide"
+          :key="`v-else-if_${menu.path}`"
+          :index="menu.path"
+        >
           <MenuTitle :title="menu.meta?.title" :icon="menu.meta?.icon" />
         </el-menu-item>
       </template>
