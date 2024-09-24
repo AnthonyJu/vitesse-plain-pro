@@ -1,7 +1,7 @@
 import Map from '@arcgis/core/Map'
 import MapView from '@arcgis/core/views/MapView'
-import Zoom from '@arcgis/core/widgets/Zoom'
 import ScaleBar from '@arcgis/core/widgets/ScaleBar'
+import Zoom from '@arcgis/core/widgets/Zoom'
 import '@arcgis/core/assets/esri/themes/light/main.css'
 
 export function useArcgis(container: string) {

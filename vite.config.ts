@@ -41,7 +41,7 @@ export default defineConfig(({ command, mode }) => {
               else if (id.includes('zrender')) {
                 return 'zrender'
               }
-              else if (id.includes('echarts') || id.includes('echarts-wordcloud') || id.includes('echarts-liquidfill')) {
+              else if (id.includes('echarts')) {
                 return 'echarts'
               }
               else if (id.includes('dayjs')) {
@@ -53,14 +53,14 @@ export default defineConfig(({ command, mode }) => {
               else if (id.includes('xlsx')) {
                 return 'xlsx'
               }
-              else if (id.includes('@arcgis/core')) {
+              else if (id.includes('@arcgis/core') || id.includes('@esri')) {
                 return 'arcgis'
-              }
-              else if (id.includes('@esri')) {
-                return 'esri'
               }
               else if (id.includes('konva')) {
                 return 'konva'
+              }
+              else if (id.includes('shiki')) {
+                return 'shiki'
               }
               else {
                 return 'vendor'
