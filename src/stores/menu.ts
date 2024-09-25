@@ -1,5 +1,6 @@
 import type { RouteItem } from '@/router/routes'
-import { getMenuFromBackend, getMenuFromFrontend } from '@/router'
+import { getMenuFromBackend } from '@/router/fromBackend'
+import { getMenuFromFrontend } from '@/router/fromFrontend'
 import { routes } from '@/router/routes'
 
 export const useMenuStore = defineStore(

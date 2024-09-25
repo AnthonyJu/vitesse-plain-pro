@@ -11,7 +11,7 @@
         {{ errorInfo.subMsg }}
       </div>
       <div mt-30px>
-        <el-button type="primary" round @click="$router.back()">
+        <el-button type="primary" round @click="$router.go(-2)">
           返回上一页
         </el-button>
         <el-button
