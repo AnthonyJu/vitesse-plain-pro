@@ -11,13 +11,13 @@
         <Iconify icon="ep-warning-filled" />
       </div>
       <div class="text-22px text-$el-text-color-primary">
-        数据加载失败
+        部分数据加载失败
       </div>
-      <div class="text-12px text-$el-text-color-secondary">
-        请检查您的网络连接，或给管理员进行反馈
+      <div class="text-13px text-$el-text-color-secondary">
+        请检查您的网络连接，或给管理员进行反馈，也可进入系统后再次刷新
       </div>
       <div mt-30px>
-        <el-button type="success" round @click="commonStore.loadCommonData()">
+        <el-button type="success" round @click="commonDataStore.loadCommonData()">
           刷新重试
         </el-button>
         <el-button type="warning" round @click="isFail = false">
@@ -29,18 +29,15 @@
   <slot v-else />
 </template>
 
-<route lang='yaml'>
-meta:
-  layout: none
-</route>
-
 <script setup lang='ts'>
-const commonStore = useCommonDataStore()
-const { loading, isFail } = storeToRefs(commonStore)
-commonStore.loadCommonData()
+const userStore = useUserStore()
+const commonDataStore = useCommonDataStore()
+
+const { loading, isFail } = storeToRefs(commonDataStore)
+if (userStore.isLogin) commonDataStore.loadCommonData()
 </script>
 
-<style lang='scss' scoped>
+<style scoped lang='scss'>
 .loading-next .loading-next-box-warp {
   width: 90px;
   height: 90px;

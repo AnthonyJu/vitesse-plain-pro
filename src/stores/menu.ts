@@ -56,8 +56,8 @@ export const useMenuStore = defineStore(
           // ! 模拟异步请求
           setTimeout(() => {
             setMenu(getMenuFromFrontend())
-            resolve(true)
-          }, 1000)
+            reject(new Error('获取菜单失败'))
+          }, 3000)
         }
         else {
           getMenuFromBackend()

@@ -14,7 +14,8 @@ export const useUserStore = defineStore(
       return authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        router.replace(route.query.redirect as string || '/')
+        const commonDataStore = useCommonDataStore()
+        await commonDataStore.loadCommonData(route.query.redirect as string || '/')
       })
     }
 

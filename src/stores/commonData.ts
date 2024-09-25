@@ -6,12 +6,14 @@ export const useCommonDataStore = defineStore(
     // 是否加载失败
     const isFail = ref(false)
 
+    const router = useRouter()
+
     // 加载登录后需要请求的数据以及通用数据
-    function loadCommonData() {
+    function loadCommonData(to?: string) {
       loading.value = true
       isFail.value = false
 
-      Promise.allSettled(
+      return Promise.all(
         [
           useMenuStore().getMenu(),
           // ...其他请求
@@ -19,6 +21,7 @@ export const useCommonDataStore = defineStore(
       )
         .then(() => {
           isFail.value = false
+          if (to) router.replace(to)
         })
         .catch(() => {
           isFail.value = true

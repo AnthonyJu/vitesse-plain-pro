@@ -42,7 +42,6 @@ router.beforeEach((to, from, next) => {
       }
       // 未登录，去非白名单页面，则跳转到登录页面，并记录当前页面
       else {
-        ElMessage.warning('请先登录')
         next(`/login?redirect=${to.fullPath}`)
       }
     }
