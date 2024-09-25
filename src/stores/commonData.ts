@@ -21,12 +21,17 @@ export const useCommonDataStore = defineStore(
       )
         .then(() => {
           isFail.value = false
-          if (to) router.replace(to)
+          if (to) {
+            router.replace(to).then(() => {
+              loading.value = false
+            })
+          }
+          else {
+            loading.value = false
+          }
         })
         .catch(() => {
           isFail.value = true
-        })
-        .finally(() => {
           loading.value = false
         })
     }
