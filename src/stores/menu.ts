@@ -50,24 +50,21 @@ export const useMenuStore = defineStore(
 
     // 获取菜单
     function getMenu() {
-      // TODO 优化
-      return new Promise((resolve, reject) => {
-        if (isFrontendCtrl) {
-          // ! 模拟异步请求
+      if (isFrontendCtrl) {
+        // ! 模拟异步请求，查看Permission的loading，实际开发中请删除
+        return new Promise((resolve) => {
           setTimeout(() => {
             setMenu(getMenuFromFrontend())
-            reject(new Error('获取菜单失败'))
-          }, 3000)
-        }
-        else {
-          getMenuFromBackend()
-            .then((res) => {
-              setMenu(res)
-              resolve(true)
-            })
-            .catch(reject)
-        }
-      })
+            resolve(true)
+          }, 1000)
+        })
+      }
+      else {
+        return getMenuFromBackend()
+          .then((res) => {
+            setMenu(res)
+          })
+      }
     }
 
     // 设置菜单
