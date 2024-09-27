@@ -5,9 +5,10 @@ import { getMenuFromFrontend } from '@/router/fromFrontend'
 export const useMenuStore = defineStore(
   'menu',
   () => {
+    // 加载中
+    const loading = ref(false)
     // 是否前端控制菜单
     const isFrontendCtrl = true
-    const loading = ref(false)
     // 菜单
     const menus = ref<RouteItem[]>([])
     // 权限路径
