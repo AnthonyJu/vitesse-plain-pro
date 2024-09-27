@@ -15,18 +15,11 @@ export const useMenuStore = defineStore(
 
     // 获取菜单
     function getMenu() {
-      loading.value = true
       if (isFrontendCtrl) {
-        // ! 模拟异步请求，查看Permission的loading，实际开发中请删除
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            setMenu(getMenuFromFrontend())
-            resolve(true)
-            loading.value = false
-          }, 3000)
-        })
+        setMenu(getMenuFromFrontend())
       }
       else {
+        loading.value = true
         return getMenuFromBackend()
           .then((res) => {
             setMenu(res)
