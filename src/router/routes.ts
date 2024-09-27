@@ -15,6 +15,9 @@ export interface RouteItem {
   children?: RouteItem[]
 }
 
+// 静态路由
+export const staticRoutes = ['/', '/login', '/401', '/:all(.*)']
+
 // TODO: 最好是与后端约定好，后端返回的数据结构与此一致
 export const routes: RouteItem[] = [
   {

@@ -1,10 +1,10 @@
-import type { Router } from 'vue-router'
+import type { Router, RouteRecordRaw } from 'vue-router'
+import { staticRoutes } from '@/router/routes'
+import { setupLayouts } from 'virtual:generated-layouts'
+import { routes } from 'vue-router/auto-routes'
 
 export function routerBeforeEach(router: Router) {
-// 登录后白名单
-  const WhiteList = ['/401', '/404']
-
-  router.beforeEach((to, from, next) => {
+  router.beforeEach(async (to, from, next) => {
     const userStore = useUserStore()
     const menuStore = useMenuStore()
 
@@ -16,7 +16,7 @@ export function routerBeforeEach(router: Router) {
       next()
     }
     // 白名单页面，直接进入
-    if (menuStore.whitePaths.includes(matchedPath)) {
+    else if (menuStore.whitePaths.includes(matchedPath)) {
       next()
     }
     else {
@@ -27,7 +27,7 @@ export function routerBeforeEach(router: Router) {
           next()
         }
         // 未登录，去非白名单页面，则跳转到登录页面
-        else if (WhiteList.includes(to.path)) {
+        else if (staticRoutes.includes(to.path)) {
           next('/login')
         }
         // 未登录，去非白名单页面，则跳转到登录页面，并记录当前页面
@@ -39,25 +39,37 @@ export function routerBeforeEach(router: Router) {
       else if (to.path === '/login') {
         next(from.path)
       }
-      // 已登录，且为登录白名单页面，直接进入
-      else if (WhiteList.includes(to.path)) {
+      // 菜单权限判断
+      else if (!menuStore.menus.length) {
+        await menuStore.getMenu()
+        // 将有权限的路由动态添加到路由表
+        addRoutes(router, menuStore.permissionPaths)
+        // 防止第一次进入页面时，404问题
+        next({ path: to.path, query: to.query })
+      }
+      else {
         next()
       }
-      // 菜单权限判断
-      else {
-      // 菜单匹配路径有权限，则进入
-        if (menuStore.permissionPaths.includes(matchedPath)) {
-          next()
-        }
-        // 匹配不到路由，或者是layout页面，则跳转到404页面
-        else if (matchedPath === '/:all(.*)' || !to.name) {
-          next('/404')
-        }
-        // 没有权限，则跳转到401页面
-        else {
-          next('/401')
-        }
-      }
     }
+  })
+}
+
+// 添加动态路由
+function addRoutes(router: Router, permissionPaths: string[]) {
+  const newRoutes = filterRoute(routes, permissionPaths)
+  setupLayouts(newRoutes).forEach(route => router.addRoute(route))
+}
+
+// 根据权限路径过滤路由
+function filterRoute(children: RouteRecordRaw[], permissionPaths: string[], basePath = ''): RouteRecordRaw[] {
+  return children.filter((route) => {
+    if (permissionPaths.includes(basePath + route.path)) {
+      return true
+    }
+    else if (route.children) {
+      route.children = filterRoute(route.children, permissionPaths, `${basePath}${route.path}/`)
+      return route.children.length
+    }
+    return false
   })
 }

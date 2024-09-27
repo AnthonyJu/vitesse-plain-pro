@@ -104,11 +104,6 @@ export const useMenuStore = defineStore(
       permissionPaths,
     }
   },
-  {
-    persist: {
-      storage: sessionStorage,
-    },
-  },
 )
 
 if (import.meta.hot) import.meta.hot.accept(acceptHMRUpdate(useMenuStore, import.meta.hot))

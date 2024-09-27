@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import { routerBeforeEach } from '@/router/routerBeforeEach'
+import { staticRoutes } from '@/router/routes'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
@@ -8,7 +9,7 @@ import { routes } from 'vue-router/auto-routes'
 routes.push({ path: '/', redirect: import.meta.env.VITE_REDIRECT_PATH })
 
 export const router = createRouter({
-  routes: setupLayouts(routes),
+  routes: setupLayouts(routes.filter(route => staticRoutes.includes(route.path))),
   history: createWebHashHistory(),
 })
 

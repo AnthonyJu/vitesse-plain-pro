@@ -2,6 +2,11 @@
   <ErrorPage :error-info="errorInfo" />
 </template>
 
+<route lang="yaml">
+meta:
+  layout: none
+</route>
+
 <script setup lang="ts">
 import img_401 from '@/assets/401.png'
 

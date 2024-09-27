@@ -15,8 +15,7 @@ export const useCommonDataStore = defineStore(
 
       return Promise.all(
         [
-          useMenuStore().getMenu(),
-          // ...其他请求
+          // ...通用数据请求
         ],
       )
         .then(() => {
