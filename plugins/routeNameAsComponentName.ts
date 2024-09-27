@@ -25,8 +25,8 @@ export function routeNameAsComponentName(): Plugin {
           // 获取路由名称，遵循 vue-router 的路由规则
           let routeName = /\/src\/pages(\/.+)\.vue$/.exec(id)![1]
 
-          // 如果是 index.vue 文件，则去掉 'index'
-          if (routeName.endsWith('index')) routeName = routeName.slice(0, -5)
+          // 如果是 index.vue 文件，则去掉 '/index'
+          if (routeName.endsWith('/index')) routeName = routeName.slice(0, -6)
 
           // 给 script 标签添加 name 属性
           magicString.appendLeft(
