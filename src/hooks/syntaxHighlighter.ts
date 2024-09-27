@@ -14,14 +14,14 @@ export function useSyntaxHighlighter(
 ) {
   const html = ref('')
 
-  if (typeof container !== 'string' && container) {
+  if (typeof container !== 'string' && container.value) {
     codeToHtml(str, {
       lang,
       theme: 'vitesse-dark',
     })
       .then((value) => {
         html.value = value
-        container.value.innerHTML = value
+        container.value!.innerHTML = value
       })
     return
   }

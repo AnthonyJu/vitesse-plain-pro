@@ -9,12 +9,12 @@ meta:
 </route>
 
 <script setup lang="ts">
-import Map from '@arcgis/core/Map'
-import MapView from '@arcgis/core/views/MapView'
-import Graphic from '@arcgis/core/Graphic'
 import Polygon from '@arcgis/core/geometry/Polygon'
-import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol'
 import * as webMercatorUtils from '@arcgis/core/geometry/support/webMercatorUtils'
+import Graphic from '@arcgis/core/Graphic'
+import Map from '@arcgis/core/Map'
+import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol'
+import MapView from '@arcgis/core/views/MapView'
 import '@arcgis/core/assets/esri/themes/light/main.css'
 
 /**

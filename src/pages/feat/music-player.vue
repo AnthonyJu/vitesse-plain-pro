@@ -38,9 +38,9 @@
 </route>
 
 <script setup lang='ts'>
+import poster from '@/assets/images/audios-poster/poster-1.png'
 import { Howl } from 'howler'
 import { soundStr } from './data/highlight'
-import poster from '@/assets/images/audios-poster/poster-1.png'
 
 const songsData = reactive({
   poster,

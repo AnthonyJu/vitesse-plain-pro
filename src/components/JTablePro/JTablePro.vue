@@ -90,8 +90,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
 import request from '@/utils/request'
+import { ElMessage } from 'element-plus'
 
 interface UrlObject {
   get: string

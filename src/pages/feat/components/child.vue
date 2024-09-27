@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue'
 import type { ButtonInstance } from 'element-plus'
+import { ref } from 'vue'
 
 const refGoView = ref<ButtonInstance>()
 

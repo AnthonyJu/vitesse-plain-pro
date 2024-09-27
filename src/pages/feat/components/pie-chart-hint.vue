@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts" setup>
-import VChart from 'vue-echarts'
-import { use } from 'echarts/core'
 import { PieChart } from 'echarts/charts'
-import { SVGRenderer } from 'echarts/renderers'
 import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
+import { use } from 'echarts/core'
+import { SVGRenderer } from 'echarts/renderers'
+import VChart from 'vue-echarts'
 
 const props = defineProps({
   echartsData: {

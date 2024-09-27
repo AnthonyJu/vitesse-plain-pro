@@ -40,9 +40,9 @@
 </route>
 
 <script setup lang='ts'>
+import PiniaImg from '@/assets/pinia.svg'
 import printJS from 'print-js'
 import { printjsStr } from './data/highlight'
-import PiniaImg from '@/assets/pinia.svg'
 
 interface printConfiguration {
   printable: string

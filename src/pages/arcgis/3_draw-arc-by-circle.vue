@@ -9,13 +9,13 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import Map from '@arcgis/core/Map'
-import MapView from '@arcgis/core/views/MapView'
 import Circle from '@arcgis/core/geometry/Circle'
 import Point from '@arcgis/core/geometry/Point'
-import Graphic from '@arcgis/core/Graphic'
 import Polygon from '@arcgis/core/geometry/Polygon'
+import Graphic from '@arcgis/core/Graphic'
+import Map from '@arcgis/core/Map'
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol'
+import MapView from '@arcgis/core/views/MapView'
 import '@arcgis/core/assets/esri/themes/light/main.css'
 
 onMounted(() => {

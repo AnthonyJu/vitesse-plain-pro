@@ -14,8 +14,8 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import Konva from 'konva'
 import Maker from '@/assets/maker.png'
+import Konva from 'konva'
 
 interface KonvaMouseEvent extends MouseEvent {
   layerX: number

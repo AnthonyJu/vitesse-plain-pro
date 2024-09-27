@@ -15,15 +15,15 @@ meta:
 </route>
 
 <script setup lang="ts">
-import VChart from 'vue-echarts'
-import { use } from 'echarts/core'
-import { PieChart } from 'echarts/charts'
-import { SVGRenderer } from 'echarts/renderers'
-import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
-
-import type { ComposeOption } from 'echarts/core'
 import type { PieSeriesOption } from 'echarts/charts'
 import type { LegendComponentOption, TitleComponentOption, TooltipComponentOption } from 'echarts/components'
+import type { ComposeOption } from 'echarts/core'
+import { PieChart } from 'echarts/charts'
+import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
+
+import { use } from 'echarts/core'
+import { SVGRenderer } from 'echarts/renderers'
+import VChart from 'vue-echarts'
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
 type EChartsOption = ComposeOption<

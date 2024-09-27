@@ -30,8 +30,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  'handleSearch': []
-  'handleError': [error: any]
+  handleSearch: []
+  handleError: [error: any]
 }>()
 
 // 默认第一页，每页15条

@@ -9,13 +9,13 @@ meta:
 </route>
 
 <script setup lang="ts">
-import Map from '@arcgis/core/Map'
-import MapView from '@arcgis/core/views/MapView'
-import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
-import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol'
-import SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer'
-import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 import Maker_Png from '@/assets/maker.png'
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import Map from '@arcgis/core/Map'
+import SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer'
+import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol'
+import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
+import MapView from '@arcgis/core/views/MapView'
 import '@arcgis/core/assets/esri/themes/light/main.css'
 
 onMounted(() => {

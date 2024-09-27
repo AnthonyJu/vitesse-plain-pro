@@ -15,8 +15,8 @@
 </route>
 
 <script lang="ts" setup>
-import tableRull from './components/table-rull.vue'
 import pieChartHint from './components/pie-chart-hint.vue'
+import tableRull from './components/table-rull.vue'
 
 const speed = 2 // 滚动速度
 const tableData = ref<any[]>([{

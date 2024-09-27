@@ -1,10 +1,10 @@
 import GraphicLayer from '@arcgis/core/layers/GraphicsLayer'
 
-// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html
-import SketchViewModel from '@arcgis/core/widgets/Sketch/SketchViewModel'
-import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol'
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol'
+import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
+// https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Sketch-SketchViewModel.html
+import SketchViewModel from '@arcgis/core/widgets/Sketch/SketchViewModel'
 
 interface Sketch {
   layer: GraphicLayer

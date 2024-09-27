@@ -41,8 +41,8 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
 import { CircleCloseFilled, SuccessFilled, WarningFilled } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
 const regexpsList = ref([
   {

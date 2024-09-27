@@ -15,17 +15,17 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import VChart from 'vue-echarts'
-import { use } from 'echarts/core'
-import { SVGRenderer } from 'echarts/renderers'
-import { GridComponent, TooltipComponent } from 'echarts/components'
-
-import type { ComposeOption } from 'echarts/core'
 import type { WordCloudSeriesOption } from 'echarts'
 import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
-
-import wordCloudData from './data/wordCloud-data.json'
+import type { ComposeOption } from 'echarts/core'
 import maskImagePath from '@/assets/maskImage.png'
+
+import { GridComponent, TooltipComponent } from 'echarts/components'
+import { use } from 'echarts/core'
+import { SVGRenderer } from 'echarts/renderers'
+
+import VChart from 'vue-echarts'
+import wordCloudData from './data/wordCloud-data.json'
 
 interface WordCloudSeries extends WordCloudSeriesOption {
   keepAspect: boolean
@@ -66,10 +66,10 @@ function initChart(maskImage: HTMLImageElement) {
           fontWeight: 'bold',
           color() {
             return `rgb(${[
-          Math.round(Math.random() * 200) + 50,
-          Math.round(Math.random() * 50),
-          Math.round(Math.random() * 50) + 50,
-        ].join(',')})`
+              Math.round(Math.random() * 200) + 50,
+              Math.round(Math.random() * 50),
+              Math.round(Math.random() * 50) + 50,
+            ].join(',')})`
           },
         },
         emphasis: {

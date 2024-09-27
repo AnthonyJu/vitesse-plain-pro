@@ -57,8 +57,8 @@
 </route>
 
 <script setup lang='ts'>
-import { MoreFilled } from '@element-plus/icons-vue'
 import type { ButtonInstance } from 'element-plus'
+import { MoreFilled } from '@element-plus/icons-vue'
 import Child from './components/child.vue'
 import { tourDemoStr } from './data/highlight'
 

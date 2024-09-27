@@ -1,9 +1,9 @@
+import * as geometryEngine from '@arcgis/core/geometry/geometryEngine'
+import Point from '@arcgis/core/geometry/Point'
 import Graphic from '@arcgis/core/Graphic'
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'
-import Point from '@arcgis/core/geometry/Point'
-import * as geometryEngine from '@arcgis/core/geometry/geometryEngine'
-import TextSymbol from '@arcgis/core/symbols/TextSymbol'
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
+import TextSymbol from '@arcgis/core/symbols/TextSymbol'
 
 export function useMeasure(arcgis: Arcgis) {
   const layer = new GraphicsLayer()

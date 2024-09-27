@@ -9,8 +9,8 @@ meta:
 </route>
 
 <script setup lang='ts'>
-import Graphic from '@arcgis/core/Graphic'
 import Point from '@arcgis/core/geometry/Point'
+import Graphic from '@arcgis/core/Graphic'
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 
 const arcgis = useArcgis('map')

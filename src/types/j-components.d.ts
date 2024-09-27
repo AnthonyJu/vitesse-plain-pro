@@ -2,9 +2,8 @@ import type {
   DialogProps,
   FormItemProps,
   FormProps,
-  ISelectProps,
-  InputEmits,
   InputProps,
+  ISelectProps,
   TableColumnCtx,
   TableProps,
 } from 'element-plus'

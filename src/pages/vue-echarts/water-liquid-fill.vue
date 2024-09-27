@@ -15,10 +15,10 @@ meta:
 </route>
 
 <script setup lang="ts">
-import 'echarts-liquidfill'
-import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { SVGRenderer } from 'echarts/renderers'
+import VChart from 'vue-echarts'
+import 'echarts-liquidfill'
 
 use([SVGRenderer])
 

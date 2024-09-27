@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang='ts'>
-import { ElButton } from 'element-plus'
 import type MapView from '@arcgis/core/views/MapView'
+import { ElButton } from 'element-plus'
 
 const props = defineProps<{
   view: MapView
