@@ -6,23 +6,15 @@ import { routes } from 'vue-router/auto-routes'
 export function routerBeforeEach(router: Router) {
   router.beforeEach(async (to, from, next) => {
     const userStore = useUserStore()
-    const menuStore = useMenuStore()
-
-    // 当前路由匹配路径
-    const matchedPath = to.matched.find(item => item.name === to.name)!.path
 
     //  blog 用来展示的路由，直接进入
     if (to.query.demo) {
       next()
     }
-    // 白名单页面，直接进入
-    else if (menuStore.whitePaths.includes(matchedPath)) {
-      next()
-    }
     else {
-    // 未登录，跳转到登录页面
+      // 未登录，跳转到登录页面
       if (!userStore.isLogin) {
-      // 未登录，去login页面，则直接进入
+        // 未登录，去login页面，则直接进入
         if (to.path === '/login') {
           next()
         }
@@ -40,15 +32,24 @@ export function routerBeforeEach(router: Router) {
         next(from.path)
       }
       // 菜单权限判断
-      else if (!menuStore.menus.length) {
-        await menuStore.getMenu()
-        // 将有权限的路由动态添加到路由表
-        addRoutes(router, menuStore.permissionPaths)
-        // 防止第一次进入页面时，404问题
-        next({ path: to.path, query: to.query })
-      }
       else {
-        next()
+        const menuStore = useMenuStore()
+        if (menuStore.menus.length === 0) {
+          await menuStore.getMenu()
+          // 将有权限的路由动态添加到路由表
+          addRoutes(router, menuStore.permissionPaths)
+          // 无权限路径，则跳转到401页面
+          if (menuStore.menus.length === 0) {
+            next('/401')
+          }
+          // 防止第一次进入页面时，404问题
+          else {
+            next({ path: to.path, query: to.query })
+          }
+        }
+        else {
+          next()
+        }
       }
     }
   })

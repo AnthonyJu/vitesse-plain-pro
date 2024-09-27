@@ -1,7 +1,6 @@
 interface RouteMeta {
   title?: string // 菜单栏及 tagsView 栏、菜单搜索名称
   icon?: string // 菜单、tagsView 图标
-  isWhite?: boolean // 是否为白名单路由
   isDynamic?: boolean // 是否为动态路由
   roles?: string[] // 当前路由权限标识，由前端控制时可用
   isHide?: boolean // 是否在菜单中隐藏此路由

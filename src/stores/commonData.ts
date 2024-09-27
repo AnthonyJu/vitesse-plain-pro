@@ -15,6 +15,7 @@ export const useCommonDataStore = defineStore(
 
       return Promise.all(
         [
+          testReq(),
           // ...通用数据请求
         ],
       )
@@ -33,6 +34,14 @@ export const useCommonDataStore = defineStore(
           isFail.value = true
           loading.value = false
         })
+    }
+
+    function testReq() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('test')
+        }, 1000)
+      })
     }
 
     return {

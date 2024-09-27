@@ -1,12 +1,15 @@
 <template>
-  <div v-if="loading || isFail " class="loading-next flex-center pb-100px">
+  <div v-if="show" class="loading-next flex-center pb-100px">
     <!-- loading -->
     <div v-if="loading" class="loading-next-box-warp">
       <div v-for="i in 9" :key="`loading_${i}`" class="loading-next-box-item" />
     </div>
 
     <!-- fail -->
-    <div v-if="isFail" class="min-w-500px flex-col-center animate-head-shake gap-10px">
+    <div
+      v-if="commonDataStore.isFail"
+      class="min-w-500px flex-col-center animate-head-shake gap-10px"
+    >
       <div class="text-55px text-$el-color-danger">
         <Iconify icon="ep-warning-filled" />
       </div>
@@ -20,7 +23,7 @@
         <el-button type="success" round @click="commonDataStore.loadCommonData()">
           刷新重试
         </el-button>
-        <el-button type="warning" round @click="isFail = false">
+        <el-button type="warning" round @click="commonDataStore.isFail = false">
           进入系统
         </el-button>
       </div>
@@ -31,10 +34,12 @@
 
 <script setup lang='ts'>
 const userStore = useUserStore()
+const menuStore = useMenuStore()
 const commonDataStore = useCommonDataStore()
-
-const { loading, isFail } = storeToRefs(commonDataStore)
 if (userStore.isLogin) commonDataStore.loadCommonData()
+
+const loading = computed(() => menuStore.loading || commonDataStore.loading)
+const show = computed(() => menuStore.loading || commonDataStore.loading || commonDataStore.isFail)
 </script>
 
 <style scoped lang='scss'>
