@@ -1,9 +1,5 @@
 <template>
-  <!-- Blog 中演示用 -->
-  <router-view v-if="$route.query.demo" />
-
-  <!-- 正式layout -->
-  <el-container v-else>
+  <el-container>
     <!-- 侧边栏 -->
     <el-aside
       v-if="menu.aside && !menu.drawer"

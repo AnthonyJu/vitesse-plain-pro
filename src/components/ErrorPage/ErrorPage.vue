@@ -11,7 +11,7 @@
         {{ errorInfo.subMsg }}
       </div>
       <div mt-30px>
-        <el-button type="primary" round @click="$router.go(-2)">
+        <el-button type="primary" round @click="goBack">
           返回上一页
         </el-button>
         <el-button
@@ -42,4 +42,15 @@ defineProps<{
 }>()
 
 const userStore = useUserStore()
+const route = useRoute()
+const router = useRouter()
+
+function goBack() {
+  if (route.path === '/404') {
+    router.go(-2)
+  }
+  else {
+    router.go(-1)
+  }
+}
 </script>

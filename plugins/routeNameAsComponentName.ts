@@ -7,7 +7,6 @@ export function routeNameAsComponentName(): Plugin {
   return {
     name: 'vite:route-name-as-component-name',
     enforce: 'pre',
-    apply: 'serve',
     async transform(code, id) {
       // 只处理 /src/pages 目录下，并且不在 components 目录下的 .vue 文件
       if (/\/src\/pages\/(?!.*\/components\/).*\.vue$/.test(id)) {
