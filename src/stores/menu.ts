@@ -84,6 +84,11 @@ export const useMenuStore = defineStore(
         if (children.length) children.forEach(item => computedPath(acc, item))
         // 没有展示的子路由，则加入权限路径
         else acc.push(cur.path)
+
+        // 计算隐藏的子路由
+        const hideChildren = cur.children.filter(item => item.meta.isHide)
+        // 有隐藏的子路由，则递归计算
+        if (hideChildren.length) hideChildren.forEach(item => computedPath(acc, item))
       }
       // 没有子路由，则加入权限路径
       else {
