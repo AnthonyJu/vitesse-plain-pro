@@ -8,12 +8,6 @@
   />
 </template>
 
-<route lang="yaml">
-meta:
-  name: WordCloud Chart
-  fullContent: true
-</route>
-
 <script setup lang='ts'>
 import type { WordCloudSeriesOption } from 'echarts'
 import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'

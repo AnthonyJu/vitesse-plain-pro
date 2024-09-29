@@ -6,11 +6,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 代码高亮块
-</route>
-
 <script setup lang='ts'>
 import { noticeBarIconStr } from './data/highlight'
 </script>

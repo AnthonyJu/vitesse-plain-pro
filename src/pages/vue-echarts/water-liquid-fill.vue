@@ -8,12 +8,6 @@
   />
 </template>
 
-<route lang="yaml">
-meta:
-  name: Water liquid fill
-  fullContent: true
-</route>
-
 <script setup lang="ts">
 import { use } from 'echarts/core'
 import { SVGRenderer } from 'echarts/renderers'

@@ -19,11 +19,6 @@
   </div>
 </template>
 
-<route lang='yaml'>
-meta:
-  name: JPagination
-</route>
-
 <script setup lang='ts'>
 import { ElMessage } from 'element-plus'
 

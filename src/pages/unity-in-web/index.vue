@@ -5,12 +5,6 @@
   </div>
 </template>
 
-<route lang='yaml'>
-meta:
-  title: unity 与 web 交互
-  fullContent: true
-</route>
-
 <script setup lang="ts">
 const container = ref<HTMLElement | null>(null)
 const { width, height } = useElementSize(container)

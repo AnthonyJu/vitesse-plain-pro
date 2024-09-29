@@ -14,11 +14,6 @@
   </div>
 </template>
 
-<route lang='yaml'>
-meta:
-  name: JDialog
-</route>
-
 <script setup lang='ts'>
 import { ElMessage } from 'element-plus'
 

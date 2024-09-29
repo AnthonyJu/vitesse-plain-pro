@@ -10,11 +10,6 @@
   />
 </template>
 
-<route lang='yaml'>
-meta:
-  name: JTable
-</route>
-
 <script setup lang='ts'>
 const columns = ref<JTableColumn[]>([
   {

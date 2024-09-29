@@ -15,11 +15,6 @@
   </JForm>
 </template>
 
-<route lang="yaml">
-meta:
-  name: JForm
-</route>
-
 <script setup lang='ts'>
 const formItems: JFormItem[] = [
   {

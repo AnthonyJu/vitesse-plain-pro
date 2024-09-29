@@ -56,11 +56,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 图片剪裁
-</route>
-
 <script setup lang='ts'>
 import Cropper from 'cropperjs'
 import { cropperjsStr } from './data/highlight'

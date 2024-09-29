@@ -26,11 +26,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 二维码
-</route>
-
 <script setup lang='ts'>
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { qrcodeStr } from './data/highlight'

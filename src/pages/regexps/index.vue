@@ -35,11 +35,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-meta:
-  name: RegExps
-</route>
-
 <script setup lang="ts">
 import { CircleCloseFilled, SuccessFilled, WarningFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'

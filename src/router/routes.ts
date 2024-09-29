@@ -319,12 +319,15 @@ export const routes: RouteItem[] = [
 ]
 
 // 扁平化路由
-export function flatRoutes(_routes = routes): RouteItem[] {
+export const flatRoutes = getFlatRoutes()
+
+// 获取扁平化路由
+function getFlatRoutes(_routes = routes): RouteItem[] {
   const result: RouteItem[] = []
   _routes.forEach((route) => {
     result.push(route)
     if (route.children) {
-      result.push(...flatRoutes(route.children))
+      result.push(...getFlatRoutes(route.children))
     }
   })
   return result

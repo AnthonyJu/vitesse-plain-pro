@@ -2,12 +2,6 @@
   <div id="map" full bg="light dark:dark" />
 </template>
 
-<route lang='yaml'>
-meta:
-  name: 自定义方法 绘制圆弧
-  fullContent: true
-</route>
-
 <script setup lang="ts">
 import Polygon from '@arcgis/core/geometry/Polygon'
 import * as webMercatorUtils from '@arcgis/core/geometry/support/webMercatorUtils'

@@ -14,11 +14,6 @@
   </JList>
 </template>
 
-<route lang="yaml">
-meta:
-  name: JList
-</route>
-
 <script setup lang='ts'>
 interface Data {
   name: string

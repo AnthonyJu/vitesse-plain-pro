@@ -51,11 +51,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 漫游式引导
-</route>
-
 <script setup lang='ts'>
 import type { ButtonInstance } from 'element-plus'
 import { MoreFilled } from '@element-plus/icons-vue'

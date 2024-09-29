@@ -80,11 +80,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 数字滚动
-</route>
-
 <script setup lang='ts'>
 import type { ICountUp } from 'vue-countup-v3'
 import CountUp from 'vue-countup-v3'

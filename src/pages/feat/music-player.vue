@@ -32,11 +32,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 音频播放器
-</route>
-
 <script setup lang='ts'>
 import poster from '@/assets/images/audios-poster/poster-1.png'
 import { Howl } from 'howler'

@@ -2,12 +2,6 @@
   <div id="map" full bg="light dark:dark" />
 </template>
 
-<route lang='yaml'>
-meta:
-  name: 特征缩减（点聚合）
-  fullContent: true
-</route>
-
 <script setup lang="ts">
 import Maker_Png from '@/assets/maker.png'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'

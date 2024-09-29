@@ -8,11 +8,6 @@
   </div>
 </template>
 
-<route lang='yaml'>
-meta:
-  name: Konva 画布
-</route>
-
 <script setup lang='ts'>
 import Maker from '@/assets/maker.png'
 import Konva from 'konva'

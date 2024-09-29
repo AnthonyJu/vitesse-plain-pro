@@ -2,12 +2,6 @@
   <div id="map" full bg="light dark:dark" />
 </template>
 
-<route lang='yaml'>
-meta:
-  name: 通过 Circle 绘制圆弧
-  fullContent: true
-</route>
-
 <script setup lang='ts'>
 import Circle from '@arcgis/core/geometry/Circle'
 import Point from '@arcgis/core/geometry/Point'

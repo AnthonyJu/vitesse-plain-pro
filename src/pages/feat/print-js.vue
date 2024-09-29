@@ -34,11 +34,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 打印
-</route>
-
 <script setup lang='ts'>
 import PiniaImg from '@/assets/pinia.svg'
 import printJS from 'print-js'

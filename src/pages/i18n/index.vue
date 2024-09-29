@@ -12,11 +12,6 @@
   </div>
 </template>
 
-<route lang='yaml'>
-meta:
-  name: i18n
-</route>
-
 <script setup lang='ts'>
 import { loadLanguageAsync } from '@/modules/i18n'
 

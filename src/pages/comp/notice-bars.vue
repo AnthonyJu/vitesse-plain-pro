@@ -64,11 +64,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 滚动通知栏
-</route>
-
 <script setup lang='ts'>
 import { noticeBarIconStr, noticeBarScrollStr, noticeBarSimpleStr } from './data/highlight'
 

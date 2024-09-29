@@ -2,12 +2,6 @@
   <div id="map" full bg="light dark:dark" />
 </template>
 
-<route lang='yaml'>
-meta:
-  name: 创建地图
-  fullContent: true
-</route>
-
 <script setup lang='ts'>
 import Point from '@arcgis/core/geometry/Point'
 import Graphic from '@arcgis/core/Graphic'

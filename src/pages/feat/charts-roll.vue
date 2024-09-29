@@ -9,11 +9,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 无限滚动
-</route>
-
 <script lang="ts" setup>
 import pieChartHint from './components/pie-chart-hint.vue'
 import tableRull from './components/table-rull.vue'

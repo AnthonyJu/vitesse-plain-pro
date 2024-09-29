@@ -8,12 +8,6 @@
   />
 </template>
 
-<route lang="yaml">
-meta:
-  name: Basic usage
-  fullContent: true
-</route>
-
 <script setup lang="ts">
 import type { PieSeriesOption } from 'echarts/charts'
 import type { LegendComponentOption, TitleComponentOption, TooltipComponentOption } from 'echarts/components'

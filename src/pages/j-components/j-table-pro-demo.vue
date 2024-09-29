@@ -12,11 +12,6 @@
   </JTablePro>
 </template>
 
-<route lang="yaml">
-meta:
-  name: JTablePro
-</route>
-
 <script setup lang='ts'>
 import { ElMessage } from 'element-plus'
 

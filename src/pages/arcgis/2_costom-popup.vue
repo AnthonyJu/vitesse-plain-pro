@@ -2,12 +2,6 @@
   <div id="map" full bg="light dark:dark" overflow-hidden />
 </template>
 
-<route lang="yaml">
-meta:
-  name: 自定义弹窗
-  fullContent: true
-</route>
-
 <script setup lang='ts'>
 import type { App } from 'vue'
 import Point from '@arcgis/core/geometry/Point'
