@@ -64,6 +64,7 @@ function addRoutes(router: Router, permissionPaths: string[]) {
 // 根据权限路径过滤路由
 function filterRoute(children: RouteRecordRaw[], permissionPaths: string[], basePath = ''): RouteRecordRaw[] {
   return children.filter((route) => {
+    // unplugin-vue-router 生成的路由，path 为文件名，需要转换为路由路径
     if (permissionPaths.includes(basePath + route.path)) {
       return true
     }

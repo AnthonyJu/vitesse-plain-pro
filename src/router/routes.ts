@@ -6,6 +6,7 @@ interface RouteMeta {
   isHide?: boolean // 是否在菜单中隐藏此路由
   isDestroy?: boolean // 是否不缓存组件状态，切换时销毁组件
   isAffix?: boolean // 是否固定在 tagsView 栏上
+  isLeaf?: boolean // 是否为叶子节点，面包屑导航使用
 }
 
 export interface RouteItem {
@@ -58,6 +59,7 @@ export const routes: RouteItem[] = [
         path: '/menu/menu-0',
         meta: {
           title: '路由参数',
+          isLeaf: true,
         },
         children: [
           {
@@ -315,3 +317,15 @@ export const routes: RouteItem[] = [
     ],
   },
 ]
+
+// 扁平化路由
+export function flatRoutes(_routes = routes): RouteItem[] {
+  const result: RouteItem[] = []
+  _routes.forEach((route) => {
+    result.push(route)
+    if (route.children) {
+      result.push(...flatRoutes(route.children))
+    }
+  })
+  return result
+}

@@ -10,7 +10,7 @@
     >
       <template v-for="menu in menuStore.menus" :key="menu.path">
         <el-sub-menu
-          v-if="menu.children?.some(v => !v.meta.isHide)"
+          v-if="menu.children && !menu.meta.isLeaf"
           :key="`v-if_${menu.path}`"
           :index="menu.path"
         >
