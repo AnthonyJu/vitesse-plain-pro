@@ -1,4 +1,3 @@
-import type { RouteItem } from '@/router/routes'
 import { getMenuFromBackend } from '@/router/from-backend'
 import { getMenuFromFrontend } from '@/router/from-frontend'
 
@@ -39,6 +38,7 @@ export const useMenuStore = defineStore(
 
     // 计算权限路径
     function computedPath(acc: string[], cur: RouteItem) {
+      acc.push(cur.path)
       // 存在子路由，则递归计算
       if (cur.children) {
         // 过滤隐藏的子路由
@@ -52,10 +52,6 @@ export const useMenuStore = defineStore(
         const hideChildren = cur.children.filter(item => item.meta.isHide)
         // 有隐藏的子路由，则递归计算
         if (hideChildren.length) hideChildren.forEach(item => computedPath(acc, item))
-      }
-      // 没有子路由，则加入权限路径
-      else {
-        acc.push(cur.path)
       }
       return acc
     }

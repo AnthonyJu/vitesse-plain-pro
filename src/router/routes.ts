@@ -1,19 +1,14 @@
-interface RouteMeta {
-  title?: string // 菜单栏及 tagsView 栏、菜单搜索名称
-  icon?: string // 菜单、tagsView 图标
-  isDynamic?: boolean // 是否为动态路由
-  roles?: string[] // 当前路由权限标识，由前端控制时可用
-  isHide?: boolean // 是否在菜单中隐藏此路由
-  isKeepAlive?: boolean // 是否缓存组件状态
-  isAffix?: boolean // 是否固定在 tagsView 栏上
-  isLeaf?: boolean // 是否为叶子节点，面包屑导航使用
-  [key: string | symbol]: any
-}
-
-export interface RouteItem {
-  path: string
-  meta: RouteMeta
-  children?: RouteItem[]
+// 基础元信息，用于合并路由元信息
+export const baseMeta: RouteMeta = {
+  title: '',
+  icon: '',
+  isDynamic: false,
+  roles: [],
+  isHide: false,
+  isKeepAlive: false,
+  isAffix: false,
+  isLeaf: false,
+  noRedirect: false,
 }
 
 // 静态路由
@@ -61,6 +56,7 @@ export const routes: RouteItem[] = [
         meta: {
           title: '路由参数',
           isLeaf: true,
+          noRedirect: true,
         },
         children: [
           {
@@ -318,16 +314,3 @@ export const routes: RouteItem[] = [
     ],
   },
 ]
-
-// 扁平化路由
-export const flatRoutes = getFlatRoutes()
-
-// 获取扁平化路由
-function getFlatRoutes(_routes = routes): RouteItem[] {
-  const result: RouteItem[] = []
-  _routes.forEach((route) => {
-    result.push(route)
-    if (route.children) result.push(...getFlatRoutes(route.children))
-  })
-  return result
-}

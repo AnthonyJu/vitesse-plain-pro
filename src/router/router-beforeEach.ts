@@ -1,7 +1,6 @@
-import type { Router, RouteRecordRaw } from 'vue-router'
+import type { Router } from 'vue-router'
+import { addRoutes } from '@/router/add-routes'
 import { staticRoutes } from '@/router/routes'
-import { setupLayouts } from 'virtual:generated-layouts'
-import { routes } from 'vue-router/auto-routes'
 
 // 路由守卫
 export function routerBeforeEach(router: Router) {
@@ -32,6 +31,7 @@ export function routerBeforeEach(router: Router) {
       const menuStore = useMenuStore()
       if (menuStore.menus.length === 0) {
         await menuStore.getMenu()
+
         // 将有权限的路由动态添加到路由表
         addRoutes(router, menuStore.permissionPaths)
 
@@ -44,34 +44,9 @@ export function routerBeforeEach(router: Router) {
           next({ path: to.path, query: to.query })
         }
       }
-      // 没有路由名称则代表404
-      else if (!to.name) {
-        next('/404')
-      }
       else {
         next()
       }
     }
-  })
-}
-
-// 添加动态路由
-function addRoutes(router: Router, permissionPaths: string[]) {
-  const newRoutes = filterRoute(routes, permissionPaths)
-  setupLayouts(newRoutes).forEach(route => router.addRoute(route))
-}
-
-// 根据权限路径过滤路由
-function filterRoute(children: RouteRecordRaw[], permissionPaths: string[], basePath = ''): RouteRecordRaw[] {
-  return children.filter((route) => {
-    // unplugin-vue-router 生成的路由，path 为文件名，需要转换为路由路径
-    if (permissionPaths.includes(basePath + route.path)) {
-      return true
-    }
-    else if (route.children) {
-      route.children = filterRoute(route.children, permissionPaths, `${basePath}${route.path}/`)
-      return route.children.length
-    }
-    return false
   })
 }
