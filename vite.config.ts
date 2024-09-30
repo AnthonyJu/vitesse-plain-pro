@@ -1,9 +1,9 @@
 import path from 'node:path'
 import process from 'node:process'
-import buildConfig from 'config/vite.build'
-import serverConfig from 'config/vite.server'
 import { defineConfig, loadEnv } from 'vite'
+import buildConfig from './config/vite.build'
 import pluginsConfig from './config/vite.plugins'
+import serverConfig from './config/vite.server'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {

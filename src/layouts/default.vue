@@ -3,7 +3,8 @@
     <!-- 侧边栏 -->
     <el-aside
       v-if="menu.aside && !menu.drawer"
-      class="z-10 flex-col shadow-r !w-230px bg-default"
+      width="220px"
+      class="z-10 flex-col shadow-r bg-default"
     >
       <!-- Logo -->
       <Logo />
