@@ -20,7 +20,6 @@ export function autoImports() {
     dts: 'src/auto-imports.d.ts',
     dirs: [
       'src/hooks/**/*',
-      'src/events',
       'src/stores',
       'src/utils',
     ],

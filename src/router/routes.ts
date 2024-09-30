@@ -4,9 +4,10 @@ interface RouteMeta {
   isDynamic?: boolean // 是否为动态路由
   roles?: string[] // 当前路由权限标识，由前端控制时可用
   isHide?: boolean // 是否在菜单中隐藏此路由
-  isDestroy?: boolean // 是否不缓存组件状态，切换时销毁组件
+  isKeepAlive?: boolean // 是否缓存组件状态
   isAffix?: boolean // 是否固定在 tagsView 栏上
   isLeaf?: boolean // 是否为叶子节点，面包屑导航使用
+  [key: string | symbol]: any
 }
 
 export interface RouteItem {
@@ -18,7 +19,7 @@ export interface RouteItem {
 // 静态路由
 export const staticRoutes = ['/', '/login', '/401', '/:all(.*)']
 
-// 与后端约定好，后端返回的数据结构与此一致，并保持与系统菜单栏一致
+// 系统菜单结构，也作为路由meta信息
 export const routes: RouteItem[] = [
   {
     path: '/home',
@@ -326,9 +327,7 @@ function getFlatRoutes(_routes = routes): RouteItem[] {
   const result: RouteItem[] = []
   _routes.forEach((route) => {
     result.push(route)
-    if (route.children) {
-      result.push(...getFlatRoutes(route.children))
-    }
+    if (route.children) result.push(...getFlatRoutes(route.children))
   })
   return result
 }
