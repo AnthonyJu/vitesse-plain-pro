@@ -7,6 +7,6 @@ export function vueI18n() {
     runtimeOnly: true,
     compositionOnly: true,
     fullInstall: true,
-    include: [path.resolve(__dirname, '../locales/**')],
+    include: [path.resolve(__dirname, '../../locales/**')],
   })
 }
