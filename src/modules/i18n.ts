@@ -11,7 +11,7 @@ const i18n = createI18n({
 })
 
 const localesMap = Object.fromEntries(
-  Object.entries(import.meta.glob('../../locales/*.yml'))
+  Object.entries(import.meta.glob('../locales/*.yml'))
     .map(([path, loadLocale]) => {
       return [path.match(/([\w-]*)\.yml$/)?.[1], loadLocale]
     }),
