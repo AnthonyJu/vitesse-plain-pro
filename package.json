@@ -13,8 +13,8 @@
     "preview": "vite preview",
     "preview-https": "serve dist",
     "up": "taze major -I",
-    "postinstall": "npx simple-git-hooks",
-    "sizecheck": "npx vite-bundle-visualizer"
+    "sizecheck": "npx vite-bundle-visualizer",
+    "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
     "@arcgis/core": "^4.30.9",
@@ -66,6 +66,7 @@
     "javascript-obfuscator": "^4.1.1",
     "lint-staged": "^15.2.10",
     "pick-zip": "^0.1.0",
+    "picocolors": "^1.1.0",
     "pnpm": "^9.10.0",
     "rollup-plugin-obfuscator": "^1.1.0",
     "sass": "^1.77.6",
@@ -87,7 +88,8 @@
     "vue-tsc": "^2.1.6"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "node scripts/verify-commit.js"
   },
   "lint-staged": {
     "*.{vue,scss}": "stylelint --fix",

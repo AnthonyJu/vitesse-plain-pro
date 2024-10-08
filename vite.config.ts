@@ -11,8 +11,8 @@ export default defineConfig(({ command, mode }) => {
   return {
     base: env.VITE_BASE_URL,
 
-    server: serverConfig(mode),
     build: buildConfig(mode),
+    server: serverConfig(mode),
     plugins: pluginsConfig(command),
 
     resolve: {
@@ -22,6 +22,7 @@ export default defineConfig(({ command, mode }) => {
     },
 
     css: {
+      // 预加载全局样式
       preprocessorOptions: {
         scss: {
           additionalData: '@use "@/styles/element/index.scss" as *;',
