@@ -1,4 +1,4 @@
-export interface AnyObject {
+interface AnyObject {
   [key: string]: unknown
 }
 
