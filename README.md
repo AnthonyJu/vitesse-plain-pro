@@ -23,7 +23,6 @@ vitesse-plain-pro
 ├─ public
 ├─ scripts
 ├─ src
-│  ├─ App.vue
 │  ├─ api
 │  ├─ assets
 │  ├─ components
@@ -31,14 +30,15 @@ vitesse-plain-pro
 │  ├─ hooks
 │  ├─ layouts
 │  ├─ locales
-│  ├─ main.ts
 │  ├─ modules
 │  ├─ pages
 │  ├─ router
 │  ├─ store
 │  ├─ styles
 │  ├─ types
-│  └─ utils
+│  ├─ utils
+│  ├─ App.vue
+│  └─ main.ts
 ├─ .editorconfig
 ├─ .env
 ├─ .gitignore
