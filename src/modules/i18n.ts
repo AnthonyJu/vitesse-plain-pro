@@ -11,9 +11,9 @@ const i18n = createI18n({
 })
 
 const localesMap = Object.fromEntries(
-  Object.entries(import.meta.glob('../locales/*.yml'))
+  Object.entries(import.meta.glob('../locales/*.json'))
     .map(([path, loadLocale]) => {
-      return [path.match(/([\w-]*)\.yml$/)?.[1], loadLocale]
+      return [path.match(/([\w-]*)\.json$/)?.[1], loadLocale]
     }),
 ) as Record<Locale, () => Promise<{ default: Record<string, string> }>>
 
