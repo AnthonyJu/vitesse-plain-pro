@@ -1,5 +1,5 @@
 <template>
-  <Iconify v-if="icon" h-18px w-18px :icon="icon" />
+  <el-icon><Iconify v-if="icon" h-18px w-18px :icon="icon" /></el-icon>
   <span ml-15px>{{ title }}</span>
 </template>
 
