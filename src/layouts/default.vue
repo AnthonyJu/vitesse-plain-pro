@@ -56,7 +56,7 @@ import type { ScrollbarInstance } from 'element-plus'
 import Breadcrumb from './components/breadcrumb.vue'
 import Footer from './components/layout-footer.vue'
 import Logo from './components/logo.vue'
-import Menu from './components/menu/index2.vue'
+import Menu from './components/menu/index.vue'
 import TagsView from './components/tags-view.vue'
 import User from './components/user.vue'
 

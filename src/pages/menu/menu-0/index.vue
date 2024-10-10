@@ -10,6 +10,6 @@
 const value = ref('')
 const router = useRouter()
 function go() {
-  router.push({ name: '/menu/menu-0/[id]', params: { id: value.value } })
+  router.push(`/menu/menu-0/${value.value}?show-name=名字`)
 }
 </script>
