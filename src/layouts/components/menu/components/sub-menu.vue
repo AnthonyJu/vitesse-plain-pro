@@ -14,8 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RouteItem } from '@/router/routes'
-import MenuTitle from './MenuTitle.vue'
+import MenuTitle from './menu-title.vue'
 
 defineProps<{ children: RouteItem[] }>()
 </script>
