@@ -48,8 +48,8 @@ function generatetName(code: string, id: string) {
     else {
       let componentName = ''
       if (name) componentName = name as string
-      else if (filename === 'index.vue')componentName = capitalize(path.basename(path.dirname(id)))
-      else componentName = capitalize(filename.split('.')[0])
+      else if (filename === 'index.vue')componentName = `${path.basename(path.dirname(id))}-index`
+      else componentName = filename.split('.')[0]
 
       magicString.appendLeft(
         0,
@@ -73,17 +73,4 @@ function generatetName(code: string, id: string) {
     }
   }
   return null
-}
-
-// 将字符串首转换为大驼峰
-function capitalize(str: string) {
-  // 存在-，则将-后的首字母大写
-  if (str.includes('-')) {
-    const arr = str.split('-')
-    return arr.map(s => s[0].toUpperCase() + s.slice(1)).join('')
-  }
-  // 否则，将首字母大写
-  else {
-    return str.charAt(0).toUpperCase() + str.slice(1)
-  }
 }
