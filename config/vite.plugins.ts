@@ -2,7 +2,7 @@ import type { ConfigEnv } from 'vite'
 import { autoImports } from './plugins/auto-imports'
 import { components } from './plugins/components'
 import { elementPlus } from './plugins/element-plus'
-import { routeNameAsComponentName } from './plugins/routeName-as-cptName'
+import { generateComponentName } from './plugins/generate-component-name'
 import { svgLoader } from './plugins/svg-loader'
 import { unocss } from './plugins/unocss'
 import { vitePWA } from './plugins/vite-pwa'
@@ -16,7 +16,7 @@ function pluginsConfig(command: ConfigEnv['command']) {
   return [
     vueRouter(),
     vue(),
-    routeNameAsComponentName(),
+    generateComponentName(),
     vueI18n(),
     autoImports(),
     components(command),
