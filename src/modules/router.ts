@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { routerBeforeEach } from '@/router/router-beforeEach'
+import { routerBeforeEach } from '@/router/router-before-each'
 import { staticRoutes } from '@/router/routes'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHashHistory } from 'vue-router'
