@@ -16,5 +16,5 @@ import User from './user.vue'
 
 const themeStore = useThemeStore()
 const { menu, header } = storeToRefs(themeStore)
-const drawerMenu = computed(() => menu.value.aside && menu.value.drawer)
+const drawerMenu = computed(() => !menu.value.aside || menu.value.drawer)
 </script>
