@@ -10,6 +10,10 @@ export const useThemeStore = defineStore(
       drawer: false,
     })
 
+    // 菜单宽度, 根据折叠状态设置
+    const menuWidth = computed(() => menu.value.collapse ? '84px' : '220px')
+
+    // 根据屏幕宽度设置菜单显示形式
     watch(width, (w) => {
       if (w >= 1440) {
         menu.value = {
@@ -37,11 +41,7 @@ export const useThemeStore = defineStore(
     })
 
     // 顶部栏
-    const header = ref({
-      // show: true,
-      // fixed: true,
-      height: 60,
-    })
+    const header = ref({ height: 60 })
 
     // 标签页
     const tagsview = ref({
@@ -50,6 +50,11 @@ export const useThemeStore = defineStore(
       fixed: true,
       max: 10,
       KeepAlive: true,
+    })
+
+    // header实际高度
+    const headerHeight = computed(() => {
+      return `${header.value.height + (tagsview.value.show ? tagsview.value.height : 0)}px`
     })
 
     // 底部栏
@@ -73,8 +78,10 @@ export const useThemeStore = defineStore(
 
     return {
       menu,
+      menuWidth,
       header,
       tagsview,
+      headerHeight,
       footer,
       mainHeight,
     }

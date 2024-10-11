@@ -1,11 +1,7 @@
 <template>
   <el-container>
     <!-- 侧边栏 -->
-    <el-aside
-      v-if="menu.aside && !menu.drawer"
-      :width="menu.collapse ? '84px' : '220px'"
-      class="z-10 flex-col transition-width shadow-r bg-default"
-    >
+    <el-aside v-if="asideMenu" :width="menuWidth" class="z-10 flex-col transition-width shadow-r bg-default">
       <!-- Logo -->
       <Logo />
       <!-- 侧边菜单 -->
@@ -15,16 +11,9 @@
     <!-- 主体 -->
     <el-container>
       <!-- 顶部 -->
-      <el-header class="z-1 h-auto! bg-default p-0!">
+      <el-header :height="headerHeight" class="z-1 bg-default p-0!">
         <!-- 顶部主体 -->
-        <div class="h-60px flex-bc px-15px shadow-b">
-          <!-- Logo -->
-          <Logo v-if="!menu.aside || menu.drawer" />
-          <!-- 面包屑 -->
-          <Breadcrumb v-else />
-          <!-- 用户操作 -->
-          <User />
-        </div>
+        <Header />
         <!-- 标签栏 -->
         <TagsView />
       </el-header>
@@ -41,32 +30,33 @@
             </router-view>
           </div>
           <!-- 底部 -->
-          <Footer v-if="footer.show && !footer.fixed" />
+          <Footer v-if="!footerFixed" />
         </el-scrollbar>
       </main>
 
       <!-- 底部 -->
-      <Footer v-if="footer.show && footer.fixed" />
+      <Footer v-if="footerFixed" />
     </el-container>
   </el-container>
 </template>
 
 <script setup lang='ts'>
 import type { ScrollbarInstance } from 'element-plus'
-import Breadcrumb from './components/breadcrumb.vue'
 import Footer from './components/layout-footer.vue'
+import Header from './components/layout-header.vue'
 import Logo from './components/logo.vue'
 import Menu from './components/menu/index.vue'
 import TagsView from './components/tags-view.vue'
-import User from './components/user.vue'
 
 defineOptions({ name: 'DefaultLayout' })
 
 const themeStore = useThemeStore()
-const { menu, footer, mainHeight } = storeToRefs(themeStore)
+const { menu, footer, mainHeight, headerHeight, menuWidth } = storeToRefs(themeStore)
+
+const asideMenu = computed(() => menu.value.aside && !menu.value.drawer)
+const footerFixed = computed(() => footer.value.show && footer.value.fixed)
 
 const scrollbar = ref<ScrollbarInstance>()
-
 function handleBeforeEnter() {
   nextTick(() => {
     scrollbar.value?.update()

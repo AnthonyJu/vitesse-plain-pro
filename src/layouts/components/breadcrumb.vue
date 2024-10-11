@@ -1,6 +1,6 @@
 <template>
   <div class="flex-items">
-    <el-icon class="cursor-pointer" size="16px" mr-10px @click="menu.collapse = !menu.collapse">
+    <el-icon class="cursor-pointer" size="18px" mr-10px @click="menu.collapse = !menu.collapse">
       <Expand v-if="menu.collapse" />
       <Fold v-else />
     </el-icon>
