@@ -47,9 +47,6 @@ export const useThemeStore = defineStore(
     const tagsview = ref({
       height: 40,
       show: true,
-      fixed: true,
-      max: 10,
-      KeepAlive: true,
     })
 
     // header实际高度

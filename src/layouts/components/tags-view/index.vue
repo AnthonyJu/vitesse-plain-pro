@@ -9,11 +9,12 @@
       <div class="h-full flex-items gap-10px">
         <el-tag
           v-for="tag in allTags"
-          :key="tag.meta.isKeepAlive ? tag.name : tag.fullPath"
+          :key="tag.meta.isKeepAlive ? tag.name : tag.fullPath /** 目的是为了替换时不闪烁 */"
           :closable="!tag.meta.isAffix"
           :effect="tag.fullPath === route.fullPath ? 'dark' : 'plain'"
           class="cursor-pointer hover:opacity-90"
           @click="$router.push(tag.fullPath!)"
+          @close="tagsViewStore.closeTag(tag.fullPath!)"
         >
           <div flex-items gap-5px>
             <Iconify v-if="tag.meta.icon" :icon="tag.meta.icon" />
@@ -22,7 +23,7 @@
         </el-tag>
       </div>
     </el-scrollbar>
-    <el-button ml-15px type="primary" size="small">
+    <el-button ml-15px type="primary" size="small" @click="tagsViewStore.refreshTag">
       刷新
     </el-button>
   </div>
@@ -46,8 +47,12 @@ function onHandleScroll(e: WheelEventType) {
   scrollbarRef.value!.wrapRef!.scrollLeft += e.wheelDelta / 4
 }
 
+// 监听路由变化，添加标签
 const route = useRoute()
-watchEffect(() => {
+watch(route, () => {
   tagsViewStore.addTag(route)
+}, {
+  deep: true,
+  immediate: true,
 })
 </script>

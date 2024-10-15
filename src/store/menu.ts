@@ -35,7 +35,6 @@ export const useMenuStore = defineStore(
     // 设置菜单
     function setMenu(val: RouteItem[]) {
       menus.value = val
-      tagsViewStore.affixTags = []
       permissionPaths.value = menus.value.reduce<string[]>(computedPath, [])
     }
 
