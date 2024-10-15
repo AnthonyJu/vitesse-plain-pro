@@ -30,7 +30,10 @@ function copyFn() {
     })
 }
 
-useSyntaxHighlighter(code, lang, refVal)
+watchEffect(() => {
+  // refVal.value!.innerHTML = code
+  useSyntaxHighlighter(code, lang, refVal)
+})
 </script>
 
 <style scoped lang='scss'>
