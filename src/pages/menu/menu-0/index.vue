@@ -1,15 +1,19 @@
 <template>
   <div class="layout-default">
     <h5>所有用户可查看</h5>
-    <el-input v-model="value" placeholder="请输入详情页id" />
-    <el-button type="primary" @click="go">前往</el-button>
+    <div w-300px flex-col gap-16px>
+      <el-input v-model="value" placeholder="请输入详情页id" />
+      <el-input v-model="tagName" placeholder="请输入详情页名称" />
+      <el-button type="primary" @click="go">前往</el-button>
+    </div>
   </div>
 </template>
 
 <script setup>
 const value = ref('')
+const tagName = ref('')
 const router = useRouter()
 function go() {
-  router.push(`/menu/menu-0/${value.value}?show-name=名字`)
+  router.push(`/menu/menu-0/${value.value}?${QUERY_TAG_NAME}=${tagName.value}`)
 }
 </script>

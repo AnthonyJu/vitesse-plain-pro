@@ -19,6 +19,7 @@ export function autoImports() {
     resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     dts: 'src/auto-imports.d.ts',
     dirs: [
+      'src/constants',
       'src/hooks/**/*',
       'src/store',
       'src/utils',

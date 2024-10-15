@@ -1,5 +1,5 @@
 export const useCommonDataStore = defineStore(
-  'commonData',
+  'common-data',
   () => {
     // 是否加载完毕
     const loading = ref(false)

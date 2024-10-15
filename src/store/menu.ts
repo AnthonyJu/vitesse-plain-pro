@@ -13,6 +13,8 @@ export const useMenuStore = defineStore(
     // 权限路径
     const permissionPaths = ref<string[]>([])
 
+    const tagsViewStore = useTagsViewStore()
+
     // 获取菜单
     function getMenu() {
       if (isFrontendCtrl) {
@@ -33,10 +35,11 @@ export const useMenuStore = defineStore(
     // 设置菜单
     function setMenu(val: RouteItem[]) {
       menus.value = val
+      tagsViewStore.affixTags = []
       permissionPaths.value = menus.value.reduce<string[]>(computedPath, [])
     }
 
-    // 计算权限路径
+    // 计算权限路径，并筛选出固定标签
     function computedPath(acc: string[], cur: RouteItem) {
       acc.push(cur.path)
       // 存在子路由，则递归计算
@@ -52,6 +55,10 @@ export const useMenuStore = defineStore(
         const hideChildren = cur.children.filter(item => item.meta.isHide)
         // 有隐藏的子路由，则递归计算
         if (hideChildren.length) hideChildren.forEach(item => computedPath(acc, item))
+      }
+      // 筛选出固定标签
+      else if (cur.meta.isAffix) {
+        tagsViewStore.addAffixTag(cur)
       }
       return acc
     }

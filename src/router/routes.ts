@@ -1,3 +1,5 @@
+import type { RouteMeta } from 'vue-router'
+
 // 基础元信息，用于合并路由元信息
 export const baseMeta: RouteMeta = {
   title: '',
@@ -6,6 +8,7 @@ export const baseMeta: RouteMeta = {
   roles: [],
   isHide: false,
   isKeepAlive: false,
+  isOpenMore: false,
   isAffix: false,
   isLeaf: false,
   noRedirect: false,
@@ -21,6 +24,7 @@ export const routes: RouteItem[] = [
     meta: {
       title: '首页',
       icon: 'carbon-home',
+      isAffix: true,
     },
   },
   {
@@ -28,6 +32,7 @@ export const routes: RouteItem[] = [
     meta: {
       title: '正则合集',
       icon: 'carbon-test-tool',
+      isAffix: true,
     },
   },
   {
@@ -65,6 +70,8 @@ export const routes: RouteItem[] = [
               title: '动态路由',
               isHide: true,
               isDynamic: true,
+              isKeepAlive: true,
+              isOpenMore: true,
             },
           },
           {

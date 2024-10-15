@@ -23,9 +23,11 @@
         <el-scrollbar ref="scrollbar" class="custom-scrollbar">
           <!-- 内容主体 -->
           <div class="w-full flex-col p-15px pb-0" :style="{ height: mainHeight }">
-            <router-view v-slot="{ Component }">
+            <router-view v-slot="{ Component, route }">
               <transition mode="out-in" name="opacity" @before-enter="handleBeforeEnter">
-                <component :is="Component" />
+                <keep-alive :include="keepAliveNames">
+                  <component :is="formatComponent(Component, route)" />
+                </keep-alive>
               </transition>
             </router-view>
           </div>
@@ -42,11 +44,12 @@
 
 <script setup lang='ts'>
 import type { ScrollbarInstance } from 'element-plus'
+import type { RouteLocationNormalizedLoadedTyped } from 'vue-router'
 import Footer from './components/layout-footer.vue'
 import Header from './components/layout-header.vue'
 import Logo from './components/logo.vue'
 import Menu from './components/menu/index.vue'
-import TagsView from './components/tags-view.vue'
+import TagsView from './components/tags-view/index.vue'
 
 defineOptions({ name: 'DefaultLayout' })
 
@@ -62,6 +65,29 @@ function handleBeforeEnter() {
     scrollbar.value?.update()
     scrollbar.value?.scrollTo({ top: 0 })
   })
+}
+
+const tagsViewStore = useTagsViewStore()
+const { allTags, keepAliveNames } = storeToRefs(tagsViewStore)
+
+// 用于缓存组件
+const componentMap = new Map()
+// 格式化组件，确保多开的动态路不会出现数据混乱
+function formatComponent(compent: Component, route: RouteLocationNormalizedLoadedTyped<any, any>) {
+  if (route.params.id && route.meta.isDynamic && route.meta.isKeepAlive) {
+    const componentName = allTags.value.find(tag => tag.fullPath === route.fullPath)!.keepAliveName
+    if (!componentMap.has(componentName)) {
+      componentMap.set(
+        componentName,
+        {
+          name: componentName,
+          render: () => h(compent),
+        },
+      )
+    }
+    return componentMap.get(componentName)
+  }
+  return compent
 }
 </script>
 

@@ -5,6 +5,11 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 
+// 扩展 RouteMeta 接口
+declare module 'vue-router' {
+  interface RouteMeta extends Meta {}
+}
+
 // 重定向
 routes.push({ path: '/', redirect: import.meta.env.VITE_REDIRECT_PATH })
 
