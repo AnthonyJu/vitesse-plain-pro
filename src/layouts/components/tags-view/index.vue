@@ -6,13 +6,14 @@
       view-class="h-full"
       @wheel.prevent="onHandleScroll"
     >
-      <div class="h-full flex-items gap-10px">
+      <div ref="dragEl" class="h-full flex-items gap-10px">
         <el-tag
           v-for="tag in allTags"
           :key="tag.meta.isKeepAlive ? tag.name : tag.fullPath /** 目的是为了替换时不闪烁 */"
           :closable="!tag.meta.isAffix"
           :effect="tag.fullPath === route.fullPath ? 'dark' : 'plain'"
           class="cursor-pointer hover:opacity-90"
+          :class="{ draggable: !tag.meta.isAffix }"
           @click="$router.push(tag.fullPath!)"
           @close="tagsViewStore.closeTag(tag.fullPath!)"
         >
@@ -31,6 +32,7 @@
 
 <script setup lang='ts'>
 import type { ScrollbarInstance } from 'element-plus'
+import { useDraggable } from 'vue-draggable-plus'
 
 interface WheelEventType extends WheelEvent {
   wheelDelta: number
@@ -49,10 +51,18 @@ function onHandleScroll(e: WheelEventType) {
 
 // 监听路由变化，添加标签
 const route = useRoute()
-watch(route, () => {
-  tagsViewStore.addTag(route)
-}, {
-  deep: true,
-  immediate: true,
-})
+watch(
+  route,
+  () => {
+    tagsViewStore.addTag(route)
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
+)
+
+// 设置 tagsView 可以进行拖拽
+const dragEl = useTemplateRef<HTMLElement>('dragEl')
+useDraggable(dragEl, allTags, { draggable: '.draggable', animation: 150 })
 </script>
