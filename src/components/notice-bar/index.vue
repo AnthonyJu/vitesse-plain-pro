@@ -95,6 +95,8 @@ const state = reactive({
   isMode: false,
 })
 
+const timer = ref()
+
 // 初始化 animation 各项参数
 function initAnimation() {
   nextTick(() => {
@@ -103,7 +105,7 @@ function initAnimation() {
     document.styleSheets[0].insertRule(`@keyframes oneAnimation {0% {left: 0px;} 100% {left: -${state.textOWidth}px;}}`)
     document.styleSheets[0].insertRule(`@keyframes twoAnimation {0% {left: ${state.warpOWidth}px;} 100% {left: -${state.textOWidth}px;}}`)
     computeAnimationTime()
-    setTimeout(() => {
+    timer.value = setTimeout(() => {
       changeAnimation()
     }, props.delay * 1000)
   })
@@ -115,12 +117,14 @@ function computeAnimationTime() {
 }
 // 改变 animation 动画调用
 function changeAnimation() {
-  if (state.order === 1) {
-    noticeBarTextRef.value.style!.cssText = `animation: oneAnimation ${state.oneTime}s linear; opacity: 1;}`
-    state.order = 2
-  }
-  else {
-    noticeBarTextRef.value.style.cssText = `animation: twoAnimation ${state.twoTime}s linear infinite; opacity: 1;`
+  if (noticeBarTextRef.value.style) {
+    if (state.order === 1) {
+      noticeBarTextRef.value.style!.cssText = `animation: oneAnimation ${state.oneTime}s linear; opacity: 1;}`
+      state.order = 2
+    }
+    else {
+      noticeBarTextRef.value.style!.cssText = `animation: twoAnimation ${state.twoTime}s linear infinite; opacity: 1;`
+    }
   }
 }
 // 监听 animation 动画的结束
@@ -144,6 +148,11 @@ function onRightIconClick() {
     emit('link')
   }
 }
+
+onBeforeUnmount(() => {
+  clearTimeout(timer.value)
+})
+
 // 页面加载时
 onMounted(() => {
   if (props.scrollable) return false
