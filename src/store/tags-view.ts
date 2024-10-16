@@ -89,10 +89,32 @@ export const useTagsViewStore = defineStore('tags-view', () => {
   function refreshTag() {
     componentKey.value = 'componentKey'
     excludeKeepAliveNames.value = [activeTag.value!.keepAliveName!]
+    // 等待刷新后，清空
     nextTick(() => {
       excludeKeepAliveNames.value = []
       componentKey.value = decodeURI(activeTag.value!.fullPath!)
     })
+  }
+
+  // 关闭右侧
+  function closeRightTags(fullPath: string) {
+    // 保留固定标签
+    const index = allTags.value.findIndex(tag => tag.fullPath === fullPath)
+    allTags.value = allTags.value.filter((tag, i) => tag.meta.isAffix || i <= index)
+  }
+
+  // 关闭其他
+  function closeOtherTags(fullPath: string) {
+    // 保留固定标签
+    allTags.value = allTags.value.filter(tag => tag.meta.isAffix || tag.fullPath === fullPath)
+    router.push(fullPath)
+  }
+
+  // 关闭所有
+  function closeAllTags() {
+    // 保留固定标签
+    allTags.value = allTags.value.filter(tag => tag.meta.isAffix)
+    router.push('/')
   }
 
   return {
@@ -104,6 +126,9 @@ export const useTagsViewStore = defineStore('tags-view', () => {
     addTag,
     closeTag,
     refreshTag,
+    closeAllTags,
+    closeOtherTags,
+    closeRightTags,
   }
 }, {
   persist: {

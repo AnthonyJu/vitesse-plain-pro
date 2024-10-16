@@ -1,122 +1,121 @@
 <template>
   <transition name="el-zoom-in-center">
     <div
-      v-show="state.isShow"
+      v-show="show"
       :key="Math.random()"
-      aria-hidden="true"
       class="el-dropdown__popper el-popper is-light is-pure custom-contextmenu"
-      role="tooltip"
       data-popper-placement="bottom"
-      :style="`top: ${dropdowns.y + 5}px;left: ${dropdowns.x}px;`"
+      :style="`top: ${xy.y + 5}px;left: ${xy.x}px;`"
     >
       <ul class="el-dropdown-menu">
-        <template v-for="(v, k) in state.dropdownList">
+        <template v-for="(item, index) in dropdownList">
           <li
-            v-if="!v.affix"
-            :key="k"
+            v-if="!item.hidden"
+            :key="index"
             class="el-dropdown-menu__item"
-            aria-disabled="false"
-            tabindex="-1"
-            @click="onCurrentContextmenuClick(v.contextMenuClickId)"
+            @click="onCurrentContextmenuClick(index)"
           >
-            <SvgIcon :name="v.icon" />
-            <span>{{ $t(v.txt) }}</span>
+            <Iconify :icon="item.icon" size="12px" mr-8px />
+            <span text-12px>{{ item.txt }}</span>
           </li>
         </template>
       </ul>
-      <div class="el-popper__arrow" :style="{ left: `${state.arrowLeft}px` }" />
+      <div class="el-popper__arrow" :style="{ left: `${arrowLeft}px` }" />
     </div>
   </transition>
 </template>
 
-<script setup lang="ts" name="layoutTagsViewContextmenu">
-import { computed, onMounted, onUnmounted, reactive, watch } from 'vue'
-
-// 定义父组件传过来的值
-const props = defineProps({
-  dropdown: {
-    type: Object,
-    default: () => {
-      return {
-        x: 0,
-        y: 0,
-      }
-    },
+<script setup lang="ts">
+interface DropdownItem {
+  txt: string
+  icon: string
+  hidden?: boolean
+}
+const { dropdown } = withDefaults(
+  defineProps<{
+    dropdown: { x: number, y: number }
+  }>(),
+  {
+    dropdown: () => ({ x: 0, y: 0 }),
   },
-})
+)
 
-// 定义子组件向父组件传值/事件
-const emit = defineEmits(['currentContextmenuClick'])
+const emit = defineEmits<{
+  (e: 'contextmenuClick', id: number, fullpath: string): void
+}>()
 
-// 定义变量内容
-const state = reactive({
-  isShow: false,
-  dropdownList: [
-    { contextMenuClickId: 0, txt: 'message.tagsView.refresh', affix: false, icon: 'ele-RefreshRight' },
-    { contextMenuClickId: 1, txt: 'message.tagsView.close', affix: false, icon: 'ele-Close' },
-    { contextMenuClickId: 2, txt: 'message.tagsView.closeOther', affix: false, icon: 'ele-CircleClose' },
-    { contextMenuClickId: 3, txt: 'message.tagsView.closeAll', affix: false, icon: 'ele-FolderDelete' },
-    {
-      contextMenuClickId: 4,
-      txt: 'message.tagsView.fullscreen',
-      affix: false,
-      icon: 'iconfont icon-fullscreen',
-    },
-  ],
-  item: {},
-  arrowLeft: 10,
-})
+// 展示右键菜单
+const show = ref(false)
+// 箭头位置
+const arrowLeft = ref(10)
+// 当前路由地址
+const fullpath = ref('')
 
-// 父级传过来的坐标 x,y 值
-const dropdowns = computed(() => {
-  // 117 为 `Dropdown 下拉菜单` 的宽度
-  if (props.dropdown.x + 117 > document.documentElement.clientWidth) {
-    return {
-      x: document.documentElement.clientWidth - 117 - 5,
-      y: props.dropdown.y,
-    }
-  }
-  else {
-    return props.dropdown
-  }
-})
-// 当前项菜单点击
-function onCurrentContextmenuClick(contextMenuClickId: number) {
-  emit('currentContextmenuClick', Object.assign({}, { contextMenuClickId }, state.item))
-}
-// 打开右键菜单：判断是否固定，固定则不显示关闭按钮
-function openContextmenu(item: RouteItem) {
-  state.item = item
-  item.meta?.isAffix ? (state.dropdownList[1].affix = true) : (state.dropdownList[1].affix = false)
-  closeContextmenu()
-  setTimeout(() => {
-    state.isShow = true
-  }, 10)
-}
-// 关闭右键菜单
-function closeContextmenu() {
-  state.isShow = false
-}
-// 监听页面监听进行右键菜单的关闭
-onMounted(() => {
-  document.body.addEventListener('click', closeContextmenu)
-})
-// 页面卸载时，移除右键菜单监听事件
-onUnmounted(() => {
-  document.body.removeEventListener('click', closeContextmenu)
-})
+// 下拉菜单列表
+const dropdownList: DropdownItem[] = [
+  { txt: '全屏', icon: 'ep-full-screen' },
+  { txt: '关闭右侧', icon: 'ep-close' },
+  { txt: '关闭其它', icon: 'ep-circle-close' },
+  { txt: '关闭所有', icon: 'ep-folder-delete' },
+]
+
 // 监听下拉菜单位置
 watch(
-  () => props.dropdown,
+  dropdown,
   ({ x }) => {
-    if (x + 117 > document.documentElement.clientWidth)
-      state.arrowLeft = 117 - (document.documentElement.clientWidth - x)
-    else state.arrowLeft = 10
+    const w = document.documentElement.clientWidth
+    if (x + 117 > w) arrowLeft.value = 117 - (w - x)
+    else arrowLeft.value = 10
   },
   {
     deep: true,
   },
 )
+
+// 计算下拉菜单位置
+const xy = computed(() => {
+  // 117 为 `Dropdown 下拉菜单` 的宽度
+  if (dropdown.x + 117 > document.documentElement.clientWidth) {
+    return {
+      x: document.documentElement.clientWidth - 117,
+      y: dropdown.y,
+    }
+  }
+  else {
+    return dropdown
+  }
+})
+
+const route = useRoute()
+
+// 打开右键菜单
+function openContextmenu(path: string) {
+  // 非当前页面不能全屏
+  dropdownList[0].hidden = route.fullPath !== path
+
+  fullpath.value = path
+  show.value = true
+}
+
+// 当前项菜单点击
+function onCurrentContextmenuClick(id: number) {
+  emit('contextmenuClick', id, fullpath.value)
+}
+
+// 关闭右键菜单
+function closeContextmenu() {
+  show.value = false
+}
+
+// 监听页面监听进行右键菜单的关闭
+onMounted(() => {
+  document.body.addEventListener('click', closeContextmenu)
+})
+
+// 页面卸载时，移除右键菜单监听事件
+onUnmounted(() => {
+  document.body.removeEventListener('click', closeContextmenu)
+})
 
 // 暴露变量
 defineExpose({
@@ -129,14 +128,5 @@ defineExpose({
   position: fixed;
   z-index: 2190;
   transform-origin: center top;
-
-  .el-dropdown-menu__item {
-    font-size: 12px !important;
-    white-space: nowrap;
-
-    i {
-      font-size: 12px !important;
-    }
-  }
 }
 </style>

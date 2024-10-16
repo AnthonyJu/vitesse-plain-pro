@@ -3,6 +3,9 @@ export const useThemeStore = defineStore(
   () => {
     const { width } = useWindowSize()
 
+    // 页面全屏
+    const fullScreen = ref(false)
+
     // 侧边栏菜单
     const menu = ref({
       aside: true,
@@ -74,6 +77,7 @@ export const useThemeStore = defineStore(
     })
 
     return {
+      fullScreen,
       menu,
       menuWidth,
       header,
