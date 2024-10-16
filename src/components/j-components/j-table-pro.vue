@@ -92,6 +92,7 @@
 <script setup lang="ts">
 import request from '@/utils/request'
 import { ElMessage } from 'element-plus'
+import { generateForm } from './generate-form'
 
 interface UrlObject {
   get: string

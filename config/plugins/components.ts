@@ -7,7 +7,7 @@ export function components(command: ConfigEnv['command']) {
   return Components({
     dts: 'src/components.d.ts',
     include: [/\.vue$/, /\.vue\?vue/],
-    exclude: ['src/components/**/components/**/*data/*.ts'],
+    exclude: ['src/components/**/*.ts'],
     // 生产环境下按需引入element-plus
     resolvers: command === 'build' ? ElementPlusResolver() : undefined,
   })

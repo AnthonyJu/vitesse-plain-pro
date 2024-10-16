@@ -112,6 +112,7 @@
 import type { FormInstance } from 'element-plus'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
 import { ElForm } from 'element-plus'
+import { generateForm } from './generate-form'
 
 interface Props {
   loading: boolean // 是否为loading状态

@@ -88,6 +88,7 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { ElForm } from 'element-plus'
+import { generateForm } from './generate-form'
 
 interface Props {
   visible: boolean // 用于控制显示隐藏
