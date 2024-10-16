@@ -1,3 +1,5 @@
+import type { BundledTheme } from 'shikiji'
+import type { ShallowRef } from 'vue'
 import { codeToHtml } from 'shikiji'
 
 /**
@@ -5,41 +7,37 @@ import { codeToHtml } from 'shikiji'
  * @param {string} str code string
  * @param {string} lang language
  * @param {string|Ref<HTMLElement | undefined>} container container selector
+ * @param {BundledTheme} theme theme，default is auto according to system theme（vitesse-dark/vitesse-light）
  * @return { html: Ref<string> } html: highlight HTML string
  */
 export function useSyntaxHighlighter(
   str: string,
   lang: string,
-  container: string | Ref<HTMLElement | undefined>,
+  container?: Readonly<ShallowRef<HTMLDivElement | null>>,
+  theme?: BundledTheme,
 ) {
   const html = ref('')
+  const syntaxTheme = computed(() => theme || (isDark.value ? 'vitesse-dark' : 'vitesse-light'))
 
-  if (typeof container !== 'string' && container.value) {
-    codeToHtml(str, {
-      lang,
-      theme: 'vitesse-dark',
-    })
-      .then((value) => {
-        html.value = value
-        container.value!.innerHTML = value
+  const unWatch = watch(
+    syntaxTheme,
+    (val) => {
+      codeToHtml(str, {
+        lang,
+        theme: val,
       })
-    return
-  }
-
-  onMounted(() => {
-    codeToHtml(str, {
-      lang,
-      theme: 'vitesse-dark',
-    })
-      .then((value) => {
-        html.value = value
-
-        if (typeof container === 'string') {
-          const el = document.querySelector(container)
-          if (el) el.innerHTML = value
-        }
-      })
-  })
+        .then((value) => {
+          html.value = value
+          if (container) container.value!.innerHTML = value
+          // 指定了主题，不再根据系统主题变化
+          if (theme) unWatch()
+        })
+    },
+    {
+      flush: 'post',
+      immediate: true,
+    },
+  )
 
   return {
     html,

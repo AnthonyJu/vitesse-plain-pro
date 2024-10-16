@@ -33,16 +33,3 @@ html {
 input:-webkit-autofill {
   transition: color 60s, background-color 60s;
 }
-
-pre.shiki {
-  padding: 16px;
-  margin: 0;
-  overflow: auto;
-  font-size: 16px;
-  background-color: #1e1f22 !important;
-  border-radius: 8px;
-
-  code {
-    font-family: "DM Mono", monospace;
-  }
-}

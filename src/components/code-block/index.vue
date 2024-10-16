@@ -1,12 +1,9 @@
 <template>
   <div class="code-block">
-    <div ref="refVal" />
-    <div class="code-language">{{ lang }}</div>
-    <div
-      v-if="isSupported" class="code-copy"
-      @click="copyFn"
-    >
-      <Iconify class="icon" icon="carbon:copy" />
+    <div ref="code" />
+    <div class="code-lang-copy">
+      <div class="code-language">{{ lang }}</div>
+      <Iconify v-if="isSupported" class="code-copy" title="复制代码" icon="carbon:copy" @click="copyFn" />
     </div>
   </div>
 </template>
@@ -17,7 +14,8 @@ const { code, lang } = defineProps<{
   lang: string
 }>()
 
-const refVal = ref<HTMLElement>()
+const container = useTemplateRef('code')
+useSyntaxHighlighter(code, lang, container)
 
 const { copy, isSupported } = useClipboard()
 function copyFn() {
@@ -29,40 +27,54 @@ function copyFn() {
       ElMessage.error('Copy failed!')
     })
 }
-
-watchEffect(() => {
-  // refVal.value!.innerHTML = code
-  useSyntaxHighlighter(code, lang, refVal)
-})
 </script>
 
 <style scoped lang='scss'>
+:deep(pre.shiki) {
+  padding: 16px;
+  margin: 0;
+  overflow: auto;
+  font-size: 16px;
+  border-radius: 8px;
+
+  code {
+    font-family: "DM Mono", monospace;
+  }
+}
+
 .code-block {
   position: relative;
 
-  .code-language {
-    position: absolute;
-    top: 2px;
-    right: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #aaa;
+  :deep(.vitesse-dark) {
+    background-color: #1e1f22 !important;
   }
 
-  .code-copy {
-    position: absolute;
-    top: 12px;
-    right: 0;
-    padding: 8px;
-    font-size: 18px;
-    color: #333;
+  :deep(.vitesse-light) {
+    background-color: #f5f5f5 !important;
+  }
 
-    &:hover {
+  .code-lang-copy {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .code-language {
+      font-size: 12px;
+      font-weight: 500;
       color: #aaa;
     }
 
-    .icon {
+    .code-copy {
+      font-size: 18px;
+      color: #464646;
       cursor: pointer;
+
+      &:hover {
+        color: #a2a2a2;
+      }
     }
   }
 }
