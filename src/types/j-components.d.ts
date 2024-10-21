@@ -59,8 +59,8 @@ declare global {
     span?: number
     prop: string
     label: string
-    type: 'input' | 'textarea' | 'select' | 'dateTime' | 'slot'
-    defaultValue?: string | number | string[]
+    type?: 'input' | 'textarea' | 'select' | 'slot'
+    default?: string | number | string[]
     formItemProps?: Partial<Writable<FormItemProps>>
     fieldProps?: Partial<Writable<InputProps>> & Partial<ISelectProps> & JFieldEvents
     options?: {
@@ -71,9 +71,11 @@ declare global {
   }
 
   /**
-   * @Type JFormProps Form配置项
+   * @interface JFormProps Form配置项
    */
-  type JFormProps = Partial<Writable<FormProps>>
+  interface JFormProps extends Partial<Writable<FormProps>> {
+    dateTimeKeys?: string[]
+  }
 
   /**
    * @interface JFormOptions Form配置项

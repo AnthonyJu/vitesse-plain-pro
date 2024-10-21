@@ -52,9 +52,8 @@ const formItems: JFormItem[] = [
     ],
   },
   {
-    prop: 'timeFrame',
+    prop: DATE_TIME_RANGE,
     label: '时间',
-    type: 'dateTime',
   },
 ]
 
@@ -62,7 +61,8 @@ const loading = ref(false)
 const formData = ref({
   name: '张三',
   age: '',
-  timeFrame: ['', ''],
+  startTime: '',
+  endTime: '',
 })
 
 function onSearch(form: any) {

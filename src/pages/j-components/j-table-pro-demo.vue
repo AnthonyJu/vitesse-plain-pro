@@ -54,7 +54,6 @@ const formItems: JFormItem[] = [
   {
     prop: 'timeFrame',
     label: '时间',
-    type: 'dateTime',
   },
 ]
 

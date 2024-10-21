@@ -64,13 +64,16 @@
 
       <!-- 日期时间选择器 -->
       <el-form-item
-        v-else-if="type === 'dateTime'"
+        v-else-if="prop === DATE_TIME_RANGE"
         :prop="prop"
         :label="label"
         v-bind="formItemProps"
       >
-        <el-date-picker
+        <j-date-picker
           v-model="form[prop]"
+          v-model:start-time="form[dateTimeKeys[0]]"
+          v-model:end-time="form[dateTimeKeys[1]]"
+          format="YYYY-MM-DD HH:mm"
           clearable
           value-format="YYYY-MM-DD HH:mm:ss"
           range-separator="-"
@@ -82,7 +85,6 @@
           type="datetimerange"
         />
       </el-form-item>
-      <!-- TODO 开始时间和结束时间的配置 -->
 
       <!-- 自定义 -->
       <el-form-item
@@ -135,13 +137,16 @@ const emit = defineEmits<{
   search: [any]
 }>()
 
+// date picker 默认绑定的字段
+const dateTimeKeys = props.formProps?.dateTimeKeys || DATE_TIME_KEYS
+
 // 默认时间
 const defaultTime: [Date, Date] = [
   new Date(2000, 1, 1, 0, 0, 0),
   new Date(2000, 2, 1, 23, 59, 59),
 ]
 
-// 快捷选项
+// TODO 快捷选项, dayjs版
 const end = new Date()
 const start = new Date().getTime()
 const oneDay = 3600 * 1000 * 24
@@ -168,14 +173,16 @@ const shortcuts = [
 const formRef = ref<FormInstance>()
 const form = defineModel<any>('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') {
-  form.value = generateForm(props.formItems)
+  form.value = generateForm(props.formItems, dateTimeKeys)
 }
 
 /** 搜索 */
 function onSearch() {
   // 校验表单，校验不通过则不执行搜索
   formRef.value?.validate().then(() => {
-    emit('search', JSON.parse(JSON.stringify(form.value)))
+    const data = JSON.parse(JSON.stringify(form.value))
+    delete data[DATE_TIME_RANGE]
+    emit('search', data)
   })
 }
 
