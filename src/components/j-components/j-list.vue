@@ -39,7 +39,7 @@ interface Props {
   url: string
   formOptions: JDialogOptions
   paginationOptions?: JPaginationOptions
-  dataFormator?: (data: any[]) => any[] // 数据处理函数
+  dataFormator?: (data: any[]) => any[] // 返回数据处理函数
 }
 
 const props = defineProps<Props>()

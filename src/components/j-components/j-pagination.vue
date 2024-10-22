@@ -44,12 +44,14 @@ const loading = defineModel<boolean>('loading', { default: false })
 /** 当前页变化 */
 function handleSizeChange(newSize: number) {
   size.value = newSize
+  // 如果没有请求地址，则触发搜索事件
   if (!props.url) emit('handleSearch')
   else handleSearch()
 }
 /** 每页数量变化 */
 function handleCurrentChange(newCurrent: number) {
   current.value = newCurrent
+  // 如果没有请求地址，则触发搜索事件
   if (!props.url) emit('handleSearch')
   else handleSearch()
 }

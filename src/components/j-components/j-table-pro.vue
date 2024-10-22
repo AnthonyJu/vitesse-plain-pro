@@ -103,7 +103,7 @@ interface UrlObject {
 interface Props {
   url: string | UrlObject
   noPagenation?: boolean // 是否不需要分页
-  dataFormator?: (data: any[]) => any[] // 数据处理函数
+  dataFormator?: (data: any[]) => any[] // 返回数据处理函数
   formOptions?: JFormOptions
   tableOptions: JTableOptions
   dialogOptions?: JDialogOptions
@@ -118,6 +118,7 @@ interface Api {
 const props = defineProps<Props>()
 const emit = defineEmits(['onOriginDataChange']) // 原始数据变化会触发（例如增删改）
 
+// 请求接口定义
 const API: Api = {
   get: (params?: any) => request({
     url: typeof props.url === 'object' ? props.url.get : props.url,
@@ -126,6 +127,7 @@ const API: Api = {
   }),
 }
 
+// 若url为对象，则分别定义create、update、delete方法
 if (typeof props.url === 'object') {
   if (props.url.create) {
     API.create = (data: any) => request({
@@ -172,6 +174,7 @@ const total = ref(0)
 const loading = ref(false)
 const tableData = defineModel<any[]>('data', { default: [] })
 
+// 检索表单数据
 const form = ref<Record<string, any>>({})
 
 // 检索表单函数
@@ -197,18 +200,21 @@ const dialogLoading = ref(false)
 const dialogForm = ref<Record<string, any>>({})
 const initDialogForm = props.dialogOptions && generateForm(props.dialogOptions.formItems)
 
+// 弹窗新增
 function createFn() {
   title.value = '新增'
   visible.value = true
   dialogForm.value = initDialogForm
 }
 
+// 弹窗编辑
 function updateFn(row: Record<string, any>) {
   title.value = '编辑'
   visible.value = true
   dialogForm.value = JSON.parse(JSON.stringify(row))
 }
 
+// 弹窗删除
 function deleteFn(id: string) {
   const message = ElMessage({
     message: 'loading...',
@@ -226,6 +232,8 @@ function deleteFn(id: string) {
       message.close()
     })
 }
+
+// 弹窗提交
 function dialogSubmit() {
   dialogLoading.value = true
   if (dialogForm.value?.id) {
