@@ -133,12 +133,6 @@ export const routes: RouteItem[] = [
         },
       },
       {
-        path: '/j-components/j-list-demo',
-        meta: {
-          title: 'JList',
-        },
-      },
-      {
         path: '/j-components/j-pagination-demo',
         meta: {
           title: 'JPagination',

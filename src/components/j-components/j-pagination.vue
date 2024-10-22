@@ -1,5 +1,6 @@
 <template>
   <el-pagination
+    v-show="total > 0"
     class="mt-18px self-end"
     v-bind="$attrs"
     :disabled="loading"
@@ -22,6 +23,7 @@ interface Props {
   params?: Record<string, any> // 请求参数
   layout?: string // 组件布局
   pageSizes?: number[] // 每页数量选项
+  dataFormator?: (data: any[]) => any[] // 返回数据处理函数
 }
 
 const {
@@ -73,7 +75,7 @@ function handleSearch() {
   })
     .then((res) => {
       // TODO 处理返回数据
-      data.value = res.data.data.records
+      data.value = props.dataFormator?.(res.data.data.records) || res.data.data.records
       total.value = res.data.data.total
     })
     .catch((err) => {
@@ -84,6 +86,7 @@ function handleSearch() {
     })
 }
 
+// 存在请求地址则在挂在后进行数据请求
 onMounted(() => {
   if (props.url) handleSearch()
 })

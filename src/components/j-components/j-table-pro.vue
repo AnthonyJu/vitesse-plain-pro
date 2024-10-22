@@ -3,7 +3,7 @@
     <!-- 检索表单 -->
     <JForm
       v-if="formOptions"
-      v-model:form="form"
+      v-model:form="searchForm"
       inline
       :loading="loading"
       :form-items="formOptions.formItems"
@@ -20,17 +20,19 @@
       </template>
     </JForm>
 
+    <!-- 表格数据 -->
     <div full flex-col overflow-hidden>
-      <!-- 表格数据 -->
+      <!-- type 为 table 时 -->
       <JTable
+        v-if="type === 'table'"
         v-loading="loading"
         flex-1
         :data="tableData"
-        :columns="tableOptions.columns"
-        :table-props="tableOptions.tableProps"
+        :columns="tableOptions!.columns"
+        :table-props="tableOptions!.tableProps"
       >
         <template
-          v-for="{ prop } in tableSlots"
+          v-for="{ prop } in tableSlots!"
           :key="prop"
           #[prop]="scope"
         >
@@ -58,9 +60,15 @@
         </template>
       </JTable>
 
+      <!-- type 为 list 时 -->
+      <el-scrollbar v-else v-loading="loading">
+        <slot />
+        <el-empty v-if="tableData.length === 0" />
+      </el-scrollbar>
+
       <!-- 分页 -->
       <JPagination
-        v-if="!noPagenation"
+        v-if="pagenation"
         v-model:current="current"
         v-model:size="size"
         :loading="loading"
@@ -102,10 +110,11 @@ interface UrlObject {
 }
 interface Props {
   url: string | UrlObject
-  noPagenation?: boolean // 是否不需要分页
+  type?: 'table' | 'list'
+  pagenation?: boolean // 分页
   dataFormator?: (data: any[]) => any[] // 返回数据处理函数
   formOptions?: JFormOptions
-  tableOptions: JTableOptions
+  tableOptions?: JTableOptions
   dialogOptions?: JDialogOptions
 }
 interface Api {
@@ -115,7 +124,7 @@ interface Api {
   delete?: (id: string | number) => Promise<Res<any>>
 }
 
-const props = defineProps<Props>()
+const { type = 'table', pagenation = true, ...props } = defineProps<Props>()
 const emit = defineEmits(['onOriginDataChange']) // 原始数据变化会触发（例如增删改）
 
 // 请求接口定义
@@ -175,14 +184,15 @@ const loading = ref(false)
 const tableData = defineModel<any[]>('data', { default: [] })
 
 // 检索表单数据
-const form = ref<Record<string, any>>({})
+const searchForm = ref<Record<string, any>>({})
 
 // 检索表单函数
 function handleSearch(val?: any) {
   loading.value = true
+  // val 存在代表是表单检索,需要从第一页开始
   if (val) current.value = 1
-  // TODO：根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体情况来决定入参
-  API.get({ ...form.value, current: current.value, size: props.noPagenation ? 0 : size.value })
+  // tips 根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体后台情况来决定入参
+  API.get({ ...searchForm.value, current: current.value, size: !pagenation ? 0 : size.value })
     .then((res: any) => {
       if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
       else tableData.value = res.data.data.records
@@ -268,5 +278,5 @@ onMounted(() => {
 })
 
 // 暴露给父组件的方法
-defineExpose({ form, dialogForm, createFn, updateFn, deleteFn, handleSearch })
+defineExpose({ searchForm, dialogForm, createFn, updateFn, deleteFn, handleSearch })
 </script>
