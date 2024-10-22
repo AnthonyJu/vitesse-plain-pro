@@ -1,4 +1,3 @@
-import type { RouteItem } from './routes'
 import { routes } from './routes'
 
 // 从前端获取菜单

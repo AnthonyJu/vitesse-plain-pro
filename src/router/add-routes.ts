@@ -5,19 +5,9 @@ import { baseMeta, routes } from './routes'
 
 // 添加动态路由
 export function addRoutes(router: Router, permissionPaths: string[]) {
-  const flatRoutes = getFlatRoutes()
+  const flatRoutes = flatArr(routes)
   const newRoutes = filterRoute(generateRoutes, permissionPaths, flatRoutes)
   setupLayouts(newRoutes).forEach(route => router.addRoute(route))
-}
-
-// 获取扁平化路由
-export function getFlatRoutes(flatRoutes = routes): RouteItem[] {
-  const result: RouteItem[] = []
-  flatRoutes.forEach((route) => {
-    result.push(route)
-    if (route.children) result.push(...getFlatRoutes(route.children))
-  })
-  return result
 }
 
 // 根据权限路径过滤路由

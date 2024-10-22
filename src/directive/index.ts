@@ -1,6 +1,6 @@
 import type { App } from 'vue'
+import { authDirective } from './auth'
 
-// TODO: 未完成
-export default (_app: App) => {
-  // app.directive('permission', permission)
+export default (app: App) => {
+  app.directive('auth', authDirective)
 }
