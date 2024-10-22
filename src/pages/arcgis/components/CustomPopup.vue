@@ -12,13 +12,17 @@
 import type MapView from '@arcgis/core/views/MapView'
 import { ElButton } from 'element-plus'
 
-const props = defineProps<{
+interface Props {
   view: MapView
   attributes: Record<string, any>
-}>()
-const emit = defineEmits<{
+}
+interface Emits {
   closePopup: []
-}>()
+  (key: string): any[]
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 
 // eslint-disable-next-line no-console
 console.log(props.view)

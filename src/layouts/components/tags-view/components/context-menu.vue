@@ -26,15 +26,16 @@
 </template>
 
 <script setup lang="ts">
+interface Props {
+  dropdown: { x: number, y: number }
+}
 interface DropdownItem {
   txt: string
   icon: string
   hidden?: boolean
 }
 
-const { dropdown = { x: 0, y: 0 } } = defineProps<{
-  dropdown: { x: number, y: number }
-}>()
+const { dropdown = { x: 0, y: 0 } } = defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'contextmenuClick', id: number, fullpath: string): void

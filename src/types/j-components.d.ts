@@ -47,6 +47,18 @@ declare global {
   }
 
   /**
+   * @interface SelectOptionItem select option 选项
+   * @property {string | number} label 展示字段
+   * @property {string | number | boolean | Record<string, any>} value 字段对应的值
+   * @property {boolean} disabled 是否禁用
+   */
+  interface SelectOptionItem {
+    label: string | number
+    value: string | number | boolean | Record<string, any>
+    disabled?: boolean
+  }
+
+  /**
    * @interface JFormItem FormItem渲染项
    * @property {string} prop FormItem的prop
    * @property {string} type FormItem下field类型
@@ -63,11 +75,7 @@ declare global {
     default?: string | number | string[]
     formItemProps?: Partial<Writable<FormItemProps>>
     fieldProps?: Partial<Writable<InputProps>> & Partial<ISelectProps> & JFieldEvents
-    options?: {
-      label: string | number
-      value: string | number | boolean | Record<string, any>
-      disabled?: boolean
-    }[]
+    options?: SelectOptionItem[]
   }
 
   /**

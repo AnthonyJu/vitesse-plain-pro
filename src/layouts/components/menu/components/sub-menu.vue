@@ -16,5 +16,9 @@
 <script setup lang="ts">
 import MenuTitle from './menu-title.vue'
 
-defineProps<{ children: RouteItem[] }>()
+interface Props {
+  children: RouteItem[]
+}
+
+defineProps<Props>()
 </script>

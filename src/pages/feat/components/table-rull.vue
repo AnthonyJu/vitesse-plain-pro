@@ -19,11 +19,6 @@
   </div>
 </template>
 
-<route lang="yaml">
-  meta:
-    name: 无限滚动
-</route>
-
 <script lang="ts" setup>
 interface Column {
   id: string

@@ -32,14 +32,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+interface Props {
   errorInfo: {
     type: number
     msg: string
     subMsg: string
     img: string
   }
-}>()
+}
+defineProps<Props>()
 
 const userStore = useUserStore()
 const route = useRoute()

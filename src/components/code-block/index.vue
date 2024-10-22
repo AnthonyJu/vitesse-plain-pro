@@ -9,10 +9,11 @@
 </template>
 
 <script setup lang='ts'>
-const { code, lang } = defineProps<{
+interface Props {
   code: string
   lang: string
-}>()
+}
+const { code, lang } = defineProps<Props>()
 
 const container = useTemplateRef('code')
 useSyntaxHighlighter(code, lang, container)
