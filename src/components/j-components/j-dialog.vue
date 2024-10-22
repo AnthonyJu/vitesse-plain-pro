@@ -51,7 +51,18 @@
             :label="label"
             v-bind="formItemProps"
           >
+            <JSelect
+              v-if="fieldProps?.multiple"
+              v-model="form[prop]"
+              :data="form[prop]"
+              :options="options"
+              placeholder="请选择"
+              clearable
+              v-bind="fieldProps"
+            />
+
             <el-select
+              v-else
               v-model="form[prop]"
               placeholder="请选择"
               clearable
