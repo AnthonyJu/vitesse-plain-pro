@@ -7,7 +7,7 @@ import serverConfig from './config/vite.server'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-  const env = loadEnv(mode, process.cwd())
+  const env = loadEnv(mode, process.cwd()) as ImportMetaEnv
 
   return {
     base: env.VITE_BASE_URL,

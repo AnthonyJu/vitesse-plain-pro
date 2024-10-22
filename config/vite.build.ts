@@ -3,7 +3,7 @@ import process from 'node:process'
 import { loadEnv } from 'vite'
 
 function buildConfig(mode: ConfigEnv['mode']): UserConfig['build'] {
-  const env = loadEnv(mode, process.cwd())
+  const env = loadEnv(mode, process.cwd()) as ImportMetaEnv
   return {
     outDir: env.VITE_OUT_DIR,
     assetsInlineLimit: 1025 * 5, // 小于5kb的文件转换为base64

@@ -26,6 +26,7 @@ vitesse-plain-pro
 │  ├─ api
 │  ├─ assets
 │  ├─ components
+│  ├─ constants
 │  ├─ directive
 │  ├─ hooks
 │  ├─ layouts

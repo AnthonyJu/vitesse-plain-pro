@@ -1,6 +1,10 @@
-declare interface Window {
-  // extend the window
-  [key: string]: any
+interface ImportMetaEnv {
+  readonly VITE_PORT: number
+  readonly VITE_BASE_URL: string
+  readonly VITE_OUT_DIR: string
+  readonly VITE_REDIRECT_PATH: string
+  readonly API_BASE_URL: string
+  readonly VITE_API_URL: string
 }
 
 declare module 'vue-grid-layout'
@@ -10,6 +14,11 @@ declare namespace JSX {
   interface IntrinsicElements {
     [elemName: string]: any
   }
+}
+
+declare interface Window {
+  // extend the window
+  [key: string]: any
 }
 
 declare module '*.vue' {
