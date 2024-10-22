@@ -3,6 +3,7 @@
     <!-- 检索表单 -->
     <JForm
       v-if="formOptions"
+      ref="formRef"
       v-model:form="searchForm"
       inline
       :loading="loading"
@@ -25,6 +26,7 @@
       <!-- type 为 table 时 -->
       <JTable
         v-if="type === 'table'"
+        ref="tableRef"
         v-loading="loading"
         flex-1
         :data="tableData"
@@ -80,6 +82,7 @@
     <!-- 弹窗 -->
     <JDialog
       v-if="dialogOptions"
+      ref="dialogRef"
       v-model:visible="visible"
       v-model:form="dialogForm"
       :title="title"
@@ -277,6 +280,10 @@ onMounted(() => {
   if (!props.formOptions) handleSearch()
 })
 
+const formRef = useTemplateRef('formRef')
+const tableRef = useTemplateRef('tableRef')
+const dialogRef = useTemplateRef('dialogRef')
+
 // 暴露给父组件的方法
-defineExpose({ searchForm, dialogForm, createFn, updateFn, deleteFn, handleSearch })
+defineExpose({ formRef, tableRef, dialogRef, searchForm, dialogForm, createFn, updateFn, deleteFn, handleSearch })
 </script>

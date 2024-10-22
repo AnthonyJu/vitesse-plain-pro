@@ -1,5 +1,5 @@
 <template>
-  <ElTable :data="data" v-bind="tableProps">
+  <ElTable ref="tableRef" :data="data" v-bind="tableProps">
     <ElTableColumn
       v-for="col in columns"
       :key="col.prop"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TableProps } from 'element-plus'
+import type { TableInstance, TableProps } from 'element-plus'
 
 interface Props {
   data: any[]
@@ -24,4 +24,8 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const tableRef = useTemplateRef<TableInstance>('tableRef')
+
+defineExpose({ tableRef })
 </script>

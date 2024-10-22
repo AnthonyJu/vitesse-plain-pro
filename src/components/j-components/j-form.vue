@@ -194,7 +194,7 @@ const shortcuts = [
 ]
 
 // 定义表单ref
-const formRef = ref<FormInstance>()
+const formRef = useTemplateRef<FormInstance>('formRef')
 const form = defineModel<any>('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') form.value = generateForm(formItems, dateTimeKeys)
 
