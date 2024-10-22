@@ -113,6 +113,7 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
+import Dayjs from 'dayjs'
 import { ElForm } from 'element-plus'
 import { generateForm } from './generate-form'
 
@@ -125,20 +126,22 @@ interface Props {
   formProps?: JFormProps
 }
 
-const props = withDefaults(
-  defineProps<Props>(),
-  {
-    inputWidth: 220,
-    searchOnMounted: true,
-  },
-)
+const {
+  loading,
+  formItems,
+  /** @ts-expect-error unused */
+  inputWidth = 220,
+  hideSearch,
+  searchOnMounted = true,
+  formProps,
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   search: [any]
 }>()
 
 // date picker 默认绑定的字段
-const dateTimeKeys = props.formProps?.dateTimeKeys || DATE_TIME_KEYS
+const dateTimeKeys = formProps?.dateTimeKeys || DATE_TIME_KEYS
 
 // 默认时间
 const defaultTime: [Date, Date] = [
@@ -146,35 +149,43 @@ const defaultTime: [Date, Date] = [
   new Date(2000, 2, 1, 23, 59, 59),
 ]
 
-// TODO 快捷选项, dayjs版
-const end = new Date()
-const start = new Date().getTime()
-const oneDay = 3600 * 1000 * 24
+// 快捷选项
+const end = Dayjs().endOf('day').toDate()
 const shortcuts = [
   {
+    text: '今天',
+    value: [Dayjs().startOf('day').startOf('day').toDate(), end],
+  },
+  {
+    text: '昨天',
+    value: [Dayjs().subtract(1, 'day').startOf('day').toDate(), Dayjs().subtract(1, 'day').endOf('day').toDate()],
+  },
+  {
+    text: '近三天',
+    value: [Dayjs().subtract(3, 'day').startOf('day').toDate(), end],
+  },
+  {
     text: '近一周',
-    value: () => [new Date().setTime(start - oneDay * 7), end],
+    value: [Dayjs().subtract(1, 'week').startOf('day').toDate(), end],
   },
   {
     text: '近一个月',
-    value: () => [new Date().setTime(start - oneDay * 30), end],
+    value: [Dayjs().subtract(1, 'month').startOf('day').toDate(), end],
   },
   {
     text: '近三个月',
-    value: () => [new Date().setTime(start - oneDay * 90), end],
+    value: [Dayjs().subtract(3, 'month').startOf('day').toDate(), end],
   },
   {
     text: '近一年',
-    value: () => [new Date().setTime(start - oneDay * 365), end],
+    value: [Dayjs().subtract(1, 'year').startOf('day').toDate(), end],
   },
 ]
 
 // 定义表单ref
 const formRef = ref<FormInstance>()
 const form = defineModel<any>('form', { default: {} })
-if (JSON.stringify(form.value) === '{}') {
-  form.value = generateForm(props.formItems, dateTimeKeys)
-}
+if (JSON.stringify(form.value) === '{}') form.value = generateForm(formItems, dateTimeKeys)
 
 /** 搜索 */
 function onSearch() {
@@ -193,7 +204,7 @@ function onReset() {
 
 // 默认onMounted后执行搜索
 onMounted(() => {
-  if (props.searchOnMounted) onSearch()
+  if (searchOnMounted) onSearch()
 })
 </script>
 

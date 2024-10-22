@@ -24,10 +24,11 @@ interface Props {
   pageSizes?: number[] // 每页数量选项
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  layout: 'total, sizes, prev, pager, next, jumper',
-  pageSizes: () => [15, 30, 50, 100],
-})
+const {
+  layout = 'total, sizes, prev, pager, next, jumper',
+  pageSizes = [15, 30, 50, 100],
+  ...props
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   handleSearch: []

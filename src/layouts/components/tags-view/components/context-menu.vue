@@ -31,14 +31,10 @@ interface DropdownItem {
   icon: string
   hidden?: boolean
 }
-const { dropdown } = withDefaults(
-  defineProps<{
-    dropdown: { x: number, y: number }
-  }>(),
-  {
-    dropdown: () => ({ x: 0, y: 0 }),
-  },
-)
+
+const { dropdown = { x: 0, y: 0 } } = defineProps<{
+  dropdown: { x: number, y: number }
+}>()
 
 const emit = defineEmits<{
   (e: 'contextmenuClick', id: number, fullpath: string): void
@@ -61,7 +57,7 @@ const dropdownList: DropdownItem[] = [
 
 // 监听下拉菜单位置
 watch(
-  dropdown,
+  () => dropdown,
   ({ x }) => {
     const w = document.documentElement.clientWidth
     if (x + 117 > w) arrowLeft.value = 117 - (w - x)
