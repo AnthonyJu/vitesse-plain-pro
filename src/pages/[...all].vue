@@ -2,9 +2,12 @@
   <ErrorPage :error-info="errorInfo" />
 </template>
 
-<route lang="yaml">
-meta:
-  layout: none
+<route lang="json">
+{
+  "meta": {
+    "layout": "none"
+  }
+}
 </route>
 
 <script setup lang="ts">

@@ -4,7 +4,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 export function vueRouter() {
   return VueRouter({
     extensions: ['.vue'],
-    routeBlockLang: 'yaml',
+    routeBlockLang: 'json',
     dts: 'src/typed-router.d.ts',
     exclude: ['**/components/**/*'],
   })

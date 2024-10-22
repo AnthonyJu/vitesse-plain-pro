@@ -45,20 +45,23 @@
   </div>
 </template>
 
-<route lang="yaml">
-meta:
-  layout: none
+<route lang="json">
+{
+  "meta": {
+    "layout": "none"
+  }
+}
 </route>
 
 <script setup lang="ts">
-defineOptions({ name: 'Login' })
+import type { FormInstance } from 'element-plus'
 
 // 宽度小于等于820时，居中显示登录框
 const { width } = useWindowSize()
 const style = computed(() => (width.value > 820 ? { right: '18%' } : { right: 0, left: 0 }))
 
 const userStore = useUserStore()
-const formRef = ref()
+const formRef = useTemplateRef<FormInstance>('formRef')
 const loading = ref(false)
 const form = reactive({ username: '', password: '' })
 const rules = reactive({
@@ -75,7 +78,7 @@ const rules = reactive({
 })
 
 function gotoLogin() {
-  formRef.value.validate((valid: boolean) => {
+  formRef.value?.validate((valid: boolean) => {
     if (valid) {
       loading.value = true
       userStore.handleLogin(form).finally(() => {
