@@ -171,6 +171,12 @@ export const routes: RouteItem[] = [
           title: '滚动通知栏',
         },
       },
+      {
+        path: '/comp/upload-files',
+        meta: {
+          title: '上传文件',
+        },
+      },
     ],
   },
   {
