@@ -36,10 +36,13 @@
 const userStore = useUserStore()
 const menuStore = useMenuStore()
 const commonDataStore = useCommonDataStore()
-if (userStore.isLogin) commonDataStore.loadCommonData()
 
 const loading = computed(() => menuStore.loading || commonDataStore.loading)
 const show = computed(() => menuStore.loading || commonDataStore.loading || commonDataStore.isFail)
+
+onMounted(() => {
+  if (userStore.isLogin) commonDataStore.loadCommonData()
+})
 </script>
 
 <style scoped lang='scss'>
