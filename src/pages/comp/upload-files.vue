@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang='ts'>
-import axios from 'axios'
-
 const uploadProps = {
   action: '',
   headers: {},
@@ -18,16 +16,8 @@ const uploadProps = {
 }
 
 function submitResult(file: any) {
-  // 上传文件 模拟
-  axios.post({
-    url: 'xxx',
-    data: file,
-    responseType: 'blob', // 关键配置，指定响应类型为 Blob
-  }).then((res) => {
-    // eslint-disable-next-line no-console
-    console.log('🚀 ~ res:', res)
-  }).catch((err) => {
-    console.error('🚀 ~ err:', err)
-  })
+  // eslint-disable-next-line no-console
+  console.log('🚀 ~ file:', file)
+  // TODO: 上传文件到服务器 使用formdata上传 相应类型要改为responseType: 'blob'
 }
 </script>
