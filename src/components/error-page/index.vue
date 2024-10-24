@@ -1,6 +1,6 @@
 <template>
-  <div class="full flex-center flex-wrap pb-60px">
-    <div class="h-full min-w-500px flex-col-center animate-head-shake gap-10px">
+  <div class="full flex-center flex-wrap overflow-hidden pb-60px">
+    <div class="min-w-500px flex-col-center animate-head-shake gap-10px">
       <div class="text-55px text-$el-color-primary">
         {{ errorInfo.type }}
       </div>

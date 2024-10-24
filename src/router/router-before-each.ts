@@ -26,6 +26,10 @@ export function routerBeforeEach(router: Router) {
     else if (to.path === '/login') {
       next(from.path)
     }
+    // 已登录，去白名单页面，则直接进入
+    else if (staticRoutes.includes(to.path)) {
+      next()
+    }
     // 菜单权限判断
     else {
       const menuStore = useMenuStore()
