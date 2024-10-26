@@ -1,5 +1,4 @@
 <!-- 仅适用于 datetimerrange -->
-
 <template>
   <el-date-picker v-model="value" v-bind="$attrs" />
 </template>

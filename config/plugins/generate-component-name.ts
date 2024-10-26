@@ -10,12 +10,12 @@ export function generateComponentName(): Plugin {
     enforce: 'pre',
     async transform(code, id) {
       if (!/\.vue$/.test(id)) return null
-      return generatetName.call(this, code, id)
+      return generateName.call(this, code, id)
     },
   }
 }
 
-function generatetName(code: string, id: string) {
+function generateName(code: string, id: string) {
   const magicString = new MagicString(code)
   const { descriptor } = parse(code)
   const filename = /.*\/(\S*)/.exec(id)![1]
@@ -46,7 +46,7 @@ function generatetName(code: string, id: string) {
     }
     // 除了路由 vue 文件外，将其他 vue 文件的文件名作为组件名
     else {
-      let componentName = ''
+      let componentName: string
       if (name) componentName = name as string
       else if (filename === 'index.vue')componentName = `${path.basename(path.dirname(id))}-index`
       else componentName = filename.split('.')[0]

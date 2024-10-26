@@ -1,5 +1,4 @@
 <!-- 仅适用于 multiple -->
-
 <template>
   <el-select v-model="value" multiple v-bind="$attrs" @change="handleChange">
     <el-option

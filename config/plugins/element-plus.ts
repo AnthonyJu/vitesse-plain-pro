@@ -2,7 +2,7 @@ import type { ConfigEnv, Plugin } from 'vite'
 import ElementPlus from 'unplugin-element-plus/vite'
 
 // 开发环境完整引入element-plus
-export function elementPlus(command: ConfigEnv['command']): Plugin<any> | Plugin<any>[] {
+export function elementPlus(command: ConfigEnv['command']): Plugin | Plugin[] {
   if (command === 'serve') {
     return {
       name: 'vite:element-plus-auto-import-in-dev',

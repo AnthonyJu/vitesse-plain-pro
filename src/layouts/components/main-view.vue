@@ -39,7 +39,7 @@ function formatComponent(component: Component, route: RouteLocationNormalizedLoa
       return componentMap.get(componentName)
     }
   }
-  return compent
+  return component
 }
 </script>
 

@@ -186,7 +186,7 @@ const current = ref(1)
 const size = ref(15)
 const total = ref(0)
 const loading = ref(false)
-const tableData = defineModel('data', { default: [] })
+const tableData = defineModel<any[]>('data', { default: [] })
 
 // 检索表单数据
 const searchForm = ref<Record<string, any>>({})

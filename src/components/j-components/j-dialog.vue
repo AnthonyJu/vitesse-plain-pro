@@ -117,7 +117,7 @@ const emit = defineEmits<{
 }>()
 
 const visible = defineModel('visible', { default: false })
-const form = defineModel('form', { default: {} })
+const form = defineModel<Record<string, any>>('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') {
   form.value = generateForm(props.formItems)
 }

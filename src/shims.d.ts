@@ -10,15 +10,15 @@ interface ImportMetaEnv {
 declare module 'vue-grid-layout'
 declare module 'vue-draggable-resizable'
 
+declare interface Window {
+  // extend the window
+  [key: string]: any
+}
+
 declare namespace JSX {
   interface IntrinsicElements {
     [elemName: string]: any
   }
-}
-
-declare interface Window {
-  // extend the window
-  [key: string]: any
 }
 
 declare module '*.vue' {

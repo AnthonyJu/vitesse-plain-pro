@@ -33,6 +33,7 @@
       >
         <el-input
           v-model="form[prop]"
+          :style="inputStyle"
           type="textarea"
           placeholder="请输入"
           clearable
@@ -50,6 +51,7 @@
         <JSelect
           v-if="fieldProps?.multiple"
           v-model="form[prop]"
+          :style="selectStyle"
           :data="form[prop]"
           :options="options"
           placeholder="请选择"
@@ -60,6 +62,7 @@
         <el-select
           v-else
           v-model="form[prop]"
+          :style="selectStyle"
           placeholder="请选择"
           clearable
           v-bind="fieldProps"
@@ -132,7 +135,7 @@ import { generateForm } from './generate-form'
 interface Props {
   loading: boolean // 是否为loading状态
   formItems: JFormItem[] // 表单项
-  inputWidth?: number // 输入框宽度,不包含时间选择器及自定义的非输入框和选择器
+  inputWidth?: string // 输入框宽度,不包含时间选择器及自定义的非输入框和选择器
   hideSearch?: boolean // 是否显示搜索按钮
   searchOnMounted?: boolean // 是否在mounted后执行搜索
   formProps?: JFormProps
@@ -141,8 +144,7 @@ interface Props {
 const {
   loading,
   formItems,
-  /** @ts-expect-error unused */
-  inputWidth = 220,
+  inputWidth = '220px',
   hideSearch,
   searchOnMounted = true,
   formProps,
@@ -151,6 +153,9 @@ const {
 const emit = defineEmits<{
   search: [any]
 }>()
+
+const inputStyle = `--el-input-width: ${inputWidth}`
+const selectStyle = `--el-select-width: ${inputWidth}`
 
 // date picker 默认绑定的字段
 const dateTimeKeys = formProps?.dateTimeKeys || DATE_TIME_KEYS
@@ -196,7 +201,7 @@ const shortcuts = [
 
 // 定义表单ref
 const formRef = useTemplateRef<FormInstance>('formRef')
-const form = defineModel('form', { default: {} })
+const form = defineModel<Record<string, any>>('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') form.value = generateForm(formItems, dateTimeKeys)
 
 /** 搜索 */
@@ -219,17 +224,3 @@ onMounted(() => {
   if (searchOnMounted) onSearch()
 })
 </script>
-
-<style scoped lang="scss">
-.mr-0 {
-  margin-right: 0;
-}
-
-.el-input {
-  --el-input-width: v-bind(`${inputWidth}px`);
-}
-
-.el-select {
-  --el-select-width: v-bind(`${inputWidth}px`);
-}
-</style>
