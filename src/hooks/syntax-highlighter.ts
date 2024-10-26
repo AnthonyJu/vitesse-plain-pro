@@ -8,14 +8,14 @@ import { codeToHtml } from 'shikiji'
  * @param {string} lang language
  * @param {string|Ref<HTMLElement | undefined>} container container selector
  * @param {BundledTheme} theme theme，default is auto according to system theme（vitesse-dark/vitesse-light）
- * @return { html: Ref<string> } html: highlight HTML string
+ * @return { html: Ref<string> | string  } html: highlight HTML string
  */
 export function useSyntaxHighlighter(
   str: string,
   lang: string,
-  container?: Readonly<ShallowRef<HTMLDivElement | null>>,
+  container?: ShallowRef<HTMLElement | null>,
   theme?: BundledTheme,
-) {
+): { html: Ref<string> | string } {
   const html = ref('')
   const syntaxTheme = computed(() => theme || (isDark.value ? 'vitesse-dark' : 'vitesse-light'))
 

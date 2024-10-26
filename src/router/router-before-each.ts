@@ -39,11 +39,11 @@ export function routerBeforeEach(router: Router) {
         // 将有权限的路由动态添加到路由表
         addRoutes(router, menuStore.permissionPaths)
 
-        // 无权限路径，则跳转到401页面
+        // 无权限路径，则跳转到 401 页面
         if (menuStore.menus.length === 0) {
           next('/401')
         }
-        // 防止第一次进入页面时，404问题
+        // 防止第一次进入页面时，404 问题
         else {
           next({ path: to.path, query: to.query })
         }

@@ -43,5 +43,7 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
 
 export default (app: App) => {
   app.use(i18n)
-  loadLanguageAsync('zh-CN')
+  loadLanguageAsync('zh-CN').catch((err) => {
+    console.error(err)
+  })
 }

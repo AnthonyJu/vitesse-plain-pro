@@ -65,7 +65,7 @@ declare global {
    * @property {number} span Dialog中el-col的span
    * @property {string | number} defaultValue FormItem下field的value
    * @property {object} options Select的options选项
-   * @property {FieldEvents} fieldProps FormItem下field的props与events
+   * @property fieldProps FormItem下field的props与events
    */
   interface JFormItem {
     span?: number
@@ -87,9 +87,8 @@ declare global {
 
   /**
    * @interface JFormOptions Form配置项
-   * @property {RenderForm[]} renderForms FormItem渲染项
-   * @property {FormRules} rules Form验证规则
-   * @property {Partial<FormProps>} formProps Form其他Attributes
+   * @property {JFormItem[]} formItems FormItem渲染项
+   * @property {JFormProps} formProps Form其他Attributes
    */
   interface JFormOptions {
     formItems: JFormItem[]
@@ -129,8 +128,7 @@ declare global {
 
   /**
    * @interface JDialogOptions Dialog配置项
-   * @property {FormOption} formOption Form配置项
-   * @property {Partial<DialogProps>} dialogProps Dialog其他Attributes
+   * @property dialogProps Dialog其他Attributes
    */
   interface JDialogOptions extends JFormOptions {
     dialogProps?: JDialogProps

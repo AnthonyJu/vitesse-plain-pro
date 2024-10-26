@@ -13,9 +13,10 @@ interface Props {
   code: string
   lang: string
 }
+
 const { code, lang } = defineProps<Props>()
 
-const container = useTemplateRef('code')
+const container = useTemplateRef<HTMLDivElement>('code')
 useSyntaxHighlighter(code, lang, container)
 
 const { copy, isSupported } = useClipboard()

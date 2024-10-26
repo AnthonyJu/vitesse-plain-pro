@@ -7,7 +7,7 @@
       :loading="loading"
       @click="changeLanguage"
     >
-      {{ t('button.toggle_langs') }}
+      {{ t('button.toggle_lang') }}
     </el-button>
   </div>
 </template>
@@ -21,8 +21,7 @@ const loading = ref(false)
 
 async function changeLanguage() {
   loading.value = true
-  const newLocale = await loadLanguageAsync(locale.value === 'zh-CN' ? 'en' : 'zh-CN')
-  locale.value = newLocale
+  locale.value = await loadLanguageAsync(locale.value === 'zh-CN' ? 'en' : 'zh-CN')
   loading.value = false
 }
 </script>

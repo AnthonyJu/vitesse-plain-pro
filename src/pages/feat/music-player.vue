@@ -9,13 +9,13 @@
     <el-card class="mt-15px" shadow="hover" header="音频播放器：简单示例">
       <div class="player-box">
         <div class="flex-center">
-          <img class="poster h-120px w-120px rounded-full" :src="songsData.poster">
+          <img class="poster h-120px w-120px rounded-full" alt="logo" :src="songsData.poster">
         </div>
         <div class="pl-20px">
           <div class="mb-20px">{{ songsData.name }}</div>
           <div class="w-260px">
             <el-progress :percentage="percentage">
-              <div text>{{ durationText }}</div>
+              <div>{{ durationText }}</div>
             </el-progress>
           </div>
         </div>

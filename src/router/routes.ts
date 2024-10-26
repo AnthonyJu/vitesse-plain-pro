@@ -268,7 +268,7 @@ export const routes: RouteItem[] = [
         },
       },
       {
-        path: '/arcgis/2_costom-popup',
+        path: '/arcgis/2_custom-popup',
         meta: {
           title: '自定义弹窗',
         },

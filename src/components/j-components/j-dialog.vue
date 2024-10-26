@@ -9,9 +9,9 @@
     <ElForm ref="formRef" :model="form" :disabled="loading" label-width="80px" v-bind="formProps">
       <el-row :gutter="20">
         <el-col
-          v-for="{ span = 24, prop, label, type, options, fieldProps, formItemProps } in formItems"
+          v-for="{ prop, label, span, type, options, fieldProps, formItemProps } in formItems"
           :key="prop"
-          :span="span"
+          :span="span || 24"
         >
           <!-- 输入框 -->
           <el-form-item
@@ -116,8 +116,8 @@ const emit = defineEmits<{
   onSubmit: []
 }>()
 
-const visible = defineModel<boolean>('visible')
-const form = defineModel<Record<string, any>>('form', { default: {} })
+const visible = defineModel('visible', { default: false })
+const form = defineModel('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') {
   form.value = generateForm(props.formItems)
 }

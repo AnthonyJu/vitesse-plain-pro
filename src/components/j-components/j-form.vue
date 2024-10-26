@@ -110,7 +110,7 @@
 
     <!-- 搜索与重置 -->
     <el-form-item v-if="!hideSearch" class="mr-0">
-      <el-button :loading="loading" :icon="Search" type="primary" @click="onSearch">搜索</el-button>
+      <el-button :loading="loading" :icon="Search as Component" type="primary" @click="onSearch">搜索</el-button>
       <el-button :icon="RefreshLeft" @click="onReset">重置</el-button>
     </el-form-item>
 
@@ -123,6 +123,7 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
+import type { Component } from 'vue'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
 import Dayjs from 'dayjs'
 import { ElForm } from 'element-plus'
@@ -195,7 +196,7 @@ const shortcuts = [
 
 // 定义表单ref
 const formRef = useTemplateRef<FormInstance>('formRef')
-const form = defineModel<any>('form', { default: {} })
+const form = defineModel('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') form.value = generateForm(formItems, dateTimeKeys)
 
 /** 搜索 */

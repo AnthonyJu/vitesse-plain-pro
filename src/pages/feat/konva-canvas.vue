@@ -289,7 +289,6 @@ function removeFn(target: Konva.Node) {
     document.body.style.cursor = 'default'
   })
   target.on('transform', () => {
-    // eslint-disable-next-line max-len
     const tag = tagLayer.children.find((item: any) => item.attrs.text === target.attrs.name) as Konva.Text
     tr.nodes([target, removeIcon, tag])
   })
@@ -321,7 +320,7 @@ function removeFn(target: Konva.Node) {
       x,
       y,
     })
-    // eslint-disable-next-line max-len
+
     const tag = tagLayer.children.find((item: any) => item.attrs.text === target.attrs.name) as Konva.Text
     tr.nodes([target, removeIcon, tag])
   })

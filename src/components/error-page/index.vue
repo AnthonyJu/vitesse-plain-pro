@@ -26,7 +26,7 @@
     </div>
 
     <div class="mb-40px ml-40px animate-head-shake">
-      <img class="full turn-light dark:turn-dark" :src="errorInfo.img">
+      <img class="full turn-light dark:turn-dark" :src="errorInfo.img" alt="error img">
     </div>
   </div>
 </template>

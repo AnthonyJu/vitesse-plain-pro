@@ -35,7 +35,7 @@ onMounted(() => {
   // 创建 Popup 组件的 content
   const content = document.createElement('div')
   content.style.position = 'absolute'
-  // 将 constent 添加到地图容器中
+  // 将 content 添加到地图容器中
   document.getElementById('map')!.appendChild(content)
 
   // 创建点的 Graphic

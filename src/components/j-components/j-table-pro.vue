@@ -70,11 +70,12 @@
 
       <!-- 分页 -->
       <JPagination
-        v-if="pagenation"
+        v-if="pagination"
         v-model:current="current"
         v-model:size="size"
         :loading="loading"
         :total="total"
+        v-bind="paginationOptions"
         @handle-search="handleSearch"
       />
     </div>
@@ -114,11 +115,12 @@ interface UrlObject {
 interface Props {
   url: string | UrlObject
   type?: 'table' | 'list'
-  pagenation?: boolean // 分页
+  pagination?: boolean // 分页
   dataFormator?: (data: any[]) => any[] // 返回数据处理函数
   formOptions?: JFormOptions
   tableOptions?: JTableOptions
   dialogOptions?: JDialogOptions
+  paginationOptions?: JPaginationOptions
 }
 interface Api {
   get: (params?: any) => Promise<Res<any>>
@@ -127,7 +129,7 @@ interface Api {
   delete?: (id: string | number) => Promise<Res<any>>
 }
 
-const { type = 'table', pagenation = true, ...props } = defineProps<Props>()
+const { type = 'table', pagination = true, ...props } = defineProps<Props>()
 const emit = defineEmits(['onOriginDataChange']) // 原始数据变化会触发（例如增删改）
 
 // 请求接口定义
@@ -184,7 +186,7 @@ const current = ref(1)
 const size = ref(15)
 const total = ref(0)
 const loading = ref(false)
-const tableData = defineModel<any[]>('data', { default: [] })
+const tableData = defineModel('data', { default: [] })
 
 // 检索表单数据
 const searchForm = ref<Record<string, any>>({})
@@ -195,7 +197,7 @@ function handleSearch(val?: any) {
   // val 存在代表是表单检索,需要从第一页开始
   if (val) current.value = 1
   // tips 根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体后台情况来决定入参
-  API.get({ ...searchForm.value, current: current.value, size: !pagenation ? 0 : size.value })
+  API.get({ ...searchForm.value, current: current.value, size: !pagination ? 0 : size.value })
     .then((res: any) => {
       if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
       else tableData.value = res.data.data.records

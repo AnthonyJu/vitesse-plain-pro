@@ -47,14 +47,14 @@ export const useThemeStore = defineStore(
     const header = ref({ height: 60 })
 
     // 标签页
-    const tagsview = ref({
+    const tagsView = ref({
       height: 40,
       show: true,
     })
 
     // header实际高度
     const headerHeight = computed(() => {
-      return `${header.value.height + (tagsview.value.show ? tagsview.value.height : 0)}px`
+      return `${header.value.height + (tagsView.value.show ? tagsView.value.height : 0)}px`
     })
 
     // 底部栏
@@ -67,7 +67,7 @@ export const useThemeStore = defineStore(
     // 主内容区域高度
     const mainHeight = computed(() => {
       if (footer.value.fixed) {
-        const tagsViewHeight = tagsview.value.show ? tagsview.value.height : 0
+        const tagsViewHeight = tagsView.value.show ? tagsView.value.height : 0
         const footerHeight = footer.value.show ? footer.value.height : 0
         return `calc(100vh - ${header.value.height + tagsViewHeight + footerHeight}px)`
       }
@@ -81,7 +81,7 @@ export const useThemeStore = defineStore(
       menu,
       menuWidth,
       header,
-      tagsview,
+      tagsView,
       headerHeight,
       footer,
       mainHeight,

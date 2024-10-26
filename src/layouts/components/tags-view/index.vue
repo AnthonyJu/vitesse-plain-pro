@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ height: `${tagsview.height}px` }" flex-items px-15px shadow-b>
+  <div :style="{ height: `${tagsView.height}px` }" flex-items px-15px shadow-b>
     <el-scrollbar
       ref="scrollbarRef"
       class="flex-1"
@@ -49,7 +49,7 @@ interface WheelEventType extends WheelEvent {
 }
 
 const themeStore = useThemeStore()
-const { tagsview, fullScreen } = storeToRefs(themeStore)
+const { tagsView, fullScreen } = storeToRefs(themeStore)
 const tagsViewStore = useTagsViewStore()
 const { allTags } = storeToRefs(tagsViewStore)
 

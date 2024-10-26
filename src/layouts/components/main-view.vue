@@ -21,7 +21,7 @@ const { allTags, keepAliveNames, componentKey, excludeKeepAliveNames } = storeTo
 // 用于缓存组件
 const componentMap = new Map()
 // 格式化组件，确保多开的动态路不会出现数据混乱
-function formatComponent(compent: Component, route: RouteLocationNormalizedLoadedTyped<any, any>) {
+function formatComponent(component: Component, route: RouteLocationNormalizedLoadedTyped<any, any>) {
   if (route.params.id && route.meta.isDynamic && route.meta.isKeepAlive) {
     // Tips 获取缓存组件名称，但是由于存在transition组件，该函数会执行两次，keepAliveName不一定存在，可能被过滤掉了在tagsViewStore中
     const componentName = allTags.value.find(tag => tag.fullPath === route.fullPath)?.keepAliveName
@@ -32,7 +32,7 @@ function formatComponent(compent: Component, route: RouteLocationNormalizedLoade
           componentName,
           {
             name: componentName,
-            render: () => h(compent),
+            render: () => h(component),
           },
         )
       }

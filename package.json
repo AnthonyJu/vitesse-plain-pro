@@ -59,6 +59,7 @@
     "@types/nprogress": "^0.2.3",
     "@unocss/eslint-config": "^0.63.4",
     "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/language-server": "^2.1.6",
     "critters": "^0.0.24",
     "cross-env": "^7.0.3",
     "eslint": "^9.12.0",

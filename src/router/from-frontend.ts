@@ -10,7 +10,7 @@ export function getMenuFromFrontend() {
 // 递归过滤函数
 function filterAuthMenus(arr: RouteItem[], role: string): RouteItem[] {
   return arr.filter((route) => {
-    let hasAuth = false
+    let hasAuth: boolean
 
     // 当前路由有权限标识，以权限标识为准
     if (route.meta.roles) {

@@ -38,10 +38,10 @@ const emit = defineEmits<{
 }>()
 
 // 默认第一页，每页15条
-const size = defineModel<number>('size', { default: 15 })
-const current = defineModel<number>('current', { default: 1 })
-const total = defineModel<number>('total', { default: 0 })
-const loading = defineModel<boolean>('loading', { default: false })
+const size = defineModel('size', { default: 15 })
+const current = defineModel('current', { default: 1 })
+const total = defineModel('total', { default: 0 })
+const loading = defineModel('loading', { default: false })
 
 /** 当前页变化 */
 function handleSizeChange(newSize: number) {

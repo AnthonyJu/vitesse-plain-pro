@@ -38,7 +38,7 @@ export function useMeasure(arcgis: Arcgis) {
 
   // 计算polyline的长度
   function measureLine(polyline: any, point: number[]) {
-    let text = ''
+    let text: string
     const length = geometryEngine.geodesicLength(polyline, 'meters')
 
     // polyline的长度大于1000m时，显示为km

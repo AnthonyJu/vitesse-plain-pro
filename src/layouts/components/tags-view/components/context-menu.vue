@@ -38,7 +38,7 @@ interface DropdownItem {
 const { dropdown = { x: 0, y: 0 } } = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'contextmenuClick', id: number, fullpath: string): void
+  (e: 'contextmenuClick', id: number, fullPath: string): void
 }>()
 
 // 展示右键菜单
@@ -46,7 +46,7 @@ const show = ref(false)
 // 箭头位置
 const arrowLeft = ref(10)
 // 当前路由地址
-const fullpath = ref('')
+const fullPath = ref('')
 
 // 下拉菜单列表
 const dropdownList: DropdownItem[] = [
@@ -90,13 +90,13 @@ function openContextmenu(path: string) {
   // 非当前页面不能全屏
   dropdownList[0].hidden = route.fullPath !== path
 
-  fullpath.value = path
+  fullPath.value = path
   show.value = true
 }
 
 // 当前项菜单点击
 function onCurrentContextmenuClick(id: number) {
-  emit('contextmenuClick', id, fullpath.value)
+  emit('contextmenuClick', id, fullPath.value)
 }
 
 // 关闭右键菜单
