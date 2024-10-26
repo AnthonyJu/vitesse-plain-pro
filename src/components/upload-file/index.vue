@@ -61,9 +61,9 @@ function submitUpload() {
   }
 
   const formData = new FormData()
-  const files = uploadFileList.value.map(file => file.raw)
+  const files = uploadFileList.value.map(file => file)
   for (const file of files) {
-    formData.append('file', file)
+    formData.append(file.name, file.raw as File)
   }
 
   emit('fileSubmit', formData)
@@ -71,7 +71,7 @@ function submitUpload() {
 
 // 清空上传列表
 function cancelUpload() {
-  uploadRef.value.clearFiles()
+  uploadRef.value!.clearFiles()
   uploadFileList.value = []
   uploadFileNum.value = 0
 }
