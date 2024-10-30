@@ -14,27 +14,11 @@
         v-if="type === 'input'"
         :prop="prop"
         :label="label"
+        :style="inputStyle"
         v-bind="formItemProps"
       >
         <el-input
           v-model="form[prop]"
-          placeholder="请输入"
-          clearable
-          v-bind="fieldProps"
-        />
-      </el-form-item>
-
-      <!-- 文本框 -->
-      <el-form-item
-        v-else-if="type === 'textarea'"
-        :prop="prop"
-        :label="label"
-        v-bind="formItemProps"
-      >
-        <el-input
-          v-model="form[prop]"
-          :style="inputStyle"
-          type="textarea"
           placeholder="请输入"
           clearable
           v-bind="fieldProps"

@@ -9,6 +9,7 @@ import { vitePWA } from './plugins/vite-pwa'
 import { vue } from './plugins/vue'
 import { vueDevTools } from './plugins/vue-devtools'
 import { vueI18n } from './plugins/vue-i18n'
+import { vueJsx } from './plugins/vue-jsx'
 import { layouts } from './plugins/vue-layouts'
 import { vueRouter } from './plugins/vue-router'
 
@@ -16,6 +17,7 @@ function pluginsConfig(command: ConfigEnv['command']) {
   return [
     vueRouter(),
     vue(),
+    vueJsx(),
     generateComponentName(),
     vueI18n(),
     autoImports(),
