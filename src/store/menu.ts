@@ -10,6 +10,8 @@ export const useMenuStore = defineStore(
     const isFrontendCtrl = true
     // 菜单
     const menus = ref<RouteItem[]>([])
+    // 按钮
+    const buttons = ref<string[]>([])
     // 权限路径
     const permissionPaths = ref<string[]>([])
 
@@ -65,6 +67,7 @@ export const useMenuStore = defineStore(
     return {
       loading,
       menus,
+      buttons,
       getMenu,
       permissionPaths,
     }

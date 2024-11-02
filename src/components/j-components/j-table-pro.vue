@@ -219,7 +219,7 @@ const initDialogForm = props.dialogOptions && generateForm(props.dialogOptions.f
 function createFn() {
   title.value = '新增'
   visible.value = true
-  dialogForm.value = initDialogForm
+  dialogForm.value = initDialogForm!
 }
 
 // 弹窗编辑
