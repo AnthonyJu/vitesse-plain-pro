@@ -73,16 +73,13 @@ export const useTagsViewStore = defineStore('tags-view', () => {
   // 删除标签
   function closeTag(fullPath: string) {
     const index = allTags.value.findIndex(tag => tag.fullPath === fullPath)
-
-    // 删除后，跳转到下一个
-    const nextTag = allTags.value[index + 1] || allTags.value[index - 1]
-    if (nextTag) {
-      router.push(nextTag.fullPath!)
-    }
-    else {
-      router.push('/')
-    }
     allTags.value = allTags.value.filter(tag => tag.fullPath !== fullPath)
+
+    // 删除的是当前激活的，跳转到下一个
+    if (fullPath === activeTag.value?.fullPath) {
+      const nextPath = allTags.value[index + 1]?.fullPath || allTags.value[index - 1]?.fullPath
+      router.push(nextPath || '/')
+    }
   }
 
   // 刷新标签
@@ -101,6 +98,8 @@ export const useTagsViewStore = defineStore('tags-view', () => {
     // 保留固定标签
     const index = allTags.value.findIndex(tag => tag.fullPath === fullPath)
     allTags.value = allTags.value.filter((tag, i) => tag.meta.isAffix || i <= index)
+    // 如果当前激活的标签在右侧，则跳转到当前右键标签
+    if (!allTags.value.includes(activeTag.value!)) router.push(fullPath)
   }
 
   // 关闭其他

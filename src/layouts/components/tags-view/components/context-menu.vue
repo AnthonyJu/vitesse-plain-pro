@@ -1,28 +1,30 @@
 <template>
-  <transition name="el-zoom-in-center">
-    <div
-      v-show="show"
-      :key="Math.random()"
-      class="el-dropdown__popper el-popper is-light is-pure custom-contextmenu"
-      data-popper-placement="bottom"
-      :style="`top: ${xy.y + 5}px;left: ${xy.x}px;`"
-    >
-      <ul class="el-dropdown-menu">
-        <template v-for="(item, index) in dropdownList">
-          <li
-            v-if="!item.hidden"
-            :key="index"
-            class="el-dropdown-menu__item"
-            @click="onCurrentContextmenuClick(index)"
-          >
-            <Iconify :icon="item.icon" size="12px" mr-8px />
-            <span text-12px>{{ item.txt }}</span>
-          </li>
-        </template>
-      </ul>
-      <div class="el-popper__arrow" :style="{ left: `${arrowLeft}px` }" />
-    </div>
-  </transition>
+  <teleport to="body">
+    <transition name="el-zoom-in-center">
+      <div
+        v-show="show"
+        :key="Math.random()"
+        class="el-dropdown__popper el-popper is-light is-pure custom-contextmenu"
+        data-popper-placement="bottom"
+        :style="`top: ${xy.y + 5}px;left: ${xy.x}px;`"
+      >
+        <ul class="el-dropdown-menu">
+          <template v-for="(item, index) in dropdownList">
+            <li
+              v-if="!item.hidden"
+              :key="index"
+              class="el-dropdown-menu__item"
+              @click="onCurrentContextmenuClick(index)"
+            >
+              <Iconify :icon="item.icon" size="12px" mr-8px />
+              <span text-12px>{{ item.txt }}</span>
+            </li>
+          </template>
+        </ul>
+        <div class="el-popper__arrow" :style="{ left: `${arrowLeft}px` }" />
+      </div>
+    </transition>
+  </teleport>
 </template>
 
 <script setup lang="ts">
@@ -123,7 +125,7 @@ defineExpose({
 <style scoped lang="scss">
 .custom-contextmenu {
   position: fixed;
-  z-index: 2190;
+  z-index: 100;
   transform-origin: center top;
 }
 </style>

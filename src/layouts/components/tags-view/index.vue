@@ -2,11 +2,11 @@
   <div :style="{ height: `${tagsView.height}px` }" flex-items px-15px shadow-b>
     <el-scrollbar
       ref="scrollbarRef"
-      class="flex-1"
+      class="w-full flex-1"
       view-class="h-full"
       @wheel.prevent="onHandleScroll"
     >
-      <div ref="dragEl" class="h-full flex-items gap-10px">
+      <div ref="dragEl" class="h-full w-fit flex-items gap-10px">
         <el-tag
           v-for="tag in allTags"
           :key="tag.meta.isKeepAlive ? tag.name : tag.fullPath /** 目的是为了替换时不闪烁 */"
@@ -105,4 +105,19 @@ function onContextmenuClick(id: number, fullPath: string) {
       break
   }
 }
+
+// 监听标签变化，更新滚动条
+watch(
+  allTags,
+  () => {
+    nextTick(() => {
+      setTimeout(() => {
+        scrollbarRef.value?.update()
+      }, 500) // 等待标签删除完成动画
+    })
+  },
+  {
+    deep: true,
+  },
+)
 </script>
