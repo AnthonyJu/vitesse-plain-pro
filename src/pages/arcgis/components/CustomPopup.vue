@@ -16,13 +16,11 @@ interface Props {
   view: MapView
   attributes: Record<string, any>
 }
-interface Emits {
-  closePopup: []
-  (key: string): any[]
-}
 
 const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+const emit = defineEmits<{
+  closePopup: []
+}>()
 
 // eslint-disable-next-line no-console
 console.log(props.view)
