@@ -1,20 +1,20 @@
 <template>
   <div layout-default>
     <el-card class="mt-15px" shadow="hover" header="table无限滚动">
-      <tableRull :table-data="tableData" :columns="columns" :speed="speed" />
+      <TableRoll :table-data="tableData" :columns="columns" :speed="speed" />
     </el-card>
-    <el-card class="mt-15px" shadow="hover" header="echarts提示无限转动">
-      <pieChartHint :echarts-data="option" :speed="echartsSpeed" />
+    <el-card class="mt-15px" shadow="hover" header="Pie无限转动">
+      <PieChartRoll :echarts-data="option" :speed="echartsSpeed" />
     </el-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import pieChartHint from './components/pie-chart-hint.vue'
-import tableRull from './components/table-rull.vue'
+import PieChartRoll from './components/pie-chart-roll.vue'
+import TableRoll from './components/table-roll.vue'
 
 const speed = 2 // 滚动速度
-const tableData = ref<any[]>([{
+const tableData = ref([{
   date: '2016-05-01',
   name: '王小虎1',
   address: '上海市普陀区金沙江路 1 弄',

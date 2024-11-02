@@ -211,12 +211,6 @@ export const routes: RouteItem[] = [
         },
       },
       {
-        path: '/feat/import-and-export',
-        meta: {
-          title: '常用功能',
-        },
-      },
-      {
         path: '/feat/konva-canvas',
         meta: {
           title: 'Konva 画布',

@@ -1,12 +1,12 @@
 import { ElButton, ElNotification } from 'element-plus'
 
-let oldUrlList: Array<string | undefined> | null = null
+let oldUrlList: (string | undefined)[] = []
 const scriptReg = /<script.*src=["'](?<src>[^"']+)/g
 
 // 获取首页script标签的链接数组
 async function getScriptChange() {
-  let match
-  const result = []
+  let match: RegExpExecArray | null = null
+  const result: (string | undefined)[] = []
   const html = await fetch('/').then(res => res.text())
 
   // eslint-disable-next-line no-cond-assign
@@ -16,23 +16,25 @@ async function getScriptChange() {
   return result
 }
 
-// 检查是否需要重新加载
-async function checkUpdate() {
+// 是否需要重新加载
+async function needToReload() {
   const newUrlList = await getScriptChange()
-  let result = false
+
+  let reload = false
 
   if (!oldUrlList) {
-    result = false
+    reload = false
   }
   else if (newUrlList.length !== oldUrlList.length) {
-    result = true
+    reload = true
   }
   else if (newUrlList.some(newUrl => oldUrlList?.every(oldUrl => oldUrl !== newUrl))) {
-    result = true
+    reload = true
   }
 
   oldUrlList = newUrlList
-  return result
+
+  return reload
 }
 
 // 倒数计时组件VNode
@@ -53,7 +55,7 @@ const countDownVNode = {
     return () => (
       <div class="w-242px">
         <p>
-          检测到更新，
+          检测到新版本，
           {countDown.value}
           秒后将重新加载页面！
         </p>
@@ -63,28 +65,35 @@ const countDownVNode = {
           size="small"
           onClick={() => location.reload()}
         >
-          立即刷新
+          立即更新
         </ElButton>
       </div>
     )
   },
 }
 
-// 自动检测更新项目
-function autoUpdate() {
-  setTimeout(async () => {
-    const isUpdate = await checkUpdate()
-    if (isUpdate) {
-      ElNotification({
-        title: '有新内容',
-        message: h(countDownVNode),
-        type: 'warning',
-        duration: 0,
-        showClose: false,
-      })
-    }
-    autoUpdate()
-  }, 1000 * 10)
+// 检测更新
+export async function checkUpdate() {
+  const reload = await needToReload()
+  if (reload) {
+    ElNotification({
+      title: '版本更新',
+      message: h(countDownVNode),
+      type: 'warning',
+      duration: 0,
+      showClose: false,
+    })
+  }
+  return reload
 }
 
+// 自动检测更新
+export function autoUpdate() {
+  setTimeout(async () => {
+    const reload = await checkUpdate()
+    if (!reload) autoUpdate()
+  }, 1000 * 15)
+}
+
+// 生产环境自动检测更新
 if ((import.meta.env.MODE === 'production')) autoUpdate()

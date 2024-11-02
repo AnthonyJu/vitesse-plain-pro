@@ -12,26 +12,35 @@ export default defineConfig({
   rules: [
     [
       /^shadow-(\D+)$/,
-      ([, d]) => {
-        const s = '2px var(--el-border-color)'
-        switch (d) {
+      ([, type]) => {
+        const color = '2px var(--el-border-color)'
+        switch (type) {
           case 'b':
-            return { 'box-shadow': `0px 1px ${s}` }
+            return { 'box-shadow': `0px 1px ${color}` }
           case 'r':
-            return { 'box-shadow': `1px 0px ${s}` }
+            return { 'box-shadow': `1px 0px ${color}` }
           case 't':
-            return { 'box-shadow': `0px -1px ${s}` }
+            return { 'box-shadow': `0px -1px ${color}` }
           case 'l':
-            return { 'box-shadow': `-1px 0px ${s}` }
+            return { 'box-shadow': `-1px 0px ${color}` }
+        }
+      },
+    ],
+    [
+      // eslint-disable-next-line regexp/no-misleading-capturing-group,regexp/no-super-linear-backtracking
+      /^bd-(\d+)(\D+)-(\S+)$/,
+      ([, width, unit, color]) => {
+        return {
+          border: `${width + unit} solid ${color}`,
         }
       },
     ],
     [
       /^grid-(\D+)-(\d+)(\D+)$/,
-      ([,a, n, u]) => {
+      ([,type, size, unit]) => {
         return {
           'display': 'grid',
-          'grid-template-columns': `repeat(auto-${a}, minmax(min(${n + u}, 100%), 1fr))`,
+          'grid-template-columns': `repeat(auto-${type}, minmax(min(${size + unit}, 100%), 1fr))`,
         }
       },
     ],

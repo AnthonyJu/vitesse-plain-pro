@@ -18,7 +18,7 @@
       "unplugin-vue-router/client",
       "vite/client",
       "vite-plugin-pwa/client",
-      "vite-plugin-vue-layouts/client"
+      "vite-plugin-vue-layouts/client",
     ],
     "allowJs": true,
     "strict": true,

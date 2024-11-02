@@ -1,6 +1,6 @@
 <template>
   <div
-    class="ehcarts-box"
+    class="echarts-box"
     @mouseenter="stopPolling"
     @mouseleave="startPolling"
   >
@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-.ehcarts-box {
+.echarts-box {
   width: fit-content;
 }
 </style>

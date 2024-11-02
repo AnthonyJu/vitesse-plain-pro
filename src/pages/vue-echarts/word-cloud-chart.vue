@@ -12,18 +12,21 @@
 import type { WordCloudSeriesOption } from 'echarts'
 import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
 import type { ComposeOption } from 'echarts/core'
+
 import maskImagePath from '@/assets/maskImage.png'
 
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { use } from 'echarts/core'
 import { SVGRenderer } from 'echarts/renderers'
-
 import VChart from 'vue-echarts'
+
 import wordCloudData from './data/wordCloud-data.json'
+import 'echarts-wordcloud'
 
 interface WordCloudSeries extends WordCloudSeriesOption {
   keepAspect: boolean
 }
+
 type EChartsOption = ComposeOption<
   TooltipComponentOption |
   GridComponentOption |
@@ -34,6 +37,14 @@ type EChartsOption = ComposeOption<
 use([TooltipComponent, SVGRenderer, GridComponent])
 
 const option = ref<EChartsOption>()
+
+// 使用数据填充图片
+const maskImage = new Image()
+maskImage.src = maskImagePath
+maskImage.onload = function () {
+  initChart(maskImage)
+}
+
 // 数据初始化
 function initChart(maskImage: HTMLImageElement) {
   option.value = {
@@ -75,12 +86,5 @@ function initChart(maskImage: HTMLImageElement) {
       },
     ],
   }
-}
-
-// 使用数据填充图片
-const maskImage = new Image()
-maskImage.src = maskImagePath
-maskImage.onload = function () {
-  initChart(maskImage)
 }
 </script>

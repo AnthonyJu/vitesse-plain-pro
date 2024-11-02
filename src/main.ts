@@ -1,11 +1,9 @@
 import App from './App.vue'
-import 'echarts-wordcloud'
+
+import './utils/update'
 
 import './styles/main.scss'
 import 'uno.css'
-
-import 'cropperjs/dist/cropper.css'
-import 'vue-draggable-resizable/style.css'
 
 const app = createApp(App)
 
