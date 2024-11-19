@@ -8,7 +8,12 @@ export const useCommonDataStore = defineStore(
 
     // 路由挂载后，隐藏加载中
     const router = useRouter()
+    const afterEach = ref(false)
+    router.beforeEach(() => {
+      afterEach.value = false
+    })
     router.afterEach(() => {
+      afterEach.value = true
       loading.value = false
     })
 
@@ -23,8 +28,12 @@ export const useCommonDataStore = defineStore(
         menuStore.getMenu(),
         testReq(),
       ])
+        .then(() => {
+          if (afterEach.value) loading.value = false
+        })
         .catch(() => {
           isFail.value = true
+          loading.value = false
         })
     }
 
