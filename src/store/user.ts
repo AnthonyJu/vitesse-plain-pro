@@ -10,23 +10,22 @@ export const useUserStore = defineStore(
     const isLogin = ref(false)
     const userInfo = ref<UserInfo>()
 
-    function handleLogin(data: LoginInfo) {
-      return authLogin(data).then(async (res) => {
+    async function handleLogin(data: LoginInfo) {
+      await authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        const commonDataStore = useCommonDataStore()
-        await commonDataStore.loadCommonData(route.query.redirect as string || '/')
+        router.replace(route.query.redirect as string || '/')
       })
     }
 
-    function handleLogout() {
+    function handleLogout(reload = true) {
       return new Promise((resolve, reject) => {
         try {
           menuStore.$reset()
           isLogin.value = false
           userInfo.value = undefined
-          router.replace('/login')
           resolve(true)
+          if (reload) location.href = '/' // 保证清空路由与缓存
         }
         catch (error) {
           reject(error)

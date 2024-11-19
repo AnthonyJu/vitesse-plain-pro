@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" class="loading-next flex-center pb-100px">
     <!-- loading -->
-    <div v-if="loading" class="loading-next-box-warp">
+    <div v-if="commonDataStore.loading" class="loading-next-box-warp">
       <div v-for="i in 9" :key="`loading_${i}`" class="loading-next-box-item" />
     </div>
 
@@ -23,7 +23,7 @@
         <el-button type="success" round @click="commonDataStore.loadCommonData()">
           刷新重试
         </el-button>
-        <el-button type="warning" round @click="commonDataStore.isFail = false">
+        <el-button type="warning" round @click="commonDataStore.enterSystem()">
           进入系统
         </el-button>
       </div>
@@ -33,16 +33,8 @@
 </template>
 
 <script setup lang='ts'>
-const userStore = useUserStore()
-const menuStore = useMenuStore()
 const commonDataStore = useCommonDataStore()
-
-const loading = computed(() => menuStore.loading || commonDataStore.loading)
-const show = computed(() => menuStore.loading || commonDataStore.loading || commonDataStore.isFail)
-
-onMounted(() => {
-  if (userStore.isLogin) commonDataStore.loadCommonData()
-})
+const show = computed(() => commonDataStore.loading || commonDataStore.isFail)
 </script>
 
 <style scoped lang='scss'>

@@ -11,9 +11,6 @@
         {{ errorInfo.subMsg }}
       </div>
       <div mt-30px>
-        <el-button type="primary" round @click="goBack">
-          返回上一页
-        </el-button>
         <el-button
           v-if="errorInfo.type === 401"
           type="warning"
@@ -21,6 +18,9 @@
           @click="userStore.handleLogout()"
         >
           重新授权
+        </el-button>
+        <el-button v-else type="primary" round @click="goBack">
+          返回上一页
         </el-button>
       </div>
     </div>

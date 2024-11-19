@@ -6,34 +6,31 @@ export const useCommonDataStore = defineStore(
     // 是否加载失败
     const isFail = ref(false)
 
+    // 路由挂载后，隐藏加载中
     const router = useRouter()
+    router.afterEach(() => {
+      loading.value = false
+    })
 
     // 加载登录后需要请求的数据以及通用数据
-    function loadCommonData(to?: string) {
+    async function loadCommonData() {
       loading.value = true
       isFail.value = false
 
-      return Promise.all(
-        [
-          testReq(),
-          // ...通用数据请求
-        ],
-      )
-        .then(() => {
-          isFail.value = false
-          if (to) {
-            router.replace(to).then(() => {
-              loading.value = false
-            })
-          }
-          else {
-            loading.value = false
-          }
-        })
+      const menuStore = useMenuStore()
+
+      await Promise.all([
+        menuStore.getMenu(),
+        testReq(),
+      ])
         .catch(() => {
           isFail.value = true
-          loading.value = false
         })
+    }
+
+    // 进入系统
+    function enterSystem() {
+      isFail.value = false
     }
 
     function testReq() {
@@ -48,6 +45,7 @@ export const useCommonDataStore = defineStore(
       loading,
       isFail,
       loadCommonData,
+      enterSystem,
     }
   },
   {

@@ -12,7 +12,8 @@
       @search="handleSearch"
     >
       <template v-for="{ prop } in formSlots" :key="prop" #[prop]="scope">
-        <slot :name="prop" :row="scope.form" />
+        <!-- form slot前缀 -->
+        <slot :name="`form-${prop}`" :row="scope.form" />
       </template>
 
       <template #toolbar>
@@ -94,7 +95,7 @@
       @on-submit="dialogSubmit"
     >
       <template v-for="{ prop } in dialogSlots" :key="prop" #[prop]="scope">
-        <!-- 注意: dialog slot前缀 -->
+        <!-- dialog slot前缀 -->
         <slot :name="`dialog-${prop}`" :row="scope.form" />
       </template>
     </JDialog>

@@ -3,7 +3,7 @@ import path from 'node:path'
 import { compileScript, parse } from '@vue/compiler-sfc'
 import MagicString from 'magic-string'
 
-// 生成组件名称
+// 生成组件名称，最终路由名称将会与组件名称同步
 export function generateComponentName(): Plugin {
   return {
     name: 'vite:generate-component-name',

@@ -1,6 +1,6 @@
 import App from './App.vue'
 
-import './utils/update'
+// import './utils/update'
 
 import './styles/main.scss'
 import 'uno.css'

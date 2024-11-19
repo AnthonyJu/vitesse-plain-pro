@@ -4,33 +4,23 @@ import { getMenuFromFrontend } from '@/router/from-frontend'
 export const useMenuStore = defineStore(
   'menu',
   () => {
-    // 加载中
-    const loading = ref(false)
-    // 是否前端控制菜单
-    const isFrontendCtrl = true
     // 菜单
     const menus = ref<RouteItem[]>([])
     // 按钮
     const buttons = ref<string[]>([])
     // 权限路径
     const permissionPaths = ref<string[]>([])
-
+    // tagsViewStore
     const tagsViewStore = useTagsViewStore()
 
     // 获取菜单
-    function getMenu() {
-      if (isFrontendCtrl) {
+    async function getMenu() {
+      if (import.meta.env.VITE_FRONTEND_CTRL_ROUTER === 'true') {
         setMenu(getMenuFromFrontend())
       }
       else {
-        loading.value = true
-        return getMenuFromBackend()
-          .then((res) => {
-            setMenu(res)
-          })
-          .finally(() => {
-            loading.value = false
-          })
+        const res = await getMenuFromBackend()
+        setMenu(res)
       }
     }
 
@@ -65,7 +55,6 @@ export const useMenuStore = defineStore(
     }
 
     return {
-      loading,
       menus,
       buttons,
       getMenu,

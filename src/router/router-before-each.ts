@@ -34,7 +34,9 @@ export function routerBeforeEach(router: Router) {
     else {
       const menuStore = useMenuStore()
       if (menuStore.menus.length === 0) {
-        await menuStore.getMenu()
+        // 加载通用数据
+        const commonDataStore = useCommonDataStore()
+        await commonDataStore.loadCommonData()
 
         // 将有权限的路由动态添加到路由表
         addRoutes(router, menuStore.permissionPaths)
