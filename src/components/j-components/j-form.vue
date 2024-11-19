@@ -67,7 +67,7 @@
         :label="label"
         v-bind="formItemProps"
       >
-        <j-date-picker
+        <JDatePicker
           v-model="form[prop]"
           v-model:start-time="form[dateTimeKeys[0]]"
           v-model:end-time="form[dateTimeKeys[1]]"
