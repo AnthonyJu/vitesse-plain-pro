@@ -193,12 +193,12 @@ const tableData = defineModel<any[]>('data', { default: [] })
 const searchForm = ref<Record<string, any>>({})
 
 // 检索表单函数
-function handleSearch(form?: any) {
+function handleSearch(val?: any) {
   loading.value = true
   // val 存在代表是表单检索,需要从第一页开始
-  if (form) current.value = 1
+  if (val) current.value = 1
   // tips 根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体后台情况来决定入参
-  API.get({ ...form, current: current.value, size: !pagination ? 0 : size.value })
+  API.get({ ...val, current: current.value, size: !pagination ? 0 : size.value })
     .then((res: any) => {
       if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
       else tableData.value = res.data.data.records
