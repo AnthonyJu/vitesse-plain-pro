@@ -16,12 +16,12 @@ function filterRoute(children: RouteRecordRaw[], permissionPaths: string[], flat
     // 根据 unplugin-vue-router 规则，组装完整路径
     const fullPath = basePath + route.path
 
-    // 合并路由元信息
-    const matchRoute = flatRoutes.find(item => item.path === fullPath)
-    if (matchRoute) route.meta = { ...route.meta, ...baseMeta, ...matchRoute.meta }
-
     // 判断是否有权限
-    if (permissionPaths.includes(fullPath) || route.path === '') {
+    if (permissionPaths.some(p => p.startsWith(fullPath)) || route.path === '') {
+      // 合并路由元信息
+      const matchRoute = flatRoutes.find(item => item.path === fullPath)
+      if (matchRoute) route.meta = { ...route.meta, ...baseMeta, ...matchRoute.meta }
+
       // 递归过滤子路由，子路由有权限则父路由也显示
       if (route.children) {
         route.children = filterRoute(route.children, permissionPaths, flatRoutes, `${fullPath}/`)
