@@ -1,7 +1,6 @@
 import type { App } from 'vue'
+import { addStaticRoutes } from '@/router/add-routes'
 import { routerBeforeEach } from '@/router/router-before-each'
-import { staticRoutes } from '@/router/routes'
-import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 
@@ -14,9 +13,12 @@ declare module 'vue-router' {
 routes.push({ path: '/', redirect: import.meta.env.VITE_REDIRECT_PATH })
 
 export const router = createRouter({
-  routes: setupLayouts(routes.filter(route => staticRoutes.includes(route.path))),
+  routes: [],
   history: createWebHashHistory(),
 })
+
+// 添加静态路由
+addStaticRoutes(router)
 
 // 路由守卫
 routerBeforeEach(router)

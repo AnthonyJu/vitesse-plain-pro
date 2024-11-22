@@ -1,3 +1,4 @@
+import { useUserStore } from '@/store/user'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
@@ -36,7 +37,9 @@ service.interceptors.response.use(
 
       // 401: 未登录
       if (res.code === 401) {
-        // TODO  重新登录
+        ElMessage.error('登录已过期，请重新登录！')
+        const user = useUserStore()
+        user.handleLogout()
       }
 
       return Promise.reject(new Error(res.message || 'Error'))

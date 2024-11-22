@@ -1,5 +1,6 @@
 import { authLogin } from '@/api/login'
 import { router } from '@/modules/router'
+import { addStaticRoutes } from '@/router/add-routes'
 
 export const useUserStore = defineStore(
   'user',
@@ -18,14 +19,21 @@ export const useUserStore = defineStore(
       })
     }
 
-    function handleLogout(reload = true) {
+    function handleLogout() {
       return new Promise((resolve, reject) => {
         try {
+          // 清除所有路由
+          router.clearRoutes()
+          // 添加静态路由
+          addStaticRoutes(router)
+
           menuStore.$reset()
           isLogin.value = false
           userInfo.value = undefined
+
+          router.replace('/login')
+
           resolve(true)
-          if (reload) location.href = '/' // 保证清空路由与缓存
         }
         catch (error) {
           reject(error)

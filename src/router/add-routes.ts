@@ -1,7 +1,13 @@
 import type { Router, RouteRecordRaw } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { routes as generateRoutes } from 'vue-router/auto-routes'
-import { baseMeta, routes } from './routes'
+import { baseMeta, routes, staticRoutes } from './routes'
+
+// 添加静态路由
+export function addStaticRoutes(router: Router) {
+  setupLayouts(generateRoutes.filter(route => staticRoutes.includes(route.path)))
+    .forEach(route => router.addRoute(route))
+}
 
 // 添加动态路由
 export function addRoutes(router: Router, permissionPaths: string[]) {

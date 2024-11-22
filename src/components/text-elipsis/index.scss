@@ -1,0 +1,30 @@
+.ellipsis-text-container {
+  display: flex;
+
+  .text {
+    overflow: hidden;
+    transition: height 0.3s ease;
+
+    .btn {
+      float: right;
+      margin-top: auto;
+      margin-left: 6px;
+      clear: both;
+      color: #165dff;
+      cursor: pointer;
+      transform: translate(-4px, -6px);
+    }
+  }
+
+  .text.active {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .text::before {
+    float: right;
+    height: calc(100% - 1em);
+    content: "";
+  }
+}
