@@ -105,7 +105,7 @@
 <script setup lang="ts">
 import request from '@/utils/request'
 import { ElMessage } from 'element-plus'
-import { generateForm } from './generate-form'
+import { generateForm, JLoading } from './tools'
 
 interface UrlObject {
   get: string
@@ -234,18 +234,15 @@ function updateFn(row: Record<string, any>) {
 function deleteFn(id: string) {
   const message = ElMessage({
     message: 'loading...',
-    // TODO: loading图标
-    icon: 'el-icon-loading',
+    icon: JLoading,
     duration: 0,
   })
   API.delete!(id)
     .then(() => {
+      message.close()
       ElMessage.success('删除成功')
       handleSearch()
       emit('onOriginDataChange', 'delete')
-    })
-    .finally(() => {
-      message.close()
     })
 }
 

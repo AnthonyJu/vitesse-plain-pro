@@ -106,7 +106,7 @@ declare global {
    * @property {boolean} slot 是否为自定义插槽列
    */
   interface JTableColumn extends Partial<TableColumnCtx<T>> {
-    prop: string
+    prop?: string
     slot?: boolean
   }
 

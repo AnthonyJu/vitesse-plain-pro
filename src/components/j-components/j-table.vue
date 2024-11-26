@@ -2,7 +2,7 @@
   <ElTable ref="tableRef" :data="data" v-bind="tableProps">
     <ElTableColumn
       v-for="col in columns"
-      :key="col.prop"
+      :key="col.prop || col.type"
       align="center"
       show-overflow-tooltip
       v-bind="col"

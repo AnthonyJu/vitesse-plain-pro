@@ -7,7 +7,7 @@
     @closed="handleClose"
   >
     <ElForm ref="formRef" :model="form" :disabled="loading" label-width="80px" v-bind="formProps">
-      <el-row :gutter="20">
+      <el-row :gutter="20" class="mx-0!">
         <el-col
           v-for="{ prop, label, span, type, options, fieldProps, formItemProps } in formItems"
           :key="prop"
@@ -89,17 +89,17 @@
         </el-col>
       </el-row>
     </ElForm>
-    <template #footer>
+    <div class="flex justify-end px-10px pt-5px">
       <el-button :disabled="loading" @click="visible = false">取消</el-button>
       <el-button type="primary" :loading="loading" @click="submit">提交</el-button>
-    </template>
+    </div>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { ElForm } from 'element-plus'
-import { generateForm } from './generate-form'
+import { generateForm } from './tools'
 
 interface Props {
   visible: boolean // 用于控制显示隐藏
@@ -141,7 +141,7 @@ function submit() {
 <style lang="scss">
 .j-dialog {
   .el-dialog__body {
-    padding: var(--el-dialog-padding-primary) var(--el-dialog-padding-primary) 4px;
+    padding: var(--el-dialog-padding-primary) 0 0;
   }
 }
 </style>
