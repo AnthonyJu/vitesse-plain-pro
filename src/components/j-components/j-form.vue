@@ -37,7 +37,7 @@
           v-model="form[prop]"
           :style="selectStyle"
           :data="form[prop]"
-          :options="options"
+          :options="options!"
           placeholder="请选择"
           clearable
           v-bind="fieldProps"
@@ -98,7 +98,7 @@
     <!-- 搜索与重置 -->
     <el-form-item v-if="!hideSearch" class="mr-0">
       <el-button :loading="loading" :icon="Search as Component" type="primary" @click="onSearch">搜索</el-button>
-      <el-button :icon="RefreshLeft" @click="onReset">重置</el-button>
+      <el-button :icon="RefreshLeft" @click="resetForm">重置</el-button>
     </el-form-item>
 
     <!-- 工具栏 -->
@@ -118,11 +118,12 @@ import { generateForm } from './tools'
 
 interface Props {
   loading: boolean // 是否为loading状态
-  formItems: JFormItem[] // 表单项
   inputWidth?: string // 输入框宽度,不包含时间选择器及自定义的非输入框和选择器
   hideSearch?: boolean // 是否显示搜索按钮
   searchOnMounted?: boolean // 是否在mounted后执行搜索
-  formProps?: JFormProps
+  formItems: JFormItem[] // 表单字段
+  formProps?: JFormProps // 表单prop
+  defaultSearchParams?: Record<string, any> // 默认搜索条件
 }
 
 const {
@@ -132,6 +133,7 @@ const {
   hideSearch,
   searchOnMounted = true,
   formProps,
+  defaultSearchParams = {},
 } = defineProps<Props>()
 
 const emit = defineEmits<{
@@ -186,7 +188,12 @@ const shortcuts = [
 // 定义表单ref
 const formRef = useTemplateRef<FormInstance>('formRef')
 const form = defineModel<Record<string, any>>('form', { default: {} })
-if (JSON.stringify(form.value) === '{}') form.value = generateForm(formItems, dateTimeKeys)
+if (JSON.stringify(form.value) === '{}') {
+  form.value = {
+    ...defaultSearchParams,
+    ...generateForm(formItems, dateTimeKeys),
+  }
+}
 
 /** 搜索 */
 function onSearch() {
@@ -199,12 +206,16 @@ function onSearch() {
 }
 
 /** 重置 */
-function onReset() {
+function resetForm() {
   formRef.value?.resetFields()
 }
 
 // 默认onMounted后执行搜索
 onMounted(() => {
   if (searchOnMounted) onSearch()
+})
+
+defineExpose({
+  resetForm,
 })
 </script>

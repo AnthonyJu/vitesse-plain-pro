@@ -13,7 +13,7 @@
     >
       <template v-for="{ prop } in formSlots" :key="prop" #[prop]="scope">
         <!-- form slot前缀 -->
-        <slot :name="`form-${prop}`" :row="scope.form" />
+        <slot :name="`form-${prop}`" :form="scope.form" />
       </template>
 
       <template #toolbar>
@@ -96,7 +96,7 @@
     >
       <template v-for="{ prop } in dialogSlots" :key="prop" #[prop]="scope">
         <!-- dialog slot前缀 -->
-        <slot :name="`dialog-${prop}`" :row="scope.form" />
+        <slot :name="`dialog-${prop}`" :form="scope.form" />
       </template>
     </JDialog>
   </div>
@@ -116,12 +116,15 @@ interface UrlObject {
 interface Props {
   url: string | UrlObject
   type?: 'table' | 'list'
-  pagination?: boolean // 分页
-  dataFormator?: (data: any[]) => any[] // 返回数据处理函数
-  formOptions?: JFormOptions
-  tableOptions?: JTableOptions
-  dialogOptions?: JDialogOptions
-  paginationOptions?: JPaginationOptions
+  pagination?: boolean // 是否需要分页
+  defaultSearchParams?: Record<string, any> // 默认搜索条件
+  formFormator?: (data: Record<string, any>) => Record<string, any> // 搜索表单数据处理
+  tableFormator?: (data: any[]) => any[] // 返回数据处理函数
+  dialogFormator?: (data: Record<string, any>) => Record<string, any> // 弹窗表单数据处理
+  formOptions?: JFormOptions // 搜索表单配置项
+  tableOptions?: JTableOptions // 表格配置项
+  dialogOptions?: JDialogOptions // 弹窗配置项
+  paginationOptions?: JPaginationOptions // 分页配置项
 }
 interface Api {
   get: (params?: any) => Promise<Res<any>>
@@ -130,7 +133,12 @@ interface Api {
   delete?: (id: string | number) => Promise<Res<any>>
 }
 
-const { type = 'table', pagination = true, ...props } = defineProps<Props>()
+const {
+  type = 'table',
+  pagination = true,
+  defaultSearchParams = {},
+  ...props
+} = defineProps<Props>()
 const emit = defineEmits(['onOriginDataChange']) // 原始数据变化会触发（例如增删改）
 
 // 请求接口定义
@@ -195,13 +203,21 @@ const searchForm = ref<Record<string, any>>({})
 // 检索表单函数
 function handleSearch(val?: any) {
   loading.value = true
+
   // val 存在代表是表单检索,需要从第一页开始
   if (val) current.value = 1
+  const data = props.formFormator?.(searchForm.value) || searchForm.value
+
   // tips 根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体后台情况来决定入参
-  API.get({ ...val, current: current.value, size: !pagination ? 0 : size.value })
+  API.get({
+    ...data,
+    ...defaultSearchParams,
+    current: current.value,
+    size: !pagination ? 0 : size.value,
+  })
     .then((res: any) => {
-      if (props.dataFormator) tableData.value = props.dataFormator(res.data.records)
-      else tableData.value = res.data.data.records
+      const result = res.data.data.records
+      tableData.value = props.tableFormator?.(result) || result
       total.value = res.data.data.total
     })
     .finally(() => {
@@ -249,8 +265,9 @@ function deleteFn(id: string) {
 // 弹窗提交
 function dialogSubmit() {
   dialogLoading.value = true
-  if (dialogForm.value?.id) {
-    API.update!(dialogForm.value)
+  const data = props.dialogFormator?.(dialogForm.value) || dialogForm.value
+  if (data.id) {
+    API.update!(data)
       .then(() => {
         visible.value = false
         ElMessage.success('修改成功')
@@ -262,7 +279,7 @@ function dialogSubmit() {
       })
   }
   else {
-    API.create!(dialogForm.value!)
+    API.create!(data!)
       .then(() => {
         visible.value = false
         ElMessage.success('新增成功')
@@ -280,9 +297,9 @@ onMounted(() => {
   if (!props.formOptions) handleSearch()
 })
 
-const formRef = useTemplateRef('formRef')
-const tableRef = useTemplateRef('tableRef')
-const dialogRef = useTemplateRef('dialogRef')
+const formRef = ref()
+const tableRef = ref()
+const dialogRef = ref()
 
 // 暴露给父组件的方法
 defineExpose({ formRef, tableRef, dialogRef, searchForm, dialogForm, createFn, updateFn, deleteFn, handleSearch })

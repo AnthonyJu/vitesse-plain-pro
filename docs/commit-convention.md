@@ -1,4 +1,4 @@
-# 🍣 Commit 规范
+# 🍣 Commit Convention
 
 - ⏪️ revert 回退
 - 🎉 init 初始化

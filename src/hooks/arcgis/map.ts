@@ -1,5 +1,6 @@
 import Map from '@arcgis/core/Map'
 import MapView from '@arcgis/core/views/MapView'
+import SceneView from '@arcgis/core/views/SceneView'
 import ScaleBar from '@arcgis/core/widgets/ScaleBar'
 import Zoom from '@arcgis/core/widgets/Zoom'
 import '@arcgis/core/assets/esri/themes/light/main.css'
@@ -22,6 +23,34 @@ export function useArcgis(container: string) {
 
   const scale = new ScaleBar({ view, unit: 'metric' })
   view.ui.add(scale, 'bottom-right')
+
+  onMounted(() => {
+    view.map = map
+    view.container = document.getElementById(container) as HTMLDivElement
+  })
+
+  return {
+    map,
+    view,
+  }
+}
+
+export function useArcgis3D(container: string) {
+  const map = new Map({
+    basemap: 'satellite',
+  })
+  const view = new SceneView({
+    camera: {
+      position: {
+        x: 120.38,
+        y: 36.06,
+        z: 2000,
+      },
+      tilt: 45,
+      fov: 55,
+      heading: 180,
+    },
+  })
 
   onMounted(() => {
     view.map = map

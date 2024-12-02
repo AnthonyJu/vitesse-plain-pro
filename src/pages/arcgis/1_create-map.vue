@@ -7,7 +7,7 @@ import Point from '@arcgis/core/geometry/Point'
 import Graphic from '@arcgis/core/Graphic'
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol'
 
-const arcgis = useArcgis('map')
+const arcgis = useArcgis3D('map')
 
 onMounted(() => {
   const point = new Point({

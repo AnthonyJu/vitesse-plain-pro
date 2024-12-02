@@ -1,6 +1,6 @@
 <!-- 仅适用于 multiple -->
 <template>
-  <el-select v-model="value" multiple v-bind="$attrs" @change="handleChange">
+  <el-select v-model="value" v-bind="$props" multiple @change="handleChange">
     <el-option
       v-for="item in options"
       :key="item.label"
@@ -11,18 +11,19 @@
 </template>
 
 <script setup lang='ts'>
-interface Props {
-  data: string
-  options?: SelectOptionItem[]
+import type { ISelectProps } from 'element-plus'
+
+interface Props extends Partial<ISelectProps> {
+  options: SelectOptionItem[]
 }
 
-const { data } = defineProps<Props>()
+defineProps<Props>()
 
-// tips 如果你的options的值是number,记得传options时转为string
-const value = ref(data.split(','))
 const bindValue = defineModel({ default: '' })
-bindValue.value = data
 
+const initValue = bindValue.value.split(',').filter(Boolean)
+
+const value = ref(initValue)
 function handleChange(val: string[]) {
   bindValue.value = val.join(',')
 }
