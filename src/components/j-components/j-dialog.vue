@@ -6,89 +6,91 @@
     v-bind="dialogProps"
     @closed="handleClose"
   >
-    <ElForm ref="formRef" :model="form" :disabled="loading" label-width="80px" v-bind="formProps">
-      <el-row :gutter="20" class="mx-0!">
-        <el-col
-          v-for="{ prop, label, span, type, options, fieldProps, formItemProps } in formItems"
-          :key="prop"
-          :span="span || 24"
-        >
-          <!-- 输入框 -->
-          <el-form-item
-            v-if="type === 'input'"
-            :prop="prop"
-            :label="label"
-            v-bind="formItemProps"
+    <ElScrollbar max-height="600px" class="h-auto!">
+      <ElForm ref="formRef" :model="form" :disabled="loading" label-width="80px" v-bind="formProps">
+        <el-row :gutter="20" class="mx-0!">
+          <el-col
+            v-for="{ prop, label, span, type, options, fieldProps, formItemProps } in formItems"
+            :key="prop"
+            :span="span || 24"
           >
-            <el-input
-              v-model="form[prop]"
-              placeholder="请输入"
-              clearable
-              v-bind="fieldProps"
-            />
-          </el-form-item>
-
-          <!-- 文本框 -->
-          <el-form-item
-            v-else-if="type === 'textarea'"
-            :prop="prop"
-            :label="label"
-            v-bind="formItemProps"
-          >
-            <el-input
-              v-model="form[prop]"
-              type="textarea"
-              placeholder="请输入"
-              clearable
-              v-bind="fieldProps"
-            />
-          </el-form-item>
-
-          <!-- 选择器 -->
-          <el-form-item
-            v-else-if="type === 'select'"
-            :prop="prop"
-            :label="label"
-            v-bind="formItemProps"
-          >
-            <JSelect
-              v-if="fieldProps?.multiple"
-              v-model="form[prop]"
-              :data="form[prop]"
-              :options="options"
-              placeholder="请选择"
-              clearable
-              v-bind="fieldProps"
-            />
-
-            <el-select
-              v-else
-              v-model="form[prop]"
-              placeholder="请选择"
-              clearable
-              v-bind="fieldProps"
+            <!-- 输入框 -->
+            <el-form-item
+              v-if="type === 'input'"
+              :prop="prop"
+              :label="label"
+              v-bind="formItemProps"
             >
-              <el-option
-                v-for="item in options"
-                :key="item.label"
-                :label="item.label"
-                :value="item.value"
+              <el-input
+                v-model="form[prop]"
+                placeholder="请输入"
+                clearable
+                v-bind="fieldProps"
               />
-            </el-select>
-          </el-form-item>
+            </el-form-item>
 
-          <!-- 自定义 -->
-          <el-form-item
-            v-else
-            :prop="prop"
-            :label="label"
-            v-bind="formItemProps"
-          >
-            <slot :name="prop" :form="form" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </ElForm>
+            <!-- 文本框 -->
+            <el-form-item
+              v-else-if="type === 'textarea'"
+              :prop="prop"
+              :label="label"
+              v-bind="formItemProps"
+            >
+              <el-input
+                v-model="form[prop]"
+                type="textarea"
+                placeholder="请输入"
+                clearable
+                v-bind="fieldProps"
+              />
+            </el-form-item>
+
+            <!-- 选择器 -->
+            <el-form-item
+              v-else-if="type === 'select'"
+              :prop="prop"
+              :label="label"
+              v-bind="formItemProps"
+            >
+              <JSelect
+                v-if="fieldProps?.multiple"
+                v-model="form[prop]"
+                :data="form[prop]"
+                :options="options"
+                placeholder="请选择"
+                clearable
+                v-bind="fieldProps"
+              />
+
+              <el-select
+                v-else
+                v-model="form[prop]"
+                placeholder="请选择"
+                clearable
+                v-bind="fieldProps"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.label"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <!-- 自定义 -->
+            <el-form-item
+              v-else
+              :prop="prop"
+              :label="label"
+              v-bind="formItemProps"
+            >
+              <slot :name="prop" :form="form" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </ElForm>
+    </ElScrollbar>
     <div class="flex justify-end px-10px pt-5px">
       <el-button :disabled="loading" @click="visible = false">取消</el-button>
       <el-button type="primary" :loading="loading" @click="submit">提交</el-button>

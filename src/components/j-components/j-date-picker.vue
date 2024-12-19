@@ -10,7 +10,8 @@ const endTime = defineModel('endTime', { default: '' })
 
 watch(
   value,
-  ([start, end]) => {
+  (val) => {
+    const [start, end] = val || ['', '']
     startTime.value = start
     endTime.value = end
   },
