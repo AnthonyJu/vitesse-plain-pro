@@ -14,7 +14,7 @@ export function generateForm(data: JFormItem[], keys = DATE_TIME_KEYS) {
         })
         return form
       }
-      form[item.prop] = item.default || ''
+      form[item.prop] = item.default ?? ''
       return form
     },
     {} as Record<string, any>,

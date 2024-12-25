@@ -200,6 +200,7 @@ declare global {
   const useDraggable: typeof import('@vueuse/core')['useDraggable']
   const useDropZone: typeof import('@vueuse/core')['useDropZone']
   const useEditor: typeof import('./hooks/arcgis/editor')['useEditor']
+  const useElTableScroll: typeof import('./hooks/el-table-scroll')['useElTableScroll']
   const useElementBounding: typeof import('@vueuse/core')['useElementBounding']
   const useElementByPoint: typeof import('@vueuse/core')['useElementByPoint']
   const useElementHover: typeof import('@vueuse/core')['useElementHover']
@@ -543,6 +544,7 @@ declare module 'vue' {
     readonly useDraggable: UnwrapRef<typeof import('@vueuse/core')['useDraggable']>
     readonly useDropZone: UnwrapRef<typeof import('@vueuse/core')['useDropZone']>
     readonly useEditor: UnwrapRef<typeof import('./hooks/arcgis/editor')['useEditor']>
+    readonly useElTableScroll: UnwrapRef<typeof import('./hooks/el-table-scroll')['useElTableScroll']>
     readonly useElementBounding: UnwrapRef<typeof import('@vueuse/core')['useElementBounding']>
     readonly useElementByPoint: UnwrapRef<typeof import('@vueuse/core')['useElementByPoint']>
     readonly useElementHover: UnwrapRef<typeof import('@vueuse/core')['useElementHover']>

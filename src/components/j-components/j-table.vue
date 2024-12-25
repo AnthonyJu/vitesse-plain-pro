@@ -1,6 +1,6 @@
 <template>
-  <ElTable ref="tableRef" :data="data" v-bind="tableProps">
-    <ElTableColumn
+  <el-table ref="tableRef" :data="data" v-bind="tableProps">
+    <el-table-column
       v-for="col in columns"
       :key="col.prop || col.type"
       align="center"
@@ -10,8 +10,8 @@
       <template #default="scope">
         <slot v-if="col.slot" :name="col.prop" :row="scope.row" />
       </template>
-    </ElTableColumn>
-  </ElTable>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script setup lang="ts">

@@ -105,7 +105,7 @@
 <script setup lang="ts">
 import request from '@/utils/request'
 import { ElMessage } from 'element-plus'
-import { generateForm, JLoading } from './tools'
+import { generateForm, JLoading } from './j-tools'
 
 interface UrlObject {
   get: string

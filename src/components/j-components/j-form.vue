@@ -114,7 +114,7 @@ import type { Component } from 'vue'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
 import Dayjs from 'dayjs'
 import { ElForm } from 'element-plus'
-import { generateForm } from './tools'
+import { generateForm } from './j-tools'
 
 interface Props {
   loading: boolean // 是否为loading状态

@@ -6,7 +6,7 @@
     v-bind="dialogProps"
     @closed="handleClose"
   >
-    <ElScrollbar max-height="600px" class="h-auto!">
+    <el-scrollbar max-height="600px" class="h-auto!">
       <ElForm ref="formRef" :model="form" :disabled="loading" label-width="80px" v-bind="formProps">
         <el-row :gutter="20" class="mx-0!">
           <el-col
@@ -90,7 +90,7 @@
           </el-col>
         </el-row>
       </ElForm>
-    </ElScrollbar>
+    </el-scrollbar>
     <div class="flex justify-end px-10px pt-5px">
       <el-button :disabled="loading" @click="visible = false">取消</el-button>
       <el-button type="primary" :loading="loading" @click="submit">提交</el-button>
@@ -101,7 +101,7 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { ElForm } from 'element-plus'
-import { generateForm } from './tools'
+import { generateForm } from './j-tools'
 
 interface Props {
   visible: boolean // 用于控制显示隐藏
