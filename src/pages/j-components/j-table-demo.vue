@@ -1,13 +1,14 @@
 <template>
-  <JTable
-    layout-default
-    :data="data"
-    :columns="columns"
-    :table-props="{
-      border: true,
-      stripe: true,
-    }"
-  />
+  <div layout-default>
+    <JTable
+      :data="data"
+      :columns="columns"
+      :table-props="{
+        border: true,
+        stripe: true,
+      }"
+    />
+  </div>
 </template>
 
 <script setup lang='ts'>
