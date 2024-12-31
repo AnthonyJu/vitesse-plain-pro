@@ -1,74 +1,90 @@
 <template>
-  <!-- Hack: 更好的方式 -->
-  <div>
-    <el-table
-      ref="tableRef"
-      :data="tableData"
-      height="170"
-      class="rollTableRow"
-    >
-      <el-table-column
-        v-for="col in columns"
-        :key="col.id"
-        :prop="col.id"
-        :label="col.label"
-        :width="col.width"
-        show-overflow-tooltip
-      />
-    </el-table>
-  </div>
+  <el-table
+    id="scroll-table"
+    :data="tableData"
+    height="230"
+    class="rollTableRow"
+  >
+    <el-table-column
+      v-for="col in columns"
+      :key="col.id"
+      :prop="col.id"
+      :label="col.label"
+      :width="col.width"
+      show-overflow-tooltip
+    />
+  </el-table>
 </template>
 
 <script lang="ts" setup>
-interface Column {
-  id: string
-  label: string
-  width?: number
-}
-
-const props = defineProps({
-  tableData: {
-    type: Array,
-    default: () => [],
+const columns = [
+  {
+    id: 'date',
+    label: '日期',
+    width: 180,
   },
-  columns: {
-    type: Array as () => Column[],
-    default: () => [],
+  {
+    id: 'name',
+    label: '姓名',
+    width: 180,
   },
-  speed: {
-    type: Number,
-    default: 2,
+  {
+    id: 'address',
+    label: '地址',
   },
-})
-const tableRef: Ref<HTMLElement | any> = ref(null) // 表格实例
+]
+const tableData = [
+  {
+    date: '2016-05-01',
+    name: '王小虎1',
+    address: '上海市普陀区金沙江路 1 弄',
+  },
+  {
+    date: '2016-05-02',
+    name: '王小虎2',
+    address: '上海市普陀区金沙江路 2 弄',
+  },
+  {
+    date: '2016-05-03',
+    name: '王小虎3',
+    address: '上海市普陀区金沙江路 3 弄',
+  },
+  {
+    date: '2016-05-04',
+    name: '王小虎4',
+    address: '上海市普陀区金沙江路 4 弄',
+  },
+  {
+    date: '2016-05-05',
+    name: '王小虎5',
+    address: '上海市普陀区金沙江路 5 弄',
+  },
+  {
+    date: '2016-05-01',
+    name: '王小虎1',
+    address: '上海市普陀区金沙江路 1 弄',
+  },
+  {
+    date: '2016-05-02',
+    name: '王小虎2',
+    address: '上海市普陀区金沙江路 2 弄',
+  },
+  {
+    date: '2016-05-03',
+    name: '王小虎3',
+    address: '上海市普陀区金沙江路 3 弄',
+  },
+  {
+    date: '2016-05-04',
+    name: '王小虎4',
+    address: '上海市普陀区金沙江路 4 弄',
+  },
+  {
+    date: '2016-05-05',
+    name: '王小虎5',
+    address: '上海市普陀区金沙江路 5 弄',
+  },
+]
 
-function scrollFn(tableBody: any) {
-  let isScroll = true // 滚动
-  let direction = 1 // 滚动方向，1表示向下，-1表示向上
-  const tableDom = tableBody.getElementsByClassName('el-scrollbar__wrap')[0]
-
-  // 鼠标放上去，停止滚动；移开，继续滚动
-  tableDom.addEventListener('mouseover', () => {
-    isScroll = false
-  })
-  tableDom.addEventListener('mouseout', () => {
-    isScroll = true
-  })
-
-  setInterval(() => {
-    if (isScroll) {
-      tableDom.scrollTop += direction * props.speed // 设置滚动速度
-      if (tableDom.clientHeight + tableDom.scrollTop >= tableDom.scrollHeight) {
-        direction = -1 // 到达底部，改变方向
-      }
-      else if (tableDom.scrollTop === 0) {
-        direction = 1 // 到达顶部，改变方向
-      }
-    }
-  }, 100)
-}
-
-onMounted(() => {
-  scrollFn(tableRef.value.$refs.bodyWrapper) // 设置滚动
-})
+useElTableScroll('scroll-table')
 </script>

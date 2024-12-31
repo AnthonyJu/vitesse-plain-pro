@@ -1,18 +1,13 @@
 <template>
-  <div
-    class="echarts-box"
+  <VChart
+    ref="chartRef"
+    autoresize
+    class="h-400px w-400px"
+    :option="option"
+    :theme="isDark ? 'dark' : 'light'"
     @mouseenter="stopPolling"
     @mouseleave="startPolling"
-  >
-    <VChart
-      ref="chartRef"
-      autoresize
-      class="h-400px w-400px"
-      :option="echartsData"
-      :init-options="{ renderer: 'svg' }"
-      :theme="isDark ? 'dark' : 'light'"
-    />
-  </div>
+  />
 </template>
 
 <script lang="ts" setup>
@@ -22,75 +17,93 @@ import { use } from 'echarts/core'
 import { SVGRenderer } from 'echarts/renderers'
 import VChart from 'vue-echarts'
 
-const props = defineProps({
-  echartsData: {
-    type: Object,
-    default: () => {},
-  },
-  speed: {
-    type: Number,
-    default: 2,
-  },
-})
-
 use([SVGRenderer, LegendComponent, TitleComponent, TooltipComponent, PieChart])
 
-let timerId: any = null
-const currentIndex = ref(-1)
+const option = ref({
+  backgroundColor: 'transparent',
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines'],
+  },
+  title: {
+    text: 'Traffic Sources',
+    left: 'center',
+  },
+  tooltip: {
+    trigger: 'item',
+    confine: true,
+  },
+  series: [
+    {
+      name: 'Traffic Sources',
+      type: 'pie',
+      radius: '55%',
+      center: ['50%', '60%'],
+      data: [
+        { value: 335, name: 'Direct' },
+        { value: 310, name: 'Email' },
+        { value: 234, name: 'Ad Networks' },
+        { value: 135, name: 'Video Ads' },
+        { value: 1548, name: 'Search Engines' },
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)',
+        },
+      },
+    },
+  ],
+})
+
+let timerId: NodeJS.Timeout | null = null
+let dataIndex = -1
 const chartRef = ref()
 
 // 提示轮播转动
 function startPolling() {
-  if (timerId !== null) {
-    return
-  }
+  if (timerId !== null) return
   timerId = setInterval(() => {
-    const dataLen = props.echartsData.series[0].data.length
+    const dataLen = 10 // TODO 数据长度
+
     // 取消之前高亮的图形
     chartRef.value?.dispatchAction({
       type: 'downplay',
       seriesIndex: 0,
-      dataIndex: currentIndex.value,
+      dataIndex,
     })
-    currentIndex.value = (currentIndex.value + 1) % dataLen
+    dataIndex = (dataIndex + 1) % dataLen
+
     // 高亮当前图形
     chartRef.value?.dispatchAction({
       type: 'highlight',
       seriesIndex: 0,
-      dataIndex: currentIndex.value,
+      dataIndex,
     })
+
     // 显示 tooltip
     chartRef.value?.dispatchAction({
       type: 'showTip',
       seriesIndex: 0,
-      dataIndex: currentIndex.value,
+      dataIndex,
     })
-  }, props.speed)
+  }, 3000)
 }
 
 function stopPolling() {
   if (timerId !== null) {
-    clearInterval(timerId)
-    timerId = null
     chartRef.value.dispatchAction({
       type: 'downplay',
       seriesIndex: 0,
-      dataIndex: currentIndex.value,
+      dataIndex,
     })
+    clearInterval(timerId)
+    timerId = null
   }
 }
 
-onMounted(() => {
-  startPolling()
-})
-
-onBeforeUnmount(() => {
-  clearInterval(timerId)
-})
+onMounted(startPolling)
+onBeforeUnmount(stopPolling)
 </script>
-
-<style lang="scss" scoped>
-.echarts-box {
-  width: fit-content;
-}
-</style>
