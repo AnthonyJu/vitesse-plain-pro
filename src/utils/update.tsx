@@ -22,10 +22,13 @@ async function needToReload() {
 
   let reload = false
 
-  if (!oldUrlList) {
-    reload = false
+  // 如果 oldUrlList 为空，表示是首次加载，设置 oldUrlList 并跳过重新加载
+  if (oldUrlList.length === 0) {
+    oldUrlList = newUrlList
+    return false
   }
-  else if (newUrlList.length !== oldUrlList.length) {
+
+  if (newUrlList.length !== oldUrlList.length) {
     reload = true
   }
   else if (newUrlList.some(newUrl => oldUrlList?.every(oldUrl => oldUrl !== newUrl))) {
@@ -97,3 +100,14 @@ export function autoUpdate() {
 
 // 生产环境自动检测更新
 if ((import.meta.env.MODE === 'production')) autoUpdate()
+
+// Nginx 配置
+// # 针对 HTML 文件禁用缓存
+// location ~* \.html$ {
+//   add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
+//   add_header Pragma "no-cache";
+//   add_header Expires 0;
+//   root /home/micro-service-hzz/front/hzz_front_pc;
+//   index index.html index.htm;
+//   try_files $uri $uri/ =404;
+// }
