@@ -9,10 +9,8 @@ export function generateForm(data: JFormItem[], keys = DATE_TIME_KEYS) {
     (form, item) => {
       // 重置时间范围类型的值
       if (item.prop === ' datetimerange') {
-        keys.forEach((key) => {
-          form[key] = ''
-        })
-        return form
+        form[keys[0]] = (item.default as any[])?.[0] ?? ''
+        form[keys[1]] = (item.default as any[])?.[1] ?? ''
       }
       form[item.prop] = item.default ?? ''
       return form

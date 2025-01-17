@@ -16,7 +16,7 @@
         <slot :name="`form-${prop}`" :form="scope.form" />
       </template>
 
-      <template #toolbar>
+      <template v-if="!!API.create || $slots.toolbar" #toolbar>
         <el-button v-if="!!API.create" type="primary" @click="createFn()">新增</el-button>
         <slot name="toolbar" />
       </template>
@@ -41,7 +41,7 @@
         >
           <slot :name="prop" :row="scope.row" />
 
-          <template v-if="prop === 'control'">
+          <template v-if="(!!API.update || !!API.delete) && prop === 'control'">
             <el-button
               v-if="!!API.update"
               type="primary"
@@ -121,6 +121,7 @@ interface Props {
   formFormator?: (data: Record<string, any>) => Record<string, any> // 搜索表单数据处理
   tableFormator?: (data: any[]) => any[] // 返回数据处理函数
   dialogFormator?: (data: Record<string, any>) => Record<string, any> // 弹窗表单数据处理
+  formDataFormatter?: (data: Record<string, any>) => Record<string, any> // 搜索表单数据处理
   formOptions?: JFormOptions // 搜索表单配置项
   tableOptions?: JTableOptions // 表格配置项
   dialogOptions?: JDialogOptions // 弹窗配置项
@@ -140,6 +141,7 @@ const {
   ...props
 } = defineProps<Props>()
 const emit = defineEmits(['onOriginDataChange']) // 原始数据变化会触发（例如增删改）
+const slots = defineSlots()
 
 // 请求接口定义
 const API: Api = {
@@ -182,7 +184,10 @@ const formSlots = computed(() => {
 
 // 计算需要自定义的表格插槽
 const tableSlots = computed(() => {
-  return props.tableOptions?.columns.filter(v => v.slot)
+  return props.tableOptions?.columns.filter((v) => {
+    if (v.prop === 'control') return !!(!!API.update || !!API.delete || slots.control)
+    return v.slot
+  })
 })
 
 // 计算需要自定义的弹窗插槽
@@ -206,7 +211,10 @@ function handleSearch(val?: any) {
 
   // val 存在代表是表单检索,需要从第一页开始
   if (val) current.value = 1
-  const data = props.formFormator?.(searchForm.value) || searchForm.value
+
+  // 切断与原表单联系，防止表单数据被修改
+  const formattedData = props.formDataFormatter?.(searchForm.value) || searchForm.value
+  const data = JSON.parse(JSON.stringify(formattedData))
 
   // tips 根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体后台情况来决定入参
   API.get({

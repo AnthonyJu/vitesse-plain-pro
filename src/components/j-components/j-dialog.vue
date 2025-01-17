@@ -124,7 +124,7 @@ if (JSON.stringify(form.value) === '{}') {
   form.value = generateForm(props.formItems)
 }
 
-const formRef = useTemplateRef<FormInstance>('formRef')
+const formRef = ref<FormInstance>()
 
 /** 弹窗关闭时重置表单 */
 function handleClose() {

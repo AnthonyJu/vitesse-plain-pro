@@ -1,5 +1,5 @@
 <template>
-  <ElForm
+  <el-form
     ref="formRef"
     :model="form" :disabled="loading" v-bind="formProps"
     @keydown.enter="onSearch"
@@ -96,16 +96,16 @@
     </template>
 
     <!-- 搜索与重置 -->
-    <el-form-item v-if="!hideSearch" class="mr-0">
+    <el-form-item v-if="!hideSearch" class="!mr-0">
       <el-button :loading="loading" :icon="Search as Component" type="primary" @click="onSearch">搜索</el-button>
       <el-button :icon="RefreshLeft" @click="resetForm">重置</el-button>
     </el-form-item>
 
     <!-- 工具栏 -->
-    <el-form-item class="mr-0" float-right pl-80px>
+    <el-form-item v-if="$slots.toolbar" class="mr-0" float-right pl-80px>
       <slot name="toolbar" />
     </el-form-item>
-  </ElForm>
+  </el-form>
 </template>
 
 <script setup lang="ts">
@@ -113,7 +113,6 @@ import type { FormInstance } from 'element-plus'
 import type { Component } from 'vue'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
 import Dayjs from 'dayjs'
-import { ElForm } from 'element-plus'
 import { generateForm } from './j-tools'
 
 interface Props {
@@ -186,7 +185,7 @@ const shortcuts = [
 ]
 
 // 定义表单ref
-const formRef = useTemplateRef<FormInstance>('formRef')
+const formRef = ref<FormInstance>()
 const form = defineModel<Record<string, any>>('form', { default: {} })
 if (JSON.stringify(form.value) === '{}') {
   form.value = {

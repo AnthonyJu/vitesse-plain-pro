@@ -2,7 +2,7 @@
   <div layout-default>
     <el-button type="primary" @click="visible = true">Open dialog</el-button>
 
-    <JDialog
+    <j-dialog
       v-model:visible="visible"
       v-model:form="formData"
       :loading="loading"

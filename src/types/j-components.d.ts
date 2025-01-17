@@ -82,7 +82,7 @@ declare global {
    * @interface JFormProps Form配置项
    */
   interface JFormProps extends Partial<Writable<FormProps>> {
-    dateTimeKeys?: string[]
+    dateTimeKeys?: [string, string]
   }
 
   /**

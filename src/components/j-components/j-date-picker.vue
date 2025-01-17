@@ -19,4 +19,12 @@ watch(
     deep: true,
   },
 )
+
+watch([startTime, endTime], () => {
+  const [start, end] = [startTime.value, endTime.value]
+  value.value = [start, end]
+})
+
+// TODO 两次问题
+// TODO JForm search btn 控制
 </script>

@@ -1,16 +1,17 @@
 <template>
   <el-table ref="tableRef" :data="data" v-bind="tableProps">
-    <el-table-column
-      v-for="col in columns"
-      :key="col.prop || col.type"
-      align="center"
-      show-overflow-tooltip
-      v-bind="col"
-    >
-      <template #default="scope">
-        <slot v-if="col.slot" :name="col.prop" :row="scope.row" />
-      </template>
-    </el-table-column>
+    <template v-for="col in columns" :key="col.prop || col.type">
+      <el-table-column
+        v-if="!col.slot || $slots[col.prop!]"
+        align="center"
+        show-overflow-tooltip
+        v-bind="col"
+      >
+        <template #default="scope">
+          <slot v-if="col.slot" :name="col.prop" :row="scope.row" />
+        </template>
+      </el-table-column>
+    </template>
   </el-table>
 </template>
 
@@ -25,7 +26,7 @@ interface Props {
 
 defineProps<Props>()
 
-const tableRef = useTemplateRef<TableInstance>('tableRef')
+const tableRef = ref<TableInstance>()
 
 defineExpose({ tableRef })
 </script>
