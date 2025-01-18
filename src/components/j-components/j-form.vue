@@ -35,14 +35,11 @@
         <JSelect
           v-if="fieldProps?.multiple"
           v-model="form[prop]"
-          :style="selectStyle"
-          :data="form[prop]"
           :options="options!"
           placeholder="请选择"
           clearable
-          v-bind="fieldProps"
+          v-bind="fieldProps as Partial<ISelectProps>"
         />
-
         <el-select
           v-else
           v-model="form[prop]"
@@ -109,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, ISelectProps } from 'element-plus'
 import type { Component } from 'vue'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
 import Dayjs from 'dayjs'

@@ -52,7 +52,7 @@ const formItems: JFormItem[] = [
     ],
   },
   {
-    prop: 'timeFrame',
+    prop: DATE_TIME_RANGE,
     label: '时间',
   },
 ]

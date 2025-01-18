@@ -1,6 +1,6 @@
 <!-- 仅适用于 multiple -->
 <template>
-  <el-select v-model="value" placeholder="请选择" v-bind="selectProps" multiple @change="handleChange">
+  <el-select v-model="value" placeholder="请选择" v-bind="$attrs" multiple>
     <el-option
       v-for="item in options"
       :key="item.label"
@@ -13,8 +13,7 @@
 <script setup lang='ts'>
 import type { ISelectProps } from 'element-plus'
 
-interface Props {
-  selectProps: Partial<ISelectProps>
+interface Props extends Partial<ISelectProps> {
   options: SelectOptionItem[]
   separator?: string
 }
@@ -31,6 +30,8 @@ watch(bindValue, (val) => {
   if (val) value.value = returnValue(val)
   else value.value = []
 })
+
+watch(value, handleChange)
 
 function returnValue(val: string) {
   return val.split(separator).filter(Boolean)

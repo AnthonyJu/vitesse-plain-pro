@@ -55,8 +55,7 @@
               <JSelect
                 v-if="fieldProps?.multiple"
                 v-model="form[prop]"
-                :data="form[prop]"
-                :options="options"
+                :options="options!"
                 placeholder="请选择"
                 clearable
                 v-bind="fieldProps"

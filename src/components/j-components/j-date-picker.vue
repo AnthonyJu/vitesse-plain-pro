@@ -1,6 +1,12 @@
 <!-- 仅适用于 datetimerrange -->
 <template>
-  <el-date-picker v-model="value" v-bind="$attrs" />
+  <el-date-picker
+    v-model="value"
+    range-separator="-"
+    start-placeholder="开始时间"
+    end-placeholder="结束时间"
+    v-bind="$attrs"
+  />
 </template>
 
 <script setup lang='ts'>
@@ -26,5 +32,4 @@ watch([startTime, endTime], () => {
 })
 
 // TODO 两次问题
-// TODO JForm search btn 控制
 </script>

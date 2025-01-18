@@ -39,7 +39,7 @@
           :key="prop"
           #[prop]="scope"
         >
-          <slot :name="prop" :row="scope.row" />
+          <slot :name="prop!" :row="scope.row" />
 
           <template v-if="(!!API.update || !!API.delete) && prop === 'control'">
             <el-button
