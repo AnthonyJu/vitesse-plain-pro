@@ -6,7 +6,7 @@
           <span>card title1</span>
         </div>
       </template>
-      card body content
+      card body content test
     </el-card>
     <div h-100px w-full rounded-2 bg-red @click="saveFile('/xx/fireStation.xlsx')" />
     <div h-1000px w-full rounded-2 bg-blue />
