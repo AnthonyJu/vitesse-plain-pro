@@ -15,7 +15,7 @@ export const baseMeta: RouteMeta = {
 }
 
 // 静态路由
-export const staticRoutes = ['/', '/login', '/401', '/:all(.*)']
+export const staticRoutes = ['/login', '/401', '/:all(.*)']
 
 // 系统菜单结构，也作为路由meta信息
 export const routes: RouteItem[] = [
@@ -247,6 +247,13 @@ export const routes: RouteItem[] = [
         },
       },
     ],
+  },
+  {
+    path: '/3d-scene',
+    meta: {
+      title: '3D 场景',
+      icon: 'carbon-3d-cursor',
+    },
   },
   {
     path: '/arcgis',

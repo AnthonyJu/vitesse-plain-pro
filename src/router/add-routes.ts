@@ -11,6 +11,10 @@ export function addStaticRoutes(router: Router) {
 
 // 添加动态路由
 export function addRoutes(router: Router, permissionPaths: string[]) {
+  // 添加根路径重定向
+  setRootRedirect(permissionPaths)
+
+  // 添加动态路由
   const flatRoutes = flatArr(routes)
   const newRoutes = filterRoute(generateRoutes, permissionPaths, flatRoutes)
   setupLayouts(newRoutes).forEach(route => router.addRoute(route))
@@ -40,4 +44,14 @@ function filterRoute(children: RouteRecordRaw[], permissionPaths: string[], flat
 
     return false
   })
+}
+
+// 根路径的重定向
+function setRootRedirect(permissionPaths: string[]) {
+  if (permissionPaths.includes(import.meta.env.VITE_REDIRECT_PATH)) {
+    generateRoutes.push({ path: '/', redirect: import.meta.env.VITE_REDIRECT_PATH })
+  }
+  else {
+    generateRoutes.push({ path: '/', redirect: permissionPaths[0] ?? '/401' })
+  }
 }
