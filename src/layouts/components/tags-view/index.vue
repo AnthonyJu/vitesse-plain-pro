@@ -1,34 +1,32 @@
 <template>
-  <div :style="{ height: `${tagsView.height}px` }" flex-items px-15px shadow-b>
+  <div class="tags-view mb-18px flex-items">
     <el-scrollbar
       ref="scrollbarRef"
-      class="w-full flex-1"
+      class="flex-1"
       view-class="h-full"
       @wheel.prevent="onHandleScroll"
     >
-      <div ref="dragEl" class="h-full w-fit flex-items gap-10px">
+      <div ref="dragEl" class="h-full flex-items gap-10px pb-12px">
         <el-tag
           v-for="tag in allTags"
           :key="tag.meta.isKeepAlive ? tag.name : tag.fullPath /** 目的是为了替换时不闪烁 */"
           :closable="!tag.meta.isAffix"
+          size="large"
           :effect="tag.fullPath === route.fullPath ? 'dark' : 'plain'"
-          class="cursor-pointer hover:opacity-90"
+          class="view-tag cursor-pointer rounded-8px"
           :class="{ draggable: !tag.meta.isAffix }"
           @click="$router.push(tag.fullPath!)"
           @close="tagsViewStore.closeTag(tag.fullPath!)"
           @contextmenu.prevent="handleContextMenu(tag, $event)"
         >
-          <div flex-items gap-5px>
-            <Iconify v-if="tag.meta.icon" :icon="tag.meta.icon" />
-            {{ tag.meta.title }}
-          </div>
+          <span class="px-5px !text-#fff">{{ tag.meta.title }}</span>
         </el-tag>
       </div>
     </el-scrollbar>
     <el-button
-      ml-15px
+      class="mb-12px ml-22px rounded-8px"
       type="primary"
-      size="small"
+      size="default"
       :icon="Refresh"
       @click="tagsViewStore.refreshTag"
     >
@@ -48,29 +46,14 @@ interface WheelEventType extends WheelEvent {
   wheelDelta: number
 }
 
-const themeStore = useThemeStore()
-const { tagsView, fullScreen } = storeToRefs(themeStore)
 const tagsViewStore = useTagsViewStore()
-const { allTags } = storeToRefs(tagsViewStore)
+const { allTags, activeTag } = storeToRefs(tagsViewStore)
 
 // 鼠标滚轮事件，横向滚动
-const scrollbarRef = useTemplateRef<ScrollbarInstance>('scrollbarRef')
+const scrollbarRef = ref<ScrollbarInstance>()
 function onHandleScroll(e: WheelEventType) {
   scrollbarRef.value!.wrapRef!.scrollLeft += e.wheelDelta / 4
 }
-
-// 监听路由变化，添加标签
-const route = useRoute()
-watch(
-  route,
-  () => {
-    tagsViewStore.addTag(route)
-  },
-  {
-    deep: true,
-    immediate: true,
-  },
-)
 
 // 设置 tagsView 可以进行拖拽
 const dragEl = useTemplateRef<HTMLElement>('dragEl')
@@ -78,7 +61,7 @@ useDraggable(dragEl, allTags, { draggable: '.draggable', animation: 150 })
 
 // 右键菜单功能
 const dropdown = ref({ x: 0, y: 0 })
-const contextmenuRef = useTemplateRef('contextmenuRef')
+const contextmenuRef = useTemplateRef<typeof Contextmenu>('contextmenuRef')
 function handleContextMenu(tag: RouteItem, e: MouseEvent) {
   const { clientX, clientY } = e
   dropdown.value.x = clientX
@@ -87,10 +70,6 @@ function handleContextMenu(tag: RouteItem, e: MouseEvent) {
 }
 function onContextmenuClick(id: number, fullPath: string) {
   switch (id) {
-    // 网页全屏
-    case 0:
-      fullScreen.value = true
-      break
     // 关闭右侧
     case 1:
       tagsViewStore.closeRightTags(fullPath)
@@ -106,14 +85,51 @@ function onContextmenuClick(id: number, fullPath: string) {
   }
 }
 
+// 监听路由变化，添加标签
+const route = useRoute()
+watch(
+  route,
+  () => {
+    tagsViewStore.addTag(route)
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
+)
+
+// 监听当前激活的标签，滚动到当前标签
+watch(
+  activeTag,
+  async (val) => {
+    if (val?.activeType === 'route') {
+      await nextTick()
+      // 等待标签完成动画
+      await new Promise(resolve => setTimeout(resolve, 500))
+      scrollbarRef.value?.update()
+    }
+
+    // 找到当前标签的索引
+    const index = allTags.value.findIndex(tag => tag.fullPath === activeTag.value?.fullPath)
+    dragEl.value?.children[index]?.scrollIntoView({
+      behavior: 'smooth',
+    })
+  },
+  {
+    deep: true,
+    immediate: true,
+  },
+)
+
 // 监听标签变化，更新滚动条
 watch(
   allTags,
   () => {
     nextTick(() => {
+      // 等待标签完成动画
       setTimeout(() => {
         scrollbarRef.value?.update()
-      }, 500) // 等待标签删除完成动画
+      }, 500)
     })
   },
   {

@@ -27,6 +27,7 @@ interface Meta {
 interface RouteItem {
   path: string
   meta: Meta
+  activeType: string
   name?: string
   keepAliveName?: string
   fullPath?: string

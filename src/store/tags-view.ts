@@ -38,6 +38,7 @@ export const useTagsViewStore = defineStore('tags-view', () => {
 
       // params中的id作为组件keepAliveName拼接
       const tag = {
+        activeType: 'route',
         keepAliveName: route.params.id ? `${route.name}_${route.params.id}` : route.name,
         name: route.name,
         path: route.path,
@@ -56,11 +57,16 @@ export const useTagsViewStore = defineStore('tags-view', () => {
 
       // 添加标签
       allTags.value.push(tag)
+      setActiveTag(tag)
     }
-
-    // 设置激活标签
-    const acTag = allTags.value.find(tag => tag.fullPath === route.fullPath)
-    setActiveTag(acTag!)
+    else {
+      // 设置激活标签
+      const acTag = allTags.value.find(tag => tag.fullPath === route.fullPath)
+      setActiveTag({
+        ...acTag!,
+        activeType: 'keep-alive',
+      })
+    }
   }
 
   // 设置激活标签
@@ -84,7 +90,7 @@ export const useTagsViewStore = defineStore('tags-view', () => {
 
   // 刷新标签
   function refreshTag() {
-    componentKey.value = 'componentKey'
+    componentKey.value = 'componentKey' // 用于强制刷新组件，无实际意义
     excludeKeepAliveNames.value = [activeTag.value!.keepAliveName!]
     // 等待刷新后，清空
     nextTick(() => {
@@ -118,6 +124,7 @@ export const useTagsViewStore = defineStore('tags-view', () => {
 
   return {
     allTags,
+    activeTag,
     keepAliveNames,
     componentKey,
     excludeKeepAliveNames,
