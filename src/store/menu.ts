@@ -34,7 +34,7 @@ export const useMenuStore = defineStore(
     function computedPath(acc: string[], cur: RouteItem) {
       acc.push(cur.path)
       // 存在子路由，则递归计算
-      if (cur.children) {
+      if (cur.children?.length) {
         // 过滤隐藏的子路由
         const children = cur.children.filter(item => !item.meta.isHide)
         // 有子路由，则递归计算

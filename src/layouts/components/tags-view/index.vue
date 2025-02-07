@@ -111,7 +111,8 @@ watch(
 
     // 找到当前标签的索引
     const index = allTags.value.findIndex(tag => tag.fullPath === activeTag.value?.fullPath)
-    dragEl.value?.children[index]?.scrollIntoView({
+    scrollbarRef.value?.scrollTo({
+      left: dragEl.value!.children[index].offsetLeft,
       behavior: 'smooth',
     })
   },
