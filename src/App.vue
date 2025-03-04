@@ -6,7 +6,9 @@
     :message="{ max: 3 }"
   >
     <Permission>
-      <router-view />
+      <Suspense>
+        <router-view />
+      </Suspense>
     </Permission>
   </el-config-provider>
 </template>

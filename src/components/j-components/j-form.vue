@@ -196,7 +196,6 @@ function onSearch() {
   // 校验表单，校验不通过则不执行搜索
   formRef.value?.validate().then(() => {
     const data = JSON.parse(JSON.stringify(form.value))
-    delete data[DATE_TIME_RANGE]
     emit('search', data)
   })
 }

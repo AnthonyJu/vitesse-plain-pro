@@ -215,6 +215,7 @@ function handleSearch(val?: any) {
   // 切断与原表单联系，防止表单数据被修改
   const formattedData = props.formDataFormatter?.(searchForm.value) || searchForm.value
   const data = JSON.parse(JSON.stringify(formattedData))
+  delete data[DATE_TIME_RANGE]
 
   // tips 根据是否有分页，来决定是否传入分页参数，若0不支持，则根据具体后台情况来决定入参
   API.get({

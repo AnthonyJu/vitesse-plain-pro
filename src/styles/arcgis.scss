@@ -1,4 +1,5 @@
-/* 去掉地图聚焦边框 */
+// 去掉地图聚焦边框
+.esri-view-surface--inset-outline:focus::after,
 .esri-view .esri-view-surface:focus::after {
   outline: none !important;
 }
