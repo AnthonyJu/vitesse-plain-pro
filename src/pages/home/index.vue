@@ -3,7 +3,7 @@
     <el-card shadow="always" :body-style="{ padding: '20px' }">
       <template #header>
         <div>
-          <span>card title1</span>
+          <span>card title122</span>
         </div>
       </template>
       card body content test
