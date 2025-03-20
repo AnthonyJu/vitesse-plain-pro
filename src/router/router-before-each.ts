@@ -13,6 +13,10 @@ export function routerBeforeEach(router: Router) {
       if (to.path === '/login') {
         next()
       }
+      // 未登录，去根路由，要跳转到登录页面
+      else if (to.path === '/') {
+        next('/login')
+      }
       // 未登录，去非白名单页面，则跳转到登录页面
       else if (staticRoutes.includes(to.path)) {
         next('/login')
