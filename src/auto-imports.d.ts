@@ -365,7 +365,6 @@ declare module 'vue' {
     readonly DATE_TIME_RANGE: UnwrapRef<typeof import('./constants/index')['DATE_TIME_RANGE']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
-    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly Emitter: UnwrapRef<typeof import('./hooks/emitter')['Emitter']>
     readonly Local: UnwrapRef<typeof import('./utils/storage')['Local']>
     readonly QUERY_TAG_NAME: UnwrapRef<typeof import('./constants/index')['QUERY_TAG_NAME']>
