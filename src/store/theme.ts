@@ -48,11 +48,11 @@ export const useThemeStore = defineStore(
 
     // 标签页
     const tagsView = ref({
-      height: 40,
+      height: 56,
       show: true,
     })
 
-    // header实际高度
+    // header实际高度 = header高度 + tagsView高度
     const headerHeight = computed(() => {
       return `${header.value.height + (tagsView.value.show ? tagsView.value.height : 0)}px`
     })

@@ -1,8 +1,8 @@
 <template>
-  <div class="tags-view mb-18px flex-items">
+  <div :style="{ height: `${themeStore.tagsView.height}px` }" class="flex-items px-15px">
     <el-scrollbar
       ref="scrollbarRef"
-      class="flex-1"
+      class="mt-12px flex-1"
       view-class="h-full"
       @wheel.prevent="onHandleScroll"
     >
@@ -13,18 +13,19 @@
           :closable="!tag.meta.isAffix"
           size="large"
           :effect="tag.fullPath === route.fullPath ? 'dark' : 'plain'"
-          class="view-tag cursor-pointer rounded-8px"
+          class="cursor-pointer rounded-8px"
           :class="{ draggable: !tag.meta.isAffix }"
           @click="$router.push(tag.fullPath!)"
           @close="tagsViewStore.closeTag(tag.fullPath!)"
           @contextmenu.prevent="handleContextMenu(tag, $event)"
         >
-          <span class="px-5px !text-#fff">{{ tag.meta.title }}</span>
+          <i v-if="tag.meta.icon" :class="tag.meta.icon" />
+          <span class="px-5px">{{ tag.meta.title }}</span>
         </el-tag>
       </div>
     </el-scrollbar>
     <el-button
-      class="mb-12px ml-22px rounded-8px"
+      class="my-12px ml-15px rounded-8px"
       type="primary"
       size="default"
       :icon="Refresh"
@@ -45,6 +46,8 @@ import Contextmenu from './components/context-menu.vue'
 interface WheelEventType extends WheelEvent {
   wheelDelta: number
 }
+
+const themeStore = useThemeStore()
 
 const tagsViewStore = useTagsViewStore()
 const { allTags, activeTag } = storeToRefs(tagsViewStore)
