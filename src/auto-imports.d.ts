@@ -8,7 +8,6 @@ export {}
 declare global {
   const DATE_TIME_KEYS: typeof import('./constants/index')['DATE_TIME_KEYS']
   const DATE_TIME_RANGE: typeof import('./constants/index')['DATE_TIME_RANGE']
-  const DATE_TIME_RANGE_PROP: typeof import('./constants/index')['DATE_TIME_RANGE_PROP']
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
@@ -46,20 +45,16 @@ declare global {
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
-  const downLoadTem: typeof import('./utils/common')['downLoadTem']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const eleRegexValidate: typeof import('./utils/validate')['eleRegexValidate']
-  const exportTem: typeof import('./utils/common')['exportTem']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const flatArr: typeof import('./utils/tool-functions')['flatArr']
-  const generateForm: typeof import('./components/j-components/tools')['tools']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
-  const importTem: typeof import('./utils/common')['importTem']
   const info_regex: typeof import('./utils/validate')['info_regex']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
@@ -365,6 +360,7 @@ declare module 'vue' {
     readonly DATE_TIME_RANGE: UnwrapRef<typeof import('./constants/index')['DATE_TIME_RANGE']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly Emitter: UnwrapRef<typeof import('./hooks/emitter')['Emitter']>
     readonly Local: UnwrapRef<typeof import('./utils/storage')['Local']>
     readonly QUERY_TAG_NAME: UnwrapRef<typeof import('./constants/index')['QUERY_TAG_NAME']>

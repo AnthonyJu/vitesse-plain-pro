@@ -256,6 +256,13 @@ export const routes: RouteItem[] = [
     },
   },
   {
+    path: '/cesium',
+    meta: {
+      title: 'Cesium',
+      icon: 'carbon-3d-print-mesh',
+    },
+  },
+  {
     path: '/arcgis',
     meta: {
       title: 'ArcGIS',
