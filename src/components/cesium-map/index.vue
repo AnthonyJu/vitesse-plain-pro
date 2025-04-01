@@ -1,5 +1,5 @@
 <template>
-  <div id="cesium-map" class="relative full">
+  <div id="cesium-map" class="cesium-map relative full">
     <div class="absolute bottom-10px left-10px z-10">
       <slot name="left-bottom" />
       <ScaleBar />
@@ -20,9 +20,9 @@ import {
   CameraEventType,
   Cartesian3,
   CesiumTerrainProvider,
+  Math as CMath,
   Color,
   GeoJsonDataSource,
-  Math,
   SceneMode,
   Terrain,
   UrlTemplateImageryProvider,
@@ -43,7 +43,14 @@ const subdomains = ['0', '1', '2', '3', '4', '5', '6', '7']
 const viewer = shallowRef<Viewer | null>(null)
 provide('viewer', viewer)
 
-const center = Cartesian3.fromDegrees(103.84, 31.15, 15000000)
+const center = {
+  destination: Cartesian3.fromDegrees(103.84, 31.15, 15000000),
+  orientation: {
+    heading: CMath.toRadians(360),
+    pitch: CMath.toRadians(-90),
+    roll: CMath.toRadians(0),
+  },
+}
 
 function initCesiumMap() {
   viewer.value = new Viewer('cesium-map', {
@@ -74,14 +81,7 @@ function initCesiumMap() {
   viewer.value.scene.screenSpaceCameraController.tiltEventTypes = [CameraEventType.RIGHT_DRAG]
 
   // 将三维球定位到中国
-  viewer.value!.camera.setView({
-    destination: center,
-    orientation: {
-      heading: Math.toRadians(360),
-      pitch: Math.toRadians(-90),
-      roll: Math.toRadians(0),
-    },
-  })
+  viewer.value!.camera.setView(center)
 }
 
 function addLayerServer() {
@@ -148,4 +148,24 @@ onMounted(() => {
 
 <style lang='scss' scoped>
 @import "cesium/Build/Cesium/Widgets/widgets.css";
+</style>
+
+<style lang='scss'>
+.cesium-map {
+  .tool-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    cursor: pointer;
+    background-color: rgb(0 0 0 / 60%);
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgb(0 0 0 / 80%);
+    }
+  }
+}
 </style>
