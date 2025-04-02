@@ -35,9 +35,6 @@ importers:
       axios:
         specifier: ^1.8.3
         version: 1.8.3
-      cesium:
-        specifier: ^1.127.0
-        version: 1.127.0
       cropperjs:
         specifier: ^2.0.0
         version: 2.0.0
@@ -71,6 +68,9 @@ importers:
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
+      pako:
+        specifier: ^2.1.0
+        version: 2.1.0
       pinia:
         specifier: ^3.0.1
         version: 3.0.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2))
@@ -92,6 +92,9 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.2)
+      vue-cesium:
+        specifier: ^3.2.9
+        version: 3.2.9(@types/lodash-es@4.17.7)(vue@3.5.13(typescript@5.8.2))
       vue-countup-v3:
         specifier: ^1.4.2
         version: 1.4.2(vue@3.5.13(typescript@5.8.2))
@@ -233,7 +236,7 @@ importers:
         version: 1.2.1(rollup@4.34.9)
       vite-plugin-cesium:
         specifier: ^1.2.23
-        version: 1.2.23(cesium@1.127.0)(rollup@4.34.9)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(terser@5.24.0)(tsx@4.19.1)(yaml@2.7.0))
+        version: 1.2.23(cesium@1.128.0)(rollup@4.34.9)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(terser@5.24.0)(tsx@4.19.1)(yaml@2.7.0))
       vite-plugin-pwa:
         specifier: ^0.21.1
         version: 0.21.1(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(terser@5.24.0)(tsx@4.19.1)(yaml@2.7.0))(workbox-build@7.1.1)(workbox-window@7.1.0)
@@ -258,6 +261,9 @@ packages:
 
   '@alvarosabu/utils@3.2.0':
     resolution: {integrity: sha512-aoGWRfaQjOo9TUwrBA6W0zwTHktgrXy69GIFNILT4gHsqscw6+X8P6uoSlZVQFr887SPm8x3aDin5EBVq8y4pw==}
+
+  '@amap/amap-jsapi-loader@1.0.1':
+    resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -1013,12 +1019,12 @@ packages:
     resolution: {integrity: sha512-Y3IR1cRnOxOCDvMmNiym7XpXQ93iGDDPHx+Zj+NM+rg0fBaShfQLkg+hKPaZCEvg5N/LeCo4+Rj/i3FuJsIQaw==}
     engines: {node: '>=6.9.0'}
 
-  '@cesium/engine@15.0.0':
-    resolution: {integrity: sha512-jimj7khIf/mBkejsMZ+n6Y9PPvXh4QmWKkz2ekFz59icDCeGj8ZJrzl5p0caqiK/372mnHOwmYFWYEwThEw2ew==}
+  '@cesium/engine@16.0.0':
+    resolution: {integrity: sha512-UWg9Hpq1r6muy0fs8ypMUpCGhFJ1n8cNHWWwJakTKtstDWzYGESHROx8QlpfNYMTrxYqwLN4svdvWkIEeVjfoA==}
     engines: {node: '>=14.0.0'}
 
-  '@cesium/widgets@11.0.0':
-    resolution: {integrity: sha512-4ELgFuU2uwkvD6NI9MHIWNFKjmyI9wlDzZ9NuoPFSnUhf9XfVBI8sJekGx5dijxjK2S3aCuxB3dtUkdDZEsQmA==}
+  '@cesium/widgets@11.1.0':
+    resolution: {integrity: sha512-AXuW3Q60TVcmFYAbxNmHN47cb6kF5LtNUvVjB+Hw/y4Vl8I4MJUOjT3W5TI2Kdk6n5wOw3Ua6QQVuSw4IqU9gw==}
     engines: {node: '>=14.0.0'}
 
   '@clack/core@0.4.1':
@@ -2169,6 +2175,9 @@ packages:
   '@turf/centroid@7.2.0':
     resolution: {integrity: sha512-yJqDSw25T7P48au5KjvYqbDVZ7qVnipziVfZ9aSo7P2/jTE7d4BP21w0/XLi3T/9bry/t9PR1GDDDQljN4KfDw==}
 
+  '@turf/circle@6.5.0':
+    resolution: {integrity: sha512-oU1+Kq9DgRnoSbWFHKnnUdTmtcRUMmHoV9DjTXu9vOLNV5OWtAAh1VZ+mzsioGGzoDNT/V5igbFOkMfBQc0B6A==}
+
   '@turf/circle@7.2.0':
     resolution: {integrity: sha512-1AbqBYtXhstrHmnW6jhLwsv7TtmT0mW58Hvl1uZXEDM1NCVXIR50yDipIeQPjrCuJ/Zdg/91gU8+4GuDCAxBGA==}
 
@@ -2198,6 +2207,9 @@ packages:
 
   '@turf/convex@7.2.0':
     resolution: {integrity: sha512-HsgHm+zHRE8yPCE/jBUtWFyaaBmpXcSlyHd5/xsMhSZRImFzRzBibaONWQo7xbKZMISC3Nc6BtUjDi/jEVbqyA==}
+
+  '@turf/destination@6.5.0':
+    resolution: {integrity: sha512-4cnWQlNC8d1tItOz9B4pmJdWpXqS0vEvv65bI/Pj/genJnsL7evI0/Xw42RvEGROS481MPiU80xzvwxEvhQiMQ==}
 
   '@turf/destination@7.2.0':
     resolution: {integrity: sha512-8DUxtOO0Fvrh1xclIUj3d9C5WS20D21F5E+j+X9Q+ju6fcM4huOqTg5ckV1DN2Pg8caABEc5HEZJnGch/5YnYQ==}
@@ -2235,6 +2247,9 @@ packages:
   '@turf/great-circle@7.2.0':
     resolution: {integrity: sha512-n30OiADyOKHhor0aXNgYfXQYXO3UtsOKmhQsY1D89/Oh1nCIXG/1ZPlLL9ZoaRXXBTUBjh99a+K8029NQbGDhw==}
 
+  '@turf/helpers@6.5.0':
+    resolution: {integrity: sha512-VbI1dV5bLFzohYYdgqwikdMVpe7pJ9X3E+dlr425wa2/sMJqYDhTO++ec38/pcPvPE6oD9WEEeU3Xu3gza+VPw==}
+
   '@turf/helpers@7.2.0':
     resolution: {integrity: sha512-cXo7bKNZoa7aC7ydLmUR02oB3IgDe7MxiPuRz3cCtYQHn+BJ6h1tihmamYDWWUlPHgSNF0i3ATc4WmDECZafKw==}
 
@@ -2246,6 +2261,9 @@ packages:
 
   '@turf/intersect@7.2.0':
     resolution: {integrity: sha512-81GMzKS9pKqLPa61qSlFxLFeAC8XbwyCQ9Qv4z6o5skWk1qmMUbEHeMqaGUTEzk+q2XyhZ0sju1FV4iLevQ/aw==}
+
+  '@turf/invariant@6.5.0':
+    resolution: {integrity: sha512-Wv8PRNCtPD31UVbdJE/KVAWKe7l6US+lJItRR/HOEW3eh+U/JwRCSUl/KZ7bmjM/C+zLNoreM2TU6OoLACs4eg==}
 
   '@turf/invariant@7.2.0':
     resolution: {integrity: sha512-kV4u8e7Gkpq+kPbAKNC21CmyrXzlbBgFjO1PhrHPgEdNqXqDawoZ3i6ivE3ULJj2rSesCjduUaC/wyvH/sNr2Q==}
@@ -2994,6 +3012,9 @@ packages:
     resolution: {integrity: sha512-BtonQ1/jDnGiMed6OkV6rZYW78gLmLswkHOzyMrMb+CAR7CZO8phOHO6c2qw6qb1g1betN7kwEHhhZk30dv+NA==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=16.5.0'}
 
+  '@zouyaoji/heatmap.js@2.0.8':
+    resolution: {integrity: sha512-kBQny/zOUFH2OFoVyu6IdGJEcQMENIAASUsaZhk+OuJ9WexsYf6EU2lCyGURcsFly1kTMZKODlV7nBTCgfvJqg==}
+
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
@@ -3302,8 +3323,8 @@ packages:
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
 
-  cesium@1.127.0:
-    resolution: {integrity: sha512-MRGkPb3ClEkAI9viZxxdD3LCu7ydOzOKdJ6/iPtBx1GUsPCZNbgB0IH7wmhwgbxA5sjv4/a90+mvR9CoLP1PWQ==}
+  cesium@1.128.0:
+    resolution: {integrity: sha512-L9aTFHvRG4wQ3JddhOG4rX/MW/7q8YuXPyKlCuhcqzIfz3SuzANZAOdFxgqvsu+oC6t43pNBSyUIajygc/VY0A==}
     engines: {node: '>=18.18.0'}
 
   cfb@1.2.2:
@@ -3434,6 +3455,9 @@ packages:
   common-tags@1.8.2:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
+
+  compare-versions@6.1.1:
+    resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
 
   compatx@0.1.8:
     resolution: {integrity: sha512-jcbsEAR81Bt5s1qOFymBufmCbXCXbk0Ql+K5ouj6gCyx2yHlu6AgmGIi9HxfKixpUDO5bCFJUHQ5uM6ecbTebw==}
@@ -5227,12 +5251,15 @@ packages:
   meshoptimizer@0.18.1:
     resolution: {integrity: sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw==}
 
-  meshoptimizer@0.22.0:
-    resolution: {integrity: sha512-IebiK79sqIy+E4EgOr+CAw+Ke8hAspXKzBd0JdgEmPHiAwmvEj2S4h1rfvo+o/BnfEYd/jAOg5IeeIjzlzSnDg==}
+  meshoptimizer@0.23.0:
+    resolution: {integrity: sha512-zAZcfhHE3wBbwEN8MfCMI9PKRyOpz8491wcR2dxkv3IlNwDZrq2hEs5JZVtzfBrmjWhBZZtZZUO0OBSNFq5iUQ==}
 
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
     engines: {node: '>= 0.6'}
+
+  mgrs@1.0.0:
+    resolution: {integrity: sha512-awNbTOqCxK1DBGjalK3xqWIstBZgN6fxsMSiXLs9/spqWkF2pAhb2rrYCFSsr1/tT7PhcDGjZndG8SWYn0byYA==}
 
   micromark-core-commonmark@2.0.1:
     resolution: {integrity: sha512-CUQyKr1e///ZODyD1U3xit6zXwy1a8q2a1S1HKtIlmgvurrEpaw/Y9y6KSIbF8P59cn/NjzHyO+Q2fAyYLQrAA==}
@@ -5866,6 +5893,9 @@ packages:
   progress@2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
+
+  proj4@2.15.0:
+    resolution: {integrity: sha512-LqCNEcPdI03BrCHxPLj29vsd5afsm+0sV1H/O3nTDKrv8/LA01ea1z4QADDMjUqxSXWnrmmQDjqFm1J/uZ5RLw==}
 
   property-information@7.0.0:
     resolution: {integrity: sha512-7D/qOz/+Y4X/rzSB6jKxKUsQnphO046ei8qxG59mtM3RG3DHgTK81HrxrmoDVINJb8NKT5ZsRbwHvQ6B68Iyhg==}
@@ -7091,6 +7121,11 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
+  vue-cesium@3.2.9:
+    resolution: {integrity: sha512-MOgxAfIL+qYT608n+Bqioz2NbAM9pTWztzZ2gOqfHMxNeOFGROCUFatrzCP/OhndeEH8hbqdnGyxt1bHV9+dzQ==}
+    peerDependencies:
+      vue: ^3.2.47
+
   vue-countup-v3@1.4.2:
     resolution: {integrity: sha512-nRC65jBcdgwybxqztgd/WaK8ZN5T9ECPyiCFGYFMewCsvqdRVo1CtpT7JREcPNF837Fgu/izTSFiuzrIGD6w0A==}
     peerDependencies:
@@ -7222,6 +7257,9 @@ packages:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
     hasBin: true
+
+  wkt-parser@1.4.0:
+    resolution: {integrity: sha512-qpwO7Ihds/YYDTi1aADFTI1Sm9YC/tTe3SHD24EeIlZxy7Ik6a1b4HOz7jAi0xdUAw487duqpo8OGu+Tf4nwlQ==}
 
   wmf@1.0.2:
     resolution: {integrity: sha512-/p9K7bEh0Dj6WbXg4JG0xvLQmIadrner1bi45VMJTfnbVHsc7yIajZyoSoK60/dtVBs12Fm6WkUI5/3WAVsNMw==}
@@ -7386,6 +7424,8 @@ snapshots:
   '@aashutoshrathi/word-wrap@1.2.6': {}
 
   '@alvarosabu/utils@3.2.0': {}
+
+  '@amap/amap-jsapi-loader@1.0.1': {}
 
   '@ampproject/remapping@2.3.0':
     dependencies:
@@ -8443,7 +8483,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@cesium/engine@15.0.0':
+  '@cesium/engine@16.0.0':
     dependencies:
       '@tweenjs/tween.js': 25.0.0
       '@zip.js/zip.js': 2.7.57
@@ -8458,16 +8498,16 @@ snapshots:
       ktx-parse: 1.0.0
       lerc: 2.0.0
       mersenne-twister: 1.1.0
-      meshoptimizer: 0.22.0
+      meshoptimizer: 0.23.0
       pako: 2.1.0
       protobufjs: 7.4.0
       rbush: 3.0.1
       topojson-client: 3.1.0
       urijs: 1.19.11
 
-  '@cesium/widgets@11.0.0':
+  '@cesium/widgets@11.1.0':
     dependencies:
-      '@cesium/engine': 15.0.0
+      '@cesium/engine': 16.0.0
       nosleep.js: 0.12.0
 
   '@clack/core@0.4.1':
@@ -9708,6 +9748,11 @@ snapshots:
       '@types/geojson': 7946.0.16
       tslib: 2.8.1
 
+  '@turf/circle@6.5.0':
+    dependencies:
+      '@turf/destination': 6.5.0
+      '@turf/helpers': 6.5.0
+
   '@turf/circle@7.2.0':
     dependencies:
       '@turf/destination': 7.2.0
@@ -9791,6 +9836,11 @@ snapshots:
       '@types/geojson': 7946.0.16
       concaveman: 1.2.1
       tslib: 2.8.1
+
+  '@turf/destination@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+      '@turf/invariant': 6.5.0
 
   '@turf/destination@7.2.0':
     dependencies:
@@ -9886,6 +9936,8 @@ snapshots:
       '@turf/invariant': 7.2.0
       '@types/geojson': 7946.0.16
 
+  '@turf/helpers@6.5.0': {}
+
   '@turf/helpers@7.2.0':
     dependencies:
       '@types/geojson': 7946.0.16
@@ -9922,6 +9974,10 @@ snapshots:
       '@types/geojson': 7946.0.16
       polyclip-ts: 0.16.8
       tslib: 2.8.1
+
+  '@turf/invariant@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
 
   '@turf/invariant@7.2.0':
     dependencies:
@@ -11450,6 +11506,8 @@ snapshots:
 
   '@zip.js/zip.js@2.7.57': {}
 
+  '@zouyaoji/heatmap.js@2.0.8': {}
+
   accepts@1.3.8:
     dependencies:
       mime-types: 2.1.35
@@ -11800,10 +11858,10 @@ snapshots:
 
   ccount@2.0.1: {}
 
-  cesium@1.127.0:
+  cesium@1.128.0:
     dependencies:
-      '@cesium/engine': 15.0.0
-      '@cesium/widgets': 11.0.0
+      '@cesium/engine': 16.0.0
+      '@cesium/widgets': 11.1.0
 
   cfb@1.2.2:
     dependencies:
@@ -11927,6 +11985,8 @@ snapshots:
   comment-parser@1.4.1: {}
 
   common-tags@1.8.2: {}
+
+  compare-versions@6.1.1: {}
 
   compatx@0.1.8: {}
 
@@ -13956,9 +14016,11 @@ snapshots:
 
   meshoptimizer@0.18.1: {}
 
-  meshoptimizer@0.22.0: {}
+  meshoptimizer@0.23.0: {}
 
   methods@1.1.2: {}
+
+  mgrs@1.0.0: {}
 
   micromark-core-commonmark@2.0.1:
     dependencies:
@@ -14646,6 +14708,11 @@ snapshots:
   process@0.11.10: {}
 
   progress@2.0.3: {}
+
+  proj4@2.15.0:
+    dependencies:
+      mgrs: 1.0.0
+      wkt-parser: 1.4.0
 
   property-information@7.0.0: {}
 
@@ -15944,9 +16011,9 @@ snapshots:
     dependencies:
       vite: 6.2.2(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(terser@5.24.0)(tsx@4.19.1)(yaml@2.7.0)
 
-  vite-plugin-cesium@1.2.23(cesium@1.127.0)(rollup@4.34.9)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(terser@5.24.0)(tsx@4.19.1)(yaml@2.7.0)):
+  vite-plugin-cesium@1.2.23(cesium@1.128.0)(rollup@4.34.9)(vite@6.2.2(@types/node@22.13.10)(jiti@2.4.2)(sass@1.85.1)(terser@5.24.0)(tsx@4.19.1)(yaml@2.7.0)):
     dependencies:
-      cesium: 1.127.0
+      cesium: 1.128.0
       fs-extra: 9.1.0
       rollup-plugin-external-globals: 0.6.1(rollup@4.34.9)
       serve-static: 1.15.0
@@ -16152,6 +16219,25 @@ snapshots:
 
   vscode-uri@3.0.8: {}
 
+  vue-cesium@3.2.9(@types/lodash-es@4.17.7)(vue@3.5.13(typescript@5.8.2)):
+    dependencies:
+      '@amap/amap-jsapi-loader': 1.0.1
+      '@turf/circle': 6.5.0
+      '@vue/shared': 3.5.13
+      '@zouyaoji/heatmap.js': 2.0.8
+      compare-versions: 6.1.1
+      echarts: 5.6.0
+      kdbush: 4.0.2
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      lodash-unified: 1.0.3(@types/lodash-es@4.17.7)(lodash-es@4.17.21)(lodash@4.17.21)
+      mitt: 3.0.1
+      proj4: 2.15.0
+      urijs: 1.19.11
+      vue: 3.5.13(typescript@5.8.2)
+    transitivePeerDependencies:
+      - '@types/lodash-es'
+
   vue-countup-v3@1.4.2(vue@3.5.13(typescript@5.8.2)):
     dependencies:
       countup.js: 2.8.0
@@ -16274,6 +16360,8 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  wkt-parser@1.4.0: {}
 
   wmf@1.0.2: {}
 
