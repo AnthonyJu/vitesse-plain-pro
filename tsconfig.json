@@ -19,6 +19,8 @@
       "vite/client",
       "vite-plugin-pwa/client",
       "vite-plugin-vue-layouts/client",
+      "vue-cesium/Cesium",
+      "vue-cesium/global"
     ],
     "allowJs": true,
     "strict": true,
@@ -30,6 +32,11 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
+  "include": [
+    "src/**/*",
+    "node_modules/vue-cesium/Cesium.d.ts",
+    "node_modules/vue-cesium/global.d.ts"
+  ],
   "exclude": [
     "dist",
     "public",

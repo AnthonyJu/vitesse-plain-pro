@@ -5,13 +5,14 @@
         <VcLayerImagery v-for="item in tdtLayer" :key="item.name">
           <VcImageryProviderUrltemplate v-bind="item" />
         </VcLayerImagery>
+        <ScaleBar />
         <slot />
       </VcViewer>
     </VcConfigProvider>
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup>
 import { TdtTerrainProvider } from '@/utils/cesium/GeoTerrainProvider'
 import {
   VcConfigProvider,
@@ -19,6 +20,7 @@ import {
   VcLayerImagery,
   VcViewer,
 } from 'vue-cesium'
+import ScaleBar from './scale-bar/index.vue'
 import 'vue-cesium/dist/index.css'
 
 // Cesium 资源路径
