@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="show"
     class="flex-bc gap-6px rounded-2px bg-#0006 text-12px text-white"
     position="absolute bottom-10px left-10px z-10"
     p="x-6xp y-2xp"
@@ -15,13 +16,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { DEFAULT_CESIUM_ID } from '@/constants'
 import { Cartesian2, defined, EllipsoidGeodesic, Math, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
+// @ts-expect-error useVueCesium
 import { useVueCesium } from 'vue-cesium'
 
-const vc = useVueCesium()
+const { cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
+  cesiumId?: string
+}>()
 
+const show = ref(false)
+
+const vc = useVueCesium(cesiumId)
 vc.creatingPromise.then(() => {
+  show.value = true
   onMouseMove()
   vc.viewer.scene.postRender.addEventListener(cesiumScale)
 })
@@ -31,7 +40,7 @@ const lnglat = ref('')
 function onMouseMove() {
   const handler = new ScreenSpaceEventHandler(vc.viewer.scene.canvas)
 
-  handler.setInputAction((e) => {
+  handler.setInputAction((e: any) => {
     const scene = vc.viewer.scene
     const cartesian = scene.pickPosition(e.endPosition)
     if (cartesian) {

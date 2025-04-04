@@ -5,23 +5,25 @@
         <VcLayerImagery v-for="item in tdtLayer" :key="item.name">
           <VcImageryProviderUrltemplate v-bind="item" />
         </VcLayerImagery>
-        <ScaleBar />
         <slot />
       </VcViewer>
     </VcConfigProvider>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// @ts-expect-error no exported
+import type { VcReadyObject } from 'vue-cesium'
+import { DEFAULT_CESIUM_ID } from '@/constants'
 import { TdtTerrainProvider } from '@/utils/cesium/GeoTerrainProvider'
-import {
-  VcConfigProvider,
-  VcImageryProviderUrltemplate,
-  VcLayerImagery,
-  VcViewer,
-} from 'vue-cesium'
-import ScaleBar from './scale-bar/index.vue'
+import { CameraEventType } from 'cesium'
+// @ts-expect-error no exported
+import { VcConfigProvider, VcImageryProviderUrltemplate, VcLayerImagery, VcViewer } from 'vue-cesium'
 import 'vue-cesium/dist/index.css'
+
+const { cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
+  cesiumId?: string
+}>()
 
 // Cesium 资源路径
 const cesiumPath = `${location.origin + location.pathname}Cesium/Cesium.js`
@@ -29,13 +31,13 @@ const cesiumPath = `${location.origin + location.pathname}Cesium/Cesium.js`
 // Cesium Viewer 配置
 const viewerConfig = {
   cesiumPath,
+  containerId: cesiumId,
   sceneMode: 3,
   showCredit: false,
   skeleton: false,
-  containerId: 'cesiumContainer',
-  // showRenderLoopErrors: false,
   infoBox: false,
   selectionIndicator: false,
+  showRenderLoopErrors: false,
 }
 
 // 4d7cd169dc5eb26f19c59253685bc202，c9e1d3593f3cc3065d6546f425957ec3，2fc9d4c3ef688d81e9b943d172452123
@@ -60,10 +62,19 @@ const tdtLayer = [
   },
 ]
 
-// 天地图地形图层
-function onReady({ Cesium, viewer }) {
-  const TerrainProvider = TdtTerrainProvider(Cesium)
-  viewer.terrainProvider = new TerrainProvider({
+// VueCesium 实例准备完成
+function onReady(vc: VcReadyObject) {
+  // 设置最小和最大缩放距离
+  vc.viewer.scene.screenSpaceCameraController.minimumZoomDistance = 100
+  vc.viewer.scene.screenSpaceCameraController.maximumZoomDistance = 15000000
+
+  // 设置鼠标事件
+  vc.viewer.scene.screenSpaceCameraController.zoomEventTypes = [CameraEventType.WHEEL]
+  vc.viewer.scene.screenSpaceCameraController.tiltEventTypes = [CameraEventType.RIGHT_DRAG]
+
+  // 天地图地形图层
+  const TerrainProvider = TdtTerrainProvider(vc.Cesium)
+  vc.viewer.terrainProvider = new TerrainProvider({
     url: `${tdtUrl}mapservice/swdx?T=elv_c&x={x}&y={y}&l={z}&tk=${tdtToken}`,
     subdomains: tdtSubdomains,
   })

@@ -8,6 +8,7 @@ export {}
 declare global {
   const DATE_TIME_KEYS: typeof import('./constants/index')['DATE_TIME_KEYS']
   const DATE_TIME_RANGE: typeof import('./constants/index')['DATE_TIME_RANGE']
+  const DEFAULT_CESIUM_ID: typeof import('./constants/index')['DEFAULT_CESIUM_ID']
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
@@ -358,6 +359,7 @@ declare module 'vue' {
   interface ComponentCustomProperties {
     readonly DATE_TIME_KEYS: UnwrapRef<typeof import('./constants/index')['DATE_TIME_KEYS']>
     readonly DATE_TIME_RANGE: UnwrapRef<typeof import('./constants/index')['DATE_TIME_RANGE']>
+    readonly DEFAULT_CESIUM_ID: UnwrapRef<typeof import('./constants/index')['DEFAULT_CESIUM_ID']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>

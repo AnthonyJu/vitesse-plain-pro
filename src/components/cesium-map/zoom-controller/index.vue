@@ -1,6 +1,11 @@
 <template>
-  <div id="zoom-control" class="flex-col-center gap-5px">
-    <div class="tool-btn" title="复原" @click="resetMap">
+  <div
+    v-if="show"
+    class="flex-col-center gap-5px"
+    position="absolute bottom-10px right-10px z-10"
+  >
+    <!-- 复原 -->
+    <div class="zoom-btn" title="复原" @click="resetMap">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32">
         <path
           fill="currentColor"
@@ -43,13 +48,14 @@
       </svg>
     </div>
 
+    <!-- 缩放 -->
     <div class="flex-col-center overflow-hidden rounded-5px">
-      <div class="tool-btn rounded-0!" title="放大" @click="zoomIn">
+      <div class="zoom-btn rounded-0!" title="放大" @click="zoomIn">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32">
           <path fill="currentColor" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z" />
         </svg>
       </div>
-      <div class="tool-btn rounded-0!" title="缩小" @click="zoomOut">
+      <div class="zoom-btn rounded-0!" title="缩小" @click="zoomOut">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32">
           <path fill="currentColor" d="M8 15h16v2H8z" />
         </svg>
@@ -59,11 +65,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Camera, Scene, Viewer } from 'cesium'
-import type { ShallowRef } from 'vue'
+import type { Camera, Scene } from 'cesium'
+import { DEFAULT_CESIUM_ID } from '@/constants'
 import { Cartesian3, Ellipsoid, IntersectionTests, Ray, SceneMode } from 'cesium'
+// @ts-expect-error no exported
+import { useVueCesium } from 'vue-cesium'
 
-const { center } = defineProps<{
+const { center, cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
+  cesiumId?: string
   center: {
     destination: Cartesian3
     orientation: {
@@ -74,19 +83,25 @@ const { center } = defineProps<{
   }
 }>()
 
-const viewer = inject('viewer') as ShallowRef<Viewer | null>
+const show = ref(false)
+const vc = useVueCesium(cesiumId)
+vc.creatingPromise.then(() => {
+  show.value = true
+})
 
+// 复原地图视角
 function resetMap() {
-  viewer.value?.camera.flyTo({
+  vc.viewer.camera.flyTo({
     ...center,
     duration: 1,
   })
 }
 
-function zoomIn() {
-  if (!viewer.value) return
+// TODO 缩放时以设定的最大和最小高度为基准，进行动态缩放，不能超过最大和最小高度
 
-  const scene = viewer.value.scene
+// 放大
+function zoomIn() {
+  const scene = vc.viewer.scene
   const camera = scene.camera
 
   // 如果是3D场景，使用相机焦点作为缩放中心
@@ -109,10 +124,9 @@ function zoomIn() {
   }
 }
 
+// 缩小
 function zoomOut() {
-  if (!viewer.value) return
-
-  const scene = viewer.value.scene
+  const scene = vc.viewer.scene
   const camera = scene.camera
 
   // 如果是3D场景，使用相机焦点作为缩放中心
@@ -164,3 +178,21 @@ function getCameraPosition(camera: Camera, focus: Cartesian3, scalar: number) {
   return Cartesian3.add(camera.position, movementVector, cartesian3Scratch)
 }
 </script>
+
+<style lang="scss" scoped>
+.zoom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  cursor: pointer;
+  background-color: rgb(0 0 0 / 60%);
+  border-radius: 5px;
+
+  &:hover {
+    background-color: rgb(0 0 0 / 80%);
+  }
+}
+</style>
