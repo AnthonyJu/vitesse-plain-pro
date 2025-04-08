@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { DEFAULT_CESIUM_ID } from '@/constants'
 import { Cartesian2, defined, EllipsoidGeodesic, Math, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
-// @ts-expect-error useVueCesium
+// @ts-expect-error no exported
 import { useVueCesium } from 'vue-cesium'
 
 const { cesiumId = DEFAULT_CESIUM_ID } = defineProps<{

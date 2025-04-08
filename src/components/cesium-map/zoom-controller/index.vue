@@ -5,7 +5,7 @@
     position="absolute bottom-10px right-10px z-10"
   >
     <!-- 复原 -->
-    <div class="zoom-btn" title="复原" @click="resetMap">
+    <div class="cesium-tool-btn" title="复原" @click="resetMap">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32">
         <path
           fill="currentColor"
@@ -50,12 +50,12 @@
 
     <!-- 缩放 -->
     <div class="flex-col-center overflow-hidden rounded-5px">
-      <div class="zoom-btn rounded-0!" title="放大" @click="zoomIn">
+      <div class="cesium-tool-btn rounded-0!" title="放大" @click="zoomIn">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32">
           <path fill="currentColor" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z" />
         </svg>
       </div>
-      <div class="zoom-btn rounded-0!" title="缩小" @click="zoomOut">
+      <div class="cesium-tool-btn rounded-0!" title="缩小" @click="zoomOut">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32">
           <path fill="currentColor" d="M8 15h16v2H8z" />
         </svg>
@@ -178,21 +178,3 @@ function getCameraPosition(camera: Camera, focus: Cartesian3, scalar: number) {
   return Cartesian3.add(camera.position, movementVector, cartesian3Scratch)
 }
 </script>
-
-<style lang="scss" scoped>
-.zoom-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  color: #fff;
-  cursor: pointer;
-  background-color: rgb(0 0 0 / 60%);
-  border-radius: 5px;
-
-  &:hover {
-    background-color: rgb(0 0 0 / 80%);
-  }
-}
-</style>

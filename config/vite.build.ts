@@ -20,23 +20,17 @@ function buildConfig(mode: ConfigEnv['mode']): UserConfig['build'] {
             if (id.includes('element-plus')) {
               return 'element-plus'
             }
-            else if (id.includes('zrender')) {
-              return 'zrender'
-            }
-            else if (id.includes('echarts')) {
-              return 'echarts'
-            }
             else if (id.includes('xlsx')) {
               return 'xlsx'
             }
             else if (id.includes('@arcgis/core') || id.includes('@esri')) {
               return 'arcgis'
             }
-            else if (id.includes('konva')) {
-              return 'konva'
-            }
             else if (id.includes('shiki')) {
               return 'shiki'
+            }
+            else if (id.includes('vue-cesium')) {
+              return 'vue-cesium'
             }
             else {
               return 'vendor'
