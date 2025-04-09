@@ -29,8 +29,9 @@ function addGeoJson() {
   // 加载GeoJson数据
   const noFlyZone = GeoJsonDataSource.load('/geojson/defaultNoFlyZone.json', {
     stroke: Color.RED,
-    fill: Color.RED.withAlpha(0.5),
+    fill: Color.RED.withAlpha(0.4),
     strokeWidth: 3,
+    clampToGround: true,
   })
   viewer.dataSources.add(noFlyZone)
 }

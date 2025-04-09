@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { DEFAULT_CESIUM_ID } from '@/constants'
-import { Cartesian2, defined, EllipsoidGeodesic, Math, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
+import { Cartesian2, Math as CMath, defined, EllipsoidGeodesic, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
 // @ts-expect-error no exported
 import { useVueCesium } from 'vue-cesium'
 
@@ -46,8 +46,8 @@ function onMouseMove() {
     if (cartesian) {
       const cartographic = scene.globe.ellipsoid.cartesianToCartographic(cartesian)
       if (cartographic) {
-        const lng = Math.toDegrees(cartographic.longitude)
-        const lat = Math.toDegrees(cartographic.latitude)
+        const lng = CMath.toDegrees(cartographic.longitude)
+        const lat = CMath.toDegrees(cartographic.latitude)
         lnglat.value = `${lng.toFixed(8)}°E ${lat.toFixed(8)}°N`
       }
     }
