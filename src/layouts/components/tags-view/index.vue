@@ -13,7 +13,7 @@
           :closable="!tag.meta.isAffix"
           size="large"
           :effect="tag.fullPath === route.fullPath ? 'dark' : 'plain'"
-          class="cursor-pointer rounded-8px"
+          class="cursor-pointer"
           :class="{ draggable: !tag.meta.isAffix }"
           @click="$router.push(tag.fullPath!)"
           @close="tagsViewStore.closeTag(tag.fullPath!)"
@@ -25,7 +25,7 @@
       </div>
     </el-scrollbar>
     <el-button
-      class="my-12px ml-15px rounded-8px"
+      class="my-12px ml-15px"
       type="primary"
       size="default"
       :icon="Refresh"

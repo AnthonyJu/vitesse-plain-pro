@@ -50,7 +50,7 @@ const themeStore = useThemeStore()
   ::v-deep(.el-sub-menu.is-active:not(.is-opened)) {
     .el-sub-menu__title {
       color: var(--el-color-primary);
-      background: var(--el-color-primary-light-9);
+      background: var(--el-color-primary-light-7);
     }
   }
 
@@ -58,10 +58,10 @@ const themeStore = useThemeStore()
   ::v-deep(.el-sub-menu__name),
   ::v-deep(.el-sub-menu__title) {
     margin: 5px 0;
-    border-radius: 4px;
+    border-radius: var(--el-border-radius-base);
 
     &.is-active {
-      background: var(--el-color-primary-light-9);
+      background: var(--el-color-primary-light-7);
     }
   }
 

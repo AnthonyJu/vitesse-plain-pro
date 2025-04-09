@@ -55,7 +55,7 @@ export default defineConfig({
     'turn-dark': 'invert-88.8 hue-rotate-180',
     'turn-light': 'brightness-98 contrast-98',
     'bg-default': 'bg-$el-layout-bg-color dark:bg-$el-layout-bg-color-dark',
-    'layout-default': 'bg-default p-15px rounded-4px',
+    'layout-default': 'bg-default p-15px rounded-$el-border-radius-base',
   },
   presets: [
     // 启用 uno 预设

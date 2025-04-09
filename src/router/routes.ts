@@ -160,19 +160,25 @@ export const routes: RouteItem[] = [
     },
     children: [
       {
-        path: '/comp/code-blocks',
+        path: '/comp/image-comparison-demo',
+        meta: {
+          title: '图片对比',
+        },
+      },
+      {
+        path: '/comp/code-block-demo',
         meta: {
           title: '代码高亮块',
         },
       },
       {
-        path: '/comp/notice-bars',
+        path: '/comp/notice-bar-demo',
         meta: {
           title: '滚动通知栏',
         },
       },
       {
-        path: '/comp/upload-files',
+        path: '/comp/upload-file-demo',
         meta: {
           title: '上传文件',
         },
