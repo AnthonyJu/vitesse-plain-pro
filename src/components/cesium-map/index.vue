@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error no exported
-import type { VcReadyObject } from 'vue-cesium'
+// @ts-expect-error not find a declaration file
+import type { VcReadyObject } from 'vue-cesium/es/utils/types'
 import { DEFAULT_CESIUM_ID } from '@/constants'
 import { TdtTerrainProvider } from '@/utils/cesium/GeoTerrainProvider'
 import { CameraEventType } from 'cesium'

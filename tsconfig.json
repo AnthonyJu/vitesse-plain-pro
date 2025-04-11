@@ -32,16 +32,9 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*",
-    "config/**/*",
-    "node_modules/vue-cesium/Cesium.d.ts",
-    "node_modules/vue-cesium/global.d.ts"
-  ],
   "exclude": [
     "dist",
     "public",
-    "node_modules",
     "eslint.config.js"
   ]
 }

@@ -1,4 +1,5 @@
 interface ImportMetaEnv {
+  [key: string]: any
   readonly VITE_PORT: number
   readonly VITE_BASE_URL: string
   readonly VITE_OUT_DIR: string

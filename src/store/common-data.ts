@@ -8,13 +8,13 @@ export const useCommonDataStore = defineStore(
 
     // 路由挂载后，隐藏加载中
     const router = useRouter()
-    const afterEach = ref(false)
+    const isAfterEach = ref(false)
     router.beforeEach(() => {
-      afterEach.value = false
+      isAfterEach.value = false
     })
     router.afterEach((to) => {
       if (to.path !== '/login') {
-        afterEach.value = true
+        isAfterEach.value = true
         loading.value = false
       }
     })
@@ -26,12 +26,18 @@ export const useCommonDataStore = defineStore(
 
       const menuStore = useMenuStore()
 
-      await Promise.all([
+      await Promise.allSettled([
         menuStore.getMenu(),
         testReq(),
       ])
-        .then(() => {
-          if (afterEach.value) loading.value = false
+        .then((e) => {
+          if (e.every(item => item.status === 'fulfilled')) {
+            if (isAfterEach.value) enterSystem()
+          }
+          else {
+            isFail.value = true
+            loading.value = false
+          }
         })
         .catch(() => {
           isFail.value = true

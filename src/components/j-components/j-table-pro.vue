@@ -118,7 +118,6 @@ interface Props {
   type?: 'table' | 'list'
   pagination?: boolean // 是否需要分页
   defaultSearchParams?: Record<string, any> // 默认搜索条件
-  formFormator?: (data: Record<string, any>) => Record<string, any> // 搜索表单数据处理
   tableFormator?: (data: any[]) => any[] // 返回数据处理函数
   dialogFormator?: (data: Record<string, any>) => Record<string, any> // 弹窗表单数据处理
   formDataFormatter?: (data: Record<string, any>) => Record<string, any> // 搜索表单数据处理
