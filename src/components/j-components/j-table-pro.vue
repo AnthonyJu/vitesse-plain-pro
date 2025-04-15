@@ -263,10 +263,12 @@ function deleteFn(id: string) {
   })
   API.delete!(id)
     .then(() => {
-      message.close()
       ElMessage.success('删除成功')
       handleSearch()
       emit('onOriginDataChange', 'delete')
+    })
+    .finally(() => {
+      message.close()
     })
 }
 

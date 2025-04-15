@@ -55,7 +55,7 @@ const { allTags, activeTag } = storeToRefs(tagsViewStore)
 // 鼠标滚轮事件，横向滚动
 const scrollbarRef = ref<ScrollbarInstance>()
 function onHandleScroll(e: WheelEventType) {
-  scrollbarRef.value!.wrapRef!.scrollLeft += e.wheelDelta / 4
+  scrollbarRef.value!.wrapRef!.scrollLeft -= e.wheelDelta / 4
 }
 
 // 设置 tagsView 可以进行拖拽
