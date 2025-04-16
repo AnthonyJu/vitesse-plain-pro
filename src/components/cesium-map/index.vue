@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error not find a declaration file
 import type { VcReadyObject } from 'vue-cesium/es/utils/types'
 import { DEFAULT_CESIUM_ID } from '@/constants'
 import { TdtTerrainProvider } from '@/utils/cesium/GeoTerrainProvider'
@@ -34,7 +33,7 @@ const viewerConfig = {
   containerId: cesiumId,
   sceneMode: 3,
   showCredit: false,
-  skeleton: false,
+  // skeleton: false,
   infoBox: false,
   selectionIndicator: false,
   showRenderLoopErrors: false,
@@ -80,6 +79,7 @@ function onReady(vc: VcReadyObject) {
 
   // 天地图地形图层
   const TerrainProvider = TdtTerrainProvider(vc.Cesium)
+  // @ts-expect-error lack of type
   vc.viewer.terrainProvider = new TerrainProvider({
     url: `${tdtUrl}mapservice/swdx?T=elv_c&x={x}&y={y}&l={z}&tk=${tdtToken}`,
     subdomains: tdtSubdomains,

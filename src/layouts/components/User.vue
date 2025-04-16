@@ -2,7 +2,7 @@
   <el-space :size="10" spacer="|">
     <!-- GitHub -->
     <a
-      class="pt-3px text-dark dark:text-light"
+      class="pt-3px text-dark dark:text-light!"
       target="_blank"
       href="https://github.com/AnthonyJu/vitesse-plain"
       title="GitHub"
