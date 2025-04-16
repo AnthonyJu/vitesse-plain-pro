@@ -260,6 +260,20 @@ export const routes: RouteItem[] = [
       title: '3D 场景',
       icon: 'carbon-3d-cursor',
     },
+    children: [
+      {
+        path: '/3d-scene/roam',
+        meta: {
+          title: '漫游',
+        },
+      },
+      {
+        path: '/3d-scene/panorama',
+        meta: {
+          title: '全景',
+        },
+      },
+    ],
   },
   {
     path: '/cesium',
