@@ -119,6 +119,15 @@ importers:
       vue-router:
         specifier: ^4.5.0
         version: 4.5.0(vue@3.5.13(typescript@5.8.3))
+      xgplayer:
+        specifier: ^3.0.21
+        version: 3.0.21(core-js@3.41.0)
+      xgplayer-flv:
+        specifier: ^3.0.21
+        version: 3.0.21(core-js@3.41.0)(xgplayer@3.0.21(core-js@3.41.0))
+      xgplayer-hls:
+        specifier: ^3.0.21
+        version: 3.0.21(core-js@3.41.0)(xgplayer@3.0.21(core-js@3.41.0))
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -3579,6 +3588,11 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
+  concat-typed-array@1.0.2:
+    resolution: {integrity: sha512-aC878bxeWSlrY6h60cCDwBUXpKwovZrB7+C4+VHNO1CIXW2gBLxbQ757jWtOXUscLGgYI8R84N6uy9fTJPe+0g==}
+    engines: {node: '>=0.10.0'}
+    deprecated: 'WARNING: This package has been renamed to typed-array-concat.'
+
   concaveman@1.2.1:
     resolution: {integrity: sha512-PwZYKaM/ckQSa8peP5JpVr7IMJ4Nn/MHIaWUjP4be+KoZ7Botgs8seAZGpmaOM+UZXawcdYRao/px9ycrCihHw==}
 
@@ -3623,6 +3637,9 @@ packages:
 
   core-js-compat@3.41.0:
     resolution: {integrity: sha512-RFsU9LySVue9RTwdDVX/T0e2Y6jRYWXERKElIjpuEOEnxaXffI0X7RUwVzfYLfzuLXSNJDYoRYUAmRUcyln20A==}
+
+  core-js@3.41.0:
+    resolution: {integrity: sha512-SJ4/EHwS36QMJd6h/Rg+GyR4A5xE0FSI3eZ+iBVpfqf1x0eTSg1smWLHrA+2jQThZSh97fmSgFSU8B61nxosxA==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -3670,6 +3687,9 @@ packages:
 
   crypt@0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+
+  crypto-es@1.2.7:
+    resolution: {integrity: sha512-UUqiVJ2gUuZFmbFsKmud3uuLcNP2+Opt+5ysmljycFCyhA0+T16XJmo1ev/t5kMChMqWh7IEvURNCqsg+SjZGQ==}
 
   crypto-random-string@2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
@@ -3725,6 +3745,13 @@ packages:
 
   d3-voronoi@1.1.2:
     resolution: {integrity: sha512-RhGS1u2vavcO7ay7ZNAPo4xeDh/VYeGof3x5ZLJBQgYhLegxr3s5IykvWmJ94FTU6mcbtp4sloqZ54mP6R4Utw==}
+
+  d@1.0.2:
+    resolution: {integrity: sha512-MOqHvMWF9/9MX6nza0KgvFH4HpMU0EF5uUDXqX/BtxtU8NfB0QzRtJ8Oe/6SuS4kbhyzVJwjd97EA4PKrzJ8bw==}
+    engines: {node: '>=0.12'}
+
+  danmu.js@1.1.13:
+    resolution: {integrity: sha512-knFd0/cB2HA4FFWiA7eB2suc5vCvoHdqio33FyyCSfP7C+1A+zQcTvnvwfxaZhrxsGj4qaQI2I8XiTqedRaVmg==}
 
   data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
@@ -3818,6 +3845,9 @@ packages:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
 
+  delegate@3.2.0:
+    resolution: {integrity: sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==}
+
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
@@ -3877,6 +3907,9 @@ packages:
   dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
+
+  downloadjs@1.4.7:
+    resolution: {integrity: sha512-LN1gO7+u9xjU5oEScGFKvXhYf7Y/empUIIEAGBs1LzUq/rg5duiDrkuH5A2lQGd5jfMOb9X9usDa2oVXwJ0U/Q==}
 
   draco3d@1.5.7:
     resolution: {integrity: sha512-m6WCKt/erDXcw+70IJXnG7M3awwQPAsZvJGX5zY7beBqpELw6RDGkYVU0W43AFxye4pDZ5i2Lbyc/NNGqwjUVQ==}
@@ -3996,8 +4029,19 @@ packages:
     resolution: {integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==}
     engines: {node: '>= 0.4'}
 
+  es5-ext@0.10.64:
+    resolution: {integrity: sha512-p2snDhiLaXe6dahss1LddxqEm+SkuDvV8dnIQG0MWjyHpcMNfXKPE+/Cc0y+PhxJX3A4xGNeFCj5oc0BUh6deg==}
+    engines: {node: '>=0.10'}
+
+  es6-iterator@2.0.3:
+    resolution: {integrity: sha512-zw4SRzoUkd+cl+ZoE15A9o1oQd920Bb0iOJMQkQhl3jNc03YqVjAhG7scf9C5KWRU/R13Orf588uCC6525o02g==}
+
   es6-object-assign@1.1.0:
     resolution: {integrity: sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw==}
+
+  es6-symbol@3.1.4:
+    resolution: {integrity: sha512-U9bFFjX8tFiATgtkJ1zg25+KviIXpgRvRHS8sau3GfhVzThRQrOeksPeT0BWW2MNZs1OEWJ1DPXOQMn0KKRkvg==}
+    engines: {node: '>=0.12'}
 
   esbuild@0.23.1:
     resolution: {integrity: sha512-VVNz/9Sa0bs5SELtn3f7qhJCDPCF5oMEl5cO9/SSinpE9hbPVvxbd572HH5AKiP7WD8INO53GgfDDhRjkylHEg==}
@@ -4220,6 +4264,10 @@ packages:
       jiti:
         optional: true
 
+  esniff@2.0.1:
+    resolution: {integrity: sha512-kTUIGKQ/mDPFoJ0oVfcmyJn4iBDRptjNVIzwIFR7tqWXdVI9xfA2RMwY/gbSpJG3lkdWNEjLap/NqVHZiJsdfg==}
+    engines: {node: '>=0.10'}
+
   espree@10.3.0:
     resolution: {integrity: sha512-0QYC8b24HWY8zjRnDTL6RiHfDbAWn63qb4LMj1Z4b076A4une81+z03Kg7l7mn/48PUTqoLptSXez8oknU8Clg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -4262,6 +4310,12 @@ packages:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
 
+  event-emitter@0.3.5:
+    resolution: {integrity: sha512-D9rRn9y7kLPnJ+hMq7S/nhvoKwwvVJahBi2BPmx3bvbsEdK3W9ii8cBSGjP+72/LnM4n6fo3+dkCX5FeTQruXA==}
+
+  eventemitter3@4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
+
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
@@ -4279,6 +4333,9 @@ packages:
 
   exsolve@1.0.2:
     resolution: {integrity: sha512-ZEcIMbthn2zeX4/wD/DLxDUjuCltHXT8Htvm/JFlTkdYgWh2+HGppgwwNUnIVxzxP7yJOPtuBAec0dLx6lVY8w==}
+
+  ext@1.7.0:
+    resolution: {integrity: sha512-6hxeJYaL110a9b5TEJSj0gojyHQAmA2ch5Os+ySCiA1QGdS697XWY1pzsrSjqA9LDEEgdB/KypIlR59RcLuHYw==}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -5551,6 +5608,9 @@ packages:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
 
+  next-tick@1.1.0:
+    resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
+
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
@@ -6778,6 +6838,9 @@ packages:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
 
+  type@2.7.3:
+    resolution: {integrity: sha512-8j+1QmAbPvLZow5Qpi6NCaN8FB60p/6x8/vfNqOk/hC+HuvFZhL4+WfekuhQLiqFZXOgQdrs3B+XxEmCc6b3FQ==}
+
   typed-array-buffer@1.0.0:
     resolution: {integrity: sha512-Y8KTSIglk9OZEr8zywiIHG/kmQ7KWyjseXs1CbSo8vC42w7hg2HgYTxSWwP0+is7bWDc1H+Fo026CpHFwm8tkw==}
     engines: {node: '>= 0.4'}
@@ -7421,6 +7484,38 @@ packages:
   write-file-atomic@5.0.1:
     resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  xgplayer-flv@3.0.21:
+    resolution: {integrity: sha512-M9HU8mqa22eW59P0hd4SjjeuPzjGYZiRsF6caIQFI+4wqlscn0+Q84od4HYZkHWUlXKeVcrhl/L/x8gf1NqibQ==}
+    peerDependencies:
+      core-js: '>=3.12.1'
+      xgplayer: '>=3.0.1'
+
+  xgplayer-hls@3.0.21:
+    resolution: {integrity: sha512-8HVIoOF3IShQkC4L2I5d3nk7/RNOwKghGbjs46fNx0b6rl2qdo6giZeNONrB5EO8YrzrfFabTVC9VvwW99j7MA==}
+    peerDependencies:
+      core-js: '>=3.12.1'
+      xgplayer: 3.0.21
+
+  xgplayer-streaming-shared@3.0.21:
+    resolution: {integrity: sha512-UOJkwF6gAUKL+W2WXjKGgDcvJLCTMOYXRq12VRfJgchVeFpgtFgCBRScZ2tumx2L3y7klH+Y9i2JK+VpJkaGFA==}
+    peerDependencies:
+      core-js: '>=3.12.1'
+
+  xgplayer-subtitles@3.0.21:
+    resolution: {integrity: sha512-Z3EVdFe31c0JUYwuG/C6+T2NKfiGqzzcd0na7FZ9Kx6nIDznGPtLeG6EZOaZXnfW8V35b/WhfsdKSBXYzBOOqw==}
+    peerDependencies:
+      core-js: '>=3.12.1'
+
+  xgplayer-transmuxer@3.0.21:
+    resolution: {integrity: sha512-IBxE+JbYd8Pc3I12xOjB2SJu/nk8ED9oGjk2GKKpzvFLaaFhnwMImkVX4JOC+D7qvTnWKICvQIgfa9xWsg5tzw==}
+    peerDependencies:
+      core-js: '>=3.12.1'
+
+  xgplayer@3.0.21:
+    resolution: {integrity: sha512-v4O+qzok994AZ2EeU1yFjWhGa6p6V8mdPpWHmfCL7AE3Bqo+MRsYEhWYIhj3FXPK8aUYO6VWyTFc1MThpLYZJA==}
+    peerDependencies:
+      core-js: '>=3.12.1'
 
   xlsx@0.18.5:
     resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
@@ -12140,6 +12235,8 @@ snapshots:
 
   concat-map@0.0.1: {}
 
+  concat-typed-array@1.0.2: {}
+
   concaveman@1.2.1:
     dependencies:
       point-in-polygon: 1.1.0
@@ -12176,6 +12273,8 @@ snapshots:
   core-js-compat@3.41.0:
     dependencies:
       browserslist: 4.24.4
+
+  core-js@3.41.0: {}
 
   core-util-is@1.0.3: {}
 
@@ -12221,6 +12320,8 @@ snapshots:
       which: 2.0.2
 
   crypt@0.0.2: {}
+
+  crypto-es@1.2.7: {}
 
   crypto-random-string@2.0.0: {}
 
@@ -12273,6 +12374,15 @@ snapshots:
       d3-array: 1.2.4
 
   d3-voronoi@1.1.2: {}
+
+  d@1.0.2:
+    dependencies:
+      es5-ext: 0.10.64
+      type: 2.7.3
+
+  danmu.js@1.1.13:
+    dependencies:
+      event-emitter: 0.3.5
 
   data-uri-to-buffer@4.0.1: {}
 
@@ -12335,6 +12445,8 @@ snapshots:
 
   delayed-stream@1.0.0: {}
 
+  delegate@3.2.0: {}
+
   depd@2.0.0: {}
 
   dequal@2.0.3: {}
@@ -12391,6 +12503,8 @@ snapshots:
       domhandler: 5.0.3
 
   dotenv@16.4.5: {}
+
+  downloadjs@1.4.7: {}
 
   draco3d@1.5.7: {}
 
@@ -12546,7 +12660,25 @@ snapshots:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
 
+  es5-ext@0.10.64:
+    dependencies:
+      es6-iterator: 2.0.3
+      es6-symbol: 3.1.4
+      esniff: 2.0.1
+      next-tick: 1.1.0
+
+  es6-iterator@2.0.3:
+    dependencies:
+      d: 1.0.2
+      es5-ext: 0.10.64
+      es6-symbol: 3.1.4
+
   es6-object-assign@1.1.0: {}
+
+  es6-symbol@3.1.4:
+    dependencies:
+      d: 1.0.2
+      ext: 1.7.0
 
   esbuild@0.23.1:
     optionalDependencies:
@@ -12911,6 +13043,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  esniff@2.0.1:
+    dependencies:
+      d: 1.0.2
+      es5-ext: 0.10.64
+      event-emitter: 0.3.5
+      type: 2.7.3
+
   espree@10.3.0:
     dependencies:
       acorn: 8.14.0
@@ -12946,6 +13085,13 @@ snapshots:
   esutils@2.0.3: {}
 
   etag@1.8.1: {}
+
+  event-emitter@0.3.5:
+    dependencies:
+      d: 1.0.2
+      es5-ext: 0.10.64
+
+  eventemitter3@4.0.7: {}
 
   eventemitter3@5.0.1: {}
 
@@ -13013,6 +13159,10 @@ snapshots:
       - supports-color
 
   exsolve@1.0.2: {}
+
+  ext@1.7.0:
+    dependencies:
+      type: 2.7.3
 
   fast-deep-equal@3.1.3: {}
 
@@ -14411,6 +14561,8 @@ snapshots:
 
   negotiator@0.6.3: {}
 
+  next-tick@1.1.0: {}
+
   node-addon-api@7.1.1:
     optional: true
 
@@ -15649,7 +15801,7 @@ snapshots:
   terser@5.24.0:
     dependencies:
       '@jridgewell/source-map': 0.3.5
-      acorn: 8.14.0
+      acorn: 8.14.1
       commander: 2.20.3
       source-map-support: 0.5.21
 
@@ -15763,6 +15915,8 @@ snapshots:
     dependencies:
       media-typer: 0.3.0
       mime-types: 2.1.35
+
+  type@2.7.3: {}
 
   typed-array-buffer@1.0.0:
     dependencies:
@@ -16622,6 +16776,48 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
       signal-exit: 4.1.0
+
+  xgplayer-flv@3.0.21(core-js@3.41.0)(xgplayer@3.0.21(core-js@3.41.0)):
+    dependencies:
+      core-js: 3.41.0
+      eventemitter3: 4.0.7
+      xgplayer: 3.0.21(core-js@3.41.0)
+      xgplayer-streaming-shared: 3.0.21(core-js@3.41.0)
+      xgplayer-transmuxer: 3.0.21(core-js@3.41.0)
+
+  xgplayer-hls@3.0.21(core-js@3.41.0)(xgplayer@3.0.21(core-js@3.41.0)):
+    dependencies:
+      core-js: 3.41.0
+      eventemitter3: 4.0.7
+      xgplayer: 3.0.21(core-js@3.41.0)
+      xgplayer-streaming-shared: 3.0.21(core-js@3.41.0)
+      xgplayer-transmuxer: 3.0.21(core-js@3.41.0)
+
+  xgplayer-streaming-shared@3.0.21(core-js@3.41.0):
+    dependencies:
+      core-js: 3.41.0
+      eventemitter3: 4.0.7
+
+  xgplayer-subtitles@3.0.21(core-js@3.41.0):
+    dependencies:
+      core-js: 3.41.0
+      eventemitter3: 4.0.7
+
+  xgplayer-transmuxer@3.0.21(core-js@3.41.0):
+    dependencies:
+      '@babel/runtime': 7.23.4
+      concat-typed-array: 1.0.2
+      core-js: 3.41.0
+      crypto-es: 1.2.7
+
+  xgplayer@3.0.21(core-js@3.41.0):
+    dependencies:
+      core-js: 3.41.0
+      danmu.js: 1.1.13
+      delegate: 3.2.0
+      downloadjs: 1.4.7
+      eventemitter3: 4.0.7
+      xgplayer-subtitles: 3.0.21(core-js@3.41.0)
 
   xlsx@0.18.5:
     dependencies:

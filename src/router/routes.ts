@@ -229,6 +229,20 @@ export const routes: RouteItem[] = [
         },
       },
       {
+        path: '/feat/video-player',
+        meta: {
+          title: '视频播放器',
+        },
+        children: [
+          {
+            path: '/feat/video-player/xg-player',
+            meta: {
+              title: '西瓜播放器',
+            },
+          },
+        ],
+      },
+      {
         path: '/feat/print-js',
         meta: {
           title: '打印',
