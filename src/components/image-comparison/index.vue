@@ -6,11 +6,38 @@
     :style="{ aspectRatio, width: `${width}px` }"
   >
     <div class="image-before" :style="{ clipPath: `inset(0 ${100 - dragPercent}% 0 0)` }">
-      <img :src="images[0]" alt="Before">
+      <img
+        :src="images[0]"
+        alt="Before"
+        draggable="false"
+        :style="{
+          transform: `scale(${scale})`,
+          transformOrigin: '0 0',
+          left: `${imageOffset.x}px`,
+          top: `${imageOffset.y}px`,
+        }"
+      >
     </div>
     <div class="image-after">
-      <img :src="images[1]" alt="After">
+      <img
+        :src="images[1]"
+        alt="After"
+        draggable="false"
+        :style="{
+          transform: `scale(${scale})`,
+          transformOrigin: '0 0',
+          left: `${imageOffset.x}px`,
+          top: `${imageOffset.y}px`,
+        }"
+      >
     </div>
+
+    <!-- 用于缩放、拖拽事件判断 -->
+    <div
+      class="absolute left-0 top-0 z-1 full"
+      @wheel="onWheelZoom"
+      @mousedown="onMouseDown"
+    />
 
     <div ref="draggableRef" class="drag-line" :style="{ left: `${dragPercent}%` }">
       <div ref="handleRef" class="handle flex-center">
@@ -21,10 +48,11 @@
 </template>
 
 <script setup lang="ts">
-const { images, width, aspectRatio } = defineProps<{
+const { images, width, aspectRatio, maxScale = 5 } = defineProps<{
   images: [string, string]
   width: number
   aspectRatio: string
+  maxScale?: number
 }>()
 
 const containerRef = ref<HTMLElement | null>(null)
@@ -47,6 +75,73 @@ const dragPercent = computed(() => {
   if (!containerRef.value) return 50
   return Math.max(0, Math.min(100, (dragX.value / containerRef.value.offsetWidth) * 100))
 })
+
+// 图片缩放比例
+const scale = ref(1)
+const imageOffset = ref({ x: 0, y: 0 })
+let isDraggingImage = false
+let lastMousePos = { x: 0, y: 0 }
+
+// 鼠标滚轮缩放事件
+function onWheelZoom(e: WheelEvent) {
+  e.preventDefault()
+  const rect = containerRef.value?.getBoundingClientRect()
+  if (!rect) return
+
+  const oldScale = scale.value
+  const newScale = Math.min(maxScale, Math.max(1, scale.value - e.deltaY * 0.001))
+  const ratio = newScale / oldScale
+
+  const mouseX = e.clientX - rect.left
+  const mouseY = e.clientY - rect.top
+
+  imageOffset.value.x -= (mouseX - imageOffset.value.x) * (ratio - 1)
+  imageOffset.value.y -= (mouseY - imageOffset.value.y) * (ratio - 1)
+  scale.value = newScale
+
+  limitOffset()
+}
+
+// 鼠标按下事件
+function onMouseDown(e: MouseEvent) {
+  isDraggingImage = true
+  lastMousePos = { x: e.clientX, y: e.clientY }
+
+  window.addEventListener('mousemove', onImageDrag)
+  window.addEventListener('mouseup', () => {
+    isDraggingImage = false
+    window.removeEventListener('mousemove', onImageDrag)
+  }, { once: true })
+}
+
+// 拖拽
+function onImageDrag(e: MouseEvent) {
+  if (!isDraggingImage) return
+  const dx = e.clientX - lastMousePos.x
+  const dy = e.clientY - lastMousePos.y
+  lastMousePos = { x: e.clientX, y: e.clientY }
+
+  imageOffset.value.x += dx
+  imageOffset.value.y += dy
+
+  limitOffset()
+}
+
+// 限制偏移量
+function limitOffset() {
+  if (!containerRef.value) return
+  const containerWidth = containerRef.value.offsetWidth
+  const containerHeight = containerRef.value.offsetHeight
+
+  const scaledWidth = containerWidth * scale.value
+  const scaledHeight = containerHeight * scale.value
+
+  const minX = containerWidth - scaledWidth
+  const minY = containerHeight - scaledHeight
+
+  imageOffset.value.x = Math.min(0, Math.max(minX, imageOffset.value.x))
+  imageOffset.value.y = Math.min(0, Math.max(minY, imageOffset.value.y))
+}
 </script>
 
 <style scoped lang="scss">
@@ -62,6 +157,7 @@ const dragPercent = computed(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    will-change: transform;
   }
 
   .image-before {
