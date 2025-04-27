@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import type { VcReadyObject } from 'vue-cesium/es/utils/types'
 import { DEFAULT_CESIUM_ID } from '@/constants'
-import { TdtTerrainProvider } from '@/utils/cesium/GeoTerrainProvider'
+import { TdtTerrainProvider } from '@/plugin/cesium/GeoTerrainProvider'
 import { CameraEventType } from 'cesium'
 // @ts-expect-error no exported
 import { VcConfigProvider, VcImageryProviderUrltemplate, VcLayerImagery, VcViewer } from 'vue-cesium'
