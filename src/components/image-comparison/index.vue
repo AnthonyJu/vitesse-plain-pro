@@ -5,7 +5,7 @@
     class="compare-wrapper"
     :style="{ aspectRatio, width: `${width}px` }"
   >
-    <div class="image-before" :style="{ clipPath: `inset(0 ${100 - dragPercent}% 0 0)` }">
+    <div v-if="images[0]" class="image-before" :style="{ clipPath: `inset(0 ${100 - dragPercent}% 0 0)` }">
       <img
         :src="images[0]"
         alt="Before"
@@ -18,7 +18,7 @@
         }"
       >
     </div>
-    <div class="image-after">
+    <div v-if="images[1]" class="image-after">
       <img
         :src="images[1]"
         alt="After"

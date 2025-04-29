@@ -46,9 +46,14 @@ export function listToTree(data: TreeItem[], idName = 'id', parentIdName = 'pare
  */
 export function flatArr<T extends { [key: string]: any }>(arr: T[], key = 'children'): T[] {
   const result: T[] = []
-  arr.forEach((route) => {
-    result.push(route)
-    if (route[key]) result.push(...flatArr(route[key] as T[], key))
+  const _arr = JSON.parse(JSON.stringify(arr)) as T[]
+  _arr.forEach((item) => {
+    if (item[key]?.length) {
+      const child = item[key]
+      result.push(...flatArr(child as T[], key))
+    }
+    delete item[key]
+    result.push(item)
   })
   return result
 }

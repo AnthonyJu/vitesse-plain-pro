@@ -1,18 +1,24 @@
 <template>
-  <TresCanvas>
-    <!-- 透视相机 -->
-    <TresPerspectiveCamera ref="camera" :args="[90, 1, 0.1, 1000]" :position="[0, 0, 0]" />
-    <!-- 全景立方体 -->
-    <TresMesh
-      :material="boxMaterials"
-      @pointer-down="onPointerDown"
-      @pointer-move="onPointerMove"
-      @pointer-up="onPointerUp"
-      @wheel="onDocumentMouseWheel"
-    >
-      <TresBoxGeometry :scale="[1, 1, -1]" :args="[1, 1, 1]" />
-    </TresMesh>
-  </TresCanvas>
+  <div v-loading="loading" class="relative full">
+    <TresCanvas>
+      <!-- 透视相机 -->
+      <TresPerspectiveCamera ref="camera" :args="[90, 1, 0.1, 1000]" :position="[0, 0, 0]" />
+      <!-- 全景立方体 -->
+      <TresMesh
+        :material="boxMaterials"
+        @pointer-down="onPointerDown"
+        @pointer-move="onPointerMove"
+        @pointer-up="onPointerUp"
+        @wheel="onDocumentMouseWheel"
+      >
+        <TresBoxGeometry :scale="[1, 1, -1]" :args="[1, 1, 1]" />
+      </TresMesh>
+    </TresCanvas>
+
+    <el-button class="absolute bottom-10px right-10px z-10" type="primary" @click="stopRotate = !stopRotate">
+      {{ stopRotate ? '自动游览' : '暂停游览' }}
+    </el-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +29,8 @@ import { useDragView } from './composables/drag-view'
 const { url } = defineProps<{
   url: string
 }>()
+
+const loading = ref(true)
 
 // 纹理贴图
 const textures = await getTexturesFromAtlasFile(url, 6)
@@ -46,6 +54,8 @@ function getTexturesFromAtlasFile(atlasImgUrl: string, length: number): Promise<
         textures[i].image = canvas
         textures[i].needsUpdate = true
         textures[i].colorSpace = THREE.SRGBColorSpace
+
+        loading.value = false
       }
       resolve(textures)
     })
@@ -54,6 +64,7 @@ function getTexturesFromAtlasFile(atlasImgUrl: string, length: number): Promise<
 
 const camera = ref<InstanceType<typeof THREE.PerspectiveCamera>>()
 const {
+  stopRotate,
   onPointerDown,
   onPointerMove,
   onPointerUp,

@@ -2,6 +2,8 @@ import { useRenderLoop } from '@tresjs/core'
 import * as THREE from 'three'
 
 export function useDragView(camera: Ref<InstanceType<typeof THREE.PerspectiveCamera> | undefined>) {
+  const stopRotate = ref(false)
+
   // 是否正在交互
   let isInteracting = false
 
@@ -48,7 +50,7 @@ export function useDragView(camera: Ref<InstanceType<typeof THREE.PerspectiveCam
   const { onLoop } = useRenderLoop()
   onLoop(() => {
     // 如果没有交互, 则自动旋转
-    if (!isInteracting) moveY += 0.1
+    if (!isInteracting && !stopRotate.value) moveY += 0.1
 
     // 限制x的范围
     moveX = Math.max(-85, Math.min(85, moveX))
@@ -65,6 +67,7 @@ export function useDragView(camera: Ref<InstanceType<typeof THREE.PerspectiveCam
   })
 
   return {
+    stopRotate,
     onPointerDown,
     onPointerMove,
     onPointerUp,
