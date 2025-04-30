@@ -17,8 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import { DEFAULT_CESIUM_ID } from '@/constants'
-import { Cartesian2, Math as CMath, defined, EllipsoidGeodesic, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
 // @ts-expect-error no exported
 import { useVueCesium } from 'vue-cesium'
 
@@ -38,7 +36,7 @@ vc.creatingPromise.then(() => {
 const lnglat = ref('')
 
 function onMouseMove() {
-  const handler = new ScreenSpaceEventHandler(vc.viewer.scene.canvas)
+  const handler = new Cesium.ScreenSpaceEventHandler(vc.viewer.scene.canvas)
 
   handler.setInputAction((e: any) => {
     const scene = vc.viewer.scene
@@ -46,18 +44,17 @@ function onMouseMove() {
     if (cartesian) {
       const cartographic = scene.globe.ellipsoid.cartesianToCartographic(cartesian)
       if (cartographic) {
-        const lng = CMath.toDegrees(cartographic.longitude)
-        const lat = CMath.toDegrees(cartographic.latitude)
+        const lng = Cesium.Math.toDegrees(cartographic.longitude)
+        const lat = Cesium.Math.toDegrees(cartographic.latitude)
         lnglat.value = `${lng.toFixed(8)}°E ${lat.toFixed(8)}°N`
       }
     }
-  }, ScreenSpaceEventType.MOUSE_MOVE)
+  }, Cesium.ScreenSpaceEventType.MOUSE_MOVE)
 }
 
 const scaleText = ref('')
 const lineWidth = ref(0)
 
-const geodesic = new EllipsoidGeodesic()
 const distances = [
   1,
   2,
@@ -98,8 +95,8 @@ function cesiumScale() {
   const width = scene.canvas.clientWidth
   const height = scene.canvas.clientHeight
 
-  const left = scene.camera.getPickRay(new Cartesian2((width / 2) | 0, height - 1))
-  const right = scene.camera.getPickRay(new Cartesian2((1 + width / 2) | 0, height - 1))
+  const left = scene.camera.getPickRay(new Cesium.Cartesian2((width / 2) | 0, height - 1))
+  const right = scene.camera.getPickRay(new Cesium.Cartesian2((1 + width / 2) | 0, height - 1))
 
   if (!left || !right) {
     lineWidth.value = 0
@@ -111,7 +108,7 @@ function cesiumScale() {
   const leftPosition = globe.pick(left, scene)
   const rightPosition = globe.pick(right, scene)
 
-  if (!defined(leftPosition) || !defined(rightPosition)) {
+  if (!Cesium.defined(leftPosition) || !Cesium.defined(rightPosition)) {
     lineWidth.value = 0
     scaleText.value = ''
     return
@@ -119,18 +116,19 @@ function cesiumScale() {
 
   const leftCartographic = globe.ellipsoid.cartesianToCartographic(leftPosition)
   const rightCartographic = globe.ellipsoid.cartesianToCartographic(rightPosition)
+  const geodesic = new Cesium.EllipsoidGeodesic()
   geodesic.setEndPoints(leftCartographic, rightCartographic)
   const pixelDistance = geodesic.surfaceDistance
 
   const maxBarWidth = 100
   let distance
-  for (let i = distances.length - 1; !defined(distance) && i >= 0; --i) {
+  for (let i = distances.length - 1; !Cesium.defined(distance) && i >= 0; --i) {
     if (distances[i] / pixelDistance < maxBarWidth) {
       distance = distances[i]
     }
   }
 
-  if (defined(distance)) {
+  if (Cesium.defined(distance)) {
     scaleText.value = distance >= 1000 ? `${distance / 1000} km` : `${distance} m`
     lineWidth.value = (distance / pixelDistance) | 0
   }

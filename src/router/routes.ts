@@ -295,6 +295,26 @@ export const routes: RouteItem[] = [
       title: 'Cesium',
       icon: 'carbon-3d-print-mesh',
     },
+    children: [
+      {
+        path: '/cesium/basic-use',
+        meta: {
+          title: '基础展示',
+        },
+      },
+      {
+        path: '/cesium/load-geojson',
+        meta: {
+          title: '加载geojson',
+        },
+      },
+      {
+        path: '/cesium/load-model',
+        meta: {
+          title: '加载模型',
+        },
+      },
+    ],
   },
   {
     path: '/arcgis',
