@@ -3,7 +3,12 @@
     <div class="notice-bar-warp" :style="{ color, fontSize: `${size}px` }">
       <Iconify v-if="leftIcon" class="notice-bar-warp-left-icon" :icon="leftIcon" />
 
-      <div ref="noticeBarWarpRef" class="notice-bar-warp-text-box" @click="handleClick">
+      <div
+        ref="noticeBarWarpRef"
+        class="notice-bar-warp-text-box"
+        :class="link ? 'cursor-pointer' : ''"
+        @click="handleClick"
+      >
         <div v-if="!scrollable" ref="noticeBarTextRef" class="notice-bar-warp-text">{{ text }}</div>
         <div v-else class="notice-bar-warp-slot"><slot /></div>
       </div>
