@@ -2,9 +2,7 @@
   <div layout-default>
     <NoticeBar
       text="🎉图片剪裁组件cropperjs，地址：https://github.com/fengyuanchen/cropperjs，点击前往"
-      right-icon="carbon:chevron-right"
-      mode="link"
-      @link="linkFn"
+      link="https://github.com/fengyuanchen/cropperjs"
     />
     <el-card class="mt-15px" shadow="hover" header="图片剪裁：简单示例">
       <el-row :gutter="10">
@@ -117,10 +115,6 @@ function initCropper(id: string, options: Cropper.Options) {
     previewImage.value = cropper.getCroppedCanvas().toDataURL('image/jpeg')
   })
   return cropper
-}
-
-function linkFn() {
-  window.open('https://github.com/fengyuanchen/cropperjs')
 }
 
 onMounted(() => {

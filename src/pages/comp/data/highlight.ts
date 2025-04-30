@@ -3,12 +3,10 @@ export const noticeBarSimpleStr = `<NoticeBar text="😎孩儿立志出乡关,�
 export const noticeBarIconStr = `<NoticeBar
  :text="state.textStr"
  left-icon="carbon:user-speaker"
- right-icon="carbon:chevron-right"
  background="#ecf5ff"
- mode="link"
+ link="link"
  color="#409eff"
  :speed="100"
- @link="window.open('xxxxx')"
 />`
 
 export const noticeBarScrollStr = `<NoticeBar :scrollable="true">

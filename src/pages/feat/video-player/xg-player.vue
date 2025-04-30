@@ -3,8 +3,6 @@
   <div class="layout-default">
     <NoticeBar
       text="🎉播放器插件：xg-player，点击查看"
-      right-icon="carbon:chevron-right"
-      mode="link"
       link="https://h5player.bytedance.com/guide/"
     />
 

@@ -1,21 +1,14 @@
 <template>
-  <div v-show="!state.isMode" class="notice-bar" :style="{ background, height: `${height}px` }">
+  <div class="notice-bar" :style="{ background, height: `${height}px` }">
     <div class="notice-bar-warp" :style="{ color, fontSize: `${size}px` }">
-      <Iconify
-        v-if="leftIcon"
-        class="notice-bar-warp-left-icon"
-        :icon="leftIcon"
-      />
-      <div ref="noticeBarWarpRef" class="notice-bar-warp-text-box">
+      <Iconify v-if="leftIcon" class="notice-bar-warp-left-icon" :icon="leftIcon" />
+
+      <div ref="noticeBarWarpRef" class="notice-bar-warp-text-box" @click="handleClick">
         <div v-if="!scrollable" ref="noticeBarTextRef" class="notice-bar-warp-text">{{ text }}</div>
         <div v-else class="notice-bar-warp-slot"><slot /></div>
       </div>
-      <Iconify
-        v-if="rightIcon"
-        class="notice-bar-warp-right-icon"
-        :icon="rightIcon"
-        @click="onRightIconClick"
-      />
+
+      <Iconify class="notice-bar-warp-right-icon" icon="carbon:close" @click="handleClose" />
     </div>
   </div>
 </template>
@@ -23,15 +16,24 @@
 <script setup lang="ts">
 // 定义父组件传过来的值
 const props = defineProps({
-  // 通知栏模式，可选值为 closeable link
-  mode: {
-    type: String,
-    default: () => '',
+  // 是否可关闭
+  closeable: {
+    type: Boolean,
+    default: () => false,
   },
   // 通知文本内容
   text: {
     type: String,
     default: () => '',
+  },
+  // 通知链接地址
+  link: {
+    type: String,
+    default: () => '',
+  },
+  animate: {
+    type: Boolean,
+    default: () => false,
   },
   // 通知文本颜色
   color: {
@@ -80,9 +82,6 @@ const props = defineProps({
   },
 })
 
-// 定义子组件向父组件传值/事件
-const emit = defineEmits(['close', 'link'])
-
 // 定义变量内容
 const noticeBarWarpRef = ref()
 const noticeBarTextRef = ref()
@@ -92,7 +91,6 @@ const state = reactive({
   twoTime: 0,
   warpOWidth: 0,
   textOWidth: 0,
-  isMode: false,
 })
 
 const timer = ref()
@@ -137,27 +135,32 @@ function listenerAnimationend() {
     false,
   )
 }
-// 右侧 icon 图标点击
-function onRightIconClick() {
-  if (!props.mode) return false
-  if (props.mode === 'closeable') {
-    state.isMode = true
-    emit('close')
-  }
-  else if (props.mode === 'link') {
-    emit('link')
+
+function handleClick() {
+  if (props.link) {
+    window.open(props.link)
   }
 }
 
-onBeforeUnmount(() => {
-  clearTimeout(timer.value)
-})
+// 关闭通知栏
+function handleClose() {
+  if (props.closeable) {
+    noticeBarWarpRef.value.style.display = 'none'
+    timer.value && clearTimeout(timer.value)
+  }
+}
 
 // 页面加载时
 onMounted(() => {
   if (props.scrollable) return false
-  initAnimation()
-  listenerAnimationend()
+  if (props.animate) {
+    initAnimation()
+    listenerAnimationend()
+  }
+})
+
+onBeforeUnmount(() => {
+  timer.value && clearTimeout(timer.value)
 })
 </script>
 

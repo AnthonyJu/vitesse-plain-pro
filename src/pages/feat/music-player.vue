@@ -2,9 +2,7 @@
   <div layout-default>
     <NoticeBar
       text="🎉优秀的音频播放组件：howler.js，地址：https://github.com/goldfire/howler.js，点击前往"
-      right-icon="carbon:chevron-right"
-      mode="link"
-      @link="linkFn"
+      link="https://github.com/goldfire/howler.js"
     />
     <el-card class="mt-15px" shadow="hover" header="音频播放器：简单示例">
       <div class="player-box">
@@ -92,10 +90,6 @@ function replayFn() {
 function mutedFn() {
   muted.value = !muted.value
   sound.mute(muted.value)
-}
-
-function linkFn() {
-  window.open('https://github.com/goldfire/howler.js')
 }
 
 onBeforeUnmount(() => {

@@ -12,12 +12,10 @@
       <NoticeBar
         :text="state.textStr"
         left-icon="carbon:user-speaker"
-        right-icon="carbon:chevron-right"
         background="#ecf5ff"
-        mode="link"
+        link="www.baidu.com"
         color="#409eff"
         :speed="100"
-        @link="linkFn"
       />
       <div class="my-10px">代码:</div>
       <CodeBlock :code="noticeBarIconStr" lang="vue" />
@@ -53,14 +51,14 @@
       </el-table>
     </el-card>
 
-    <el-card shadow="hover" header="图标选择器(宽度自动)：事件" class="mt-15px">
-      <el-table :data="state.tableData1" style="width: 100%;">
-        <el-table-column prop="a1" label="事件名称" />
-        <el-table-column prop="a2" label="说明" />
-        <el-table-column prop="a3" label="类型" />
-        <el-table-column prop="a4" label="回调参数" />
-      </el-table>
-    </el-card>
+    <!--    <el-card shadow="hover" header="图标选择器(宽度自动)：事件" class="mt-15px"> -->
+    <!--      <el-table :data="state.tableData1" style="width: 100%;"> -->
+    <!--        <el-table-column prop="a1" label="事件名称" /> -->
+    <!--        <el-table-column prop="a2" label="说明" /> -->
+    <!--        <el-table-column prop="a3" label="类型" /> -->
+    <!--        <el-table-column prop="a4" label="回调参数" /> -->
+    <!--      </el-table> -->
+    <!--    </el-card> -->
   </div>
 </template>
 
@@ -78,10 +76,10 @@ const state = reactive({
   ],
   tableData: [
     {
-      a1: 'mode',
-      a2: '通知栏模式，用于右侧 icon 图标点击',
+      a1: 'link',
+      a2: '点击通知栏时的跳转链接',
       a3: 'string',
-      a4: 'closeable / link',
+      a4: '',
       a5: '',
     },
     {
@@ -147,31 +145,27 @@ const state = reactive({
       a4: '',
       a5: '',
     },
-    {
-      a1: 'rightIcon',
-      a2: '自定义右侧图标',
-      a3: 'string',
-      a4: '',
-      a5: '',
-    },
+    // {
+    //   a1: 'rightIcon',
+    //   a2: '自定义右侧图标',
+    //   a3: 'string',
+    //   a4: '',
+    //   a5: '',
+    // },
   ],
-  tableData1: [
-    {
-      a1: 'close',
-      a2: '通知栏模式（mode）closeable 时回调事件',
-      a3: 'function',
-      a4: '',
-    },
-    {
-      a1: 'link',
-      a2: '通知栏模式（mode）link 时回调事件',
-      a3: 'function',
-      a4: '',
-    },
-  ],
+  // tableData1: [
+  //   {
+  //     a1: 'close',
+  //     a2: '通知栏模式（mode）closeable 时回调事件',
+  //     a3: 'function',
+  //     a4: '',
+  //   },
+  //   {
+  //     a1: 'link',
+  //     a2: '通知栏模式（mode）link 时回调事件',
+  //     a3: 'function',
+  //     a4: '',
+  //   },
+  // ],
 })
-
-function linkFn() {
-  window.open('https://github.com/lyt-Top/vue-next-admin')
-}
 </script>

@@ -2,9 +2,7 @@
   <div layout-default>
     <NoticeBar
       text="🎆🎆🎆打印插件print-js，地址：https://github.com/crabbly/Print.js，点击前往"
-      right-icon="carbon:chevron-right"
-      mode="link"
-      @link="linkFn"
+      link="https://github.com/crabbly/Print.js"
     />
     <el-card class="mt-15px" shadow="hover" header="打印页面：简单示例">
       <div id="demo1" class="mb-10px">
@@ -93,9 +91,5 @@ function print(configuration?: printConfiguration) {
     type: configuration?.type,
     ...configuration,
   })
-}
-
-function linkFn() {
-  window.open('https://github.com/crabbly/Print.js')
 }
 </script>

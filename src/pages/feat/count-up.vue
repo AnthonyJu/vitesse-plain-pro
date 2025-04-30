@@ -2,9 +2,7 @@
   <div layout-default>
     <NoticeBar
       text="🎉优秀的数字滚动组件：vue-countup-v3，地址：https://github.com/jizai1125/vue-countup-v3，点击前往"
-      right-icon="carbon:chevron-right"
-      mode="link"
-      @link="linkFn"
+      link="https://github.com/jizai1125/vue-countup-v3"
     />
     <el-card class="mt-15px" shadow="hover" header="数字滚动：简单示例">
       <el-row :gutter="10" class="w-full flex">
@@ -152,10 +150,6 @@ function changeFinal() {
 // 初始化数字滚动实例
 function initFn(e: ICountUp) {
   countUpObj.value = e
-}
-
-function linkFn() {
-  window.open('https://github.com/jizai1125/vue-countup-v3')
 }
 
 // 属性

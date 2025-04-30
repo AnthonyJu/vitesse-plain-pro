@@ -2,9 +2,7 @@
   <div layout-default>
     <NoticeBar
       text="🎉Tour 漫游式引导-ElementPlus-v2.5.0，地址：https://element-plus.org/zh-CN/component/tour.html，点击前往"
-      right-icon="carbon:chevron-right"
-      mode="link"
-      @link="linkFn"
+      link="https://element-plus.org/zh-CN/component/tour.html"
     />
     <el-card class="mt-15px" shadow="hover" header="漫游式引导：简单示例">
       <el-button type="primary" @click="open = true">开始漫游</el-button>
@@ -64,9 +62,6 @@ const ref3 = ref<ButtonInstance>()
 const refChild = ref()
 const ref4 = ref<ButtonInstance>()
 
-function linkFn() {
-  window.open('https://element-plus.org/zh-CN/component/tour.html')
-}
 onMounted(() => {
   ref4.value = refChild.value.refGoView
 })
