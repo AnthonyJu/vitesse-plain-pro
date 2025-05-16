@@ -237,7 +237,13 @@ export const routes: RouteItem[] = [
           {
             path: '/feat/video-player/xg-player',
             meta: {
-              title: '西瓜播放器',
+              title: 'XgPlayer',
+            },
+          },
+          {
+            path: '/feat/video-player/easy-player',
+            meta: {
+              title: 'EasyPlayer',
             },
           },
         ],

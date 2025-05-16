@@ -1,5 +1,4 @@
 <template>
-  <!--  https://h5player.bytedance.com/guide/ -->
   <div class="layout-default">
     <NoticeBar
       text="🎉播放器插件：xg-player，点击查看"
