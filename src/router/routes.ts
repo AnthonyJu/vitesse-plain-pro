@@ -183,6 +183,12 @@ export const routes: RouteItem[] = [
           title: '上传文件',
         },
       },
+      {
+        path: '/comp/konva-demo',
+        meta: {
+          title: 'konva标注组件',
+        },
+      },
     ],
   },
   {
