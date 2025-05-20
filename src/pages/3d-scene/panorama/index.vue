@@ -1,5 +1,5 @@
 <template>
-  <div class="relative full p-15px bg-default">
+  <div class="relative full layout-default">
     <el-select
       v-model="type"
       class="absolute left-20px top-20px z-10 w-200px overflow-hidden rounded-default bg-default"

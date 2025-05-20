@@ -293,6 +293,12 @@ export const routes: RouteItem[] = [
           title: '全景',
         },
       },
+      {
+        path: '/3d-scene/tile-panorama',
+        meta: {
+          title: '瓦片全景',
+        },
+      },
     ],
   },
   {
