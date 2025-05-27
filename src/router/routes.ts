@@ -332,6 +332,12 @@ export const routes: RouteItem[] = [
           title: '加载模型',
         },
       },
+      {
+        path: '/cesium/drawing-route',
+        meta: {
+          title: '绘制航线',
+        },
+      },
     ],
   },
   {

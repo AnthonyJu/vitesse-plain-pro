@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="show"
-    class="flex-bc gap-6px rounded-2px bg-#0006 text-12px text-white"
+    class="flex-bc gap-8px rounded-2px bg-#0006 text-12px text-white"
     position="absolute bottom-10px left-10px z-10"
-    p="x-6xp y-2xp"
+    p="x-5px y-1px"
   >
     <!-- 经纬度 -->
     <div v-if="lnglat" class="w-195px">{{ lnglat }}</div>

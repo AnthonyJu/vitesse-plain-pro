@@ -3,7 +3,10 @@ interface Options {
   levels: any[]
 }
 
+// https://www.marzipano.net/docs.html
 export function useMarzipano(panoRef: Ref<HTMLElement | null>, opts: Options) {
+  const isLoading = ref(false)
+
   const viewer = shallowRef<any>(null)
   const view = shallowRef<any>(null)
   const scene = shallowRef<any>(null)
@@ -26,41 +29,61 @@ export function useMarzipano(panoRef: Ref<HTMLElement | null>, opts: Options) {
   }
 
   async function createPano() {
-    const Marzipano = await loadMarzipano()
+    isLoading.value = true
+    try {
+      const Marzipano = await loadMarzipano()
 
-    viewer.value = new Marzipano.Viewer(panoRef.value, {
-      controls: { mouseViewMode: 'drag' },
-    })
+      viewer.value = new Marzipano.Viewer(panoRef.value, {
+        controls: { mouseViewMode: 'drag' },
+      })
 
-    const source = Marzipano.ImageUrlSource.fromString(
-      `${opts.path}/{z}/{f}/{y}/{x}.jpg`,
-      { cubeMapPreviewUrl: `${opts.path}/preview.jpg` },
-    )
+      const source = Marzipano.ImageUrlSource.fromString(
+        `${opts.path}/{z}/{f}/{y}/{x}.jpg`,
+        { cubeMapPreviewUrl: `${opts.path}/preview.jpg` },
+      )
+      source._concurrency = 16
+      source._retryDelay = 1000 * 60 * 60 * 24 * 7 // 主要是为了避免在加载失败后频繁请求
 
-    const geometry = new Marzipano.CubeGeometry(opts.levels)
+      const errorDeb = useDebounceFn(() => {
+        ElMessage.error('加载全景图失败')
+        isLoading.value = false
+      })
+      source.addEventListener('networkError', errorDeb)
 
-    const limiter = Marzipano.RectilinearView.limit.traditional(
-      3600,
-      100 * Math.PI / 180,
-      120 * Math.PI / 180,
-    )
+      const geometry = new Marzipano.CubeGeometry(opts.levels)
 
-    view.value = new Marzipano.RectilinearView(initialViewParameters, limiter)
+      const limiter = Marzipano.RectilinearView.limit.traditional(
+        3600,
+        100 * Math.PI / 180,
+        120 * Math.PI / 180,
+      )
 
-    scene.value = viewer.value.createScene({
-      source,
-      geometry,
-      view: view.value,
-      pinFirstLevel: true,
-    })
+      view.value = new Marzipano.RectilinearView(initialViewParameters, limiter)
 
-    scene.value.switchTo()
-    view.value.setParameters(initialViewParameters)
+      scene.value = viewer.value.createScene({
+        source,
+        geometry,
+        view: view.value,
+        pinFirstLevel: false,
+      })
+
+      scene.value.switchTo()
+      view.value.setParameters(initialViewParameters)
+
+      scene.value.layer().addEventListener('renderComplete', (complete: boolean) => {
+        if (complete) isLoading.value = false
+      })
+    }
+    catch (error) {
+      isLoading.value = false
+      console.error('Failed to create pano:', error)
+    }
   }
 
   const isRotating = ref(false)
   function changeAutorotate() {
     if (isRotating.value) {
+      isRotating.value = false
       viewer.value.stopMovement()
     }
     else {
@@ -70,8 +93,16 @@ export function useMarzipano(panoRef: Ref<HTMLElement | null>, opts: Options) {
         targetFov: Math.PI / 2,
       })
       viewer.value.startMovement(autorotate)
+      isRotating.value = true
     }
   }
+
+  onBeforeUnmount(() => {
+    if (viewer.value) {
+      viewer.value.destroy()
+      viewer.value = null
+    }
+  })
 
   return {
     viewer,
@@ -80,5 +111,6 @@ export function useMarzipano(panoRef: Ref<HTMLElement | null>, opts: Options) {
     createPano,
     isRotating,
     changeAutorotate,
+    isLoading,
   }
 }

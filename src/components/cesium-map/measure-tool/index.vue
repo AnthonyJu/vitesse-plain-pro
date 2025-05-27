@@ -11,7 +11,7 @@
       },
     }"
     :clamp-to-ground="true"
-    :measurements="['area', 'polyline']"
+    :measurements="['circle', 'area', 'polyline', 'vertical']"
     active-color="#1BCBEA"
     :area-action-opts="{
       tooltip: {
