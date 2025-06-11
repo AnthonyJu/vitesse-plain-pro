@@ -46,9 +46,9 @@ export function useArcgis3D(container: string) {
         y: 36.06,
         z: 2000,
       },
-      tilt: 45,
-      fov: 55,
-      heading: 180,
+      tilt: 0,
+      fov: 75,
+      heading: 0,
     },
   })
 

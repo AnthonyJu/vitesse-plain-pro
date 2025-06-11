@@ -9,9 +9,9 @@
     />
 
     <RouteLine
-      v-for="(item, index) in points.slice(0, -1)"
-      :key="`line-${JSON.stringify(item)}`"
-      :positions="[points[index], points[index + 1]]"
+      v-for="(item, index) in routeLines"
+      :key="`line-${index}`"
+      :positions="item"
     />
   </CesiumMap>
 </template>
@@ -35,6 +35,7 @@ onMounted(() => {
 
 const safeHeight = 120
 const points = ref<Position[]>([])
+const routeLines = ref<[Position, Position][]>([])
 const takeOffPoint = computed(() => points.value[0])
 
 // 监听地图点击事件
@@ -48,10 +49,12 @@ function onMapClick() {
       const lng = Cesium.Math.toDegrees(cartographic.longitude)
       const lat = Cesium.Math.toDegrees(cartographic.latitude)
       const height = cartographic.height
-      if (points.value.length === 0) {
-        points.value.push({ lng, lat, height })
-      }
+
+      if (points.value.length === 0) points.value.push({ lng, lat, height })
       points.value.push({ lng, lat, height: height + safeHeight })
+
+      const len = points.value.length
+      routeLines.value.push([points.value[len - 2], points.value[len - 1]])
     }
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 }
