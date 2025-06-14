@@ -2,16 +2,16 @@
   <CesiumMap :class="{ 'take-off-cursor': !takeOffPoint }">
     <TakeOffPoint :position="takeOffPoint" />
 
-    <RoutePoint
-      v-for="item in points.slice(2)"
-      :key="`point-${JSON.stringify(item)}`"
-      :position="item"
-    />
-
     <RouteLine
       v-for="(item, index) in routeLines"
       :key="`line-${index}`"
       :positions="item"
+    />
+
+    <RoutePoint
+      v-for="item in points.slice(2)"
+      :key="`point-${JSON.stringify(item)}`"
+      :position="item"
     />
   </CesiumMap>
 </template>
@@ -33,9 +33,9 @@ onMounted(() => {
   })
 })
 
-const safeHeight = 120
-const points = ref<Position[]>([])
-const routeLines = ref<[Position, Position][]>([])
+const safeHeight = 200
+const points = ref<Cesium.Cartesian3[]>([])
+const routeLines = ref<[Cesium.Cartesian3, Cesium.Cartesian3][]>([])
 const takeOffPoint = computed(() => points.value[0])
 
 // 监听地图点击事件
@@ -44,14 +44,15 @@ function onMapClick() {
   handler.setInputAction((e: any) => {
     const picked = viewer.scene.pickPosition(e.position)
     if (Cesium.defined(picked)) {
-      // 转换成经纬度
-      const cartographic = Cesium.Cartographic.fromCartesian(picked)
-      const lng = Cesium.Math.toDegrees(cartographic.longitude)
-      const lat = Cesium.Math.toDegrees(cartographic.latitude)
-      const height = cartographic.height
+      if (points.value.length === 0) points.value.push(picked)
 
-      if (points.value.length === 0) points.value.push({ lng, lat, height })
-      points.value.push({ lng, lat, height: height + safeHeight })
+      // 获取地表法向量（单位向量，垂直地面朝外）
+      const normal = Cesium.Ellipsoid.WGS84.geodeticSurfaceNormal(picked)
+      // 将单位向量乘以高度，得到方向向量
+      const offset = Cesium.Cartesian3.multiplyByScalar(normal, safeHeight, new Cesium.Cartesian3())
+      // 将偏移向量加到原点上
+      const result = Cesium.Cartesian3.add(picked, offset, new Cesium.Cartesian3())
+      points.value.push(result)
 
       const len = points.value.length
       routeLines.value.push([points.value[len - 2], points.value[len - 1]])
