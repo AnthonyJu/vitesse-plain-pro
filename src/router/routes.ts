@@ -377,6 +377,12 @@ export const routes: RouteItem[] = [
           title: '特征缩减（点聚合）',
         },
       },
+      {
+        path: '/arcgis/6_search-address',
+        meta: {
+          title: '搜索地址',
+        },
+      },
     ],
   },
   {
