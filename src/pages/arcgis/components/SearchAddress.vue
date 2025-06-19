@@ -52,7 +52,7 @@ async function searchAddress(keyword: string) {
       queryTerminal: 10000,
     }
 
-    const res = await axios.get('http://api.tianditu.gov.cn/v2/search', {
+    const res = await axios.get('//api.tianditu.gov.cn/v2/search', {
       params: {
         postStr: JSON.stringify(postStr),
         type: 'query',
