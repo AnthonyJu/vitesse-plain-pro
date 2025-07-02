@@ -19,6 +19,7 @@
     direction="ltr"
     size="230px"
     :with-header="false"
+    append-to-body
   >
     <Menu />
   </el-drawer>

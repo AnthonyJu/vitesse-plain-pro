@@ -1,12 +1,11 @@
 import { authLogin } from '@/api/login'
 import { router } from '@/modules/router'
-import { addStaticRoutes } from '@/router/add-routes'
 
 export const useUserStore = defineStore(
   'user',
   () => {
     const route = useRoute()
-    const menuStore = useMenuStore()
+    const commonDataStore = useCommonDataStore()
 
     const isLogin = ref(false)
     const userInfo = ref<UserInfo>()
@@ -15,23 +14,20 @@ export const useUserStore = defineStore(
       await authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        router.replace(route.query.redirect as string || '/')
+        await router.replace(route.query.redirect as string || '/')
       })
     }
 
     function handleLogout() {
       return new Promise((resolve, reject) => {
         try {
-          // 清除所有路由
-          router.clearRoutes()
-          // 添加静态路由
-          addStaticRoutes(router)
+          commonDataStore.loading = true
 
-          menuStore.$reset()
           isLogin.value = false
           userInfo.value = undefined
 
-          router.replace('/login')
+          Session.clear()
+          window.location.reload()
 
           resolve(true)
         }

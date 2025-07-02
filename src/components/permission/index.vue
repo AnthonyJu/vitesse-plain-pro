@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show && userStore.isLogin" class="loading-next flex-center pb-100px">
+  <div v-if="showPermission" class="loading-next flex-center pb-100px">
     <!-- loading -->
     <div v-if="commonDataStore.loading" class="loading-next-box-warp">
       <div v-for="i in 9" :key="`loading_${i}`" class="loading-next-box-item" />
@@ -33,9 +33,8 @@
 </template>
 
 <script setup lang='ts'>
-const userStore = useUserStore()
 const commonDataStore = useCommonDataStore()
-const show = computed(() => commonDataStore.loading || commonDataStore.isFail)
+const showPermission = computed(() => commonDataStore.loading || commonDataStore.isFail)
 </script>
 
 <style scoped lang='scss'>

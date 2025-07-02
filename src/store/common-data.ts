@@ -1,8 +1,8 @@
 export const useCommonDataStore = defineStore(
   'common-data',
   () => {
-    // 是否加载完毕
-    const loading = ref(false)
+    // 是否加载中
+    const loading = ref(true)
     // 是否加载失败
     const isFail = ref(false)
 
@@ -13,10 +13,8 @@ export const useCommonDataStore = defineStore(
       isAfterEach.value = false
     })
     router.afterEach((to) => {
-      if (to.path !== '/login') {
-        isAfterEach.value = true
-        loading.value = false
-      }
+      loading.value = false
+      if (to.path !== '/login') isAfterEach.value = true
     })
 
     // 加载登录后需要请求的数据以及通用数据
@@ -48,6 +46,7 @@ export const useCommonDataStore = defineStore(
     // 进入系统
     function enterSystem() {
       isFail.value = false
+      loading.value = false
     }
 
     function testReq() {
