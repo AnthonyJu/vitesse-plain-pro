@@ -13,8 +13,13 @@ export const useCommonDataStore = defineStore(
       isAfterEach.value = false
     })
     router.afterEach((to) => {
-      loading.value = false
-      if (to.path !== '/login') isAfterEach.value = true
+      if (to.path === '/login') {
+        loading.value = false
+      }
+      else {
+        isAfterEach.value = true
+        if (loading.value) enterSystem()
+      }
     })
 
     // 加载登录后需要请求的数据以及通用数据
