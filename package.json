@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@arcgis/core": "^4.32.10",
+    "@carbon/icons": "^11.63.0",
     "@element-plus/icons-vue": "^2.3.1",
     "@tresjs/cientos": "^4.3.0",
     "@tresjs/core": "^4.3.3",
