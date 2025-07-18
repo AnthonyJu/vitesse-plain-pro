@@ -8,7 +8,6 @@ interface ImportMetaEnv {
   readonly VITE_API_URL: string
 }
 
-declare module 'vue-grid-layout'
 declare module 'vue-draggable-resizable'
 
 declare interface Window {

@@ -13,7 +13,7 @@
 <script setup lang='ts'>
 import type { ISelectProps } from 'element-plus'
 
-interface Props extends Partial<ISelectProps> {
+interface Props extends /* @vue-ignore */ Partial<ISelectProps> {
   options: SelectOptionItem[]
   separator?: string
 }
