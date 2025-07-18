@@ -22,7 +22,7 @@
               v-bind="formItemProps"
             >
               <el-input
-                v-model="form[prop]"
+                v-model.trim="form[prop]"
                 placeholder="请输入"
                 clearable
                 v-bind="fieldProps"
@@ -37,7 +37,7 @@
               v-bind="formItemProps"
             >
               <el-input
-                v-model="form[prop]"
+                v-model.trim="form[prop]"
                 type="textarea"
                 placeholder="请输入"
                 clearable
@@ -114,7 +114,7 @@ const props = defineProps<Props>()
 
 const emit = defineEmits<{
   onClosed: []
-  onSubmit: []
+  onSubmit: [any]
 }>()
 
 const visible = defineModel('visible', { default: false })
@@ -133,8 +133,8 @@ function handleClose() {
 
 /** 提交表单 */
 function submit() {
-  formRef.value!.validate((valid: boolean) => {
-    if (valid) emit('onSubmit')
+  formRef.value!.validate().then(() => {
+    emit('onSubmit', JSON.parse(JSON.stringify(form.value)))
   })
 }
 </script>

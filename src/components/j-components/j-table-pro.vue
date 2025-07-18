@@ -273,9 +273,10 @@ function deleteFn(id: string) {
 }
 
 // 弹窗提交
-function dialogSubmit() {
+function dialogSubmit(val: any) {
   dialogLoading.value = true
-  const data = props.dialogFormator?.(dialogForm.value) || dialogForm.value
+  const data = props.dialogFormator?.(val) || val
+
   if (data.id) {
     API.update!(data)
       .then(() => {

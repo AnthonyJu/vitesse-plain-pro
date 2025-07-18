@@ -18,7 +18,7 @@
         v-bind="formItemProps"
       >
         <el-input
-          v-model="form[prop]"
+          v-model.trim="form[prop]"
           placeholder="请输入"
           clearable
           v-bind="fieldProps"
