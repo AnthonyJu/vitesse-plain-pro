@@ -4,7 +4,7 @@
     <el-aside
       v-if="asideMenu && !fullScreen"
       :width="menuWidth"
-      class="z-10 flex-col transition-width shadow-r bg-default"
+      class="shadow-r z-10 flex-col bg-default transition-width"
     >
       <!-- Logo -->
       <Logo />
@@ -37,13 +37,13 @@
     </el-container>
 
     <!-- 关闭全屏 -->
-    <closeFullscreen v-if="fullScreen" />
+    <CloseFullscreen v-if="fullScreen" />
   </el-container>
 </template>
 
 <script setup lang='ts'>
 import type { ScrollbarInstance } from 'element-plus'
-import closeFullscreen from './components/close-fullscreen.vue'
+import CloseFullscreen from './components/close-fullscreen.vue'
 import Footer from './components/layout-footer.vue'
 import Header from './components/layout-header.vue'
 import Logo from './components/logo.vue'

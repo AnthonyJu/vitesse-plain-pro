@@ -2,12 +2,12 @@
   <el-space :size="10" spacer="|">
     <!-- GitHub -->
     <a
-      class="pt-3px text-dark dark:text-light!"
+      class="text-dark dark:text-light!"
       target="_blank"
-      href="https://github.com/AnthonyJu/vitesse-plain"
       title="GitHub"
+      href="https://github.com/AnthonyJu/vitesse-plain"
     >
-      <Iconify :width="24" icon="carbon:logo-github" />
+      <div class="i-carbon-logo-github text-20px" />
     </a>
 
     <!-- 切换主题 -->
