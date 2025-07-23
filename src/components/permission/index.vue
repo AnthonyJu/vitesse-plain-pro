@@ -11,7 +11,7 @@
       class="min-w-500px flex-col-center animate-head-shake gap-10px"
     >
       <div class="text-55px text-$el-color-danger">
-        <Iconify icon="ep-warning-filled" />
+        <div class="i-carbon-warning" />
       </div>
       <div class="text-22px text-$el-text-color-primary">
         部分数据加载失败

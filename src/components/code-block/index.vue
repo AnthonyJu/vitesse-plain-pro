@@ -3,7 +3,7 @@
     <div ref="code" />
     <div class="code-lang-copy">
       <div class="code-language">{{ lang }}</div>
-      <Iconify v-if="isSupported" class="code-copy" title="复制代码" icon="carbon:copy" @click="copyFn" />
+      <div v-if="isSupported" class="code-copy i-carbon-copy text-18px" title="复制代码" @click="copyFn" />
     </div>
   </div>
 </template>

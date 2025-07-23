@@ -7,7 +7,7 @@
       href="https://github.com/AnthonyJu/vitesse-plain"
       title="GitHub"
     >
-      <Iconify :width="24" icon="carbon:logo-github" />
+      <span class="i-carbon-logo-github text-20px" />
     </a>
 
     <!-- 切换主题 -->

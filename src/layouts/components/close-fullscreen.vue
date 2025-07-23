@@ -1,9 +1,8 @@
 <template>
   <div class="close-full hover:opacity-80" @click="fullScreen = false">
-    <Iconify
-      class="absolute bottom-11px left-11px text-$el-color-primary"
-      icon="ep-close"
-      size="15px"
+    <span
+      title="关闭全屏"
+      class="i-carbon-close absolute bottom-11px left-11px text-16px text-$el-color-primary"
     />
   </div>
 </template>

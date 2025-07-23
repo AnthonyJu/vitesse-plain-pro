@@ -23,7 +23,7 @@ export const routes: RouteItem[] = [
     path: '/home',
     meta: {
       title: '首页',
-      icon: 'carbon-home',
+      icon: 'i-carbon-home',
       isAffix: true,
     },
   },
@@ -31,7 +31,7 @@ export const routes: RouteItem[] = [
     path: '/regexps',
     meta: {
       title: '正则合集',
-      icon: 'carbon-test-tool',
+      icon: 'i-carbon-test-tool',
       isAffix: true,
     },
   },
@@ -39,21 +39,21 @@ export const routes: RouteItem[] = [
     path: '/unity-in-web',
     meta: {
       title: 'Unity 交互',
-      icon: 'carbon-3d-mpr-toggle',
+      icon: 'i-carbon-3d-mpr-toggle',
     },
   },
   {
     path: '/i18n',
     meta: {
       title: 'i18n 国际化',
-      icon: 'carbon-ibm-watson-language-translator',
+      icon: 'i-carbon-ibm-watson-language-translator',
     },
   },
   {
     path: '/menu',
     meta: {
       title: '菜单权限',
-      icon: 'carbon-menu',
+      icon: 'i-carbon-menu',
     },
     children: [
       {
@@ -117,7 +117,7 @@ export const routes: RouteItem[] = [
     path: '/j-components',
     meta: {
       title: 'J 组件',
-      icon: 'carbon-dicom-overlay',
+      icon: 'i-carbon-dicom-overlay',
     },
     children: [
       {
@@ -156,7 +156,7 @@ export const routes: RouteItem[] = [
     path: '/comp',
     meta: {
       title: '组件封装',
-      icon: 'carbon-cics-system-group',
+      icon: 'i-carbon-cics-system-group',
     },
     children: [
       {
@@ -195,7 +195,7 @@ export const routes: RouteItem[] = [
     path: '/feat',
     meta: {
       title: '功能示例',
-      icon: 'carbon-layers',
+      icon: 'i-carbon-layers',
     },
     children: [
       {
@@ -284,7 +284,7 @@ export const routes: RouteItem[] = [
     path: '/3d-scene',
     meta: {
       title: '3D 场景',
-      icon: 'carbon-3d-cursor',
+      icon: 'i-carbon-3d-cursor',
     },
     children: [
       {
@@ -311,7 +311,7 @@ export const routes: RouteItem[] = [
     path: '/cesium',
     meta: {
       title: 'Cesium',
-      icon: 'carbon-3d-print-mesh',
+      icon: 'i-carbon-3d-print-mesh',
     },
     children: [
       {
@@ -344,7 +344,7 @@ export const routes: RouteItem[] = [
     path: '/arcgis',
     meta: {
       title: 'ArcGIS',
-      icon: 'carbon-map',
+      icon: 'i-carbon-map',
     },
     children: [
       {
@@ -389,7 +389,7 @@ export const routes: RouteItem[] = [
     path: '/vue-echarts',
     meta: {
       title: 'Vue-ECharts',
-      icon: 'carbon-chart-multitype',
+      icon: 'i-carbon-chart-multitype',
     },
     children: [
       {

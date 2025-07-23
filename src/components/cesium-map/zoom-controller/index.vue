@@ -6,16 +6,16 @@
   >
     <!-- 复原 -->
     <div class="cesium-tool-btn" title="复原" @click="resetMap">
-      <Iconify icon="carbon-home" size="22px" color="#fff" />
+      <div class="i-carbon-home text-18px text-#fff" />
     </div>
 
     <!-- 缩放 -->
     <div class="flex-col-center overflow-hidden rounded-5px">
       <div class="cesium-tool-btn rounded-0!" title="放大" @click="zoomIn">
-        <Iconify icon="carbon-add" size="32px" color="#fff" />
+        <div class="i-carbon-add text-20px text-#fff" />
       </div>
       <div class="cesium-tool-btn rounded-0!" title="缩小" @click="zoomOut">
-        <Iconify icon="carbon-subtract" size="32px" color="#fff" />
+        <div class="i-carbon-subtract text-20px text-#fff" />
       </div>
     </div>
   </div>

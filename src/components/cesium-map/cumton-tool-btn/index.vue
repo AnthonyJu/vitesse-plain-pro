@@ -16,7 +16,7 @@
       </el-button>
     </div>
     <div class="cesium-tool-btn" @click="showTools = !showTools">
-      <Iconify size="25px" :icon="icon" />
+      <div class="text-20px" :class="icon" />
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="notice-bar" :style="{ background, height: `${height}px` }">
     <div class="notice-bar-warp" :style="{ color, fontSize: `${size}px` }">
-      <Iconify v-if="leftIcon" class="notice-bar-warp-left-icon" :icon="leftIcon" />
+      <div v-if="leftIcon" class="notice-bar-warp-left-icon" :class="leftIcon" />
 
       <div
         ref="noticeBarWarpRef"
@@ -13,7 +13,7 @@
         <div v-else class="notice-bar-warp-slot"><slot /></div>
       </div>
 
-      <Iconify class="notice-bar-warp-right-icon" icon="carbon:close" @click="handleClose" />
+      <div class="notice-bar-warp-right-icon i-carbon-close" @click="handleClose" />
     </div>
   </div>
 </template>

@@ -1,32 +1,33 @@
+import { presetWind3 } from '@unocss/preset-wind3'
+
 import {
   defineConfig,
   presetAttributify,
   presetIcons,
   presetTypography,
-  presetUno,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
+  // class 白名单 预处理
+  // safelist: [],
+
+  // class 提取
+  content: {
+    pipeline: {
+      include: [
+        // 基础
+        /\.(vue|[jt]sx)($|\?)/,
+        // 包括 routes.ts 文件，读取路由元信息icon
+        'src/router/routes.ts',
+      ],
+    },
+  },
+
   rules: [
     [
-      /^shadow-(\D+)$/,
-      ([, type]) => {
-        const color = '2px var(--el-border-color)'
-        switch (type) {
-          case 'b':
-            return { 'box-shadow': `0px 1px ${color}` }
-          case 'r':
-            return { 'box-shadow': `1px 0px ${color}` }
-          case 't':
-            return { 'box-shadow': `0px -1px ${color}` }
-          case 'l':
-            return { 'box-shadow': `-1px 0px ${color}` }
-        }
-      },
-    ],
-    [
+      // 使用：bd-1px-red
       // eslint-disable-next-line regexp/no-misleading-capturing-group,regexp/no-super-linear-backtracking
       /^bd-(\d+)(\D+)-(\S+)$/,
       ([, width, unit, color]) => {
@@ -35,6 +36,7 @@ export default defineConfig({
         }
       },
     ],
+    // 使用方式：grid
     [
       /^grid-(\D+)-(\d+)(\D+)$/,
       ([,type, size, unit]) => {
@@ -45,6 +47,7 @@ export default defineConfig({
       },
     ],
   ],
+
   shortcuts: {
     'full': 'w-full h-full',
     'flex-col': 'flex flex-col',
@@ -58,20 +61,30 @@ export default defineConfig({
     'layout-default': 'bg-default p-15px rounded-$el-border-radius-base',
     'rounded-default': 'rounded-$el-border-radius-base',
   },
+
   presets: [
-    // 启用 uno 预设
-    presetUno(),
+    // 启用 基础 预设
+    presetWind3(),
     // 启用 属性 预设
     presetAttributify(),
     // 启用 icons 预设
     presetIcons({
       scale: 1.2,
       warn: true,
-      cdn: 'https://esm.sh/',
+      // 图标的默认行为 style
+      // extraProperties: {
+      //   'display': 'inline-block',
+      //   'vertical-align': 'middle',
+      // },
+      // 打包成异步 chunk，并按需加载
+      collections: {
+        carbon: () => import('@iconify-json/carbon/icons.json').then(i => i.default),
+      },
     }),
     // 启用 排版 预设
     presetTypography(),
   ],
+
   transformers: [
     // 启用 @apply 功能
     transformerDirectives(),

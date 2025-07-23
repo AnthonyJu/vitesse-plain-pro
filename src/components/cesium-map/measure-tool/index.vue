@@ -13,7 +13,7 @@
     active-color="#1BCBEA"
   >
     <template #body="instances">
-      <CustomToolBtn :instances="instances" title="测量" :parent="measureToolRef" icon="carbon-ruler-alt" />
+      <CustomToolBtn :instances="instances" title="测量" :parent="measureToolRef" icon="i-carbon-ruler-alt" />
     </template>
   </VcMeasurements>
 </template>

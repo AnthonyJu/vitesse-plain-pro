@@ -73,6 +73,10 @@ function handleContextMenu(tag: RouteItem, e: MouseEvent) {
 }
 function onContextmenuClick(id: number, fullPath: string) {
   switch (id) {
+    // 全屏
+    case 0:
+      themeStore.fullScreen = !themeStore.fullScreen
+      break
     // 关闭右侧
     case 1:
       tagsViewStore.closeRightTags(fullPath)

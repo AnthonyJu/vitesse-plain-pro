@@ -16,7 +16,7 @@
               class="el-dropdown-menu__item"
               @click="onCurrentContextmenuClick(index)"
             >
-              <Iconify :icon="item.icon" size="12px" mr-8px />
+              <span class="mr-8px text-12px" :class="item.icon" />
               <span text-12px>{{ item.txt }}</span>
             </li>
           </template>
@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 interface Props {
-  dropdown: { x: number, y: number }
+  dropdown?: { x: number, y: number }
 }
 interface DropdownItem {
   txt: string
@@ -52,10 +52,10 @@ const fullPath = ref('')
 
 // 下拉菜单列表
 const dropdownList: DropdownItem[] = [
-  { txt: '全屏', icon: 'ep-full-screen' },
-  { txt: '关闭右侧', icon: 'ep-close' },
-  { txt: '关闭其它', icon: 'ep-circle-close' },
-  { txt: '关闭所有', icon: 'ep-folder-delete' },
+  { txt: '全屏', icon: 'i-carbon-fit-to-screen' },
+  { txt: '关闭右侧', icon: 'i-carbon-close' },
+  { txt: '关闭其它', icon: 'i-carbon-delete' },
+  { txt: '关闭所有', icon: 'i-carbon-close-filled' },
 ]
 
 // 监听下拉菜单位置

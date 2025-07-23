@@ -41,7 +41,7 @@
 
     <div ref="draggableRef" class="drag-line" :style="{ left: `${dragPercent}%` }">
       <div ref="handleRef" class="handle flex-center">
-        <Iconify icon="carbon:drag-horizontal" />
+        <div class="i-carbon-drag-horizontal" />
       </div>
     </div>
   </div>
