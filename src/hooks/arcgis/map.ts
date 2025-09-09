@@ -38,6 +38,7 @@ export function useArcgis(container: string) {
 export function useArcgis3D(container: string) {
   const map = new Map({
     basemap: 'satellite',
+    ground: 'world-elevation',
   })
   const view = new SceneView({
     camera: {

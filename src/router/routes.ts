@@ -389,6 +389,12 @@ export const routes: RouteItem[] = [
           title: '搜索地址',
         },
       },
+      {
+        path: '/arcgis/7_3d_viewshed',
+        meta: {
+          title: '3D 可视域分析',
+        },
+      },
     ],
   },
   {
