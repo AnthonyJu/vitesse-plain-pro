@@ -4,7 +4,7 @@
     <el-aside
       v-if="asideMenu && !fullScreen"
       :width="menuWidth"
-      class="shadow-r z-10 flex-col bg-default transition-width"
+      class="layout-shadow z-10 flex-col bg-default transition-width"
     >
       <!-- Logo -->
       <Logo />

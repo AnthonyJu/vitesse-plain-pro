@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-b flex-bc px-15px" :style="{ height: `${header.height}px` }">
+  <div class="flex-bc px-15px" :style="{ height: `${header.height}px` }">
     <!-- Logo -->
     <Logo v-if="drawerMenu" />
     <!-- 面包屑 -->

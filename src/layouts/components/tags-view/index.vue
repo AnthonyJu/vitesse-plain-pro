@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ height: `${themeStore.tagsView.height}px` }" class="flex-items px-15px">
+  <div :style="{ height: `${themeStore.tagsView.height}px` }" class="layout-shadow relative flex-items px-15px">
     <el-scrollbar
       ref="scrollbarRef"
       class="mt-12px flex-1"

@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar flex-1 px-10px>
+  <el-scrollbar class="flex-1 px-10px">
     <el-menu
       :default-active="route.path"
       router
@@ -8,7 +8,7 @@
       :collapse="themeStore.menu.collapse"
       :mode="themeStore.menu.aside ? 'vertical' : 'horizontal'"
     >
-      <template v-for="menu in menuStore.menus" :key="menu.path">
+      <template v-for="menu in menus" :key="menu.path">
         <el-sub-menu
           v-if="menu.children && !menu.meta.isLeaf"
           :key="`v-if_${menu.path}`"
@@ -39,6 +39,8 @@ import SubMenu from './components/sub-menu.vue'
 const route = useRoute()
 const menuStore = useMenuStore()
 const themeStore = useThemeStore()
+
+const menus = computed(() => menuStore.menus.filter(menu => !menu.meta.isHide))
 </script>
 
 <style lang="scss" scoped>

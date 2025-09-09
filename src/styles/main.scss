@@ -28,6 +28,10 @@ html {
     color-scheme: dark;
     background: var(--el-html-bg-color-dark);
   }
+
+  .layout-shadow {
+    box-shadow: 0 0 1px hsla(240deg 3.7% 25%);
+  }
 }
 
 input:-webkit-autofill {

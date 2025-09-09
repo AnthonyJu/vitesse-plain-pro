@@ -1,7 +1,7 @@
 <template>
   <div
     class="h-60px flex-center cursor-default"
-    :class="{ 'cursor-pointer': menu.drawer, 'w-full shadow-b': menu.aside && !menu.drawer }"
+    :class="{ 'cursor-pointer': menu.drawer, 'w-full': menu.aside && !menu.drawer }"
     @click="showDrawer = true"
   >
     <div :key="menu.collapse.toString()" class="flex-center animate-bounce-in">
@@ -24,7 +24,7 @@
     <Menu />
   </el-drawer>
 
-  <Menu v-else-if="!menu.aside" pl-15px />
+  <Menu v-else-if="!menu.aside" class="pl-15px" />
 </template>
 
 <script setup lang="ts">
