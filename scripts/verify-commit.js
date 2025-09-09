@@ -10,7 +10,6 @@ const msg = readFileSync(msgPath, 'utf-8').trim()
 const commitRE = /^(revert: )?(init|feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
 
 if (!commitRE.test(msg)) {
-  console.log()
   console.error(
     `  ${pico.white(pico.bgRed(' ERROR '))} ${pico.red(
       `提交消息格式无效。`,
