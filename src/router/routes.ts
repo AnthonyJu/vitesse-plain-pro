@@ -305,6 +305,12 @@ export const routes: RouteItem[] = [
           title: '瓦片全景',
         },
       },
+      {
+        path: '/3d-scene/photo-sphere-viewer',
+        meta: {
+          title: '全景标注',
+        },
+      },
     ],
   },
   {

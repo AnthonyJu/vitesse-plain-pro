@@ -14,6 +14,12 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.17(typescript@5.8.3))
+      '@photo-sphere-viewer/core':
+        specifier: ^5.13.4
+        version: 5.13.4
+      '@photo-sphere-viewer/markers-plugin':
+        specifier: ^5.13.4
+        version: 5.13.4(@photo-sphere-viewer/core@5.13.4)
       '@tresjs/cientos':
         specifier: ^4.3.1
         version: 4.3.1(@tresjs/core@4.3.6(three@0.178.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3)))(@types/three@0.178.1)(three@0.178.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
@@ -1856,6 +1862,14 @@ packages:
 
   '@parse5/tools@0.3.0':
     resolution: {integrity: sha512-zxRyTHkqb7WQMV8kTNBKWb1BeOFUKXBXTBWuxg9H9hfvQB3IwP6Iw2U75Ia5eyRxPNltmY7E8YAlz6zWwUnjKg==}
+
+  '@photo-sphere-viewer/core@5.13.4':
+    resolution: {integrity: sha512-leVQL6gG9wTF+uvCFarHUcr8mzafCZ/GLzauksYQJfiqDVRFSAJNXnTOy7RH9otToluEdjN1hsN1f9HQy+rLYg==}
+
+  '@photo-sphere-viewer/markers-plugin@5.13.4':
+    resolution: {integrity: sha512-BsrKT2CYQ/IPF8jTmufo4G8ILxUStTjym/7apoKH+7GAR4MPefEDWI2dnwkX8cfU0dqBsWz9hjHZab2sjwNtsQ==}
+    peerDependencies:
+      '@photo-sphere-viewer/core': 5.13.4
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -6838,6 +6852,9 @@ packages:
     peerDependencies:
       three: '>=0.128.0'
 
+  three@0.175.0:
+    resolution: {integrity: sha512-nNE3pnTHxXN/Phw768u0Grr7W4+rumGg/H6PgeseNJojkJtmeHJfZWi41Gp2mpXl1pg1pf1zjwR4McM1jTqkpg==}
+
   three@0.178.0:
     resolution: {integrity: sha512-ybFIB0+x8mz0wnZgSGy2MO/WCO6xZhQSZnmfytSPyNpM0sBafGRVhdaj+erYh5U+RhQOAg/eXqw5uVDiM2BjhQ==}
 
@@ -9491,6 +9508,14 @@ snapshots:
   '@parse5/tools@0.3.0':
     dependencies:
       parse5: 7.2.1
+
+  '@photo-sphere-viewer/core@5.13.4':
+    dependencies:
+      three: 0.175.0
+
+  '@photo-sphere-viewer/markers-plugin@5.13.4(@photo-sphere-viewer/core@5.13.4)':
+    dependencies:
+      '@photo-sphere-viewer/core': 5.13.4
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -16028,6 +16053,8 @@ snapshots:
       fflate: 0.6.10
       potpack: 1.0.2
       three: 0.178.0
+
+  three@0.175.0: {}
 
   three@0.178.0: {}
 

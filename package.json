@@ -19,6 +19,8 @@
   "dependencies": {
     "@arcgis/core": "^4.32.10",
     "@element-plus/icons-vue": "^2.3.1",
+    "@photo-sphere-viewer/core": "^5.13.4",
+    "@photo-sphere-viewer/markers-plugin": "^5.13.4",
     "@tresjs/cientos": "^4.3.1",
     "@tresjs/core": "^4.3.6",
     "@tresjs/leches": "^0.14.1",

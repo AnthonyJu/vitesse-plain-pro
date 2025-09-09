@@ -14,27 +14,21 @@ function buildConfig(mode: ConfigEnv['mode']): UserConfig['build'] {
         chunkFileNames: 'assets/js/[name].[hash].js',
         entryFileNames: 'assets/js/[name].[hash].js',
         assetFileNames: 'assets/[ext]/[name].[hash].[ext]',
+
         // 手动分包，大文件单独打包
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('element-plus')) {
-              return 'element-plus'
-            }
-            else if (id.includes('xlsx')) {
-              return 'xlsx'
-            }
-            else if (id.includes('@arcgis/core') || id.includes('@esri')) {
-              return 'arcgis'
-            }
-            else if (id.includes('shiki')) {
-              return 'shiki'
-            }
-            else if (id.includes('vue-cesium')) {
-              return 'vue-cesium'
-            }
-            else {
-              return 'vendor'
-            }
+            if (id.includes('vue')) return 'vue'
+            if (id.includes('dayjs')) return 'dayjs'
+            if (id.includes('lodash')) return 'lodash'
+            if (id.includes('axios')) return 'axios'
+            if (id.includes('element-plus')) return 'element-plus'
+            if (id.includes('xlsx')) return 'xlsx'
+            if (id.includes('shiki')) return 'shiki'
+            if (id.includes('echarts')) return 'echarts'
+            if (id.includes('vue-cesium')) return 'vue-cesium'
+            if (id.includes('@arcgis/core') || id.includes('@esri')) return 'arcgis'
+            return 'vendor'
           }
         },
       },
