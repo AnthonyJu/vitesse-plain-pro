@@ -1,6 +1,6 @@
 <template>
   <template v-for="menu in children" :key="menu.path">
-    <el-sub-menu v-if="menu.children && !menu.meta.isLeaf" :index="menu.path">
+    <el-sub-menu v-if="menu.children?.length && !menu.meta.isLeaf" :index="menu.path">
       <template #title>
         <MenuTitle :title="menu.meta?.title" :icon="menu.meta?.icon" />
       </template>

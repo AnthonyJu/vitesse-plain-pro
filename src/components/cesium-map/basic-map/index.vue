@@ -13,14 +13,16 @@
 
 <script setup lang="ts">
 import type { VcReadyObject } from 'vue-cesium/es/utils/types'
-import { TdtTerrainProvider } from '@/plugin/cesium/GeoTerrainProvider'
 // @ts-expect-error no exported
 import { VcConfigProvider, VcImageryProviderUrltemplate, VcLayerImagery, VcViewer } from 'vue-cesium'
+import { TdtTerrainProvider } from '@/plugin/cesium/GeoTerrainProvider'
 import 'vue-cesium/dist/index.css'
 
-const { cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
-  cesiumId?: string
+const emit = defineEmits<{
+  ready: [vc: VcReadyObject]
 }>()
+
+const cesiumId = inject('cesiumId') as string
 
 // Cesium 资源路径
 const cesiumPath = `${location.origin + location.pathname}cesium/Cesium.js`
@@ -38,7 +40,6 @@ const viewerConfig = {
   shouldAnimate: true,
 }
 
-// 4d7cd169dc5eb26f19c59253685bc202，c9e1d3593f3cc3065d6546f425957ec3，2fc9d4c3ef688d81e9b943d172452123，436ce7e50d27eede2f2929307e6b33c0
 // 天地图密钥
 const tdtToken = '436ce7e50d27eede2f2929307e6b33c0'
 // 服务域名
@@ -62,6 +63,8 @@ const tdtLayer = [
 
 // VueCesium 实例准备完成
 function onReady(vc: VcReadyObject) {
+  emit('ready', vc)
+
   // 抗锯齿
   vc.viewer.scene.postProcessStages.fxaa.enabled = true
 

@@ -33,7 +33,8 @@ const { positions } = defineProps<{
 }>()
 
 const safeHeight = 20
-const vc = useVueCesium(DEFAULT_CESIUM_ID)
+const cesiumId = inject('cesiumId')
+const vc = useVueCesium(cesiumId)
 const dashMaterial = new Cesium.PolylineDashMaterialProperty({ color: Cesium.Color.RED })
 
 // 计算不符合高度的航线

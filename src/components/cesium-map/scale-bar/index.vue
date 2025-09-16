@@ -20,9 +20,7 @@
 // @ts-expect-error no exported
 import { useVueCesium } from 'vue-cesium'
 
-const { cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
-  cesiumId?: string
-}>()
+const cesiumId = inject('cesiumId') as string
 
 const show = ref(false)
 

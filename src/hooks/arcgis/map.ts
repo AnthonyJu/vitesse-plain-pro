@@ -18,11 +18,8 @@ export function useArcgis(container: string) {
     popupEnabled: false,
   })
 
-  const zoom = new Zoom({ view })
-  view.ui.add(zoom, 'bottom-right')
-
-  const scale = new ScaleBar({ view, unit: 'metric' })
-  view.ui.add(scale, 'bottom-right')
+  view.ui.add(new Zoom({ view }), 'bottom-right')
+  view.ui.add(new ScaleBar({ view, unit: 'metric' }), 'bottom-right')
 
   onMounted(() => {
     view.map = map
@@ -51,7 +48,12 @@ export function useArcgis3D(container: string) {
       fov: 75,
       heading: 0,
     },
+    ui: {
+      components: [],
+    },
   })
+
+  view.ui.add(new Zoom({ view }), 'bottom-right')
 
   onMounted(() => {
     view.map = map

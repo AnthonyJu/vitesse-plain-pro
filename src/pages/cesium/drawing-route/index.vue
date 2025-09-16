@@ -1,5 +1,5 @@
 <template>
-  <CesiumMap :class="{ 'take-off-cursor': !takeOffPoint }">
+  <BasicMap :class="{ 'take-off-cursor': !takeOffPoint }" @ready="handleReady">
     <TakeOffPoint :position="takeOffPoint" />
 
     <RouteLine
@@ -13,25 +13,23 @@
       :key="`point-${JSON.stringify(item)}`"
       :position="item"
     />
-  </CesiumMap>
+  </BasicMap>
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error useVueCesium
-import { useVueCesium } from 'vue-cesium'
+import type { VcReadyObject } from 'vue-cesium/es/utils/types'
 import RouteLine from './components/route-line.vue'
 import RoutePoint from './components/route-point.vue'
+
 import TakeOffPoint from './components/take-off-point.vue'
 
-let viewer: Cesium.Viewer
+provide('cesiumId', 'cesiumId')
 
-onMounted(() => {
-  const vc = useVueCesium(DEFAULT_CESIUM_ID)
-  vc.creatingPromise.then(() => {
-    viewer = vc.viewer
-    onMapClick()
-  })
-})
+let viewer: Cesium.Viewer
+function handleReady(vc: VcReadyObject) {
+  viewer = vc.viewer
+  onMapClick()
+}
 
 const safeHeight = 200
 const points = ref<Cesium.Cartesian3[]>([])

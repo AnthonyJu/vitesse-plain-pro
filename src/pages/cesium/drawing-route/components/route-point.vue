@@ -27,10 +27,10 @@
 </template>
 
 <script setup lang="ts">
-import FlyDotActive from '@/assets/cesium/fly-dot-active.svg'
-import FlyDot from '@/assets/cesium/fly-dot.svg'
 // @ts-expect-error no exported
 import { useVueCesium, VcEntity, VcGraphicsBillboard, VcGraphicsPolyline } from 'vue-cesium'
+import FlyDotActive from '@/assets/cesium/fly-dot-active.svg'
+import FlyDot from '@/assets/cesium/fly-dot.svg'
 import DistanceLabel from './distance-label.vue'
 
 const { position } = defineProps<{
@@ -38,7 +38,8 @@ const { position } = defineProps<{
 }>()
 
 const image = ref(FlyDot)
-const vc = useVueCesium(DEFAULT_CESIUM_ID)
+const cesiumId = inject('cesiumId')
+const vc = useVueCesium(cesiumId)
 const dashMaterial = new Cesium.PolylineDashMaterialProperty({ color: Cesium.Color.WHITE })
 
 const positions = ref<[Cesium.Cartesian3, Cesium.Cartesian3]>()

@@ -1,19 +1,22 @@
 <template>
-  <CesiumMap />
+  <BasicMap @ready="handleReady">
+    <DrawTool />
+    <MeasureTool />
+    <ZoomController />
+    <ScaleBar />
+    <slot />
+  </BasicMap>
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error useVueCesium
-import { useVueCesium } from 'vue-cesium'
+import type { VcReadyObject } from 'vue-cesium/es/utils/types'
+
+provide('cesiumId', 'cesiumId')
 
 let viewer: Cesium.Viewer
-
-onMounted(() => {
-  const vc = useVueCesium(DEFAULT_CESIUM_ID)
-  vc.creatingPromise.then(() => {
-    viewer = vc.viewer
-    // eslint-disable-next-line no-console
-    console.log(viewer)
-  })
-})
+function handleReady(vc: VcReadyObject) {
+  viewer = vc.viewer
+  // eslint-disable-next-line no-console
+  console.log('VueCesium is ready', viewer)
+}
 </script>

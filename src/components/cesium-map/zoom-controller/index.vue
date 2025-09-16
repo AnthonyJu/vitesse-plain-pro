@@ -25,8 +25,7 @@
 // @ts-expect-error no exported
 import { useVueCesium } from 'vue-cesium'
 
-const { center, cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
-  cesiumId?: string
+const { center } = defineProps<{
   center?: {
     destination: Cesium.Cartesian3
     orientation: {
@@ -36,6 +35,8 @@ const { center, cesiumId = DEFAULT_CESIUM_ID } = defineProps<{
     }
   }
 }>()
+
+const cesiumId = inject('cesiumId') as string
 
 const show = ref(false)
 const vc = useVueCesium(cesiumId)

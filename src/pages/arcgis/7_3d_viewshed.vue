@@ -14,6 +14,7 @@ const viewshedLayer = new ViewshedLayer({
   source: new ViewshedAnalysis(),
 })
 map.add(viewshedLayer)
+
 view.whenLayerView(viewshedLayer).then((layerView) => {
   layerView.interactive = true
 

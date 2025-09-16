@@ -1,12 +1,17 @@
 <template>
-  <CesiumMap />
+  <BasicMap @ready="handleReady" />
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error useVueCesium
-import { useVueCesium } from 'vue-cesium'
+import type { VcReadyObject } from 'vue-cesium/es/utils/types'
+
+provide('cesiumId', 'cesiumId')
 
 let viewer: Cesium.Viewer
+function handleReady(vc: VcReadyObject) {
+  viewer = vc.viewer
+  loadModel()
+}
 
 // 加载模型
 function loadModel() {
@@ -33,12 +38,4 @@ function loadModel() {
   // 查看位置
   viewer.camera.lookAt(position, new Cesium.Cartesian3(0, 0, 1000))
 }
-
-onMounted(() => {
-  const vc = useVueCesium(DEFAULT_CESIUM_ID)
-  vc.creatingPromise.then(() => {
-    viewer = vc.viewer
-    loadModel()
-  })
-})
 </script>

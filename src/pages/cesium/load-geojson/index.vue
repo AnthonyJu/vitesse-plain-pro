@@ -1,12 +1,17 @@
 <template>
-  <CesiumMap />
+  <BasicMap @ready="handleReady" />
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error useVueCesium
-import { useVueCesium } from 'vue-cesium'
+import type { VcReadyObject } from 'vue-cesium/es/utils/types'
+
+provide('cesiumId', 'cesiumId')
 
 let viewer: Cesium.Viewer
+function handleReady(vc: VcReadyObject) {
+  viewer = vc.viewer
+  loadGeoJson()
+}
 
 // 添加GeoJson数据源
 function loadGeoJson() {
@@ -19,12 +24,4 @@ function loadGeoJson() {
   })
   viewer.dataSources.add(noFlyZone)
 }
-
-onMounted(() => {
-  const vc = useVueCesium(DEFAULT_CESIUM_ID)
-  vc.creatingPromise.then(() => {
-    viewer = vc.viewer
-    loadGeoJson()
-  })
-})
 </script>
