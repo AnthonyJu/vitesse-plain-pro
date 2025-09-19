@@ -1,10 +1,26 @@
 <template>
   <div layout-default>
-    <el-card shadow="hover" header="Konva标注组件">
-      <KonvaAnnotation
-        :width="1000"
-        :height="600"
-      />
+    <el-card shadow="hover" header="Konva标注组件" class="w-full">
+      <div>
+        <el-button @click="konvaRef?.enableDrawPoint()">画点</el-button>
+        <el-button @click="konvaRef?.enableDrawLine()">画线</el-button>
+        <el-button @click="konvaRef?.enableDrawRect()">画矩形</el-button>
+        <el-button @click="konvaRef?.enableDrawCircle()">画圆</el-button>
+        <el-button @click="konvaRef?.enableDrawPolygon()">画多边形</el-button>
+        <el-button @click="konvaRef?.clear()">清除</el-button>
+      </div>
+      <div class="flex">
+        <div :style="{ width: `${konvaWidth}px`, height: `${konvaHeight}px` }" class="bg-#eee">
+          <KonvaAnnotation
+            ref="konvaRef"
+            :width="konvaWidth"
+            :height="konvaHeight"
+          />
+        </div>
+        <el-scrollbar class="ml-10px" :height="konvaHeight">
+          画布中的数据
+        </el-scrollbar>
+      </div>
     </el-card>
 
     <el-card shadow="hover" header="Konva标注组件：参数" class="mt-15px">
@@ -20,6 +36,11 @@
 </template>
 
 <script setup lang='ts'>
+const konvaRef = ref<any>()
+
+const konvaWidth = ref(1200)
+const konvaHeight = computed(() => Math.round(konvaWidth.value * 9 / 16))
+
 const state = reactive({
   tableData: [
     { a1: 'width', a2: '宽度', a3: 'number', a4: '-', a5: '500px' },
