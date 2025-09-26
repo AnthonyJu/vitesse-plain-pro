@@ -1,5 +1,5 @@
 <template>
-  <BasicMap @ready="handleReady" />
+  <CesiumMap @ready="handleReady" />
 </template>
 
 <script setup lang="ts">

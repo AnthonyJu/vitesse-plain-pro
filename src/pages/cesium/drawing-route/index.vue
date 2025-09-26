@@ -1,5 +1,5 @@
 <template>
-  <BasicMap :class="{ 'take-off-cursor': !takeOffPoint }" @ready="handleReady">
+  <CesiumMap :class="{ 'take-off-cursor': !takeOffPoint }" @ready="handleReady">
     <TakeOffPoint :position="takeOffPoint" />
 
     <RouteLine
@@ -13,7 +13,7 @@
       :key="`point-${JSON.stringify(item)}`"
       :position="item"
     />
-  </BasicMap>
+  </CesiumMap>
 </template>
 
 <script setup lang="ts">

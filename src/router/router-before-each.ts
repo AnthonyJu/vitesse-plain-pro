@@ -21,9 +21,9 @@ export function routerBeforeEach(router: Router) {
       else if (staticRoutes.includes(to.path)) {
         next('/login')
       }
-      // 未登录，去非白名单页面，则跳转到登录页面，并记录当前页面
+      // 未登录，去非白名单页面，则跳转到登录页面
       else {
-        next(`/login?redirect=${to.fullPath}`)
+        next('/login')
       }
     }
     // 已登录，再去login页面，则还是进入当前页面

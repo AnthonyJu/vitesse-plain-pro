@@ -199,6 +199,12 @@ export const routes: RouteItem[] = [
     },
     children: [
       {
+        path: '/feat/leafer-draw',
+        meta: {
+          title: '图片标注',
+        },
+      },
+      {
         path: '/feat/charts-roll',
         meta: {
           title: '无限滚动',
@@ -341,7 +347,13 @@ export const routes: RouteItem[] = [
       {
         path: '/cesium/drawing-route',
         meta: {
-          title: '绘制航线',
+          title: '航线绘制',
+        },
+      },
+      {
+        path: '/cesium/survey-planner',
+        meta: {
+          title: '航线规划',
         },
       },
     ],

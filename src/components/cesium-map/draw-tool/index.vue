@@ -15,7 +15,7 @@
     }"
   >
     <template #body="instances">
-      <CustomToolBtn :instances="instances" title="绘制" :parent="drawToolRef" icon="i-carbon-edit" />
+      <ToolBtn :instances="instances" title="绘制" :parent="drawToolRef" icon="i-carbon-edit" />
     </template>
   </VcDrawings>
 </template>
@@ -24,7 +24,7 @@
 // @ts-expect-error no exported
 import { VcDrawings } from 'vue-cesium'
 import PinPng from '@/assets/maker.png'
-import CustomToolBtn from '../cumton-tool-btn/index.vue'
+import ToolBtn from '../tool-btn/index.vue'
 
 const drawToolRef = ref()
 </script>

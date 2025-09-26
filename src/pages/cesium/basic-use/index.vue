@@ -1,11 +1,5 @@
 <template>
-  <BasicMap @ready="handleReady">
-    <DrawTool />
-    <MeasureTool />
-    <ZoomController />
-    <ScaleBar />
-    <slot />
-  </BasicMap>
+  <CesiumMap @ready="handleReady" />
 </template>
 
 <script setup lang="ts">

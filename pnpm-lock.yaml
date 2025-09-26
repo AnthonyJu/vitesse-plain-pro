@@ -14,6 +14,24 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.17(typescript@5.8.3))
+      '@leafer-in/bright':
+        specifier: ^1.9.7
+        version: 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)
+      '@leafer-in/editor':
+        specifier: ^1.9.7
+        version: 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-in/resize@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7))(@leafer-ui/core@1.9.7)(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)
+      '@leafer-in/resize':
+        specifier: ^1.9.7
+        version: 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)
+      '@leafer-in/state':
+        specifier: ^1.9.7
+        version: 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/core@1.9.7)(@leafer-ui/interface@1.9.7)
+      '@leafer-in/view':
+        specifier: ^1.9.7
+        version: 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)
+      '@leafer-in/viewport':
+        specifier: ^1.9.7
+        version: 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/core@1.9.7)(@leafer-ui/interface@1.9.7)
       '@photo-sphere-viewer/core':
         specifier: ^5.13.4
         version: 5.13.4
@@ -41,9 +59,6 @@ importers:
       axios:
         specifier: ^1.10.0
         version: 1.10.0
-      cesium:
-        specifier: ^1.131.0
-        version: 1.131.0
       cropperjs:
         specifier: ^1.6.2
         version: 1.6.2
@@ -71,6 +86,9 @@ importers:
       konva:
         specifier: ^9.3.22
         version: 9.3.22
+      leafer-ui:
+        specifier: ^1.9.7
+        version: 1.9.7
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -98,6 +116,9 @@ importers:
       three:
         specifier: ^0.178.0
         version: 0.178.0
+      turf:
+        specifier: ^3.0.14
+        version: 3.0.14
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -1174,8 +1195,8 @@ packages:
   '@emmetio/css-abbreviation@2.1.8':
     resolution: {integrity: sha512-s9yjhJ6saOO/uk1V74eifykk2CBYi01STTK3WlXWGOepyKa23ymJ053+DNQjpFcy1ingpaO7AxCcwLvHFY9tuw==}
 
-  '@emmetio/css-parser@git+https://github.com/ramya-rao-a/css-parser.git#370c480ac103bd17c7bcfb34bf5d577dc40d3660':
-    resolution: {commit: 370c480ac103bd17c7bcfb34bf5d577dc40d3660, repo: https://github.com/ramya-rao-a/css-parser.git, type: git}
+  '@emmetio/css-parser@https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660':
+    resolution: {tarball: https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660}
     version: 0.4.0
 
   '@emmetio/html-matcher@1.3.0':
@@ -1732,6 +1753,194 @@ packages:
 
   '@keyv/serialize@1.0.3':
     resolution: {integrity: sha512-qnEovoOp5Np2JDGonIDL6Ayihw0RhnRh6vxPuHo4RDn1UOzwEo4AeIfpL6UGIrsceWrCMiVPgwRjbHu4vYFc3g==}
+
+  '@leafer-in/bright@1.9.7':
+    resolution: {integrity: sha512-ICzoLDhnp4Gd0ZQLGjg+zNEGP3ggepKg3u+siO33TN0x7xISQOCQ/doAXn/FlnB/r8pbNRte2oq8eksMvJ5GYg==}
+    peerDependencies:
+      '@leafer-in/interface': ^1.9.7
+      '@leafer-ui/draw': ^1.9.7
+      '@leafer-ui/interface': ^1.9.7
+
+  '@leafer-in/editor@1.9.7':
+    resolution: {integrity: sha512-LDo27SyNk9hT/s6H90INWpE8EbDCkg8S4xw98Zgb9VJQiiXRiMZGxAdAEfB1ACzilm1B3G3zYsabT67bbJVd8A==}
+    peerDependencies:
+      '@leafer-in/interface': ^1.9.7
+      '@leafer-in/resize': ^1.9.7
+      '@leafer-ui/core': ^1.9.7
+      '@leafer-ui/draw': ^1.9.7
+      '@leafer-ui/interface': ^1.9.7
+
+  '@leafer-in/interface@1.9.7':
+    resolution: {integrity: sha512-yi6FQK3kcDbg13wtRIttLSo29bLugxifCr90mnhPqGx2aumEU9Gly5AssY6Zo1F/IYxy+5qQpT9+mny/nBmLaA==}
+    peerDependencies:
+      '@leafer-ui/interface': ^1.9.7
+      '@leafer/interface': ^1.9.7
+
+  '@leafer-in/resize@1.9.7':
+    resolution: {integrity: sha512-lWza1vjd36LD2iLmjmlhReJZwuKxMptY+BaVfegtYXiRZZ7ylTUbNtNkzDuLMFLLQeti/SQwsRrGUcsUO4pVvg==}
+    peerDependencies:
+      '@leafer-in/interface': ^1.9.7
+      '@leafer-ui/draw': ^1.9.7
+      '@leafer-ui/interface': ^1.9.7
+
+  '@leafer-in/state@1.9.7':
+    resolution: {integrity: sha512-KUokQ915tweNO8iG/P5PtEb9A7RqkZoVIhrPHWVkxsIKMRUw0thKpJmHNnywhnMCERJHZ9oa0heBpyjdWSf+7A==}
+    peerDependencies:
+      '@leafer-in/interface': ^1.9.7
+      '@leafer-ui/core': ^1.9.7
+      '@leafer-ui/interface': ^1.9.7
+
+  '@leafer-in/view@1.9.7':
+    resolution: {integrity: sha512-650DQ3s1CpsRxVcND1kqPLxhysbc6IbuyivFkgcpuqi5jSIbj28JDlYJT5kciHys0sdDTpdHiwymHMNTWnCCsw==}
+    peerDependencies:
+      '@leafer-in/interface': ^1.9.7
+      '@leafer-ui/draw': ^1.9.7
+      '@leafer-ui/interface': ^1.9.7
+
+  '@leafer-in/viewport@1.9.7':
+    resolution: {integrity: sha512-eVmZm9qfs/+K/0qC0+ZRyduYuFTa4b3nswfVMnx5EKPPeina1KyF+0iHlDBkVnZF0OHYetspUHR8cDI0s77WMw==}
+    peerDependencies:
+      '@leafer-in/interface': ^1.9.7
+      '@leafer-ui/core': ^1.9.7
+      '@leafer-ui/interface': ^1.9.7
+
+  '@leafer-ui/app@1.9.7':
+    resolution: {integrity: sha512-NbKIZdqlyO+5kwjQgRwc9g9qkQ1EkmBr9ss8R7Kx4CZ/ggMcZlkcX9USMoDdTpLCChzAmj+kH2Yo5F+upLYehg==}
+
+  '@leafer-ui/bounds@1.9.7':
+    resolution: {integrity: sha512-ZGopUji/eTIRPLLVGYZCeX56XCh8/MqnN9JkcliSh6DUnKxO1suGxz499p8SW5WC7Xq+1v/31KtNlon0qIwBvQ==}
+
+  '@leafer-ui/color@1.9.7':
+    resolution: {integrity: sha512-Z219WTwplWyKRmpdeuDCx09tzQ26s1+8SiQUpJOI3zE8h3IJNzIrdvLueS6WFi/JoXM5YDamyXQoquYT82A5Iw==}
+
+  '@leafer-ui/core@1.9.7':
+    resolution: {integrity: sha512-+v49VrLYUMZ7dRIJJTw6rhIIZTHuDlAG1m392ElZ9y2izrWKmZWoo3GZAagCEzxffIDZiUG6NmRd0ZzskNStvg==}
+
+  '@leafer-ui/data@1.9.7':
+    resolution: {integrity: sha512-SFDcAmmGWMrdfEAlgGEz/U/3n/VjhBymMwJCyJhO9oTJu+mllp/0GPC2ju8wkWe0k3Os9Dp9sA6EicrmyyLr3w==}
+
+  '@leafer-ui/decorator@1.9.7':
+    resolution: {integrity: sha512-qKEmv/rc7WA5uPT+Elqb0SRLp/AFB33dZaFubXT4PZL6CGWzO9rs9gUinFGqkmFlG+Gjs9+B0/4HwQx5BZD/aQ==}
+
+  '@leafer-ui/display-module@1.9.7':
+    resolution: {integrity: sha512-kDLvg9hUuzKzQh6HxYPffyS+bKjSlq4PsdreO39D4e3EOTGEpc53dY0ja4cGjXI5Y6M9PSmSMciaERoeqWYqog==}
+
+  '@leafer-ui/display@1.9.7':
+    resolution: {integrity: sha512-bicvqXwKuoH8GJXZMuy5k+sxY3b/m7DBMbDGubwtGQJ6E/oqD9IprqRMVsXaCu5xpwzFBf60JueAfhrUKykf3Q==}
+
+  '@leafer-ui/draw@1.9.7':
+    resolution: {integrity: sha512-3bRjTcrvm9KRPm+yzlk6TADvKm2//4Sxnc3321NpN8SNASYGZI/ay/KHfBQVQ4EPVJm5yg98L7JzntBSexpmfQ==}
+
+  '@leafer-ui/effect@1.9.7':
+    resolution: {integrity: sha512-/CD0hD58Vt3q3DlvNcHtNaLnr72guheQIdCy4dKeUqH9xMVCWtsZWB1eFNDcA5VAR+NTAAGHPkdEPQjPhpPPgQ==}
+
+  '@leafer-ui/event@1.9.7':
+    resolution: {integrity: sha512-6bG2qanVocj1KXRbCn6Scbbzv2rngsj2OG6gaBEcdun2+iFQCScAR9SXMp9DqsnUQGqYIRWMQ32Z8jp+q0sMuQ==}
+
+  '@leafer-ui/external@1.9.7':
+    resolution: {integrity: sha512-lO7TU8Xii1fsgJgzk8Xg6Hm/aHYbCxRYOAlFWAYEqq5JZ6lZgkz11/zcUAYqCGNhI28/qK8b6JXdxOiJnDw6vw==}
+
+  '@leafer-ui/hit@1.9.7':
+    resolution: {integrity: sha512-51jB7JP83zy4ZNm+u2H1zhFQa4GYOw7vUBXvZSZjrvRy3XjcHptUD8OBgABxqI+lvJVmQUncMiC915usASNBzA==}
+
+  '@leafer-ui/interaction-web@1.9.7':
+    resolution: {integrity: sha512-wBPUf1qp5ru87spgfqW94YBpVMXr16SycvfwfGHsx/KhxCimS5yG0VE6GB22NyJfIXljeybkGe3EJaEqhpcyOw==}
+
+  '@leafer-ui/interaction@1.9.7':
+    resolution: {integrity: sha512-wfIBqBYOK+qg0K5zXPJtcrA8e2YjwieUDJkq9EA0AAueZ2gQhJcETmsZ+3SVKfw52Nk1HMici+Yao0ktv5Fg5w==}
+
+  '@leafer-ui/interface@1.9.7':
+    resolution: {integrity: sha512-2qtA0qLtWq+hc0wJUvESfcWJvrZpNufzF2uLG0blHyaVLc+/4AUv8w9NQlfd0b2oQtzKwSA6KsiV27tUHQcR/A==}
+
+  '@leafer-ui/paint@1.9.7':
+    resolution: {integrity: sha512-2qX8BEIqfCh2LyNi7w7Ou7EUObVJ7Hz71mBZzi96P3PLLct0QjtUDb65oMzHqCU34ZlOfO0PY5ponfyNKNDCnw==}
+
+  '@leafer-ui/partner@1.9.7':
+    resolution: {integrity: sha512-0Qjuexw/Tk02lDytJhZNcfD5acHBxkLpnwbTSevWYvVewNFj24vpW771w8rWpkMNqaruOrfQWGBQ9rOcunNcoA==}
+
+  '@leafer-ui/render@1.9.7':
+    resolution: {integrity: sha512-gDwU/y5I1maYgbBhXRhvF4Q6R+1IwobOauEbpiPtvofHHyfYGfhP8TVRKCXHwnnDg3FKkN9UyzfY1rrJqiE3HA==}
+
+  '@leafer-ui/text@1.9.7':
+    resolution: {integrity: sha512-6IWlVnlJcM1/vris8uzgqASVxdXjte+hQu6UkMVrMBO7gGhPtRC5QK2Q19XBPn/MKHRGhZkXY/IqCL1mFwNB3w==}
+
+  '@leafer-ui/web@1.9.7':
+    resolution: {integrity: sha512-E/ZccGKIweAxmj92KIcd8rJU5gMem+I7umm3WahYv7eTf5ZJTjgneEy13K2+6CZuXU5UCJB7R47h1yFUFQsIWw==}
+
+  '@leafer/canvas-web@1.9.7':
+    resolution: {integrity: sha512-fdJtw4AGKlGRTcIheZAdIs6Mqk5un6GfCIIHz9CIrHXoZoScX1jSPD5zzJX4tcVaSVo9nD1Z4kPlsOz8IKhVcg==}
+
+  '@leafer/canvas@1.9.7':
+    resolution: {integrity: sha512-94cnWVXjN7wUX4dhWfTYuxsEsk2kP/UQKtIjhwrG2ZbgQ5CBPOffFQe/B9s6BqeKrIn5Z17EsABBlTlxuUOsfg==}
+
+  '@leafer/core@1.9.7':
+    resolution: {integrity: sha512-R9NYwAE2fH6LJruY/rvS8oif8rj60y82acfntLfSPiQ+7shBJPA7Ka06BaQUOB7DXFgXRdtosVFIaC7r8b3HYw==}
+
+  '@leafer/data@1.9.7':
+    resolution: {integrity: sha512-kstjG7PiYWUb5fNH23Yq6e6H1CkBLmwIxTgZAHUJzHgBZRl0xGxLcywBvXaCab9a+cg8w2Tc90JmzKNYc4S1LA==}
+
+  '@leafer/debug@1.9.7':
+    resolution: {integrity: sha512-KhG2P74+1vSZTjOTo9KNewwd/KWszzeFDr5gA8UMGn3RGERXNXM+xeHeTwvWCLACDckiZ0MTXlYL9/EXr8QohQ==}
+
+  '@leafer/decorator@1.9.7':
+    resolution: {integrity: sha512-dSAiLAoOGwPQduDOIfU3CDsY6vcPruai9ZgRyJYzCpEeqZ+v//iet/s8l6AmsKwDvr+RE0y2dMvfNtXXshD1GQ==}
+
+  '@leafer/display-module@1.9.7':
+    resolution: {integrity: sha512-137/krDjUsCiMPkwfbFAwwuzs8HIeR2RfjQoWwSf8eYxipWv453sK3DhYC8zfEodJ9Oas+z+ETqnPTaH9HSGIw==}
+
+  '@leafer/display@1.9.7':
+    resolution: {integrity: sha512-0XE0mmeEBTzQpz6GzCchgnqGB5bacrs4689modPj58kE8gIXYur96J3wtKPv6BMhRA/uvzKT9LTwbUwOMlMRMg==}
+
+  '@leafer/event@1.9.7':
+    resolution: {integrity: sha512-ab/WuIHPfnZP/YCth3Aju3ZnN9xggHmmMnhRaP0fLcUjQESBN3ZDLm5YNBCyAZvX2rzPGKTucLZsXOznmcaPtA==}
+
+  '@leafer/file@1.9.7':
+    resolution: {integrity: sha512-boY/3EhFLyag6NCvMk/PnfgcO2Nlvyd7ZPxC+0s4rg9/d+Eu9kRuzwHb7CNWNAFDpzVtDug6d+xocoLeOwj2cQ==}
+
+  '@leafer/helper@1.9.7':
+    resolution: {integrity: sha512-iqTZE6TLLsFsjOXVF2u9PWIdT76VVE2ijHSJKp3xmDC/WVx64ecWxmIoEaUAhE0dOlgeUTyCdA1QYQaTfkQ0GA==}
+
+  '@leafer/image-web@1.9.7':
+    resolution: {integrity: sha512-4ha5g8fIhV0mg6i9BqLaBsgZjqn4BKPGLLL2gx+BpGEsR7Cx/MF+TMYR6pmXms1Rjkfd/G9hqU5K3fR37/OLKw==}
+
+  '@leafer/image@1.9.7':
+    resolution: {integrity: sha512-Z3mr4g9dl4poAwP1bVw+uSwtDlCWCTuCzs1hHof2/XSJ9SAMFatrQT9sKq8aq5DkwiKCXtn1zkbckcL+Gd45pA==}
+
+  '@leafer/interface@1.9.7':
+    resolution: {integrity: sha512-w1eWpIuXPpdmwYsMeugmmOOpWPOtnH7qCOlRTMWC2o+MH+P3fv9XNA8YY2kTR1KUKxRXSNQMdFfaDkA3gYWiJg==}
+
+  '@leafer/layout@1.9.7':
+    resolution: {integrity: sha512-X5Xsiy8OTWuinsSNPrdYnepz6l6qS2uQm8lrgWiTSjMuVD0g3XRh0RvI40oFKyB2j6yUovHd70MlxtZTRMmGBA==}
+
+  '@leafer/layouter@1.9.7':
+    resolution: {integrity: sha512-cRK5Crkj/O32GRFIc6y2YU/oQxXYQZijBvIQFMDZVZaZFnsXy6ILq0+NOVx0rg8bIHK5ypiMccmsOUQQ37DeGg==}
+
+  '@leafer/list@1.9.7':
+    resolution: {integrity: sha512-KjRQZVydshiEWgjaB+LB0PsEAYfgsmrhacKewYX5yIimOMtkN7aF1obqGM2yaSBo/l52Xd0JpjuUCvAxFVOknQ==}
+
+  '@leafer/math@1.9.7':
+    resolution: {integrity: sha512-5VgNlgtJUkgqzd2foBRaAbqBj4KUlQRfozKKYUrxMYp/lAG+/vFQo6eAqpWrGlGFtDmDWUecYXJWrfNAXpK1tA==}
+
+  '@leafer/partner@1.9.7':
+    resolution: {integrity: sha512-W9janHxHfu1DsB0P4uz1aWoqoHP6Do1gFkubKaeOIp7eoBsEo4ofT1BLeCfAfvIynUNjgjDJupVGgVZGFvygdw==}
+
+  '@leafer/path@1.9.7':
+    resolution: {integrity: sha512-zxVt52tsnrHk923eeOADuAR6b5gCI/5IZ2pGi1N/RQa7/pBsvmygHaZcXlcLvceAKKoJMif7B4ivLGYTyYnIlQ==}
+
+  '@leafer/platform@1.9.7':
+    resolution: {integrity: sha512-zHKsnnec69TaYoTQ5oE+PP9RG+8vjQV9LwtuGTiLzZJrSwcJF302vcukMvmkVjw6r0TrGg/hGEJPixRyptrnQQ==}
+
+  '@leafer/renderer@1.9.7':
+    resolution: {integrity: sha512-to+0n7jG4ZK9pbrJn9TzUom8obIRIvSaZnocFK0fa2TDjA3RmpU8lnnx6KMccMVEvrEotr3xr9FZ4rSA7/ectQ==}
+
+  '@leafer/selector@1.9.7':
+    resolution: {integrity: sha512-Ji5iEgSZbWRmkoDwBQlfiGXaFiJ3jxi+eaIirBxPAxbilmSkhKgq++VPyvUm+PokmdaO/Wl7QwS9RZfP4G+HZw==}
+
+  '@leafer/task@1.9.7':
+    resolution: {integrity: sha512-u8yAvANzDSXUFvr4XqHpzvAA13FjOME2huRqwam5OkX8LfEd4i34MoDn437Ugc6GxtdZB3AmRetlxIgNRnV3Tg==}
+
+  '@leafer/watcher@1.9.7':
+    resolution: {integrity: sha512-2jrnKtCbaZaHVrRAPz1ghdwfs6b/czzPg9YUgvC4QHbUgpDCqcnGFB16KOWn9WOXG+GZKsGHt9RVb/nh7Juldg==}
 
   '@lit-labs/ssr-client@1.1.7':
     resolution: {integrity: sha512-VvqhY/iif3FHrlhkzEPsuX/7h/NqnfxLwVf0p8ghNIlKegRyRqgeaJevZ57s/u/LiFyKgqksRP5n+LmNvpxN+A==}
@@ -3202,6 +3411,9 @@ packages:
     resolution: {integrity: sha512-ynZ4w/nUUv5rrsR8UUGoe1VC9hZj6V5hU9Qw1HlMDJGEJw5S7TfTErWTjMys6M7vr0YWcPqs3qAr4ss0nDfP+A==}
     engines: {node: '>=0.8'}
 
+  affine-hull@1.0.0:
+    resolution: {integrity: sha512-3QNG6+vFAwJvSZHsJYDJ/mt1Cxx9n5ffA+1Ohmj7udw0JuRgUVIXK0P9N9pCMuEdS3jCNt8GFX5q2fChq+GO3Q==}
+
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
 
@@ -3362,6 +3574,9 @@ packages:
 
   birpc@2.3.0:
     resolution: {integrity: sha512-ijbtkn/F3Pvzb6jHypHRyve2QApOCZDR25D/VnkY2G/lBNcXCTsnsCxgY4k4PkVB7zfwzYbY3O9Lcqe3xufS5g==}
+
+  bit-twiddle@1.0.2:
+    resolution: {integrity: sha512-B9UhK0DKFZhoTFcfvAzhqsjStvGJp9vYWf3+6SNTtdSQnvIgfkHbgHrg/e4+TH71N2GDu8tpmCVoyfrL1d7ntA==}
 
   bitmap-sdf@1.0.4:
     resolution: {integrity: sha512-1G3U4n5JE6RAiALMxu0p1XmeZkTeCwGKykzsLTCqVzfSDaN6S7fKnkIkfejogz+iwqBWc0UYAIKnKHNN7pSfDg==}
@@ -3669,6 +3884,9 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  convex-hull@1.0.3:
+    resolution: {integrity: sha512-24rZAoh81t41GHPLAxcsokgjH9XNoVqU2OiSi8iMHUn6HUURfiefcEWAPt1AfwZjBBWTKadOm1xUcUMnfFukhQ==}
 
   cookie-signature@1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
@@ -4603,11 +4821,23 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
 
+  geojson-area@0.2.1:
+    resolution: {integrity: sha512-I+cht30/CFFObh8GgEa/1o9Kd7RwQTHmotYp3ToyCpxxDFNcuX5SlErKkvoy3otnrsWzODN8yscSTGOAkQ3tKQ==}
+    deprecated: 'This module is now under the @mapbox namespace: install @mapbox/geojson-area instead'
+
   geojson-equality-ts@1.0.2:
     resolution: {integrity: sha512-h3Ryq+0mCSN/7yLs0eDgrZhvc9af23o/QuC4aTiuuzP/MRCtd6mf5rLsLRY44jX0RPUfM8c4GqERQmlUxPGPoQ==}
 
+  geojson-normalize@0.0.0:
+    resolution: {integrity: sha512-h/ldgc7C2DrYDIn+F/o+AgZLxmeC+O4q3wvGwiuBjTTRnhxvxaGz6cE6cRTeMH89jIJM3BiP+R6Yiht7f3PBuA==}
+    deprecated: 'This module is now under the @mapbox namespace: install @mapbox/geojson-normalize instead'
+
   geojson-polygon-self-intersections@1.2.1:
     resolution: {integrity: sha512-/QM1b5u2d172qQVO//9CGRa49jEmclKEsYOQmWP9ooEjj63tBM51m2805xsbxkzlEELQ2REgTf700gUhhlegxA==}
+
+  geojson-random@0.2.2:
+    resolution: {integrity: sha512-/vZQ14mjKPG3LJ7bpyXsJ0aoz8NzvwpwwP//uBgbzIu2BCFd4uRagp1QvY3RAzRQsHOHyVh33dbYUYws7vOCkg==}
+    hasBin: true
 
   get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
@@ -4884,6 +5114,9 @@ packages:
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
+
+  incremental-convex-hull@1.0.1:
+    resolution: {integrity: sha512-mKRJDXtzo1R9LxCuB1TdwZXHaPaIEldoGPsXy2jrJc/kufyqp8y/VAQQxThSxM2aroLoh6uObexPk1ASJ7FB7Q==}
 
   indent-string@5.0.0:
     resolution: {integrity: sha512-m6FAo/spmsW2Ab2fU35JTYwtOKa2yAwXSwgjSv1TJzh4Mh7mC3lzAOVLBprb72XsTrgkEIsl7YrFNAiDiRhIGg==}
@@ -5201,6 +5434,10 @@ packages:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
 
+  jsts@1.1.2:
+    resolution: {integrity: sha512-4qWAI9gR72HcGWCl7bej9/2dCM6Nv6dh5Zn1G+wzJYW9wsFL/2bPA3kdR8IAPObmF4gb56l5EGlXxErmB+9GOw==}
+    engines: {node: '>= 4'}
+
   jsts@2.7.1:
     resolution: {integrity: sha512-x2wSZHEBK20CY+Wy+BPE7MrFQHW6sIsdaGUMEqmGAio+3gFzQaBYPwLRonUfQf9Ak8pBieqj9tUofX1+WtAEIg==}
     engines: {node: '>= 12'}
@@ -5243,6 +5480,9 @@ packages:
   lazystream@1.0.1:
     resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
     engines: {node: '>= 0.6.3'}
+
+  leafer-ui@1.9.7:
+    resolution: {integrity: sha512-GPcDgPxCoy90lBgui4sq3evLzWg1GEzUhhONtBTBcVGK54Kp667Fp7N5d9g7/Sf6Xyt2yHjqirhFOPWX2tpUUw==}
 
   lerc@2.0.0:
     resolution: {integrity: sha512-7qo1Mq8ZNmaR4USHHm615nEW2lPeeWJ3bTyoqFbd35DLx0LUH7C6ptt5FDCTAlbIzs3+WKrk5SkJvw8AFDE2hg==}
@@ -5624,6 +5864,9 @@ packages:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  minimist@1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+
   minipass@3.3.6:
     resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
     engines: {node: '>=8'}
@@ -5655,6 +5898,9 @@ packages:
 
   mlly@1.7.4:
     resolution: {integrity: sha512-qmdSIPC4bDJXgZTCR7XosJiNKySV7O215tsPtDN9iEO/7q/76b/ijtgRu/+epFXSJhijtTCCGp3DWS549P3xKw==}
+
+  monotone-convex-hull-2d@1.0.1:
+    resolution: {integrity: sha512-ixQ3qdXTVHvR7eAoOjKY8kGxl9YjOFtzi7qOjwmFFPfBqZHVOjUFOBy/Dk9dusamRSPJe9ggyfSypRbs0Bl8BA==}
 
   mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
@@ -6336,11 +6582,23 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
+  robust-orientation@1.2.1:
+    resolution: {integrity: sha512-FuTptgKwY6iNuU15nrIJDLjXzCChWB+T4AvksRtwPS/WZ3HuP1CElCm1t+OBfgQKfWbtZIawip+61k7+buRKAg==}
+
   robust-predicates@2.0.4:
     resolution: {integrity: sha512-l4NwboJM74Ilm4VKfbAtFeGq7aEjWL+5kVFcmgFA2MrdnQWx9iE/tUGvxY5HyMI7o/WpSIUFLbC5fbeaHgSCYg==}
 
   robust-predicates@3.0.2:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
+
+  robust-scale@1.0.2:
+    resolution: {integrity: sha512-jBR91a/vomMAzazwpsPTPeuTPPmWBacwA+WYGNKcRGSh6xweuQ2ZbjRZ4v792/bZOhRKXRiQH0F48AvuajY0tQ==}
+
+  robust-subtract@1.0.0:
+    resolution: {integrity: sha512-xhKUno+Rl+trmxAIVwjQMiVdpF5llxytozXJOdoT4eTIqmqsndQqFb1A0oiW3sZGlhMRhOi6pAD4MF1YYW6o/A==}
+
+  robust-sum@1.0.0:
+    resolution: {integrity: sha512-AvLExwpaqUqD1uwLU6MwzzfRdaI6VEZsyvQ3IAQ0ZJ08v1H+DTyqskrf2ZJyh0BDduFVLN7H04Zmc+qTiahhAw==}
 
   rollup-plugin-external-globals@0.6.1:
     resolution: {integrity: sha512-mlp3KNa5sE4Sp9UUR2rjBrxjG79OyZAh/QC18RHIjM+iYkbBwNXSo8DHRMZWtzJTrH8GxQ+SJvCTN3i14uMXIA==}
@@ -6496,6 +6754,12 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
+  simplicial-complex@1.0.0:
+    resolution: {integrity: sha512-mHauIKSOy3GquM5VnYEiu7eP5y4A8BiaN9ezUUgyYFz1k68PqDYcyaH3kenp2cyvWZE96QKE3nrxYw65Allqiw==}
+
+  simplify-js@1.2.4:
+    resolution: {integrity: sha512-vITfSlwt7h/oyrU42R83mtzFpwYk3+mkH9bOHqq/Qw6n8rtR7aE3NZQ5fbcyCUVVmuMJR6ynsAhOfK2qoah8Jg==}
+
   sirv@3.0.1:
     resolution: {integrity: sha512-FoqMu0NCGBLCcAkS1qA+XJIQTR6/JHfQXl+uGteNCQ76T91DMUjPa9xfmeqMY3z80nLSg9yQmNjK0Px6RWsH/A==}
     engines: {node: '>=18'}
@@ -6550,6 +6814,7 @@ packages:
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
+    deprecated: The work that was done in this beta branch won't be included in future versions
 
   sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
@@ -6953,6 +7218,211 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
+  turf-along@3.0.12:
+    resolution: {integrity: sha512-9wHa3LiqsdEExCuPgw8O5fJzqeL4lf8srBBfjGid2Tjh2nwuqgkcFZxzbnLE0Y8oFh60iNJUdccGuJSTJ3YGyg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/along instead'
+
+  turf-area@3.0.12:
+    resolution: {integrity: sha512-62Rc1UD8b1yv+AkfhjQ6LSvzxnuJi+jj6q4EkginZxPMJh8HACyQkeNy6VI9WucUULXzoPs8IqeqNwltpMpZVw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/area instead'
+
+  turf-bbox-polygon@3.0.12:
+    resolution: {integrity: sha512-9wuTI5eFBBe0bXNK8c5wk/zHbSne28KmUQVX66QhTRvUc34v+NUIzn4bzi3rZXpJvLSLyPVltPnYfn+YsuCkAQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/bbox-polygon instead'
+
+  turf-bbox@3.0.12:
+    resolution: {integrity: sha512-ztNkTvRQ3ezArAQB2ZLLtJur9BiuWkwVv5u+aviC+3y0/mU5ITuoArOTUs4kLU+gNOjdpPwD0Ea/gqBR0lh2hw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/bbox instead'
+
+  turf-bearing@3.0.12:
+    resolution: {integrity: sha512-oWAFtgpQwR78xWZn53BzdwHhd4uT5OtuvwEgzFkZWSa6kp+UpdJ39lDAcvdR0H8dCszuGB4KguaGCZLG+iyUvg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/bearing instead'
+
+  turf-bezier@3.0.12:
+    resolution: {integrity: sha512-8B4frrRtir9VJ6DTgGG5e81f7faPBnxTR2uJzWGd3bQkUaOBBX7rLQTBTBv1iFZVTU07QnWYgznm3c06FrtX2w==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/bezier instead'
+
+  turf-buffer@3.0.12:
+    resolution: {integrity: sha512-2wy66sAd0EXX13ql2KeA1bFOtecqDCWmaayLueEaM7HOxY6i/VvroDIHZrFzuwPAa/4ZwMZPaTPiFQ6kh7VSGw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/buffer instead'
+
+  turf-center@3.0.12:
+    resolution: {integrity: sha512-H2okrDla22kawwXsPvazV09mHr26/51sKONL52HTBeqiD2sK0WWRQkpdLfJdia0FT47wVk9mBiLXsKeIzDUi7Q==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/center instead'
+
+  turf-centroid@3.0.12:
+    resolution: {integrity: sha512-OuH8ZZjnxiNETZ8vZkb+dC6C+fit+LdRBolLGDQzBKDLXV2z1nQX2+w/qTNKV9XP5ZZLeEpJPmP0z1MDSz+YRA==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/centroid instead'
+
+  turf-circle@3.0.12:
+    resolution: {integrity: sha512-dOGg9yQXA21SpgI1qjU+Kgq0esvBU+ZTqoM5A2fWmoa0458YUoB85hnbxFtnmsFB3qXDsrW9RBuC4kyNCcn9KQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/circle instead'
+
+  turf-collect@3.0.12:
+    resolution: {integrity: sha512-V36Hz03VmMXn0BUAZNY+w1bpCX6Ks2JzfvHdiWHh5MccziroaKOfOeC1odJcXSDrhoR14/0oSC4tHDKJslbcPA==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/collect instead'
+
+  turf-combine@3.0.12:
+    resolution: {integrity: sha512-j99I2ydmO4AzQQqzh+DBbxRr+a//DNbXJFcvBSy88G7vlKByPzr0ONVDNcvS/a1JRTl11C2vfrWxRtHwwmzzDg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/combine instead'
+
+  turf-concave@3.0.12:
+    resolution: {integrity: sha512-0KQfAk1f7TRUtuNbIDsRcbi4ONMhtrQg0Y/uY/QM5wVIKMj5T5ZuSApqEfs4cDXcfWu//hwe2bgHJzu1GlUn4w==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/concave instead'
+
+  turf-convex@3.0.12:
+    resolution: {integrity: sha512-xfwhxDQKygFsdbEK8503/N+B4JZZB6i58lE39DTMcf97xCCLyv7zxGlalsKU4j+qywV3nbO6yhKHScv4t6t5bg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/convex instead'
+
+  turf-destination@3.0.12:
+    resolution: {integrity: sha512-nXKJfH5qv+eoNbw5ggLZNsUokgmaHnGD8Woauc8+7C36JRPSEm1Y3wcjAdJX0VadJJdL8AjNP65QOiWOLdVe1Q==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/destination instead'
+
+  turf-difference@3.0.12:
+    resolution: {integrity: sha512-YRMUspic52qdwZZxuVp0LB2QG39q4Ps5ZTfZq+QIGsqdKK7FxvbJTxsb/a+n4xHe/K4zCcWo/AXUw1pOFLrNbA==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/difference instead'
+
+  turf-distance@3.0.12:
+    resolution: {integrity: sha512-dy2TguSbcCKJK7ZPwCZuG9+mK2DBKZ4g0wlmbKa7iGPFG18X1nPWJRzUkmNF3kdUe9K6+7SViTnbH6xQYCNpiw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/distance instead'
+
+  turf-envelope@3.0.12:
+    resolution: {integrity: sha512-2ahLojIP000MUhk7JC/ILASwiP074sFD5nc1HTYyHRhqkb8ukwFMHrR3haEmQdf7sJE3nexBELY9PMGyTQmBiQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/envelope instead'
+
+  turf-explode@3.0.12:
+    resolution: {integrity: sha512-cBUdQl2RBbu5YdL+mBNOcou8OlHLF6F9s6Rwz4EuOOGG0Urs0NE2CmascINB1+TgbxJozb29ZKNXezgwhwnrpg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/explode instead'
+
+  turf-flip@3.0.12:
+    resolution: {integrity: sha512-SV/DI8I/dczRlqBMcAZyyQq1rlkrFZigFUKhtDIBqEJJvqKy70kDxbHrAkJdeAZ20caflkaTV2K40x4UTUpNgg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/flip instead'
+
+  turf-grid@1.0.1:
+    resolution: {integrity: sha512-T2jHZ2HOgvkZZQjMmtl9lexeY6Xk1POF6wbYE7aYLjBO43MQqYNEFDf3JQ1gJymrYEaNy7yDSDYDyiYSsK6sQw==}
+
+  turf-helpers@3.0.12:
+    resolution: {integrity: sha512-e0Oic1RVdTq3PAd5XlPgdtE3eZlN4kSd+Sr4iwayeeBRCMns60j9t6helyHxvbjLLy1uP28IiNfnm30BF+YThw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/helpers instead'
+
+  turf-hex-grid@3.0.12:
+    resolution: {integrity: sha512-3O580ujUHbAEi8vk38uyxvIQN3yjyeQEJtJppB2sYO7zcNORIcao68DlXQW29nSy1pUAYCbNkghDcumNL3A58A==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/hex-grid instead'
+
+  turf-inside@3.0.12:
+    resolution: {integrity: sha512-QjRDeSgDwf1hIEATsYgbYMB1GnnfwEqjapskOIojICeUBfKA+NMExjaBtMc2V1SY5jNqja6tVPH+ek0d+WO7Vg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/inside instead'
+
+  turf-intersect@3.0.12:
+    resolution: {integrity: sha512-eXDksaYFakN6BFcfiyqgH1PDizfkfhPUU2Axd+I5zjVEHgECplK+z8LYA/RqvQ59aWQ2MfNRqxwW12T07c4gMw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/intersect instead'
+
+  turf-invariant@3.0.12:
+    resolution: {integrity: sha512-6BAyAupdij6X8gTlpGHCG/zpqXXaTi7kjMAbQrepTpnPhIEQJtlGsiZCQu4EckCZS5Rzj5/b8Xw4gaxNpadihw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/invariant instead'
+
+  turf-isolines@3.0.12:
+    resolution: {integrity: sha512-b4TY6fKYWvToxiYjYTiURUlljls8jG1oKFaBulu5pz0q6rxmpxkCGOA8t9AXQkNXzHBrDE+vjXashMtYEN9Tsw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/isolines instead'
+
+  turf-kinks@3.0.12:
+    resolution: {integrity: sha512-gzLqDKPqq9rSWIPy6NDZMspDqk1wvP1sg+jaSqdKnW3mPTDn32IbHLxihjGzZoaW0YlIZmnrZlVBLqId6kCZ5w==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/kinks instead'
+
+  turf-line-distance@3.0.12:
+    resolution: {integrity: sha512-HzrxOEKdUgl1vdqIBLmaA99B0cg3+41kamQ650wn26BFUdMrrtkt+x2FT3Y7DifYTNljQ2fblbylqtMAAS0jag==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/line-distance instead'
+
+  turf-line-slice@3.0.12:
+    resolution: {integrity: sha512-1ecV3DCTRkv2azoaN/ZFcKxLBrw3l4SRSP/dVAk1Gwn83vBYJ9XtjmUiMLE2WbzTzuzuDxLb6fMvyGyteXBUeg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/line-slice instead'
+
+  turf-meta@3.0.12:
+    resolution: {integrity: sha512-B3YSKMpWGx1WYE8IM62pzOA0kqjrGjd/ZkSyrD5WXnrrpPfAUl0yBoZCJYL5IQcOwLqfd5xZt3HJnNH9cFiG7A==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/meta instead'
+
+  turf-midpoint@3.0.12:
+    resolution: {integrity: sha512-Q1fZWQzc4SSF09hY+tJvgnDGBmVqTgBkIzOg0I0hy+ti0b9bSJ5P3+KY6wkVcC+zgDa8jzp8GZETijAV4WUAqw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/midpoint instead'
+
+  turf-nearest@3.0.12:
+    resolution: {integrity: sha512-4jyHgtpxVSM2LXh+lz4z47lketEXMKlcIpCJplHFpT1ZddIUoKvT6RJDhTUN8a+mohE8HAPgvcUA53vmjxxNEg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/nearest instead'
+
+  turf-planepoint@3.0.12:
+    resolution: {integrity: sha512-2okyqSAjC00QWEyr1vi04Vgug6OaYfBRtvtzHs16IxBN5xhAuwtCnUICb/1ugbOgCiBFV6TzIle/vA0EUVuRxQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/planepoint instead'
+
+  turf-point-grid@3.0.12:
+    resolution: {integrity: sha512-5keUPz8j0VWilANaX3bP1evAm/u1u8v10HfUjtoenvWAC5dTGMUVCskgFqX9XitwmsPtaFiCuakM8s3HQzydSQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/point-grid instead'
+
+  turf-point-on-line@3.0.12:
+    resolution: {integrity: sha512-0+gqSE3pK//ylzQZoc+tLpLUa1/14vvqbMvteFu2bl9NP6oudzZqTWoY9dBfyD9rLQtFOCf/IdkIk+IIwTn1cg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/point-on-line instead'
+
+  turf-point-on-surface@3.0.12:
+    resolution: {integrity: sha512-8/CXalHx672E2gR5FIZlazrx2Gj8HJW9JHb7UF/SH2CGDt/DUQKynz3/rn2fj4PyGtXGG7JoS/XuBwEdH99gAw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/point-on-surface instead'
+
+  turf-point@2.0.1:
+    resolution: {integrity: sha512-DkzYiE8Gc7G6XNW3FsBEwKAMz7jVZ/cw+PqLLkiSR1bde0vRZumF26UDQrspyQNih/oShQ0i4mSfa/dw3tqzsA==}
+    hasBin: true
+
+  turf-random@3.0.12:
+    resolution: {integrity: sha512-y0bRhHUfTQJBdEigLpS0+y8ReagylBlAgSKhCanMkw2WtQBj4y5MNOT+dgwX6iOCiWrzCsgPvDm/2hRxdYzmTQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/random instead'
+
+  turf-sample@3.0.12:
+    resolution: {integrity: sha512-aDwiE4kjSHt60hYdIhCFQp7xTauIPUVufbfJSVR2+Xrq6KdK8IPIkUAjDKNIo7iSetEsK9uHNHCFTTvW1emGMQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/sample instead'
+
+  turf-simplify@3.0.12:
+    resolution: {integrity: sha512-g+kLtFhZaQD+OZwcl2KZ8RVWGQdsCJBT3/ZQiP6K8RYdD3d3QbruKIQdLgEZhK0lL0/EUCgzQz3/mhpxTA3RMw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/simplify instead'
+
+  turf-square-grid@3.0.12:
+    resolution: {integrity: sha512-L8Bd3/YNYMqIYqWJDmGMJ7itSO7VMrbU1Vubt1f+GOHGnNcf789YXe1poNa6VdONw7spuRlgbQA94VMI5vzZUQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/square-grid instead'
+
+  turf-square@3.0.12:
+    resolution: {integrity: sha512-jBxMU+9ZO8WAEwFBC2AsBpwV/vmqdBFn73ONEYDb8n+LiOAMbwsDM+75pxg6kt5l3ugQJGbgfxVucVl3SUTJaQ==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/square instead'
+
+  turf-tag@3.0.12:
+    resolution: {integrity: sha512-tNC7FkAMdFjePrqZqjrxE5IXGdkrZcBjWbRmCSwy0DMKhLgPuXfWNACXt4FFC5dgQ3jc3NbDvfsML6gs1es1zA==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/tag instead'
+
+  turf-tesselate@3.0.12:
+    resolution: {integrity: sha512-LWalgrdZGqXoqxkqlD/uV7xpIbuhNJviLw1ANdiST6F6laz8qoi8C2hfHIyzcQB7T/0LeWsuWzHtJ1MotYhpuA==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/tesselate instead'
+
+  turf-tin@3.0.12:
+    resolution: {integrity: sha512-uqadTFrAE3pdVzAQN5CMGzZZtZMrirjRYL2iJRaHAXy9lDaVT+TlDe9gt+8SIwiPI1hVHq9NHHrEn6Cyn+xXxg==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/tin instead'
+
+  turf-triangle-grid@3.0.12:
+    resolution: {integrity: sha512-hL17vUzp85YoQeqRs4zIKEZloLGt8DWie39j2EK1S8I030L2A60aznZzagnxgo2JnReS25tDSRA4JdrorrECOw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/triangle-grid instead'
+
+  turf-union@3.0.12:
+    resolution: {integrity: sha512-9R3/SccBa6Qpqn1CYUU1n7gv1E1f+pNiLZmf1tEqPq0QQQE8jY3B03YrsIBK1bP6RI8N6wx/2hfX7h9LgFQvmw==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/union instead'
+
+  turf-within@3.0.12:
+    resolution: {integrity: sha512-RgVeZ8LBZjcUSX8OvVW/nk2hJ1Vp+RPD+axOWaRf+zMbIiiBBAxmE8FxJSm6EINUuOR8zkvWIt+pyeltRYtG8A==}
+    deprecated: 'Turf packages are now namespaced: please use @turf/within instead'
+
+  turf@3.0.14:
+    resolution: {integrity: sha512-YKaS5wvijcTkGr1p6YQXh2xHWojhC6PMPo8pUFqphgJhq4DCtRBDc0UfbfbS/SD3ozzRFcGDrO3jrQqNBi3VAw==}
+    deprecated: 'This package has moved: use @turf/turf instead'
+
+  two-product@1.0.2:
+    resolution: {integrity: sha512-vOyrqmeYvzjToVM08iU52OFocWT6eB/I5LUWYnxeAPGXAhAxXYU/Yr/R2uY5/5n4bvJQL9AQulIuxpIsMoT8XQ==}
+
+  two-sum@1.0.0:
+    resolution: {integrity: sha512-phP48e8AawgsNUjEY2WvoIWqdie8PoiDZGxTDv70LDr01uX5wLEQbOgSP7Z/B6+SW5oLtbe8qaYX2fKJs3CGTw==}
+
   type-check@0.3.2:
     resolution: {integrity: sha512-ZCmOJdvOWDBYJlzAoFkC+Q0+bUyEOS1ltgp1MGU03fqHG+dbi9tBFU2Rd9QKiDZFAYrhPh2JUf7rZRIuHRKtOg==}
     engines: {node: '>= 0.8.0'}
@@ -7055,6 +7525,9 @@ packages:
   unimport@4.2.0:
     resolution: {integrity: sha512-mYVtA0nmzrysnYnyb3ALMbByJ+Maosee2+WyE0puXl+Xm2bUwPorPaaeZt0ETfuroPOtG8jj1g/qeFZ6buFnag==}
     engines: {node: '>=18.12.0'}
+
+  union-find@1.0.2:
+    resolution: {integrity: sha512-wFA9bMD/40k7ZcpKVXfu6X1qD3ri5ryO8HUsuA1RnxPCQl66Mu6DgkxyR+XNnd+osD0aLENixcJVFj+uf+O4gw==}
 
   unique-string@2.0.0:
     resolution: {integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==}
@@ -7486,6 +7959,9 @@ packages:
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
+
+  wgs84@0.0.0:
+    resolution: {integrity: sha512-ANHlY4Rb5kHw40D0NJ6moaVfOCMrp9Gpd1R/AIQYg2ko4/jzcJ+TVXYYF6kXJqQwITvEZP4yEthjM7U6rYlljQ==}
 
   whatwg-url@7.1.0:
     resolution: {integrity: sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==}
@@ -8885,7 +9361,7 @@ snapshots:
     dependencies:
       '@emmetio/scanner': 1.0.4
 
-  '@emmetio/css-parser@git+https://github.com/ramya-rao-a/css-parser.git#370c480ac103bd17c7bcfb34bf5d577dc40d3660':
+  '@emmetio/css-parser@https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660':
     dependencies:
       '@emmetio/stream-reader': 2.2.0
       '@emmetio/stream-reader-utils': 0.1.0
@@ -9350,6 +9826,325 @@ snapshots:
   '@keyv/serialize@1.0.3':
     dependencies:
       buffer: 6.0.3
+
+  '@leafer-in/bright@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+
+  '@leafer-in/editor@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-in/resize@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7))(@leafer-ui/core@1.9.7)(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-in/resize': 1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)
+      '@leafer-ui/core': 1.9.7
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+
+  '@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)':
+    dependencies:
+      '@leafer-ui/interface': 1.9.7
+      '@leafer/interface': 1.9.7
+
+  '@leafer-in/resize@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+
+  '@leafer-in/state@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/core@1.9.7)(@leafer-ui/interface@1.9.7)':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/core': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+
+  '@leafer-in/view@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/draw@1.9.7)(@leafer-ui/interface@1.9.7)':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+
+  '@leafer-in/viewport@1.9.7(@leafer-in/interface@1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7))(@leafer-ui/core@1.9.7)(@leafer-ui/interface@1.9.7)':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/core': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+
+  '@leafer-ui/app@1.9.7':
+    dependencies:
+      '@leafer-ui/data': 1.9.7
+      '@leafer-ui/display': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/bounds@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/color@1.9.7':
+    dependencies:
+      '@leafer-ui/draw': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/core@1.9.7':
+    dependencies:
+      '@leafer-ui/app': 1.9.7
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/event': 1.9.7
+      '@leafer-ui/hit': 1.9.7
+      '@leafer-ui/interaction': 1.9.7
+
+  '@leafer-ui/data@1.9.7':
+    dependencies:
+      '@leafer-ui/external': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/decorator@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/display-module@1.9.7':
+    dependencies:
+      '@leafer-ui/bounds': 1.9.7
+      '@leafer-ui/data': 1.9.7
+      '@leafer-ui/render': 1.9.7
+
+  '@leafer-ui/display@1.9.7':
+    dependencies:
+      '@leafer-ui/data': 1.9.7
+      '@leafer-ui/decorator': 1.9.7
+      '@leafer-ui/display-module': 1.9.7
+      '@leafer-ui/external': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/draw@1.9.7':
+    dependencies:
+      '@leafer-ui/decorator': 1.9.7
+      '@leafer-ui/display': 1.9.7
+      '@leafer-ui/display-module': 1.9.7
+      '@leafer-ui/external': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/effect@1.9.7':
+    dependencies:
+      '@leafer-ui/draw': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/event@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/external@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/hit@1.9.7':
+    dependencies:
+      '@leafer-ui/draw': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/interaction-web@1.9.7':
+    dependencies:
+      '@leafer-ui/core': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/interaction@1.9.7':
+    dependencies:
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/event': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/interface@1.9.7':
+    dependencies:
+      '@leafer/interface': 1.9.7
+
+  '@leafer-ui/paint@1.9.7':
+    dependencies:
+      '@leafer-ui/draw': 1.9.7
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/partner@1.9.7':
+    dependencies:
+      '@leafer-ui/color': 1.9.7
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/effect': 1.9.7
+      '@leafer-ui/paint': 1.9.7
+      '@leafer-ui/text': 1.9.7
+
+  '@leafer-ui/render@1.9.7':
+    dependencies:
+      '@leafer-ui/external': 1.9.7
+
+  '@leafer-ui/text@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer-ui/web@1.9.7':
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/core': 1.9.7
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/interaction-web': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+      '@leafer-ui/partner': 1.9.7
+      '@leafer/canvas-web': 1.9.7
+      '@leafer/core': 1.9.7
+      '@leafer/image-web': 1.9.7
+      '@leafer/interface': 1.9.7
+      '@leafer/partner': 1.9.7
+
+  '@leafer/canvas-web@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer/canvas@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/file': 1.9.7
+      '@leafer/list': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/path': 1.9.7
+      '@leafer/platform': 1.9.7
+
+  '@leafer/core@1.9.7':
+    dependencies:
+      '@leafer/canvas': 1.9.7
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/decorator': 1.9.7
+      '@leafer/display': 1.9.7
+      '@leafer/display-module': 1.9.7
+      '@leafer/event': 1.9.7
+      '@leafer/file': 1.9.7
+      '@leafer/helper': 1.9.7
+      '@leafer/image': 1.9.7
+      '@leafer/layout': 1.9.7
+      '@leafer/list': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/path': 1.9.7
+      '@leafer/platform': 1.9.7
+      '@leafer/task': 1.9.7
+
+  '@leafer/data@1.9.7': {}
+
+  '@leafer/debug@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/math': 1.9.7
+
+  '@leafer/decorator@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/platform': 1.9.7
+
+  '@leafer/display-module@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/event': 1.9.7
+      '@leafer/helper': 1.9.7
+      '@leafer/math': 1.9.7
+
+  '@leafer/display@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/decorator': 1.9.7
+      '@leafer/display-module': 1.9.7
+      '@leafer/event': 1.9.7
+      '@leafer/helper': 1.9.7
+      '@leafer/image': 1.9.7
+      '@leafer/layout': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/platform': 1.9.7
+
+  '@leafer/event@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/decorator': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/platform': 1.9.7
+
+  '@leafer/file@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/platform': 1.9.7
+      '@leafer/task': 1.9.7
+
+  '@leafer/helper@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/platform': 1.9.7
+
+  '@leafer/image-web@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer/image@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/file': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/platform': 1.9.7
+      '@leafer/task': 1.9.7
+
+  '@leafer/interface@1.9.7': {}
+
+  '@leafer/layout@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/helper': 1.9.7
+      '@leafer/math': 1.9.7
+      '@leafer/platform': 1.9.7
+
+  '@leafer/layouter@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer/list@1.9.7': {}
+
+  '@leafer/math@1.9.7': {}
+
+  '@leafer/partner@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+      '@leafer/layouter': 1.9.7
+      '@leafer/renderer': 1.9.7
+      '@leafer/selector': 1.9.7
+      '@leafer/watcher': 1.9.7
+
+  '@leafer/path@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+      '@leafer/math': 1.9.7
+
+  '@leafer/platform@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/debug': 1.9.7
+
+  '@leafer/renderer@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer/selector@1.9.7':
+    dependencies:
+      '@leafer/core': 1.9.7
+
+  '@leafer/task@1.9.7':
+    dependencies:
+      '@leafer/debug': 1.9.7
+      '@leafer/math': 1.9.7
+
+  '@leafer/watcher@1.9.7':
+    dependencies:
+      '@leafer/data': 1.9.7
+      '@leafer/event': 1.9.7
+      '@leafer/list': 1.9.7
 
   '@lit-labs/ssr-client@1.1.7':
     dependencies:
@@ -11891,6 +12686,10 @@ snapshots:
 
   adler-32@1.3.1: {}
 
+  affine-hull@1.0.0:
+    dependencies:
+      robust-orientation: 1.2.1
+
   ajv@6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -12082,6 +12881,8 @@ snapshots:
   binary-extensions@2.2.0: {}
 
   birpc@2.3.0: {}
+
+  bit-twiddle@1.0.2: {}
 
   bitmap-sdf@1.0.4: {}
 
@@ -12409,6 +13210,12 @@ snapshots:
   content-type@1.0.5: {}
 
   convert-source-map@2.0.0: {}
+
+  convex-hull@1.0.3:
+    dependencies:
+      affine-hull: 1.0.0
+      incremental-convex-hull: 1.0.1
+      monotone-convex-hull-2d: 1.0.1
 
   cookie-signature@1.0.6: {}
 
@@ -13520,13 +14327,21 @@ snapshots:
 
   gensync@1.0.0-beta.2: {}
 
+  geojson-area@0.2.1:
+    dependencies:
+      wgs84: 0.0.0
+
   geojson-equality-ts@1.0.2:
     dependencies:
       '@types/geojson': 7946.0.16
 
+  geojson-normalize@0.0.0: {}
+
   geojson-polygon-self-intersections@1.2.1:
     dependencies:
       rbush: 2.0.2
+
+  geojson-random@0.2.2: {}
 
   get-caller-file@2.0.5: {}
 
@@ -13847,6 +14662,11 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
+  incremental-convex-hull@1.0.1:
+    dependencies:
+      robust-orientation: 1.2.1
+      simplicial-complex: 1.0.0
+
   indent-string@5.0.0: {}
 
   inflight@1.0.6:
@@ -14128,6 +14948,8 @@ snapshots:
 
   jsonpointer@5.0.1: {}
 
+  jsts@1.1.2: {}
+
   jsts@2.7.1: {}
 
   kdbush@4.0.2: {}
@@ -14161,6 +14983,19 @@ snapshots:
   lazystream@1.0.1:
     dependencies:
       readable-stream: 2.3.8
+
+  leafer-ui@1.9.7:
+    dependencies:
+      '@leafer-in/interface': 1.9.7(@leafer-ui/interface@1.9.7)(@leafer/interface@1.9.7)
+      '@leafer-ui/core': 1.9.7
+      '@leafer-ui/draw': 1.9.7
+      '@leafer-ui/interaction-web': 1.9.7
+      '@leafer-ui/interface': 1.9.7
+      '@leafer-ui/partner': 1.9.7
+      '@leafer-ui/web': 1.9.7
+      '@leafer/core': 1.9.7
+      '@leafer/interface': 1.9.7
+      '@leafer/partner': 1.9.7
 
   lerc@2.0.0: {}
 
@@ -14714,6 +15549,8 @@ snapshots:
     dependencies:
       brace-expansion: 2.0.1
 
+  minimist@1.2.8: {}
+
   minipass@3.3.6:
     dependencies:
       yallist: 4.0.0
@@ -14743,6 +15580,10 @@ snapshots:
       pathe: 2.0.2
       pkg-types: 1.3.1
       ufo: 1.5.4
+
+  monotone-convex-hull-2d@1.0.1:
+    dependencies:
+      robust-orientation: 1.2.1
 
   mrmime@2.0.0: {}
 
@@ -15383,9 +16224,25 @@ snapshots:
     dependencies:
       glob: 10.3.10
 
+  robust-orientation@1.2.1:
+    dependencies:
+      robust-scale: 1.0.2
+      robust-subtract: 1.0.0
+      robust-sum: 1.0.0
+      two-product: 1.0.2
+
   robust-predicates@2.0.4: {}
 
   robust-predicates@3.0.2: {}
+
+  robust-scale@1.0.2:
+    dependencies:
+      two-product: 1.0.2
+      two-sum: 1.0.0
+
+  robust-subtract@1.0.0: {}
+
+  robust-sum@1.0.0: {}
 
   rollup-plugin-external-globals@0.6.1(rollup@4.45.1):
     dependencies:
@@ -15599,6 +16456,13 @@ snapshots:
   simple-swizzle@0.2.2:
     dependencies:
       is-arrayish: 0.3.2
+
+  simplicial-complex@1.0.0:
+    dependencies:
+      bit-twiddle: 1.0.2
+      union-find: 1.0.2
+
+  simplify-js@1.2.4: {}
 
   sirv@3.0.1:
     dependencies:
@@ -16141,6 +17005,294 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
+  turf-along@3.0.12:
+    dependencies:
+      turf-bearing: 3.0.12
+      turf-destination: 3.0.12
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-area@3.0.12:
+    dependencies:
+      geojson-area: 0.2.1
+
+  turf-bbox-polygon@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+
+  turf-bbox@3.0.12:
+    dependencies:
+      turf-meta: 3.0.12
+
+  turf-bearing@3.0.12:
+    dependencies:
+      turf-invariant: 3.0.12
+
+  turf-bezier@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+
+  turf-buffer@3.0.12:
+    dependencies:
+      geojson-normalize: 0.0.0
+      jsts: 1.1.2
+      turf-combine: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-center@3.0.12:
+    dependencies:
+      turf-bbox: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-centroid@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+      turf-meta: 3.0.12
+
+  turf-circle@3.0.12:
+    dependencies:
+      turf-destination: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-collect@3.0.12:
+    dependencies:
+      turf-inside: 3.0.12
+
+  turf-combine@3.0.12:
+    dependencies:
+      turf-meta: 3.0.12
+
+  turf-concave@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-meta: 3.0.12
+      turf-tin: 3.0.12
+      turf-union: 3.0.12
+
+  turf-convex@3.0.12:
+    dependencies:
+      convex-hull: 1.0.3
+      turf-helpers: 3.0.12
+      turf-meta: 3.0.12
+
+  turf-destination@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+      turf-invariant: 3.0.12
+
+  turf-difference@3.0.12:
+    dependencies:
+      jsts: 1.1.2
+      turf-helpers: 3.0.12
+
+  turf-distance@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+      turf-invariant: 3.0.12
+
+  turf-envelope@3.0.12:
+    dependencies:
+      turf-bbox: 3.0.12
+      turf-bbox-polygon: 3.0.12
+
+  turf-explode@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+      turf-meta: 3.0.12
+
+  turf-flip@3.0.12:
+    dependencies:
+      turf-meta: 3.0.12
+
+  turf-grid@1.0.1:
+    dependencies:
+      turf-point: 2.0.1
+
+  turf-helpers@3.0.12: {}
+
+  turf-hex-grid@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-inside@3.0.12:
+    dependencies:
+      turf-invariant: 3.0.12
+
+  turf-intersect@3.0.12:
+    dependencies:
+      jsts: 1.1.2
+
+  turf-invariant@3.0.12: {}
+
+  turf-isolines@3.0.12:
+    dependencies:
+      turf-bbox: 3.0.12
+      turf-grid: 1.0.1
+      turf-helpers: 3.0.12
+      turf-inside: 3.0.12
+      turf-planepoint: 3.0.12
+      turf-square: 3.0.12
+      turf-tin: 3.0.12
+
+  turf-kinks@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+
+  turf-line-distance@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-line-slice@3.0.12:
+    dependencies:
+      turf-bearing: 3.0.12
+      turf-destination: 3.0.12
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+      turf-point-on-line: 3.0.12
+
+  turf-meta@3.0.12: {}
+
+  turf-midpoint@3.0.12:
+    dependencies:
+      turf-bearing: 3.0.12
+      turf-destination: 3.0.12
+      turf-distance: 3.0.12
+      turf-invariant: 3.0.12
+
+  turf-nearest@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+
+  turf-planepoint@3.0.12: {}
+
+  turf-point-grid@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-point-on-line@3.0.12:
+    dependencies:
+      turf-bearing: 3.0.12
+      turf-destination: 3.0.12
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-point-on-surface@3.0.12:
+    dependencies:
+      turf-center: 3.0.12
+      turf-distance: 3.0.12
+      turf-explode: 3.0.12
+      turf-helpers: 3.0.12
+      turf-inside: 3.0.12
+
+  turf-point@2.0.1:
+    dependencies:
+      minimist: 1.2.8
+
+  turf-random@3.0.12:
+    dependencies:
+      geojson-random: 0.2.2
+
+  turf-sample@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+
+  turf-simplify@3.0.12:
+    dependencies:
+      simplify-js: 1.2.4
+
+  turf-square-grid@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-square@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-tag@3.0.12:
+    dependencies:
+      turf-inside: 3.0.12
+
+  turf-tesselate@3.0.12:
+    dependencies:
+      earcut: 2.2.4
+      turf-helpers: 3.0.12
+
+  turf-tin@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+
+  turf-triangle-grid@3.0.12:
+    dependencies:
+      turf-distance: 3.0.12
+      turf-helpers: 3.0.12
+
+  turf-union@3.0.12:
+    dependencies:
+      jsts: 1.1.2
+
+  turf-within@3.0.12:
+    dependencies:
+      turf-helpers: 3.0.12
+      turf-inside: 3.0.12
+
+  turf@3.0.14:
+    dependencies:
+      turf-along: 3.0.12
+      turf-area: 3.0.12
+      turf-bbox: 3.0.12
+      turf-bbox-polygon: 3.0.12
+      turf-bearing: 3.0.12
+      turf-bezier: 3.0.12
+      turf-buffer: 3.0.12
+      turf-center: 3.0.12
+      turf-centroid: 3.0.12
+      turf-circle: 3.0.12
+      turf-collect: 3.0.12
+      turf-combine: 3.0.12
+      turf-concave: 3.0.12
+      turf-convex: 3.0.12
+      turf-destination: 3.0.12
+      turf-difference: 3.0.12
+      turf-distance: 3.0.12
+      turf-envelope: 3.0.12
+      turf-explode: 3.0.12
+      turf-flip: 3.0.12
+      turf-helpers: 3.0.12
+      turf-hex-grid: 3.0.12
+      turf-inside: 3.0.12
+      turf-intersect: 3.0.12
+      turf-isolines: 3.0.12
+      turf-kinks: 3.0.12
+      turf-line-distance: 3.0.12
+      turf-line-slice: 3.0.12
+      turf-meta: 3.0.12
+      turf-midpoint: 3.0.12
+      turf-nearest: 3.0.12
+      turf-planepoint: 3.0.12
+      turf-point-grid: 3.0.12
+      turf-point-on-line: 3.0.12
+      turf-point-on-surface: 3.0.12
+      turf-random: 3.0.12
+      turf-sample: 3.0.12
+      turf-simplify: 3.0.12
+      turf-square: 3.0.12
+      turf-square-grid: 3.0.12
+      turf-tag: 3.0.12
+      turf-tesselate: 3.0.12
+      turf-tin: 3.0.12
+      turf-triangle-grid: 3.0.12
+      turf-union: 3.0.12
+      turf-within: 3.0.12
+
+  two-product@1.0.2: {}
+
+  two-sum@1.0.0: {}
+
   type-check@0.3.2:
     dependencies:
       prelude-ls: 1.1.2
@@ -16284,6 +17436,8 @@ snapshots:
       tinyglobby: 0.2.13
       unplugin: 2.3.5
       unplugin-utils: 0.2.4
+
+  union-find@1.0.2: {}
 
   unique-string@2.0.0:
     dependencies:
@@ -16592,7 +17746,7 @@ snapshots:
 
   volar-service-emmet@0.0.65(@volar/language-service@2.4.20):
     dependencies:
-      '@emmetio/css-parser': git+https://github.com/ramya-rao-a/css-parser.git#370c480ac103bd17c7bcfb34bf5d577dc40d3660
+      '@emmetio/css-parser': https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660
       '@emmetio/html-matcher': 1.3.0
       '@vscode/emmet-helper': 2.9.3
       vscode-uri: 3.0.8
@@ -16792,6 +17946,8 @@ snapshots:
   webidl-conversions@4.0.2: {}
 
   webpack-virtual-modules@0.6.2: {}
+
+  wgs84@0.0.0: {}
 
   whatwg-url@7.1.0:
     dependencies:

@@ -13,7 +13,7 @@
     active-color="#1BCBEA"
   >
     <template #body="instances">
-      <CustomToolBtn :instances="instances" title="测量" :parent="measureToolRef" icon="i-carbon-ruler-alt" />
+      <ToolBtn :instances="instances" title="测量" :parent="measureToolRef" icon="i-carbon-ruler-alt" />
     </template>
   </VcMeasurements>
 </template>
@@ -21,7 +21,7 @@
 <script setup lang="ts">
 // @ts-expect-error no exported
 import { VcMeasurements } from 'vue-cesium'
-import CustomToolBtn from '../cumton-tool-btn/index.vue'
+import ToolBtn from '../tool-btn/index.vue'
 
 const measureToolRef = ref()
 </script>

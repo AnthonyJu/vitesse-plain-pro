@@ -1,6 +1,6 @@
 import { inflate } from 'pako'
 
-export function TdtTerrainProvider(cesium) {
+export function TdtTerrainProvider() {
   const {
     defaultValue,
     defined,
@@ -11,7 +11,7 @@ export function TdtTerrainProvider(cesium) {
     Rectangle,
     TileAvailability,
     CustomHeightmapTerrainProvider,
-  } = cesium
+  } = window.Cesium
 
   function f(e, x, d, t, _, h) {
     const i = e.tileXYToRectangle(d, t, _)

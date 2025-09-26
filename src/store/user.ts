@@ -4,7 +4,6 @@ import { router } from '@/modules/router'
 export const useUserStore = defineStore(
   'user',
   () => {
-    const route = useRoute()
     const commonDataStore = useCommonDataStore()
 
     const isLogin = ref(false)
@@ -14,7 +13,7 @@ export const useUserStore = defineStore(
       await authLogin(data).then(async (res) => {
         isLogin.value = true
         userInfo.value = res.data
-        await router.replace(route.query.redirect as string || '/')
+        await router.replace('/')
       })
     }
 
