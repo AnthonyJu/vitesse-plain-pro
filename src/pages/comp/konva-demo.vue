@@ -1,15 +1,15 @@
 <template>
   <div layout-default>
     <el-card shadow="hover" header="Konva标注组件" class="w-full">
-      <div>
-        <el-button @click="konvaRef?.enableDrawPoint()">画点</el-button>
-        <el-button @click="konvaRef?.enableDrawLine()">画线</el-button>
-        <el-button @click="konvaRef?.enableDrawRect()">画矩形</el-button>
-        <el-button @click="konvaRef?.enableDrawCircle()">画圆</el-button>
-        <el-button @click="konvaRef?.enableDrawPolygon()">画多边形</el-button>
-        <el-button @click="konvaRef?.clear()">清除</el-button>
-      </div>
       <div class="flex">
+        <div class="tools flex-col flex-1">
+          <el-button @click="konvaRef?.enableDrawPoint()">画点</el-button>
+          <el-button @click="konvaRef?.enableDrawLine()">画线</el-button>
+          <el-button @click="konvaRef?.enableDrawRect()">画矩形</el-button>
+          <el-button @click="konvaRef?.enableDrawCircle()">画圆</el-button>
+          <el-button @click="konvaRef?.enableDrawPolygon()">画多边形</el-button>
+          <el-button @click="konvaRef?.clear()">清除</el-button>
+        </div>
         <div :style="{ width: `${konvaWidth}px`, height: `${konvaHeight}px` }" class="bg-#eee">
           <KonvaAnnotation
             ref="konvaRef"
@@ -17,9 +17,11 @@
             :height="konvaHeight"
           />
         </div>
-        <el-scrollbar class="ml-10px" :height="konvaHeight">
-          画布中的数据
-        </el-scrollbar>
+        <div class="flex-1">
+          <el-scrollbar class="ml-10px" :height="konvaHeight">
+            画布中的数据
+          </el-scrollbar>
+        </div>
       </div>
     </el-card>
 
@@ -36,6 +38,8 @@
 </template>
 
 <script setup lang='ts'>
+import konvaBgImg from '@/assets/images/konva/konva_bg.png'
+
 const konvaRef = ref<any>()
 
 const konvaWidth = ref(1200)
@@ -47,4 +51,16 @@ const state = reactive({
     { a1: 'height', a2: '高度', a3: 'number', a4: '-', a5: '500px' },
   ],
 })
+
+onMounted(() => {
+  konvaRef.value?.addBg(konvaBgImg)
+})
 </script>
+
+<style lang="scss" scoped>
+.tools {
+  .el-button {
+    margin: 4px;
+  }
+}
+</style>
