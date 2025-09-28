@@ -26,10 +26,10 @@
       </el-input>
     </div>
 
-    <div class="mt-10px">
+    <div v-if="active !== 'mp4'" class="mt-10px">
       <el-button type="primary" @click="takeshot">截屏</el-button>
       <el-button type="primary" @click="record">
-        {{ isRecord ? '停止录屏' : '开始录屏' }}
+        {{ isRecording ? '停止录屏' : '开始录屏' }}
       </el-button>
     </div>
   </div>
@@ -39,7 +39,6 @@
 import Player from 'xgplayer'
 import FlvPlugin from 'xgplayer-flv'
 import HlsPlugin from 'xgplayer-hls'
-import { createRecorder, downloadBlob, takeSnapshot } from '@/utils/player-utils'
 import 'xgplayer/dist/index.min.css'
 
 const active = ref('mp4')
@@ -92,36 +91,15 @@ function play() {
   })
 }
 
-async function takeshot() {
-  const videoEl = document.querySelector('#xg-player video') as HTMLVideoElement
-  const img = await takeSnapshot(videoEl)
-  downloadBlob(img as Blob, '截屏.png')
+const { isRecording, startRecording, stopRecording, takeSnapshot } = useVideoCapture('xg-player')
+// 截屏
+function takeshot() {
+  takeSnapshot()
 }
-
-const isRecord = ref(false)
-let recorder: ReturnType<typeof createRecorder> | null = null
-
+// 录制
 function record() {
-  const videoEl = document.querySelector('#xg-player video') as HTMLVideoElement
-  if (!videoEl) {
-    console.warn('⚠️ 没找到 video 元素')
-    return
-  }
-
-  if (!isRecord.value) {
-    // 开始录制
-    recorder = createRecorder(videoEl, { mimeType: 'video/mp4' })
-    recorder.start()
-    isRecord.value = true
-  }
-  else {
-    // 停止录制
-    if (recorder) {
-      recorder.stop('录屏.mp4') // 停止并自动下载
-      recorder = null
-    }
-    isRecord.value = false
-  }
+  if (isRecording.value) stopRecording()
+  else startRecording()
 }
 
 onMounted(() => {
