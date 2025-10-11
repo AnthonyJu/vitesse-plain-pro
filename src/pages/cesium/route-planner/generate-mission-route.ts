@@ -1,3 +1,4 @@
+import type { Feature, LineString, Point, Polygon } from 'geojson'
 import * as turf from '@turf/turf'
 
 // SurveyParams 描述生成航线所需的全部参数。
@@ -44,7 +45,7 @@ export interface MissionResult {
   // 飞行距离（千米）
   flightDistance: string
   // 航线数
-  numOfStrips: string
+  numOfStrips: number
   // 航线间距（米）
   distBetweenLines: string
   // 预计飞行时间
@@ -54,8 +55,8 @@ export interface MissionResult {
   groundResolution: string
   // 相机地面覆盖：每张照片覆盖的地面范围 宽与高（米）
   footprint: {
-    width: number
-    height: number
+    width: string
+    height: string
   }
   // 图像拍摄间距（米）
   distBetweenImages: string
@@ -90,7 +91,7 @@ function computeCameraGroundCoverage(altitudeM: number, camera: PlanParams['came
 
   // 简单保护：避免除以 0。
   if (!focal || focal <= 0 || !sw || !sh) { // 校验相机参数有效性。
-    return undefined // 参数无效，无法计算。
+    throw new Error('Invalid camera parameters for ground coverage calculation.')
   }
 
   // 图像在地面的宽度与高度（m）。
@@ -112,12 +113,12 @@ function computeCameraGroundCoverage(altitudeM: number, camera: PlanParams['came
 }
 
 // 将线段按照间隔采样点，返回坐标点数组（单位：米）
-function sampleLineBySpacing(line: turf.Feature<turf.LineString>, length: number, spacingMeters: number) {
+function sampleLineBySpacing(line: Feature<LineString>, length: number, spacingMeters: number) {
   // 生成分割点数, 向下取整
   const count = Math.floor(length / spacingMeters)
 
   // 准备拍照点数组
-  const points: turf.Feature<turf.Point>[] = []
+  const points: Feature<Point>[] = []
 
   // 循环从 1 到 count
   for (let i = 1; i <= count; i++) {
@@ -135,8 +136,8 @@ function sampleLineBySpacing(line: turf.Feature<turf.LineString>, length: number
 
 // 生成航线
 function generateLines(
-  polyFeature: turf.Feature<turf.Polygon>,
-  pivot: turf.Feature<turf.Point>,
+  polyFeature: Feature<Polygon>,
+  pivot: Feature<Point>,
   flightDirectionDeg: number,
   forwardSpacing: number,
   sideSpacing: number,
@@ -168,7 +169,7 @@ function generateLines(
   const approxCols = Math.ceil(Math.abs(totalLngSpan / lngDiff))
 
   // 生成航线
-  const unrotatedLines: turf.Feature<turf.LineString>[] = []
+  const unRotatedLines: Feature<LineString>[] = []
   // 按行生成航线，并与旋转后的多边形求交
   for (let i = 1; i <= approxCols; i++) {
     // 这里生成的是垂直线，按经度变化
@@ -192,11 +193,11 @@ function generateLines(
     // 取第一个和最后一个点，构成航线
     const first = pts[0]
     const last = pts[pts.length - 1]
-    unrotatedLines.push(turf.lineString([first, last]))
+    unRotatedLines.push(turf.lineString([first, last]))
   }
 
   // 旋转航线回原始方向
-  const routeLines = unrotatedLines.map((line) => {
+  const routeLines = unRotatedLines.map((line) => {
     return {
       type: flightPattern,
       length: turf.length(line, { units: 'kilometers' }) * 1000, // 米
@@ -278,7 +279,7 @@ export function generateMissionRoute(params: PlanParams): MissionResult {
   // 航线总长度（米）
   let flightDistance = (routeLines.length - 1) * (sideSpacing) // 先加上航线间移动的距离
   // 总航点列表
-  const waypoints: SurveyMissionResult['waypoints'] = []
+  const waypoints: MissionResult['waypoints'] = []
   // 拍照点列表
   const photoPoints: [number, number][] = []
 
@@ -298,7 +299,7 @@ export function generateMissionRoute(params: PlanParams): MissionResult {
     photoPoints.push(...sampleLineBySpacing(line, lnLength, forwardSpacing))
 
     // 航线端点坐标
-    let linePoints = line.geometry.coordinates
+    let linePoints = line.geometry.coordinates as [number, number][]
     // 蛇形航线，奇数行反转点顺序
     if (routeLines[index].type === 's-shape') {
       if (index % 2 === 1) linePoints = linePoints.reverse()
