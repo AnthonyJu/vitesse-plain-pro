@@ -56,7 +56,7 @@
 
 <script setup lang='ts'>
 import Cropper from 'cropperjs'
-import { cropperjsStr } from './data/highlight'
+import { cropperjsStr } from '../data/highlight'
 import 'cropperjs/dist/cropper.css'
 
 interface MoveData {
