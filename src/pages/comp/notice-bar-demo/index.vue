@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang='ts'>
-import { noticeBarIconStr, noticeBarScrollStr, noticeBarSimpleStr } from './data/highlight'
+import { noticeBarIconStr, noticeBarScrollStr, noticeBarSimpleStr } from '../data/highlight'
 
 // 定义变量内容
 const state = reactive({

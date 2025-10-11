@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang='ts'>
-import { noticeBarIconStr } from './data/highlight'
+import { noticeBarIconStr } from '../data/highlight'
 </script>

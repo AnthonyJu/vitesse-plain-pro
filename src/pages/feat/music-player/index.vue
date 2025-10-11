@@ -31,9 +31,9 @@
 </template>
 
 <script setup lang='ts'>
-import poster from '@/assets/images/audios-poster/poster-1.png'
 import { Howl } from 'howler'
-import { soundStr } from './data/highlight'
+import poster from '@/assets/images/audios-poster/poster-1.png'
+import { soundStr } from '../data/highlight'
 
 const songsData = reactive({
   poster,
@@ -58,7 +58,7 @@ function getDurationText(time: number) {
 function initSound() {
   if (!sound) {
     sound = new Howl({
-      src: ['/audios/song-1.mp3'],
+      src: ['/static/audios/song-1.mp3'],
       html5: true,
       preload: true,
       autoplay: true,

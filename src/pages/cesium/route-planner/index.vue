@@ -5,7 +5,7 @@
         <CesiumMap @ready="handleReady" />
       </div>
       <div class="p-15px">
-        <div class="text-18px font-900">任务信息</div>
+        <div class="text-18px font-900">航信信息</div>
         <div class="mt-15px max-h-135px gap-15px overflow-auto grid-fill-260px">
           <div>区域面积：{{ result?.areaSqMeters }} m²</div>
           <div>航线数量：{{ result?.numOfStrips }} 条</div>

@@ -160,7 +160,7 @@ export const routes: RouteItem[] = [
     },
     children: [
       {
-        path: '/comp/image-comparison-demo',
+        path: '/comp/image-comparison',
         meta: {
           title: '图片对比',
         },
@@ -180,13 +180,19 @@ export const routes: RouteItem[] = [
       {
         path: '/comp/upload-file-demo',
         meta: {
-          title: '上传文件',
+          title: '文件切片上传（todo）',
         },
       },
       {
-        path: '/comp/konva-demo',
+        path: '/comp/leafer-draw',
         meta: {
-          title: 'konva标注组件',
+          title: 'Leafer图片标注（todo）',
+        },
+      },
+      {
+        path: '/comp/konva-draw',
+        meta: {
+          title: 'Konva图片标注（todo）',
         },
       },
     ],
@@ -198,12 +204,6 @@ export const routes: RouteItem[] = [
       icon: 'i-carbon-layers',
     },
     children: [
-      {
-        path: '/feat/leafer-draw',
-        meta: {
-          title: '图片标注',
-        },
-      },
       {
         path: '/feat/charts-roll',
         meta: {
@@ -226,12 +226,6 @@ export const routes: RouteItem[] = [
         path: '/feat/drag-layout',
         meta: {
           title: '拖拽布局',
-        },
-      },
-      {
-        path: '/feat/konva-canvas',
-        meta: {
-          title: 'Konva 画布',
         },
       },
       {
@@ -263,25 +257,13 @@ export const routes: RouteItem[] = [
       {
         path: '/feat/print-js',
         meta: {
-          title: '打印',
+          title: '页面打印',
         },
       },
       {
         path: '/feat/qrcode',
         meta: {
-          title: '二维码',
-        },
-      },
-      {
-        path: '/feat/syntax-highlighter',
-        meta: {
-          title: '语法高亮',
-        },
-      },
-      {
-        path: '/feat/tour',
-        meta: {
-          title: '漫游式引导',
+          title: '二维码生成',
         },
       },
     ],
@@ -341,13 +323,13 @@ export const routes: RouteItem[] = [
       {
         path: '/cesium/load-model',
         meta: {
-          title: '加载模型',
+          title: '模型加载',
         },
       },
       {
         path: '/cesium/drawing-route',
         meta: {
-          title: '航线绘制',
+          title: '航线绘制（todo）',
         },
       },
       {

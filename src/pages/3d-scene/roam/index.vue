@@ -7,7 +7,7 @@
     >
       <!-- 天空盒 -->
       <Suspense>
-        <Environment background files="/hdr/mossy_forest_1k.hdr" />
+        <Environment background files="/static/hdr/mossy_forest_1k.hdr" />
       </Suspense>
 
       <!-- 透视相机 -->
@@ -35,9 +35,9 @@
 </template>
 
 <script setup lang="ts">
-// import Guide from '../components/guide.vue'
-import House from '@/pages/3d-scene/roam/components/house.vue'
 import { Environment, MapControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches } from '@tresjs/leches'
+// import Guide from '../components/guide.vue'
+import House from '@/pages/3d-scene/roam/components/house.vue'
 </script>

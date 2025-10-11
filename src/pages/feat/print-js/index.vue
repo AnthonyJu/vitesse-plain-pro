@@ -33,9 +33,9 @@
 </template>
 
 <script setup lang='ts'>
-import PiniaImg from '@/assets/pinia.svg'
 import printJS from 'print-js'
-import { printjsStr } from './data/highlight'
+import PiniaImg from '@/assets/pinia.svg'
+import { printjsStr } from '../data/highlight'
 
 interface printConfiguration {
   printable: string

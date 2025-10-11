@@ -12,7 +12,7 @@ import { useMarzipano } from '@/composables/useMarzipano'
 
 const panoContainer = ref(null)
 const { createPano, isRotating, changeAutorotate } = useMarzipano(panoContainer, {
-  path: '/panorama-tiles',
+  path: '/static/panorama-tiles',
   levels: [
     {
       tileSize: 256,

@@ -28,7 +28,7 @@
 
 <script setup lang='ts'>
 import { useQRCode } from '@vueuse/integrations/useQRCode'
-import { qrcodeStr } from './data/highlight'
+import { qrcodeStr } from '../data/highlight'
 
 // qrcode插件: https://github.com/soldair/node-qrcode
 // AND Available in the @vueuse/integrations add-on.

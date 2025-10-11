@@ -31,7 +31,7 @@ const emit = defineEmits<{
 const cesiumId = inject('cesiumId') as string
 
 // Cesium 资源路径
-const cesiumPath = `${location.origin + location.pathname}cesium/Cesium.js`
+const cesiumPath = `${location.origin + location.pathname}libs/cesium/Cesium.js`
 
 // Cesium Viewer 配置
 const viewerConfig = {

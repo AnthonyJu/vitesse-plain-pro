@@ -27,7 +27,7 @@ function loadModel() {
     position,
     orientation,
     model: {
-      uri: '/models/glb/CesiumDrone.glb',
+      uri: '/static/models/glb/CesiumDrone.glb',
       minimumPixelSize: 128, // 模型最小像素大小
       maximumScale: 20000, // 模型最大缩放比例
     },

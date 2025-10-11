@@ -13,7 +13,7 @@ const { width, height } = useElementSize(container)
 let UnityInstance: any = null
 
 // buildUrl 为 Unity 打包后的文件夹路径，我改为了unity，就是上面打包的Build文件夹
-const buildUrl = './unity'
+const buildUrl = './static/unity'
 const config = {
   dataUrl: `${buildUrl}/Builds.data`,
   frameworkUrl: `${buildUrl}/Builds.framework.js`,

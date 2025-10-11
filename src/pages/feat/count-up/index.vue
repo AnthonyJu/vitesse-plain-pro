@@ -81,7 +81,7 @@
 <script setup lang='ts'>
 import type { ICountUp } from 'vue-countup-v3'
 import CountUp from 'vue-countup-v3'
-import { countUpStr } from './data/highlight'
+import { countUpStr } from '../data/highlight'
 
 interface refEmits {
   restart: () => void
