@@ -101,6 +101,7 @@ function computeCameraGroundCoverage(altitudeM: number, camera: PlanParams['came
 
   // 若提供像素尺寸，也可以估算 gsd
   let gsd = 0
+
   // 如果提供了像素尺寸但没有 gsd，则计算
   if (camera.imageWidthPx && camera.imageWidthPx > 0) {
     gsd = width / camera.imageWidthPx // m/px

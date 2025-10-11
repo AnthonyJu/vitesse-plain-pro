@@ -56,7 +56,7 @@
               <el-select v-model="form.camera" placeholder="请选择相机型号">
                 <el-option
                   v-for="item in cameraList"
-                  :key="item.value"
+                  :key="item.value.toString()"
                   :label="item.label"
                   :value="item.value"
                 />
@@ -104,15 +104,6 @@ provide('cesiumId', 'cesiumId')
 
 let viewer: Cesium.Viewer
 
-const polygon = [
-  [120.35864421632866, 36.71737770084022],
-  [120.35547511688443, 36.71563167335798],
-  [120.35902783498854, 36.712531865182704],
-  [120.36188565210843, 36.71462766632465],
-  [120.36039941397206, 36.71723496870541],
-  [120.35864421632866, 36.71737770084022],
-]
-
 async function handleReady(vc: VcReadyObject) {
   viewer = vc.viewer
 
@@ -141,6 +132,16 @@ const cameraList = [{
 }]
 
 const form = ref<PlanParams>({
+  polygon: [
+    [
+      [120.35864421632866, 36.71737770084022],
+      [120.35547511688443, 36.71563167335798],
+      [120.35902783498854, 36.712531865182704],
+      [120.36188565210843, 36.71462766632465],
+      [120.36039941397206, 36.71723496870541],
+      [120.35864421632866, 36.71737770084022],
+    ],
+  ],
   altitude: 200,
   frontOverlap: 80,
   sideOverlap: 85,
@@ -165,7 +166,6 @@ const result = ref<MissionResult>()
 
 function generateRoute() {
   const res = generateMissionRoute({
-    polygon: [polygon],
     ...form.value,
     frontOverlap: form.value.frontOverlap / 100,
     sideOverlap: form.value.sideOverlap / 100,
@@ -180,7 +180,7 @@ function onComplete(result: MissionResult) {
   // 添加区域
   viewer.entities.add({
     polyline: {
-      positions: polygon.map(p => Cesium.Cartesian3.fromDegrees(p[0], p[1], 0)),
+      positions: form.value.polygon[0].map(p => Cesium.Cartesian3.fromDegrees(p[0], p[1], 0)),
       width: 4,
       material: Cesium.Color.RED,
       clampToGround: true,
