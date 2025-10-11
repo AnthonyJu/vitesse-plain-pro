@@ -1,6 +1,5 @@
 import type { ConfigEnv } from 'vite'
 import { autoImports } from './plugins/auto-imports'
-import { cesium } from './plugins/cesium'
 import { components } from './plugins/components'
 import { elementPlus } from './plugins/element-plus'
 import { generateComponentName } from './plugins/generate-component-name'
@@ -27,7 +26,7 @@ function pluginsConfig(command: ConfigEnv['command']) {
     layouts(),
     svgLoader(),
     unocss(),
-    cesium(),
+    // cesium(),
     vueDevTools(),
     vitePWA(),
   ]

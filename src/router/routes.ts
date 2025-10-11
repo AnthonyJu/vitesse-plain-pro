@@ -351,7 +351,7 @@ export const routes: RouteItem[] = [
         },
       },
       {
-        path: '/cesium/survey-planner',
+        path: '/cesium/route-planner',
         meta: {
           title: '航线规划',
         },

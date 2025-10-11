@@ -36,7 +36,7 @@ export default defineConfig({
         }
       },
     ],
-    // 使用方式：grid
+    // 使用方式：grid-fit-200px / grid-fill-150px
     [
       /^grid-(\D+)-(\d+)(\D+)$/,
       ([,type, size, unit]) => {

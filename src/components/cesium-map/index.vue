@@ -1,5 +1,5 @@
 <template>
-  <div class="cesium-box relative full">
+  <div class="relative full">
     <VcConfigProvider :cesium-path="cesiumPath">
       <VcViewer v-bind="viewerConfig" @ready="onReady">
         <VcLayerImagery v-for="item in tdtLayer" :key="item.name">
