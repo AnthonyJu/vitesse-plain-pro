@@ -5,7 +5,7 @@
       link="https://github.com/EasyDarwin/EasyPlayer.js"
     />
 
-    <div id="easy-player" class="my-10px aspect-ratio-16/9 h-auto! w-600px!" />
+    <div id="easy-player" class="my-10px aspect-ratio-16/9 bg-$default-bg-dark h-auto! w-600px!" />
 
     <div class="mt-10px w-600px flex-col flex-items gap-10px">
       <el-input v-model="url" placeholder="请输入视频地址">
@@ -18,17 +18,22 @@
 </template>
 
 <script setup lang="ts">
-const url = ref('https://mister-ben.github.io/videojs-flvjs/bbb.flv')
+const url = ref('')
 
 let easyPlayer: any = null
 
 const { load } = useScriptTag(
-  '/easy-player/EasyPlayer-pro.js',
+  '/libs/easy-player/EasyPlayer-pro.js',
   play,
   { manual: true },
 )
 
 async function play() {
+  if (!url.value) {
+    ElMessage.warning('请输入视频地址')
+    return
+  }
+
   if (easyPlayer) {
     await easyPlayer.destroy()
     easyPlayer = null
@@ -67,7 +72,7 @@ async function play() {
     // quality: ['普清', '高清', '超清', '4K', '8K'], // 画质选择
     // qualityIndex: , // 默认显示的清晰度，如果不设置，会显示第一个清晰度
 
-    ptzConfig: { ptz: false, ptzMore: false }, // PTZ配置
+    ptzConfig: { ptz: true, ptzMore: false }, // PTZ配置
     debug: false, // 控制台日志打印
   })
 
