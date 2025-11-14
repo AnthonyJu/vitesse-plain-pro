@@ -389,6 +389,12 @@ export const routes: RouteItem[] = [
           title: '3D 可视域分析',
         },
       },
+      {
+        path: '/arcgis/8_camera_view',
+        meta: {
+          title: '相机视角控制',
+        },
+      },
     ],
   },
   {
