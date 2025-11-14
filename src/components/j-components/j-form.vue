@@ -99,7 +99,7 @@
     </el-form-item>
 
     <!-- 工具栏 -->
-    <el-form-item v-if="$slots.toolbar" class="mr-0" float-right pl-80px>
+    <el-form-item v-if="$slots.toolbar" class="float-right pl-80px mr-0!">
       <slot name="toolbar" />
     </el-form-item>
   </el-form>

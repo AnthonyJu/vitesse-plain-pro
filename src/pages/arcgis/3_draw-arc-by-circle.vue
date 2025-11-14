@@ -30,12 +30,12 @@ onMounted(() => {
   // 创建一个circle，并规定生成圆的点数
   const circle = new Circle({
     center: new Point({
-      longitude: 120.38,
-      latitude: 36.06,
+      longitude: 120,
+      latitude: 36,
     }),
     geodesic: true,
-    radius: 2000,
-    numberOfPoints: 360,
+    radius: 4000,
+    numberOfPoints: 30,
   })
 
   // 获取rings

@@ -53,7 +53,7 @@
 
           <el-tab-pane label="相机参数" name="second">
             <el-form-item label="相机型号">
-              <el-select v-model="form.camera" placeholder="请选择相机型号">
+              <el-select v-model="form.camera" value-key="id" placeholder="请选择相机型号">
                 <el-option
                   v-for="item in cameraList"
                   :key="item.value.toString()"
@@ -116,20 +116,58 @@ async function handleReady(vc: VcReadyObject) {
     },
   })
 
+  // // 点击获取坐标
+  // const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas)
+  // handler.setInputAction((movement) => {
+  //   const cartesian = viewer.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid)
+  //   if (cartesian) {
+  //     const cartographic = Cesium.Cartographic.fromCartesian(cartesian)
+  //     const lon = Cesium.Math.toDegrees(cartographic.longitude)
+  //     const lat = Cesium.Math.toDegrees(cartographic.latitude)
+  //     console.log(`${lon}, ${lat}`)
+  //   }
+  // }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+
   generateRoute()
 }
 
-const cameraList = [{
-  label: '索尼 ILCE-7R',
-  value: {
-    focalLengthMm: 28,
-    sensorWidthMm: 35.9,
-    sensorHeightMm: 24,
-    imageWidthPx: 7360,
-    imageHeightPx: 4912,
-    triggerType: 'CAM_TRIGG_DIST',
+const cameraList = [
+  {
+    label: '索尼 ILCE-7R',
+    value: {
+      id: 'sony_ilce7r',
+      focalLengthMm: 35,
+      sensorWidthMm: 35.8,
+      sensorHeightMm: 23.9,
+      imageWidthPx: 7360,
+      imageHeightPx: 4912,
+      triggerType: 'CAM_TRIGG_DIST',
+    },
   },
-}]
+  {
+    label: '大疆御2 专业版',
+    value: {
+      id: 'dji_mavic_2',
+      focalLengthMm: 28,
+      sensorWidthMm: 12.7,
+      sensorHeightMm: 9.6,
+      imageWidthPx: 5472,
+      imageHeightPx: 3648,
+      triggerType: 'CAM_TRIGG_DIST',
+    },
+  },
+  // {
+  //   label: '大疆御3',
+  //   value: {
+  //     focalLengthMm: 28,
+  //     sensorWidthMm: 32.2,
+  //     sensorHeightMm: 8.8,
+  //     imageWidthPx: 5472,
+  //     imageHeightPx: 3648,
+  //     triggerType: 'CAM_TRIGG_DIST',
+  //   },
+  // },
+]
 
 const form = ref<PlanParams>({
   polygon: [
@@ -150,16 +188,17 @@ const form = ref<PlanParams>({
   extensionCord: 200,
   flightPattern: 's-shape',
   camera: {
-    focalLengthMm: 28,
-    sensorWidthMm: 35.9,
-    sensorHeightMm: 24,
+    id: 'sony_ilce7r',
+    focalLengthMm: 35,
+    sensorWidthMm: 35.8,
+    sensorHeightMm: 23.9,
     imageWidthPx: 7360,
     imageHeightPx: 4912,
     triggerType: 'CAM_TRIGG_DIST',
   },
 })
 
-const debounceFn = useDebounceFn(() => generateRoute(), 150)
+const debounceFn = useDebounceFn(() => generateRoute(), 500)
 watch(form, debounceFn, { deep: true })
 
 const result = ref<MissionResult>()
@@ -187,9 +226,11 @@ function onComplete(result: MissionResult) {
     },
   })
 
+  const height = form.value.altitude
+
   // 添加航线
   const points = result.waypoints.map(p =>
-    Cesium.Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], 0),
+    Cesium.Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
   )
   viewer.entities.add({
     polyline: {
@@ -204,7 +245,7 @@ function onComplete(result: MissionResult) {
   result.waypoints.forEach((p, i) => {
     const image = i === 0 ? StartPng : (i === result.waypoints.length - 1 ? EndPng : PointPng)
     viewer.entities.add({
-      position: Cesium.Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], 0),
+      position: Cesium.Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
       billboard: {
         image,
         scale: 0.8, // 缩放比例（0.5～1.0 常用）
@@ -218,7 +259,7 @@ function onComplete(result: MissionResult) {
   // 添加拍照点位
   result.photoPoints.forEach((p) => {
     viewer.entities.add({
-      position: Cesium.Cartesian3.fromDegrees(p[0], p[1], 0),
+      position: Cesium.Cartesian3.fromDegrees(p[0], p[1], height),
       billboard: {
         image: PhotoPng,
         scale: 0.6, // 缩放比例（0.5～1.0 常用）

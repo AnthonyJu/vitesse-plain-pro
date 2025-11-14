@@ -21,6 +21,7 @@ export interface PlanParams {
   flightPattern: 's-shape' | 'grid-shape'
   // 相机参数组，用于计算相机地面覆盖和地面分辨率。
   camera: {
+    id?: string | number
     // 焦距，单位 毫米 (mm)。
     focalLengthMm: number
     // 传感器宽度，单位 毫米 (mm)。
@@ -352,12 +353,18 @@ export function generateMissionRoute(params: PlanParams): MissionResult {
     }
   }
 
+  // 计算飞行时间
+  const h = Math.floor(flightDistance / flightSpeed / 60 / 60)
+  const m = Math.floor(flightDistance / flightSpeed / 60)
+  const s = Math.floor(flightDistance / flightSpeed % 60)
+  const flightTime = h > 0 ? `${h}小时${m % 60}分${s}秒` : `${m}分${s}秒`
+
   return {
     areaSqMeters: turf.area(polyFeature).toFixed(2), // 面积平方米
     numOfStrips: routeLines.length, // 航线数
     distBetweenLines: sideSpacing.toFixed(2), // 航线间距米
     flightDistance: (flightDistance / 1000).toFixed(2), // 飞行距离千米
-    flightTime: `${Math.floor(flightDistance / flightSpeed / 60)}分${Math.round(flightDistance / flightSpeed % 60)}秒`, // 预计飞行时间
+    flightTime, // 预计飞行时间
 
     groundResolution: (camCoverage.gsd * 100).toFixed(2), // 地面分辨率 cm/px
     footprint: { // 相机地面覆盖米
