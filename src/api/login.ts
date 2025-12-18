@@ -38,7 +38,6 @@ export function authLogin(data: LoginInfo) {
         })
       }
       else {
-        ElMessage.error('用户名或密码错误')
         reject(new Error('用户名或密码错误'))
       }
     }, 600)

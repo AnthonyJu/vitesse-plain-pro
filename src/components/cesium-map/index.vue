@@ -24,6 +24,10 @@ import type { VcReadyObject } from 'vue-cesium/es/utils/types'
 import { VcConfigProvider, VcImageryProviderUrltemplate, VcLayerImagery, VcViewer } from 'vue-cesium'
 import { TdtTerrainProvider } from '@/plugin/cesium/GeoTerrainProvider'
 
+const { terrain = true } = defineProps<{
+  terrain?: boolean
+}>()
+
 const emit = defineEmits<{
   ready: [vc: VcReadyObject]
 }>()
@@ -88,7 +92,7 @@ function onReady(vc: VcReadyObject) {
 
 // 地图模式
 function setTerrain(mode: string) {
-  if (mode === '3D') {
+  if (mode === '3D' && terrain) {
     // 开启地形
     viewer.scene.globe.depthTestAgainstTerrain = true
 

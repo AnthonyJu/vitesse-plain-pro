@@ -36,7 +36,7 @@
     "src/**/*",
     "config/**/*",
     "node_modules/vue-cesium/Cesium.d.ts",
-    "node_modules/vue-cesium/types/global.d.ts",
+    "node_modules/vue-cesium/types/global.d.ts"
   ],
   "exclude": [
     "dist",
