@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar class="flex-1 px-10px">
+  <el-scrollbar ref="scrollBar" class="flex-1 px-10px">
     <el-menu
       :default-active="route.path"
       router
@@ -41,12 +41,18 @@ const menuStore = useMenuStore()
 const themeStore = useThemeStore()
 
 const menus = computed(() => menuStore.menus.filter(menu => !menu.meta.isHide))
+
+const scrollBar = ref()
+onMounted(() => {
+  scrollBar.value?.update()
+})
 </script>
 
 <style lang="scss" scoped>
 .el-menu {
   --el-menu-item-height: 48px;
 
+  background: transparent;
   border: none;
 
   ::v-deep(.el-sub-menu.is-active:not(.is-opened)) {
