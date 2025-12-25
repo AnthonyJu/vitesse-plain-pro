@@ -1,4 +1,3 @@
-import { useRenderLoop } from '@tresjs/core'
 import * as THREE from 'three'
 
 export function useDragView(camera: Ref<InstanceType<typeof THREE.PerspectiveCamera> | undefined>) {
@@ -47,8 +46,8 @@ export function useDragView(camera: Ref<InstanceType<typeof THREE.PerspectiveCam
   }
 
   // 每一帧的操作
-  const { onLoop } = useRenderLoop()
-  onLoop(() => {
+
+  function render() {
     // 如果没有交互, 则自动旋转
     if (!isInteracting && !stopRotate.value) moveY += 0.1
 
@@ -64,9 +63,10 @@ export function useDragView(camera: Ref<InstanceType<typeof THREE.PerspectiveCam
     const y = 500 * Math.cos(alpha)
     const z = 500 * Math.sin(alpha) * Math.sin(theta)
     camera.value!.lookAt(x, y, z)
-  })
+  }
 
   return {
+    render,
     stopRotate,
     onPointerDown,
     onPointerMove,

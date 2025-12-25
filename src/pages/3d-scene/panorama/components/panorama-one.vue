@@ -1,6 +1,6 @@
 <template>
-  <div v-loading="loading" class="relative full">
-    <TresCanvas>
+  <div v-loading="isLoading" class="relative full">
+    <TresCanvas @render="render">
       <!-- 透视相机 -->
       <TresPerspectiveCamera ref="camera" :args="[90, 1, 0.1, 1000]" :position="[0, 0, 0]" />
       <!-- 环境光 -->
@@ -24,22 +24,22 @@
 </template>
 
 <script setup lang='ts'>
-import { useDragView } from '@/pages/3d-scene/panorama/components/composables/drag-view'
-import { TresCanvas, useTexture } from '@tresjs/core'
+import { useTexture } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'
 import * as THREE from 'three'
+import { useDragView } from './composables/drag-view'
 
 const { url } = defineProps<{
   url: string
 }>()
-
-const loading = ref(true)
-const texture = await useTexture([url])
+const { state: texture, isLoading } = await useTexture(url)
 // 设置颜色空间, 使得贴图颜色更加真实
-texture.colorSpace = THREE.SRGBColorSpace
-texture.onUpdate = () => loading.value = false
+texture.value.colorSpace = THREE.SRGBColorSpace
 
 const camera = ref<InstanceType<typeof THREE.PerspectiveCamera>>()
+
 const {
+  render,
   stopRotate,
   onPointerDown,
   onPointerMove,

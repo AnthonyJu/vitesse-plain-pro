@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading" class="relative full">
-    <TresCanvas>
+    <TresCanvas @render="render">
       <!-- 透视相机 -->
       <TresPerspectiveCamera ref="camera" :args="[90, 1, 0.1, 1000]" :position="[0, 0, 0]" />
       <!-- 全景立方体 -->
@@ -64,6 +64,7 @@ function getTexturesFromAtlasFile(atlasImgUrl: string, length: number): Promise<
 
 const camera = ref<InstanceType<typeof THREE.PerspectiveCamera>>()
 const {
+  render,
   stopRotate,
   onPointerDown,
   onPointerMove,
