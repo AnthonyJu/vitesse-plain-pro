@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import type { VcReadyObject } from 'vue-cesium/es/utils/types'
 import RouteLine from './components/route-line.vue'
 import RoutePoint from './components/route-point.vue'
 
