@@ -1,16 +1,14 @@
 <template>
-  <CesiumMap @ready="handleReady" />
+  <CesiumMap />
 </template>
 
 <script setup lang="ts">
-import type { VcReadyObject } from 'vue-cesium/es/utils/types'
+import { useCesium } from '@/composables/use-cesium'
 
-provide('cesiumId', 'cesiumId')
+const { viewer, onViewerReady } = useCesium('cesiumId')
 
-let viewer: Cesium.Viewer
-function handleReady(vc: VcReadyObject) {
-  viewer = vc.viewer
+onViewerReady(() => {
   // eslint-disable-next-line no-console
-  console.log('VueCesium is ready', viewer)
-}
+  console.log('viewer.value:', viewer.value)
+})
 </script>

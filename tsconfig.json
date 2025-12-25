@@ -18,9 +18,7 @@
       "unplugin-vue-router/client",
       "vite/client",
       "vite-plugin-pwa/client",
-      "vite-plugin-vue-layouts/client",
-      "vue-cesium/Cesium",
-      "vue-cesium/global"
+      "vite-plugin-vue-layouts/client"
     ],
     "allowJs": true,
     "strict": true,
@@ -34,9 +32,7 @@
   },
   "include": [
     "src/**/*",
-    "config/**/*",
-    "node_modules/vue-cesium/Cesium.d.ts",
-    "node_modules/vue-cesium/types/global.d.ts"
+    "config/**/*"
   ],
   "exclude": [
     "dist",

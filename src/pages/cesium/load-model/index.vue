@@ -1,28 +1,22 @@
 <template>
-  <CesiumMap @ready="handleReady" />
+  <CesiumMap />
 </template>
 
 <script setup lang="ts">
-import type { VcReadyObject } from 'vue-cesium/es/utils/types'
+import { Cartesian3, Entity, HeadingPitchRoll, Transforms } from 'cesium'
 
-provide('cesiumId', 'cesiumId')
-
-let viewer: Cesium.Viewer
-function handleReady(vc: VcReadyObject) {
-  viewer = vc.viewer
-  loadModel()
-}
+const { viewer, onViewerReady } = useCesium('cesiumId')
 
 // 加载模型
-function loadModel() {
+onViewerReady(() => {
   // 模型位置
-  const position = Cesium.Cartesian3.fromDegrees(120.0744619, 36.0503706, 300)
+  const position = Cartesian3.fromDegrees(120.0744619, 36.0503706, 300)
   // 模型朝向
-  const hpr = new Cesium.HeadingPitchRoll(0, 0, 0)
+  const hpr = new HeadingPitchRoll(0, 0, 0)
   // 模型朝向四元数
-  const orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr)
+  const orientation = Transforms.headingPitchRollQuaternion(position, hpr)
 
-  const entity = new Cesium.Entity({
+  const entity = new Entity({
     name: 'CesiumDrone',
     position,
     orientation,
@@ -34,8 +28,8 @@ function loadModel() {
   })
 
   // 添加模型
-  viewer.entities.add(entity)
+  viewer.value!.entities.add(entity)
   // 查看位置
-  viewer.camera.lookAt(position, new Cesium.Cartesian3(0, 0, 1000))
-}
+  viewer.value!.camera.lookAt(position, new Cartesian3(0, 0, 1000))
+})
 </script>

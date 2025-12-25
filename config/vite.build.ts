@@ -26,7 +26,6 @@ function buildConfig(mode: ConfigEnv['mode']): UserConfig['build'] {
             if (id.includes('xlsx')) return 'xlsx'
             if (id.includes('shiki')) return 'shiki'
             if (id.includes('echarts')) return 'echarts'
-            if (id.includes('vue-cesium')) return 'vue-cesium'
             if (id.includes('@arcgis/core') || id.includes('@esri')) return 'arcgis'
             return 'vendor'
           }

@@ -20,6 +20,7 @@ export function autoImports() {
     dts: 'src/auto-imports.d.ts',
     dirs: [
       'src/constants',
+      'src/composables',
       'src/hooks/**/*',
       'src/store',
       'src/utils',

@@ -1,9 +1,8 @@
 <template>
   <div class="full flex bg-default">
     <div class="h-full flex-col flex-1">
-      <div class="flex-1 overflow-hidden">
-        <CesiumMap @ready="handleReady" />
-      </div>
+      <CesiumMap class="flex-1 overflow-hidden" />
+
       <div class="p-15px">
         <div class="text-18px font-900">航信信息</div>
         <div class="mt-15px max-h-135px gap-15px overflow-auto grid-fill-260px">
@@ -92,44 +91,46 @@
 </template>
 
 <script setup lang="ts">
-import type { VcReadyObject } from 'vue-cesium/es/utils/types'
+import type { Viewer } from 'cesium'
 import type { MissionResult, PlanParams } from './generate-mission-route'
+import { Cartesian3, Math as CesiumMath, Color, HeightReference, VerticalOrigin } from 'cesium'
 import EndPng from '@/assets/cesium/end.png'
 import PhotoPng from '@/assets/cesium/photo.png'
 import PointPng from '@/assets/cesium/point.png'
 import StartPng from '@/assets/cesium/start.png'
 import { generateMissionRoute } from './generate-mission-route'
 
-provide('cesiumId', 'cesiumId')
+const { onViewerReady } = useCesium('cesiumId')
 
-let viewer: Cesium.Viewer
+let viewer: Viewer
 
-async function handleReady(vc: VcReadyObject) {
-  viewer = vc.viewer
+// 加载模型
+onViewerReady((_viewer) => {
+  viewer = _viewer
 
   viewer.camera.setView({
-    destination: Cesium.Cartesian3.fromDegrees(120.358644, 36.715060, 2000),
+    destination: Cartesian3.fromDegrees(120.358644, 36.715060, 2000),
     orientation: {
-      heading: Cesium.Math.toRadians(0),
-      pitch: Cesium.Math.toRadians(-90),
+      heading: CesiumMath.toRadians(0),
+      pitch: CesiumMath.toRadians(-90),
       roll: 0,
     },
   })
 
   // // 点击获取坐标
-  // const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas)
+  // const handler = new ScreenSpaceEventHandler(viewer.scene.canvas)
   // handler.setInputAction((movement) => {
   //   const cartesian = viewer.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid)
   //   if (cartesian) {
-  //     const cartographic = Cesium.Cartographic.fromCartesian(cartesian)
-  //     const lon = Cesium.Math.toDegrees(cartographic.longitude)
-  //     const lat = Cesium.Math.toDegrees(cartographic.latitude)
+  //     const cartographic = Cartographic.fromCartesian(cartesian)
+  //     const lon = CesiumMath.toDegrees(cartographic.longitude)
+  //     const lat = CesiumMath.toDegrees(cartographic.latitude)
   //     console.log(`${lon}, ${lat}`)
   //   }
-  // }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+  // }, ScreenSpaceEventType.LEFT_CLICK)
 
   generateRoute()
-}
+})
 
 const cameraList = [
   {
@@ -219,9 +220,9 @@ function onComplete(result: MissionResult) {
   // 添加区域
   viewer.entities.add({
     polyline: {
-      positions: form.value.polygon[0].map(p => Cesium.Cartesian3.fromDegrees(p[0], p[1], 0)),
+      positions: form.value.polygon[0].map(p => Cartesian3.fromDegrees(p[0], p[1], 0)),
       width: 4,
-      material: Cesium.Color.RED,
+      material: Color.RED,
       clampToGround: true,
     },
   })
@@ -230,13 +231,13 @@ function onComplete(result: MissionResult) {
 
   // 添加航线
   const points = result.waypoints.map(p =>
-    Cesium.Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
+    Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
   )
   viewer.entities.add({
     polyline: {
       positions: points,
       width: 3,
-      material: Cesium.Color.YELLOW,
+      material: Color.YELLOW,
       clampToGround: true,
     },
   })
@@ -245,12 +246,12 @@ function onComplete(result: MissionResult) {
   result.waypoints.forEach((p, i) => {
     const image = i === 0 ? StartPng : (i === result.waypoints.length - 1 ? EndPng : PointPng)
     viewer.entities.add({
-      position: Cesium.Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
+      position: Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
       billboard: {
         image,
         scale: 0.8, // 缩放比例（0.5～1.0 常用）
-        verticalOrigin: Cesium.VerticalOrigin.BOTTOM, // 图标对齐位置
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND, // 贴地展示
+        verticalOrigin: VerticalOrigin.BOTTOM, // 图标对齐位置
+        heightReference: HeightReference.CLAMP_TO_GROUND, // 贴地展示
         disableDepthTestDistance: Number.POSITIVE_INFINITY, // 防止被地形遮挡
       },
     })
@@ -259,12 +260,12 @@ function onComplete(result: MissionResult) {
   // 添加拍照点位
   result.photoPoints.forEach((p) => {
     viewer.entities.add({
-      position: Cesium.Cartesian3.fromDegrees(p[0], p[1], height),
+      position: Cartesian3.fromDegrees(p[0], p[1], height),
       billboard: {
         image: PhotoPng,
         scale: 0.6, // 缩放比例（0.5～1.0 常用）
-        verticalOrigin: Cesium.VerticalOrigin.CENTER, // 图标对齐位置
-        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND, // 贴地展示
+        verticalOrigin: VerticalOrigin.CENTER, // 图标对齐位置
+        heightReference: HeightReference.CLAMP_TO_GROUND, // 贴地展示
         disableDepthTestDistance: Number.POSITIVE_INFINITY, // 防止被地形遮挡
       },
     })

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="show"
+    v-show="isReady"
     class="flex-col-center gap-5px"
     position="absolute bottom-10px right-10px z-10"
   >
@@ -22,12 +22,19 @@
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error no exported
-import { useVueCesium } from 'vue-cesium'
+import {
+  Cartesian3,
+  Math as CesiumMath,
+  Ellipsoid,
+  IntersectionTests,
+  Ray,
+  SceneMode,
+} from 'cesium'
+import { useCesium } from '@/composables/use-cesium'
 
 const { center } = defineProps<{
   center?: {
-    destination: Cesium.Cartesian3
+    destination: Cartesian3
     orientation: {
       heading: number
       pitch: number
@@ -36,38 +43,34 @@ const { center } = defineProps<{
   }
 }>()
 
-const cesiumId = inject('cesiumId') as string
-
-const show = ref(false)
-const vc = useVueCesium(cesiumId)
-vc.creatingPromise.then(() => {
-  show.value = true
-})
+const { viewer, isReady } = useCesium()
 
 // 复原地图视角
 function resetMap() {
-  vc.viewer.camera.flyTo({
+  if (!viewer.value) return
+
+  viewer.value.camera.flyTo({
     ...(center || {
-      destination: Cesium.Cartesian3.fromDegrees(103.84, 31.15, 15000000),
+      destination: Cartesian3.fromDegrees(103.84, 31.15, 15000000),
       orientation: {
-        heading: Cesium.Math.toRadians(360),
-        pitch: Cesium.Math.toRadians(-90),
-        roll: Cesium.Math.toRadians(0),
+        heading: CesiumMath.toRadians(360),
+        pitch: CesiumMath.toRadians(-90),
+        roll: CesiumMath.toRadians(0),
       },
     }),
     duration: 1,
   })
 }
 
-// TODO 缩放时以设定的最大和最小高度为基准，进行动态缩放，不能超过最大和最小高度
-
 // 放大
 function zoomIn() {
-  const scene = vc.viewer.scene
+  if (!viewer.value) return
+
+  const scene = viewer.value.scene
   const camera = scene.camera
 
   // 如果是3D场景，使用相机焦点作为缩放中心
-  if (scene.mode === Cesium.SceneMode.SCENE3D) {
+  if (scene.mode === SceneMode.SCENE3D) {
     const focus = getCameraFocus(scene)
     const cameraPosition = getCameraPosition(camera, focus, 1 / 2)
     camera.flyTo({
@@ -88,11 +91,13 @@ function zoomIn() {
 
 // 缩小
 function zoomOut() {
-  const scene = vc.viewer.scene
+  if (!viewer.value) return
+
+  const scene = viewer.value.scene
   const camera = scene.camera
 
   // 如果是3D场景，使用相机焦点作为缩放中心
-  if (scene.mode === Cesium.SceneMode.SCENE3D) {
+  if (scene.mode === SceneMode.SCENE3D) {
     const focus = getCameraFocus(scene)
     const cameraPosition = getCameraPosition(camera, focus, -1)
     camera.flyTo({
@@ -112,31 +117,31 @@ function zoomOut() {
 }
 
 // 获取相机焦点
-function getCameraFocus(scene: Cesium.Scene) {
-  const ray = new Cesium.Ray(scene.camera.positionWC, scene.camera.directionWC)
-  const intersections = Cesium.IntersectionTests.rayEllipsoid(ray, Cesium.Ellipsoid.WGS84)
+function getCameraFocus(scene: import('cesium').Scene) {
+  const ray = new Ray(scene.camera.positionWC, scene.camera.directionWC)
+  const intersections = IntersectionTests.rayEllipsoid(ray, Ellipsoid.WGS84)
   if (intersections) {
-    return Cesium.Ray.getPoint(ray, intersections.start)
+    return Ray.getPoint(ray, intersections.start)
   }
   // 相机方向不指向地球仪，因此使用椭球地平线点作为焦点。
-  return Cesium.IntersectionTests.grazingAltitudeLocation(ray, Cesium.Ellipsoid.WGS84)
+  return IntersectionTests.grazingAltitudeLocation(ray, Ellipsoid.WGS84)
 }
 
 // 获取相机位置
-function getCameraPosition(camera: Cesium.Camera, focus: Cesium.Cartesian3, scalar: number) {
-  const cartesian3Scratch = new Cesium.Cartesian3()
-  const direction = Cesium.Cartesian3.subtract(
+function getCameraPosition(camera: import('cesium').Camera, focus: Cartesian3, scalar: number) {
+  const cartesian3Scratch = new Cartesian3()
+  const direction = Cartesian3.subtract(
     focus,
     camera.position,
     cartesian3Scratch,
   )
-  const movementVector = Cesium.Cartesian3.multiplyByScalar(
+  const movementVector = Cartesian3.multiplyByScalar(
     direction,
     scalar,
     cartesian3Scratch,
   )
 
   // 计算新的相机位置
-  return Cesium.Cartesian3.add(camera.position, movementVector, cartesian3Scratch)
+  return Cartesian3.add(camera.position, movementVector, cartesian3Scratch)
 }
 </script>
