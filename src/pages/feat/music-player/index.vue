@@ -7,13 +7,17 @@
     <el-card class="mt-15px" shadow="hover" header="音频播放器：简单示例">
       <div class="player-box">
         <div class="flex-center">
-          <img class="poster h-120px w-120px rounded-full" alt="logo" :src="songsData.poster">
+          <img
+            class="poster h-120px w-120px rounded-full"
+            :class="{ playing: isPlaying }"
+            alt="logo" :src="songsData.poster"
+          >
         </div>
         <div class="pl-20px">
           <div class="mb-20px">{{ songsData.name }}</div>
           <div class="w-260px">
             <el-progress :percentage="percentage">
-              <div>{{ durationText }}</div>
+              <div>{{ currentTimeText }} / {{ durationText }}</div>
             </el-progress>
           </div>
         </div>
@@ -55,6 +59,8 @@ function getDurationText(time: number) {
   return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
 }
 
+const isPlaying = ref(false)
+const currentTimeText = ref('00:00')
 function initSound() {
   if (!sound) {
     sound = new Howl({
@@ -65,11 +71,32 @@ function initSound() {
       loop: true,
       volume: 0.5,
       onplay() {
+        isPlaying.value = true
+
+        if (timer.value) {
+          clearInterval(timer.value)
+          timer.value = null
+        }
+
         songsData.duration = sound.duration()
         durationText.value = getDurationText(sound.duration())
+
         timer.value = setInterval(() => {
-          percentage.value = (sound.seek() / sound.duration()) * 100
+          const cur = sound.seek() || 0
+
+          percentage.value = (cur / sound.duration()) * 100
+          currentTimeText.value = getDurationText(cur)
         }, 1000)
+      },
+
+      onpause() {
+        isPlaying.value = false
+      },
+      onstop() {
+        isPlaying.value = false
+      },
+      onend() {
+        isPlaying.value = false
       },
     })
   }
@@ -93,7 +120,6 @@ function mutedFn() {
 }
 
 onBeforeUnmount(() => {
-  document.getElementById('autoplayer')!.removeEventListener('click', () => initSound())
   clearInterval(timer.value)
   sound.unload()
 })
@@ -110,6 +136,11 @@ onBeforeUnmount(() => {
 
   .poster {
     animation: rotate 10s linear infinite;
+    animation-play-state: paused; // 默认暂停
+  }
+
+  .poster.playing {
+    animation-play-state: running;
   }
 
   @keyframes rotate {
