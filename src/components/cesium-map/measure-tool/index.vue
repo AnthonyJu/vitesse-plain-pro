@@ -1,16 +1,19 @@
 <template>
-  <div v-show="isReady" class="flex-center gap-10px">
+  <div
+    v-show="isReady"
+    class="flex-center gap-10px"
+  >
     <div v-show="showTools" class="flex-center gap-10px">
-      <div class="cesium-tool-btn" title="清除" @click="clear">
+      <div class="cesium-tool-btn" title="清除" @click="handleClear">
         <div class="i-carbon-trash-can text-18px" />
       </div>
       <div
-        v-for="tool in measureTools"
+        v-for="tool in tools"
         :key="tool.name"
         class="cesium-tool-btn"
-        :class="{ '!bg-#1BCBEA': activeTool === tool.name }"
+        :class="{ 'bg-#0ff!': activeMode === tool.name }"
         :title="tool.title"
-        @click="toggleTool(tool.name)"
+        @click="handleToggle(tool.name)"
       >
         <div class="text-18px" :class="tool.icon" />
       </div>
@@ -22,41 +25,33 @@
 </template>
 
 <script setup lang="ts">
-import { MeasureTool } from './use-measure'
+import type { MeasureMode } from './use-measure'
+import { useCesium } from '@/composables/use-cesium'
+import { useToolState } from '../use-tool-state'
+import { useMeasure } from './use-measure'
 
 const showTools = ref(false)
-const activeTool = ref('')
+const { viewer, isReady } = useCesium()
+const { activeMode, toggleMode, stop, clearAll } = useMeasure(viewer)
+const { activate, deactivate, registerDeactivate } = useToolState('measure')
 
-const { isReady, onViewerReady } = useCesium()
+// 注册停用回调（被其他工具激活时调用）
+registerDeactivate(() => stop())
 
-let measure: MeasureTool
-
-onViewerReady((viewer) => {
-  measure = new MeasureTool(viewer)
-})
-
-const measureTools = [
+const tools = [
   { name: 'distance', title: '距离测量', icon: 'i-carbon-ruler' },
   { name: 'area', title: '面积测量', icon: 'i-carbon-area' },
   { name: 'height', title: '高度测量', icon: 'i-carbon-arrow-up' },
 ]
 
-function toggleTool(toolName: string) {
-  activeTool.value = toolName
-
-  if (toolName === 'distance') {
-    measure.startDistanceMeasure()
-  }
-  else if (toolName === 'area') {
-    measure.startAreaMeasure()
-  }
-  else if (toolName === 'height') {
-    measure.startHeightMeasure()
-  }
+function handleToggle(name: string) {
+  activate()
+  toggleMode(name as MeasureMode)
 }
 
-function clear() {
-  activeTool.value = ''
-  measure.clearAll()
+function handleClear() {
+  clearAll()
+  deactivate()
+  ElMessage.success('已清除所有测量结果')
 }
 </script>

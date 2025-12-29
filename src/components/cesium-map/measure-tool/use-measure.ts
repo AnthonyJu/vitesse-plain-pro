@@ -38,13 +38,15 @@ export class MeasureTool {
   tempAreaText: string
   tempHeightLabel: Cesium.Entity | null
   tempHeightText: string
+  // 保存所有已完成的测量实体
+  allResultEntities: Cesium.Entity[]
 
   constructor(viewer: Cesium.Viewer) {
     this.viewer = viewer
     this.handler = null
 
     this.fixedPositions = [] // 已确定的点
-    this.tempPosition = null // 鼠标移动产生的临时点f
+    this.tempPosition = null // 鼠标移动产生的临时点
     this.pointEntities = [] // 点实体
     this.segmentLineEntities = [] // 段实体 / 最终线 / polygon 等
     this.segmentLabelEntities = [] // 段标签或最终标签
@@ -59,6 +61,7 @@ export class MeasureTool {
     this.tempAreaText = ''
     this.tempHeightLabel = null
     this.tempHeightText = ''
+    this.allResultEntities = [] // 所有已完成的测量实体
     this._bindEsc()
   }
 
@@ -81,7 +84,11 @@ export class MeasureTool {
 
   _start(mode: string, opts: Record<string, any> = {}) {
     this._destroyHandler()
-    // this._clearAllEntities();
+    // 保存当前已完成的实体到 allResultEntities
+    this.allResultEntities.push(...this.pointEntities)
+    this.allResultEntities.push(...this.segmentLineEntities)
+    this.allResultEntities.push(...this.segmentLabelEntities)
+
     this.mode = mode
     this.showMu = opts.showMu !== undefined ? opts.showMu : true
     this.fixedPositions = []
@@ -133,7 +140,7 @@ export class MeasureTool {
         const label = this._addLabelEntity(b, '计算中...', '14px')
         this.segmentLabelEntities.push(label)
         this._computeTerrainDistance(a, b).then((segLen) => {
-          if (label.label) label.label.text = this._formatDistance(segLen)
+          if (label.label) (label.label.text as any) = this._formatDistance(segLen)
         })
       }
 
@@ -349,7 +356,7 @@ export class MeasureTool {
 
       this._computeTerrainArea(this.fixedPositions).then(({ area }) => {
         if (label.label) {
-          label.label.text = `面积: ${this._formatArea(area, this.showMu)}`
+          (label.label.text as any) = `面积: ${this._formatArea(area, this.showMu)}`
         }
       })
 
@@ -522,13 +529,13 @@ export class MeasureTool {
   }
 
   _addPolyline(
-    positionsOrCallback: Cesium.Cartesian3[] | (() => Cesium.Cartesian3[]),
+    positions: Cesium.Cartesian3[],
     color: Cesium.Color = COLOR_POINT_MIDDLE,
     clampToGround: boolean = false,
   ) {
     const ent = this.viewer.entities.add({
       polyline: {
-        positions: positionsOrCallback,
+        positions,
         width: WIDTH_LINE_DEFAULT,
         material: color,
         clampToGround,
@@ -568,9 +575,9 @@ export class MeasureTool {
     clgampToGround: boolean = false,
   ) {
     const ent = this.viewer.entities.add({
-      position: new Cesium.CallbackProperty(() => posCallback(), false),
+      position: new Cesium.CallbackProperty(() => posCallback(), false) as any,
       label: {
-        text: new Cesium.CallbackProperty(() => textCallback(), false),
+        text: new Cesium.CallbackProperty(() => textCallback(), false) as any,
         font,
         fillColor: COLOR_LABEL_DEFAULT,
         style: Cesium.LabelStyle.FILL_AND_OUTLINE,
@@ -619,9 +626,9 @@ export class MeasureTool {
   }
 
   /* ---------- 计算/格式化 ---------- */
-  _getCartesian(screenPosition: Cesium.Cartesian2) {
-    let cart = this.viewer.scene.pickPosition(screenPosition)
-    if (!cart) cart = this.viewer.camera.pickEllipsoid(screenPosition, this.viewer.scene.globe.ellipsoid)
+  _getCartesian(screenPosition: Cesium.Cartesian2): Cesium.Cartesian3 | undefined {
+    let cart: Cesium.Cartesian3 | undefined = this.viewer.scene.pickPosition(screenPosition)
+    if (!cart) cart = this.viewer.camera.pickEllipsoid(screenPosition, this.viewer.scene.globe.ellipsoid) ?? undefined
     return cart
   }
 
@@ -770,6 +777,15 @@ export class MeasureTool {
     this.segmentLabelEntities = []
     this.fixedPositions = []
     this.tempPosition = null
+
+    // 清除所有已完成的测量实体
+    this.allResultEntities.forEach((e) => {
+      try {
+        this.viewer.entities.remove(e)
+      }
+      catch {}
+    })
+    this.allResultEntities = []
   }
 
   _bindEsc() {
@@ -918,5 +934,72 @@ export class MeasureTool {
     const start = this.fixedPositions[0]
     const diff = await this._computeHeightDiff(start, this.tempPosition)
     this.tempHeightText = `高度差: ${diff.toFixed(2)} m`
+  }
+}
+
+export type MeasureMode = 'distance' | 'area' | 'height' | ''
+
+// Composable 封装
+export function useMeasure(viewer: Ref<Cesium.Viewer | undefined> | ShallowRef<Cesium.Viewer | undefined>) {
+  const measureTool = shallowRef<MeasureTool>()
+  const activeMode = ref<MeasureMode>('')
+
+  // 初始化测量工具
+  watch(
+    () => viewer.value,
+    (v) => {
+      if (v && !measureTool.value) {
+        measureTool.value = new MeasureTool(v)
+      }
+    },
+    { immediate: true },
+  )
+
+  // 切换测量模式
+  function toggleMode(mode: MeasureMode) {
+    if (!measureTool.value) return
+
+    if (activeMode.value === mode) {
+      // 再次点击同一工具，停止测量
+      stop()
+      return
+    }
+
+    activeMode.value = mode
+    switch (mode) {
+      case 'distance':
+        measureTool.value.startDistanceMeasure()
+        break
+      case 'area':
+        measureTool.value.startAreaMeasure()
+        break
+      case 'height':
+        measureTool.value.startHeightMeasure()
+        break
+    }
+  }
+
+  // 停止当前测量
+  function stop() {
+    measureTool.value?._destroyHandler()
+    activeMode.value = ''
+  }
+
+  // 清除所有测量结果
+  function clearAll() {
+    measureTool.value?.clearAll()
+    activeMode.value = ''
+  }
+
+  // 组件卸载时清理
+  onUnmounted(() => {
+    measureTool.value?._destroyHandler()
+  })
+
+  return {
+    activeMode,
+    toggleMode,
+    stop,
+    clearAll,
   }
 }
