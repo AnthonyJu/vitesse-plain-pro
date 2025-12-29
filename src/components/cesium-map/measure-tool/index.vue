@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-show="isReady"
-    class="flex-center gap-10px"
-    position="absolute bottom-110px right-10px z-10"
-  >
+  <div v-show="isReady" class="flex-center gap-10px">
     <div v-show="showTools" class="flex-center gap-10px">
       <div class="cesium-tool-btn" title="清除" @click="clear">
         <div class="i-carbon-trash-can text-18px" />
@@ -12,7 +8,7 @@
         v-for="tool in measureTools"
         :key="tool.name"
         class="cesium-tool-btn"
-        :class="{ 'bg-#1BCBEA': activeTool === tool.name }"
+        :class="{ '!bg-#1BCBEA': activeTool === tool.name }"
         :title="tool.title"
         @click="toggleTool(tool.name)"
       >
@@ -26,12 +22,18 @@
 </template>
 
 <script setup lang="ts">
-import { useCesium } from '@/composables/use-cesium'
+import { MeasureTool } from './use-measure'
 
 const showTools = ref(false)
 const activeTool = ref('')
 
-const { isReady } = useCesium()
+const { isReady, onViewerReady } = useCesium()
+
+let measure: MeasureTool
+
+onViewerReady((viewer) => {
+  measure = new MeasureTool(viewer)
+})
 
 const measureTools = [
   { name: 'distance', title: '距离测量', icon: 'i-carbon-ruler' },
@@ -40,10 +42,21 @@ const measureTools = [
 ]
 
 function toggleTool(toolName: string) {
-  ElMessage.info(`已切换到${toolName}测量工具（功能开发中）`)
+  activeTool.value = toolName
+
+  if (toolName === 'distance') {
+    measure.startDistanceMeasure()
+  }
+  else if (toolName === 'area') {
+    measure.startAreaMeasure()
+  }
+  else if (toolName === 'height') {
+    measure.startHeightMeasure()
+  }
 }
 
 function clear() {
-  ElMessage.info('已清除所有测量结果（功能开发中）')
+  activeTool.value = ''
+  measure.clearAll()
 }
 </script>

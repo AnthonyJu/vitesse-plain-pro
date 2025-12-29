@@ -2,11 +2,10 @@
   <div
     v-show="isReady"
     class="cesium-tool-btn flex-col-center gap-5px"
-    position="absolute bottom-180px right-10px z-10"
     :title="`切换到${mode}`"
     @click="changeMode"
   >
-    {{ mode === '3D' ? '2D' : '3D' }}
+    {{ mode }}
   </div>
 </template>
 

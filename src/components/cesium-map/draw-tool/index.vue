@@ -2,7 +2,6 @@
   <div
     v-show="isReady"
     class="flex-center gap-10px"
-    position="absolute bottom-145px right-10px z-10"
   >
     <div v-show="showTools" class="flex-center gap-10px">
       <div class="cesium-tool-btn" title="清除" @click="clear">

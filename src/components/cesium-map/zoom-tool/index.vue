@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-show="isReady"
-    class="flex-col-center gap-5px"
-    position="absolute bottom-10px right-10px z-10"
-  >
+  <div v-show="isReady" class="flex-col-center gap-5px">
     <!-- 复原 -->
     <div class="cesium-tool-btn" title="复原" @click="resetMap">
       <div class="i-carbon-home text-18px text-#fff" />

@@ -2,12 +2,14 @@
   <div class="relative full">
     <div :id="cesiumId" class="full" />
 
-    <MapModeTool @set-map-mode="setMapMode" />
-    <DrawTool />
-    <MeasureTool />
-    <ZoomTool :center="mapCenter" />
-
     <ScaleBar />
+
+    <div class="absolute bottom-10px right-10px z-10 w-0 flex-col items-end gap-5px">
+      <MapModeTool @set-map-mode="setMapMode" />
+      <DrawTool />
+      <MeasureTool />
+      <ZoomTool :center="mapCenter" />
+    </div>
 
     <slot />
   </div>
@@ -20,6 +22,7 @@ import {
   Math as CesiumMath,
   EllipsoidTerrainProvider,
   SceneMode,
+  ScreenSpaceEventType,
   UrlTemplateImageryProvider,
   Viewer,
 } from 'cesium'
@@ -117,6 +120,9 @@ function setupScene() {
   // 设置鼠标事件
   viewer.scene.screenSpaceCameraController.zoomEventTypes = [CameraEventType.WHEEL]
   viewer.scene.screenSpaceCameraController.tiltEventTypes = [CameraEventType.RIGHT_DRAG]
+
+  // 双击某个entity之后, 左键只能旋转了, 不能再拖拽地图, 经过查询发现cesium 源码中自带了 entity 的单击和双击事件
+  viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
 
   // 设置默认视角
   viewer.camera.flyTo({ ...mapCenter, duration: 0 })
