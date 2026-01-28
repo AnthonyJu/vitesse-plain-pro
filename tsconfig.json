@@ -32,7 +32,8 @@
   },
   "include": [
     "src/**/*",
-    "config/**/*"
+    "config/**/*",
+    "vite.config.ts"
   ],
   "exclude": [
     "dist",
