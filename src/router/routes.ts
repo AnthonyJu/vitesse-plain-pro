@@ -247,6 +247,12 @@ export const routes: RouteItem[] = [
             },
           },
           {
+            path: '/feat/video-player/jessibuca-player',
+            meta: {
+              title: 'JessibucaPlayer',
+            },
+          },
+          {
             path: '/feat/video-player/easy-player',
             meta: {
               title: 'EasyPlayer',

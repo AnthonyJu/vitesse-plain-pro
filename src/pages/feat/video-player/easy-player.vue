@@ -43,8 +43,9 @@ async function play() {
   // @ts-expect-error EasyPlayerPro
   easyPlayer = new EasyPlayerPro(container, {
     isLive: true, // 默认 true
-    hasAudio: false, // 是否解析音频
-    isMute: true, // 是否渲染音频
+    hasAudio: true, // 是否解析音频
+    isMute: false, // 是否渲染音频
+    isBand: true, // 是否显示网络带宽
 
     bufferTime: 0.2, // 缓存时长
     loadTimeOut: 30, // 超时时间s
@@ -60,7 +61,7 @@ async function play() {
     WASMSIMD: true,
     gpuDecoder: true, // 硬解码
 
-    webGPU: false,
+    // webGPU: true, // 是否使用 WebGPU 渲染 默认 false
     canvasRender: false, // canvas渲染
 
     isRtcSRS: false, // 是否rtc srs 类型
@@ -72,8 +73,20 @@ async function play() {
     // quality: ['普清', '高清', '超清', '4K', '8K'], // 画质选择
     // qualityIndex: , // 默认显示的清晰度，如果不设置，会显示第一个清晰度
 
-    ptzConfig: { ptz: true, ptzMore: false }, // PTZ配置
+    // ptzConfig: { ptz: true, ptzMore: true }, // PTZ配置
     debug: false, // 控制台日志打印
+
+    btns: {
+      fullscreen: true,
+      screenshot: true,
+      play: true,
+      audio: true,
+      record: true,
+      stretch: true,
+      zoom: true,
+      ptz: false,
+      quality: false,
+    },
   })
 
   easyPlayer.play(url.value)
