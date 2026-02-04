@@ -258,6 +258,12 @@ export const routes: RouteItem[] = [
               title: 'EasyPlayer',
             },
           },
+          {
+            path: '/feat/video-player/dh-sdk-player',
+            meta: {
+              title: '大华 SDK Player',
+            },
+          },
         ],
       },
       {

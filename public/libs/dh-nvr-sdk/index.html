@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+	<meta http-equiv="Expires" content="0" />
+<link rel="stylesheet" href="css/style.css"></head>
+<body>
+	<div class="h5-left">
+		<div class="h5-play-wrap">
+		</div>
+		<fieldset class="h5-fieldset-wrap">
+			<legend>登录</legend>
+			<div class="h5-form-item">
+				<label>设备ip</label>
+				<input type="text" id="h5_ip" value="172.10.3.70">
+			</div>
+			<div class="h5-form-item fn-padl10">
+				<label>端口</label>
+				<input type="text" id="h5_port" value="80">
+			</div>
+			<div class="h5-form-item">
+				<label>用户名</label>
+				<input type="text" id="h5_user" value="admin">
+			</div>
+			<div class="h5-form-item fn-padl10">
+				<label>密码</label>
+				<input type="text" id="h5_password" value="admin123">
+			</div>
+			<div class="h5-form-item" style="margin-left: 228px;">
+				<label>窗口分割</label>
+				<select class="h5-select" sel-for="onChangeWdnNum">
+					<option value="1" selected="">1x1</option>
+					<option value="2">2x2</option>
+					<option value="3">3x3</option>
+					<option value="4">4x4</option>
+				</select>
+			</div>
+			<div class="h5-form-item fn-clear" style="height: 30px;">
+				<input type="button" value="登录" class="h5-button" btn-for="onLogin">
+				<input type="button" value="注销" class="h5-button fn-marl10" btn-for="onLogout">
+				<label class="fn-padl10">登录状态：</label>
+				<span style="color: red;" id="h5_loginState">未登录</span>
+			</div>
+		</fieldset>
+		<fieldset class="h5-fieldset-wrap">
+			<legend>预览</legend>
+			<div class="h5-form-item">
+				<label>通道列表</label>
+			</div>
+			<ul class="h5-ul" id="h5_channel_list">
+			</ul>
+			<div class="h5-form-item fn-padl10">
+				<label>码流类型</label>
+				<select id="h5_stream" sel-for="onChangeStream"></select>
+			</div>
+			<div class="h5-form-item fn-mart10">
+				<label>音量</label>
+				<input type="range" id="h5_volume" min="0" max="1" step="0.1" value="0.5">
+				<span id="h5_volume_value"></span>
+				<span>（范围：0~1）</span>
+			</div>
+			<div class="h5-form-item fn-clear" style="display: none;">
+				<input type="button" class="h5-button"  value="开始预览" btn-for="onPreview">
+				<input type="button" class="h5-button fn-marl10"  value="停止预览" btn-for="onStopPreview">
+			</div>
+			<div class="h5-form-item fn-clear">
+				<input type="button" class="h5-button" value="打开声音" btn-for="onTurnOnSound">
+				<input type="button" class="h5-button fn-marl10" value="关闭声音" btn-for="onTurnSoundOff">
+				<input type="button" class="h5-button fn-marl10" value="开始对讲" btn-for="onStartTalk">
+				<input type="button" class="h5-button fn-marl10" value="停止对讲" btn-for="onStopTalk">
+			</div>
+			<div class="h5-form-item fn-clear">
+				<input type="button" class="h5-button" value="慢放"  btn-for="onSlow">
+				<input type="button" class="h5-button fn-marl10" value="快放"  btn-for="onFast">
+				<label t="com.CurrentTimes" class="fn-marl10" >></label>
+				<label id="currentTimes" class="fn-marl10">1X</label>
+			</div>
+			<div class="h5-form-item fn-clear">
+				<input type="button" class="h5-button" value="抓图" btn-for="onSnap">
+				<input type="button" class="h5-button fn-marl10" value="开始录像" btn-for="onStartRecord">
+				<input type="button" class="h5-button fn-marl10" value="停止录像" btn-for="onStopRecord">
+				<input type="button" class="h5-button fn-marl10" value="全屏" btn-for="onSetFull">
+			</div>
+			<div class="h5-form-item fn-clear">
+				<input type="button" class="h5-button" style="width: 100px;" value="开启电子放大" btn-for="onStartEnlarge">
+				<input type="button" class="h5-button fn-marl10" style="width: 100px;" value="关闭电子放大" btn-for="onStopEnlarge">
+			</div>
+			<div class="h5-form-item fn-clear">
+				<input type="button" class="h5-button" style="width: 100px;" value="开启区域放大" btn-for="onStartGridEnlarge">
+				<input type="button" class="h5-button fn-marl10" style="width: 100px;" value="关闭区域放大" btn-for="onCloseGridEnlarge">
+			</div>
+		</fieldset>
+	</div>
+	<div class="h5-middle">
+		<fieldset class="h5-fieldset-wrap">
+			<legend>云台控制</legend>
+			<div class="h5-step-wrap">
+				<span>步长(1-8):</span>
+				<select id="h5_ptz_step" style="width: 130px;">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5" selected="">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+				</select>
+			</div>
+			<div class="h5-ptz-wrap" title="云台按钮操作界面">
+				<input type="button" class="h5-button" value="左上" onmousedown="onHandlePTZ('LeftUp', false)" onmouseup="onHandlePTZ('LeftUp', true)">
+				<input type="button" class="h5-button" value="上" onmousedown="onHandlePTZ('Up', false)" onmouseup="onHandlePTZ('Up', true)">
+				<input type="button" class="h5-button" value="右上" onmousedown="onHandlePTZ('RightUp', false)" onmouseup="onHandlePTZ('RightUp', true)">
+				<input type="button" class="h5-button" value="左" onmousedown="onHandlePTZ('Left', false)" onmouseup="onHandlePTZ('Left', true)">
+				<input type="button" class="h5-button" value="自动" onmousedown="onHandlePTZ('Auto', false)" onmouseup="onHandlePTZ('Auto', true)">
+				<input type="button" class="h5-button" value="右" onmousedown="onHandlePTZ('Right', false)" onmouseup="onHandlePTZ('Right', true)">
+				<input type="button" class="h5-button" value="左下" onmousedown="onHandlePTZ('LeftDown', false)" onmouseup="onHandlePTZ('LeftDown', true)">
+				<input type="button" class="h5-button" value="下"  onmousedown="onHandlePTZ('Down', false)" onmouseup="onHandlePTZ('Down', true)">
+				<input type="button" class="h5-button" value="右下" onmousedown="onHandlePTZ('RightDown', false)" onmouseup="onHandlePTZ('RightDown', true)">
+			</div>
+			<div class="h5-zoomfocus-wrap" title="变倍聚焦操作界面">
+				<input type="button" class="h5-button" value="变倍-" onmousedown="onHandlePTZ('ZoomWide', false)" onmouseup="onHandlePTZ('ZoomWide', true)">
+				<input type="button" class="h5-button" value="变倍+" onmousedown="onHandlePTZ('ZoomTele', false)" onmouseup="onHandlePTZ('ZoomTele', true)">
+				<input type="button" class="h5-button" value="聚焦-" onmousedown="onHandlePTZ('FocusFar', false)" onmouseup="onHandlePTZ('FocusFar', true)">
+				<input type="button" class="h5-button" value="聚焦+" onmousedown="onHandlePTZ('FocusNear', false)" onmouseup="onHandlePTZ('FocusNear', true)">
+				<input type="button" class="h5-button" value="光圈-" onmousedown="onHandlePTZ('IrisSmall', false)" onmouseup="onHandlePTZ('IrisSmall', true)">
+				<input type="button" class="h5-button" value="光圈+" onmousedown="onHandlePTZ('IrisLarge', false)" onmouseup="onHandlePTZ('IrisLarge', true)">
+			</div>
+			<div class="h5-preset-wrap" title="预置点操作界面">
+				<div class="h5-item-form" style="margin-bottom: 10px;">
+					<label>预置点：</label>
+					<input type="text" id="h5_preset">
+				</div>
+				<input type="button" class="h5-button" value="查看"  onclick="onHandlePTZ('GotoPreset', false)">
+				<input type="button" class="h5-button" value="增加"  onclick="onHandlePTZ('SetPreset', false)">
+				<input type="button" class="h5-button" value="删除"  onclick="onHandlePTZ('ClearPreset', false)" >
+			</div>
+		</fieldset>
+		<fieldset class="h5-fieldset-wrap" style="width: 600px;">
+			<legend>录像回放</legend>
+			<div class="h5-form-item">
+				<label>开始时间</label>
+				<input type="datetime-local" step="1" style="width: 170px;" id="h5_startTime">
+			</div>
+			<div class="h5-form-item" style="margin-left: 20px;">
+				<label>结束时间</label>
+				<input type="datetime-local" step="1" style="width: 170px;" id="h5_endTime">
+			</div>
+			<div class="h5-form-item">
+				<label>通道列表</label>
+				<select class="h5-select" id="h5_playback_channel"></select>
+				<input type="button" class="h5-button fn-marl10" value="搜索" btn-for="onSearchRecord">
+			</div>
+			<table class="h5-table" id="h5_table">
+				<thead>
+					<tr>
+						<td style="width: 50px;"><input type="checkbox" btn-for="onCheckAll" id="h5_checkAll"></td>
+						<td style="width: 50px;">索引</td>
+						<td style="width: 260px;">时间</td>
+						<td style="width: 85px;">文件大小(KB)</td>
+						<td style="width: 165px;">时间戳</td>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<div class="h5-form-item fn-mart10" >
+				<input type="button" btn-for="onDownload" class="h5-button" value="下载">
+				<span style="width: 40px">下载进度：<span id="h5_down_process" style="width: 50px"></span></span>
+				<input type="button" btn-for="stopDownLoad" class="h5-button" value="取消下载">
+				<a id="h5_first" class="h5-link" style="margin-left: 128px;"  href="javascript:;">首页</a>
+				<a id="h5_pre" class="h5-link" href="javascript:;">上页</a>
+				<span>
+					<span id="h5_curPage">2</span>/<span id="h5_totalPage">5</span>
+				</span>
+				<a id="h5_next" class="h5-link" href="javascript:;">下页</a>
+				<a id="h5_last" class="h5-link" href="javascript:;">末页</a>
+				<input type="text" style="width: 30px;" id="h5_goNumber">
+				<input type="button" value="GO!" id="h5_goPage" style="width: 40px">
+			</div>
+			<div class="h5-form-item  fn-mart10">
+				<input type="button" value="开始回放(双击列表行)" disabled class="h5-button" style="width: 145px;" btn-for="onPausePlayback">
+				<input type="button" value="暂停" class="h5-button" btn-for="onPausePlayback">
+				<input type="button" value="继续" class="h5-button" btn-for="onContinuePlayback">
+				<input type="button" value="结束回放" class="h5-button" btn-for="onClosePlayback">
+			</div>
+			<div class="h5-form-item  fn-mart10" style="display: none;">
+				<span>当前播放秒数</span>
+				<span id="h5_curTime">--</span>
+				<span>/</span>
+				<span id="h5_totalTime">--</span>
+				<input type="text" id="h5_goTime" style="width: 50px;">
+				<input type="button" class="h5-button" btn-for="onGoTime" value="GO!">
+			</div>
+			<div class="h5-form-item fn-mart10">
+				<label>裁剪起始时间</label>
+				<input type="datetime-local" step="1" style="width: 200px;" id="h5_cutStartTime">
+				<span> - </span>
+				<input type="datetime-local" step="1" style="width: 200px;" id="h5_cutEndTime">
+			</div>
+			<div class="h5-form-item fn-mart10">
+				<input type="button" class="h5-button" style="width:200px" btn-for="onStartCut" value="开始裁剪(先勾选一个录像)"/>
+				<span>裁剪进度：<span id="h5_cut_process"></span></span>
+			</div>
+			<div class="h5-form-item fn-mart10">
+				<input type="button" btn-for="stopDownLoad" class="h5-button" value="取消裁剪">
+			</div>
+		</fieldset>
+		
+	</div>
+<script src="module/PlayerControl.js"></script><script src="index.js"></script></body>
+</html>

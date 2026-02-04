@@ -1,0 +1,213 @@
+@charset "utf-8";
+* {
+    margin:0;
+    padding:0;
+}
+html {
+    width:100%;
+    height:100%;
+    font-size:12px;
+    font-family:Arial, Helvetica, sans-serif;
+    -webkit-text-size-adjust:none;
+    background:#FFFFFF;
+    overflow: hidden;
+}
+body {
+    padding:10px;
+    min-width: 1280px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+.h5-left,
+.h5-right {
+    float: left;
+    margin-right: 20px;
+}
+.fn-padl10 {
+    padding-left: 10px;
+}
+.fn-marl10 {
+    margin-left: 10px;
+}
+.fn-clear {
+    clear: both;
+}
+.fn-overflow {
+    overflow: hidden;
+}
+.fn-width100 {
+    width: 100px;
+}
+.fn-marl10 {
+    margin-left: 10px;
+}
+.fn-marl150 {
+    margin-left: 150px;
+}
+.fn-mart10 {
+    margin-top: 10px;
+}
+.fn-fontBlue {
+    color: blue;
+}
+.fn-fontRed {
+    color: red !important;
+}
+.fn-lightBorder {
+    border: 1px solid rgb(255, 204, 0) !important;
+}
+.fn-normalBorder {
+    border: 1px solid rgb(125, 125, 125) !important;
+}
+fieldset {
+    display:block;
+    margin-top: 10px;
+}
+fieldset legend{
+    font-size: 14px;
+}
+.h5-play-wrap {
+    width: 500px;
+    height: 300px;
+    background-color: #000;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+.h5-fieldset-wrap {
+    width: 520px;
+    padding: 10px;
+    border: 1px solid #333;
+}
+.h5-form-item {
+    float: left;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+.h5-form-item label {
+    width: 80px;
+    display: inline-block;
+}
+.h5-form-item input {
+    width: 130px;
+}
+.h5-form-item select {
+    width: 134px;
+}
+.h5-form-item span {
+    width: 60px;
+}
+.h5-form-item .h5-button {
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+}
+.h5-ptz-wrap {
+    width: 210px;
+    float: left;
+}
+.h5-step-wrap {
+    margin-bottom: 10px;
+}
+.h5-zoomfocus-wrap {
+    width: 200px;
+    float: left;
+}
+.h5-preset-wrap {
+    float: left;
+    margin-top: 10px;
+}
+.h5-ptz-wrap .h5-button {
+    width: 60px;
+    height: 30px;
+    margin-bottom: 3px;
+}
+.h5-zoomfocus-wrap .h5-button {
+    width: 80px;
+    height: 30px;
+    margin-bottom: 3px;
+}
+.h5-preset-wrap .h5-button {
+    width: 60px;
+    height: 30px;
+    margin-bottom: 3px;
+}
+.h5-preset-wrap input {
+    width: 130px;
+}
+.h5-table {
+    border-collapse: collapse;
+    background: #ddd;
+    width: 600px;
+    float: left;
+    height: 300px;
+    display: block;
+    overflow-y: scroll;
+}
+.h5-table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.h5-table tr td{
+    text-align: center;
+    padding: 5px 0;
+    border: 1px solid #999;
+}
+.h5-table tr:hover{
+    cursor: text;
+}
+a.i-download {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    cursor: pointer;
+    background: #cccccc;
+    border-radius: 50%;
+}
+a.i-download:hover {
+    background: #999;
+}
+.h5-page {
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 18px;
+    display: block;
+    float: left;
+}
+.h5-ul {
+    float: left;
+    background: #ccc;
+    list-style: none;
+    max-height: 250px;
+    overflow-y: scroll;
+}
+.h5-ul li {
+    cursor: pointer;
+    height: 20px;
+    line-height: 20px;
+}
+.h5-ul li:hover {
+    background-color: #eee;
+}
+.video_loading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+}
+.h5-menu-list {
+    margin-top: 40px;
+    background-color: #ccc;
+}
+.h5-menu-list li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.h5-menu-list li:hover {
+    background-color: #eee;
+}
