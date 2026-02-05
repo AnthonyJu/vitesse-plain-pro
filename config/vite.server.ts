@@ -16,29 +16,35 @@ function serverConfig(mode: ConfigEnv['mode']): UserConfig['server'] {
         changeOrigin: true,
         rewrite: path => path.replace(api, ''),
       },
+
+      // 大华
+      '/rtspoverwebsocket': {
+        ws: true,
+        target: 'xxx',
+        changeOrigin: true,
+      },
       '/web_caps': {
-        target: 'http://222.134.24.110:18086/',
+        target: 'xxx',
         changeOrigin: true,
       },
-      '/RPC2': {
-        target: 'http://222.134.24.110:18086/',
-        changeOrigin: true,
-      },
-      '/RPC2_Login': {
-        target: 'http://222.134.24.110:18086/',
-        changeOrigin: true,
-      },
-      '/RPC_Loadfile': {
-        target: 'http://222.134.24.110:18086/',
+      '^/(RPC2|RPC2_Login|RPC_Loadfile)': {
+        target: 'xxx',
         changeOrigin: true,
       },
       '/module': {
         target: 'http://localhost:5050/',
         rewrite: path => path.replace('/module', '/libs/dh-nvr-sdk/module'),
       },
-      '/rtspoverwebsocket': {
+
+      // 海康
+      '^/(ISAPI|SDK)': {
+        target: 'http://192.168.1.194',
+        changeOrigin: true,
+      },
+
+      '^/webSocketVideoCtrlProxy': {
+        target: 'http://192.168.1.194',
         ws: true,
-        target: 'http://222.134.24.110:18086/',
         changeOrigin: true,
       },
     },

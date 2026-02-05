@@ -1,0 +1,694 @@
+
+
+
+
+
+
+
+
+
+
+WebSDK3.4_
+无插件开发包
+编程指南
+
+
+
+
+
+
+声  明
+
+
+    非常感谢您购买我公司的产品，如果您有什么疑问或需要请随时联系我们。
+
+我们已尽量保证手册内容的完整性与准确性，但也不免出现技术上不准确、与产品功能及操作不相符或印刷错误等情况，如有任何疑问或争议，请以我司最终解释为准。
+产品和手册将实时进行更新，恕不另行通知。
+本手册中内容仅为用户提供参考指导作用，请以开发包实际内容为准。
+
+目  录
+声  明	I
+目  录	II
+1	简介	1
+1.1	内容简介	1
+1.2	支持设备	1
+1.3	运行环境	1
+2	版本更新	3
+3	错误码及说明	4
+3.1	异常事件代码	4
+3.2	错误码	4
+4	函数调用顺序	6
+5	函数说明	7
+5.1	无插件初始化	7
+5.1.1	检查浏览器是否支持无插件	7
+5.1.2	Web无插件初始化（包含插件事件注册）	7
+5.1.3	嵌入播放无插件	8
+5.2	获取设备信息	9
+5.2.1	登录设备	9
+5.2.2	登出设备	10
+5.2.3	获取设备基本信息	10
+5.2.4	获取模拟通道	11
+5.2.5	获取数字通道	12
+5.2.6	获取零通道	13
+5.2.7	录像搜索	14
+5.2.8	获取语音对讲通道	15
+5.2.9	获取端口	16
+5.2.10	设置码流加密秘钥	16
+5.3	播放及播放控制	16
+5.3.1	开始预览	16
+5.3.2	开始回放	17
+5.3.3	停止播放	19
+5.3.4	停止播放全部窗口	19
+5.3.5	暂停	19
+5.3.6	恢复播放	20
+5.3.7	减速播放	20
+5.3.8	加速播放	20
+5.3.9	获取OSD时间	21
+5.3.10	打开声音	21
+5.3.11	关闭声音	21
+5.3.12	设置音量	22
+5.3.13	抓图	22
+5.3.14	画面分割	22
+5.4	录像	23
+5.4.1	开始录像	23
+5.4.2	停止录像	23
+5.5	录像下载	23
+5.5.1	开始下载	23
+5.5.2	开始按时间下载	24
+5.6	云台控制	24
+5.6.1	云台控制	24
+5.6.2	设置预置点	25
+5.6.3	调用预置点	25
+5.7	图像放大	26
+5.7.1	开启电子放大	26
+5.7.2	关闭电子放大	26
+5.7.3	开启3D放大	26
+5.7.4	关闭3D放大	26
+5.7.5	全屏播放	27
+5.8	设备维护	27
+5.8.1	导出配置参数	27
+5.8.2	导入配置参数	27
+5.8.3	恢复默认参数	27
+5.8.4	设备重启	28
+5.8.5	开始异步升级	28
+5.8.6	获取升级进度	29
+5.8.7	重连	29
+5.9	插件信息维护	29
+5.9.1	获取播放窗口信息	29
+5.10	其它	30
+5.10.1	发送HTTP请求	30
+5.10.2	获取叠加信息	30
+
+
+1简介
+内容简介
+WebSDK3.4无插件开发包基于海康威视无插件视频库开发，接口封装于javascript脚本，以javascript接口形式提供用户集成，支持网页上实现预览、回放、云台控制等功能。该控件开发包仅支持B/S网页开发，不适用于C/S开发。
+支持设备
+WebSDK3.4_无插件开发包支持我司多种设备，包括DVR、NVR、DVS、网络摄像机、网络球机等，设备需要支持ISAPI协议。
+运行环境
+设备：使用前请确认设备是否支持WebSocket取流，如不支持则无法使用本开发包。
+操作系统：Windows 10以上、麒麟银河、统信UOS、麒麟海光、麒麟龙芯等；
+硬件：内存 > 8G；
+硬解要求：（a）window10/window11；（b）Chromium内核 91+，不支持ie浏览器；（c）显卡要求独显：GPU NVIDIA GTX950 以上、AMD RX460 及以上 集显：GPUIntel HD4400, HD515 及以上，AMD Radeon R7, Vega M 及以上、Apple M1, M1 Pro, M1 Max, M1 Ultra 及以上；
+软解要求：（a）window10/window11；（b）Chromium内核 91+，不支持ie浏览器；
+
+性能最佳方案：最新版本谷歌浏览器 + 使用https + 独立显卡。注：https下需要开启跨域隔离头。
+
+具体数据参考：
+
+2版本更新
+V 3.4.0
+1.无插件版本升级，性能优化。
+
+3错误码及说明
+异常事件代码
+异常事件回调在用户传入的回调函数中处理，第一个参数为事件代码（回放异常，回放停止和硬盘空间不足），第二个参数为事件发生的窗口号。
+
+事件名称	代码	说明
+PLUGIN_EVENTTYPE_PLAYABNORMAL	0	回放异常
+PLUGIN_EVENTTYPE_PLAYBACKSTOP	2	回放停止
+PLUGIN_EVENTTYPE_AUDIOTALKFAIL	3	语音对讲失败
+PLUGIN_EVENTTYPE_NOFREESPACE	21	硬盘空间不足（录像）
+
+4函数调用顺序
+
+5函数说明
+无插件初始化
+检查浏览器是否支持无插件
+函数：	I_SupportNoPlugin()
+功能：	检查浏览器是否支持无插件，Chromium内核需要大于90。
+参数：	无
+返回值：true: 支持无插件，false不支持无插件
+Web无插件初始化（包含插件事件注册）
+函数：	I_InitPlugin(szWidth, szHight, options)
+功能：	初始化插件的各种属性
+参数：  szWidth		插件的宽度（单位为”px”， 100%表示撑满插件容器）
+szHight		插件的高度（单位为”px”， 100%表示撑满插件容器）
+		options		可选参数对象:
+szColorProperty	插件的背景颜色。表示插件的背景颜色，子窗口的背景颜色，子窗口的边框颜色，子窗框选中的边框颜色。插件中有一套自己的默认颜色。
+szOcxClassId		ocx插件的ID，OEM时可以修改对应ID来实现开发包绑定不同的插件，默认为海康WEB3.0插件（无插件不支持该参数）
+szMimeTypes	非IE插件的MIMETYPE，OEM时可以修改对应ID来实现开发包绑定不同的插件，默认为海康WEB3.0插件
+iWndowType	分屏类型：1- 1*1，2- 2*2，3- 3*3，4- 4*4默认值为1，单画面
+                    bWndFull  	    单窗口双击全屏，默认支持，true(支持)，false(不支持)。（无插件默认true不支持修改）(最大显示数值为4*4分割，数字超过4返回16分割)
+iPlayMode		播放模式，默认值为2，正常播放模式。暂不支持其它模式。
+bDebugMode	JS调试模式，控制台打印调试信息，true(开启)，false(关闭)
+cbSelWnd		窗口选中事件回调函数，只包含一个字符串参数，里面的值是XML
+cbEvent		插件事件回调函数，有三个参数，第一个参数是事件类型，第二参数是窗口号（无插件不支持该回调）
+iPackageType     封装格式，2-PS格式 11-MP4格式。（无插件不支持该参数）
+cbDoubleClickWnd窗口双击回调函数，有两个参数，第一个参数是窗口号，第二个参数是是否全屏（无插件不支持该回调）
+cbRemoteConfig  远程配置库关闭回调（无插件不支持该回调）
+cbInitPluginComplete 插件初始化完成回调，必须要定义
+cbPluginErrorHandler 插件错误回调
+cbPerformanceLack  性能不足回调
+cbSecretKeyError  码流加密秘钥错误回调
+返回值：无
+说明：	szColorProperty的格式为：
+”plugin-background:ffffff; sub-background:ffffff; sub-border:ffffff; sub-border-select:ffffff”
+表示插件的背景颜色，插件子窗口的背景颜色，窗口边框的颜色，窗口边框选中后的颜色。
+
+cbSelWnd是窗口选中事件的回调函数，用户可以传入函数，选中窗口后，开发包会自动调用这个函数，参数是一个XML，格式如下：
+<?xml version="1.0"?>
+<RealPlayInfo>
+<SelectWnd>0</SelectWnd>  //触发事件的窗口号，从0开始
+</RealPlayInfo>
+
+cbEvent是插件的异常事件回调函数，有三个参数，第一个参数是事件类型(具体值在异常事件回调中有说明)，第二个是触发事件的窗口号。
+嵌入播放无插件
+函数：	I_InsertOBJECTPlugin(szContainerID)
+功能：	在HTML DOM元素中插入播放插件
+参数：	szContainerID	插件容器的ID，HTML的DOM元素
+返回值：成功返回0，失败返回-1
+获取设备信息
+登录设备
+函数：	I_Login(szIP, iPrototocol, iPort, szUserName, szPassword, options)
+功能：	登录设备
+参数：  szIP				设备的IP地址或者普通域名(比如花生壳域名)
+iPrototocol		http协议，1表示http协议 2表示https协议
+iPort		登录设备的http/https端口号，根据iPrototocol选择传入不同的端口
+szUserName	登录用户名称
+szPassword	用户密码
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+cgi	CGI协议选择，1表示ISAPI，如果不传这个参数，会自动选择一种设备支持的协议.
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：	调用该函数登录设备，如果登录成功，即选定了http/https协议，以及ISAPI协议，以后都采用选定好的协议和设备进行交互。交互成功，会调用用户成功回调函数，失败则调用失败回调函数。
+示例：
+var iRet = WebVideoCtrl.I_Login(szIP, 1, szPort, szUsername, szPassword, {
+ success: function(xmlDoc) {  //成功的回调函数
+        showOPInfo(szIP + " 登录成功！");
+        $("#ip").prepend("<option value='" + szIP + "'>" + szIP + "</option>");
+        setTimeout(function () {
+           $("#ip").val(szIP);
+           getChannelInfo();
+        }, 10);
+    },
+error: function() { //失败的回调函数
+      showOPInfo(szIP + " 登录失败!");
+    }
+});
+登出设备
+函数：	I_Logout(szDeviceIdentify)
+功能：	登出设备
+参数：  szDeviceIdentify	设备标识（IP_Port）
+返回值：成功返回0 ，失败返回-1。
+
+
+获取设备基本信息
+函数：	I_GetDeviceInfo(szDeviceIdentify, options)
+功能：	获取设备基本信息
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：	交互成功，调用用户成功回调函数，回调函数的第一个参数为设备信息的XML。失败则调用失败回调函数。
+XML格式如下：
+<DeviceInfo>
+    <deviceName></deviceName>   //设备名称
+    <deviceID></deviceID>			//设备ID
+    <deviceType></deviceType>		//设备类型（可能为空）
+    <model></model>				//设备编号
+    <serialNumber></serialNumber>	//设备序列号
+    <macAddress></macAddress>	//设备MAC地址
+    <firmwareVersion></firmwareVersion>	            //设备主控版本
+    <firmwareReleasedDate></firmwareReleasedDate>	//主控版本编码时间
+    <encoderVersion></encoderVersion>	            //设备编码版本
+    <encoderReleasedDate></encoderReleasedDate>	//设备编码版本时间
+</DeviceInfo>
+获取模拟通道
+函数：	I_GetAnalogChannelInfo(szDeviceIdentify, options)
+功能：	获取模拟通道信息
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：	交互成功，调用用户成功回调函数，回调函数的第一个参数为通道信息的XML。失败则调用失败回调函数。
+XML格式如下：
+<VideoInputChannelList>
+    <VideoInputChannel>
+        <id></id>                             //通道ID
+        <inputPort></inputPort>                 //通道号
+        <videoInputEnabled></videoInputEnabled>  //是否使能
+        <name></name>                       //通道名
+        <videoFormat></videoFormat>            //通道制式
+    </VideoInputChannel>
+</VideoInputChannelList>
+获取数字通道
+函数：	I_GetDigitalChannelInfo(szDeviceIdentify, options)
+功能：	获取数字通道信息
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：	交互成功，调用用户成功回调函数，回调函数的第一个参数为通道信息的XML。失败则调用失败回调函数。
+XML格式如下：
+<InputProxyChannelStatusList>
+    <InputProxyChannelStatus>
+        <id></id>                          //通道的ID
+        <sourceInputPortDescriptor>
+            <proxyProtocol></proxyProtocol>   //接入协议
+            <addressingFormatType></addressingFormatType>  //IP地址类型
+            <ipAddress></ipAddress>          //IP地址
+            <managePortNo></managePortNo>  //管理端口号
+            <srcInputPort></srcInputPort>       //IP通道号
+            <userName></userName>          //接入的用户名
+            <streamType></streamType>        //码流类型
+            <online></online>                 //是否在线（true/false）
+        </sourceInputPortDescriptor>
+    </InputProxyChannelStatus>
+</InputProxyChannelStatusList>
+获取零通道
+函数：	I_GetZeroChannelInfo(szDeviceIdentify, options)
+功能：	获取零通道信息
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：	交互成功，调用用户成功回调函数，回调函数的第一个参数为通道信息的XML。失败则调用失败回调函数。
+XML格式如下：
+<ZeroVideoChannelList>
+    <ZeroVideoChannel>
+        <id>1</id>              //通道ID
+        <enabled>true</enabled>  //是否使能
+        <inputPort>1</inputPort>  //通道ID
+    </ZeroVideoChannel>
+</ZeroVideoChannelList>
+录像搜索
+函数：	I_RecordSearch(szDeviceIdentify, iChannelID, szStartTime, szEndTime, options)
+功能：	录像搜索
+参数：  szDeviceIdentify	设备标识（IP_Port）
+iChannelID		通道ID
+szStartTime		开始时间：如：2013-12-23 00:00:00
+szEndTime		结束时间：如：2013-12-23 23:59:59
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+iSearchPos	搜索录像的位置（默认为0），0表示返回结果的第0-40条，40表示40-80条，依次类推
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+iStreamType	码流类型1-主码流，2-子码流，默认主码流
+返回值：无
+说明：	交互成功，调用用户成功回调函数，回调函数的第一个参数为录像信息的XML。失败则调用失败回调函数。
+注意:	录像搜索结果每次最多返回40条，如果结果数量超过40条，用户需要多次调用该接口，并且设置一个搜索位置。
+XML格式如下：
+<CMSearchResult>
+    <responseStatus>true</responseStatus>
+    <responseStatusStrg>MORE</responseStatusStrg>
+//根据这个标志来决定是否继续搜索。OK表示已经搜索完成
+    <numOfMatches>40</numOfMatches> //本次搜索返回的录像条数
+    <matchList>
+        <searchMatchItem>
+            <trackID>101</trackID>                    //录像的ID
+            <startTime>2013-12-23T03:06:58Z</startTime> //录像开始时间
+            <endTime>2013-12-23T03:16:57Z</endTime>  //录像结束时间
+           <playbackURI>rtsp://172.9.4.222/Streaming/tracks/101/?starttime=20131223T030658Z&amp;endtime=20131223T031657Z&amp;name=02000000076000101&amp;size=115665012</playbackURI>/*这个节点包含了录像开始时间，结束时间，录像名字，录像大小等信息，录像下载时，需要传入这个值*/
+<metadataDescriptor>motion</metadataDescriptor>/*录像类型: timing-定时录像，motion-移动侦测录像，motionOrAlarm-动测或报警，motionAndAlarm-报警和动测，manual-手动录像，smart-智能*/
+        </searchMatchItem>
+    </matchList>
+</CMSearchResult>
+获取语音对讲通道
+函数：	I_GetAudioInfo(szDeviceIdentify, options)
+功能：	获取语音对讲通道信息
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+async	http交互方式，true表示异步，false表示同步
+success	成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：	交互成功，调用用户成功回调函数，回调函数的第一个参数为语音对讲通道信息的XML。失败则调用失败回调函数。
+XML格式如下：
+<TwoWayAudioChannelList>
+    <TwoWayAudioChannel>
+        <id></id>            //通道ID
+        <enabled></enabled>  //是否启用语音对讲
+        <audioCompressionType></audioCompressionType> //音频编码
+    </TwoWayAudioChannel>
+</TwoWayAudioChannelList>
+
+获取端口
+函数：	I_GetDevicePort (szDeviceIdentify)
+功能：	获取端口
+参数：  szDeviceIdentify	设备标识（IP_Port）
+返回值：成功：端口对象 失败：null
+设置码流加密秘钥
+函数：	I_SetSecretKey (szSecretKey, iWndIndex)
+功能：	设置码流加密秘钥
+参数：  szSecretKey	秘钥
+iWndIndex	要设置加密的窗口号，如不传则默认使用当前选择窗口
+返回值：成功：null 失败：null
+
+播放及播放控制
+开始预览
+函数：	I_StartRealPlay(szDeviceIdentify, options)
+功能：	开始预览。只支持H264、H265、smartH264、smartH265编码格式。Demo内置两种类型的按钮：直连模式与代理模式，是为了兼容不同设备对直连和代理方案的支持程度。设备对ws代理转发兼容不一，有的设备不代理无法预览，设备只要能成功用其中一种预览、回放成功即可。
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+iWndIndex		播放窗口，如果不传，则默认使用当前选择窗口播放（默认选中窗口0）
+iStreamType		码流类型1-主码流，2-子码流，3-第三码流，默认使用主码流预览
+iChannelID			播放通道号，默认通道1
+bZeroChannel	是否播放零通道，默认为false
+iPort	RTSP端口号，可以选择传入，如果不传，开发包会自动判断设备的RTSP端口
+bProxy	是否需要websocket代理。默认为false。为true时，发出的websocket请求可以通过Nginx特定规则进行代理转发到设备，常用于用户不能直接访问设备网段时利用Nginx进行转发访问。在HTTPS下，需要置为true。某些设备在HTTP下，也需要置为true。
+success			成功回调函数
+error		失败回调函数
+
+返回值：无
+说明：	登录设备完成后才可以调用该函数。
+开始回放
+函数：	I_StartPlayback(szDeviceIdentify, options)
+功能：	开始回放。只支持H264、H265、smartH264、smartH265编码格式。Demo内置两种类型的按钮：直连模式与代理模式，是为了兼容不同设备对直连和代理方案的支持程度。设备对ws代理转发兼容不一，有的设备不代理无法预览，设备只要能成功用其中一种预览、回放成功即可。
+参数：  szDeviceIdentify	设备标识（IP_Port）
+		options			可选参数对象:
+iWndIndex		播放窗口，如果不传，则默认使用当前选择窗口播放（默认选中窗口0）
+szStartTime		开始时间，默认为当天00:00:00，格式如：2013-12-23 00:00:00
+szEndTime	结束时间，默认为当天23:59:59，格式如：2013-12-23 23:59:59
+iChannelID			播放通道号，默认通道1
+iPort	RTSP端口号，可以选择传入，如果不传，开发包会自动判断设备的RTSP端口
+oTransCodeParam  转码回放参数对象，传入此参数，将按照此对象中的编码参数进行转码回放（转码回放需要设备支持，如果不支持，则不要传入这个参数）。
+iStreamType			码流类型1-主码流，2-子码流，默认主码流
+bProxy		是否需要websocket代理。默认为false。为true时，发出的websocket请求可以通过Nginx特定规则进行代理转发到设备，常用于用户不能直接访问设备网段时利用Nginx进行转发访问。
+success			成功回调函数
+error		失败回调函数
+
+返回值：无
+说明：	该接口为按时间回放接口，开发包目前只支持按时间回放，不支持按文件回放，不过用户可以搜索出录像，然后按照录像的开始时间和结束时间来回放。时间必须严格按照说明所示格式输入。
+oTransCodeParam是一个javascript对象：
+{
+TransFrameRate: "16",
+	TransResolution: "2",
+	TransBitrate: "23"
+ }
+TransFrameRate表示帧率
+取值范围：0-全部， 5-1，6-2，7-4，8-6，9-8，10-10，11-12，12-16，13-20，14-15，15-18，16－22， 255-自动（和源一致）
+
+TransResolution表示分辨率
+取值范围： 1-CIF(352*288/352*240)，2-QCIF(176*144/176*120)，3-4CIF(704*576/704*480)或D1(720*576/720*486)，255-Auto(使用当前码流分辨率)
+
+TransBitrate表示码率
+取值范围： 2-32K，3-48k，4-64K，5-80K，6-96K，7-128K，8-160k，9-192K，10-224K，11-256K，12-320K，13-384K，14-448K，15-512K，16-640K，17-768K，18-896K，19-1024K，20-1280K，21-1536K，22-1792K，23-2048K，24-3072K，25-4096K，26-8192K，255- 自动（和源一致）
+停止播放
+函数：	I_Stop(options)
+功能：	停止播放（停止预览和停止回放统一使用该函数）
+参数：  options		可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+停止播放全部窗口
+函数：	I_StopAll()
+功能：	停止播放全部窗口
+参数：  无
+返回值：Promise
+暂停
+函数：	I_Pause(options)
+功能：	暂停播放，回放时可以调用
+参数：  options		可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+
+恢复播放
+函数：	I_Resume(options)
+功能：	恢复播放，把播放状态从单帧/暂停恢复到正常播放状态
+参数：  options		可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+
+减速播放
+函数：	I_PlaySlow(options)
+功能：	减速播放，每调用一次，播放速度降低一个等级，插件最大支持1/8倍速到8倍速，设备自身可能也有限制。目前设备正在陆续支持无插件慢放中。
+参数：  options		可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+
+加速播放
+函数：	I_PlayFast(options)
+功能：	加速播放，每调用一次，播放速度增加一个等级，插件最大支持1/8倍速到8倍速，设备自身可能也有限制。目前设备正在陆续支持无插件快放中。
+参数：  options		可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+获取OSD时间
+函数：	I_GetOSDTime(options)
+功能：	获取当前播放的码流的OSD时间，可以用于制作回放进度
+参数：  options		可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数，有一个参数，表示OSD时间。
+error			失败回调函数
+返回值：无
+
+打开声音
+函数：	I_OpenSound(iWndIndex)
+功能：	打开声音
+参数：  iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+
+关闭声音
+函数：	I_CloseSound(iWndIndex)
+功能：	关闭声音
+参数：  iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+
+设置音量
+函数：	I_SetVolume(iVolume, iWndIndex)
+功能：	设置音量，音量范围：0-100
+参数：  iVolume		    音量大小
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+
+抓图
+函数：	I2_CapturePic(szPicName, options)
+功能：	抓取预览/回放图片，保存到浏览器下载文件下中
+参数：  szPicName       图片文件名
+options			可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+				cbCallback		回调函数，传了图片就不会下载到本地，而是获取图片的Uint8Array数据
+返回值：成功返回0，失败返回-1
+说明：  抓图图片格式与接口调用时传的文件名有关：如果文件名带有.bmp后缀，则抓取bmp图片；如果不带则是jpg。
+画面分割
+函数：	I_ChangeWndNum(iWndType)
+功能：	修改画面分割类型
+参数：  iWndType	    画面分割类型：1- 1*1，2- 2*2，3- 3*3，4- 4*4 (最大显示数值为4*4分割，数字超过4返回16分割)
+返回值：Promise
+录像
+开始录像
+函数：	I_StartRecord(szFileName, options)
+功能：	预览/回放录像，保存录像到PC中，路径在本地参数配置中
+参数：  szFileName	    录像文件名称
+options			可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+bDateDir			是否创建日期文件夹（true：创建，false：不创建），默认true
+success			成功回调函数
+error			失败回调函数
+返回值：无
+停止录像
+函数：	I_StopRecord(options)
+功能：	停止录像
+参数：  options			可选参数对象：
+iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+录像下载
+开始下载
+函数：	I_StartDownloadRecord(szDeviceIdentify, szPlaybackURI, szFileName, options)
+功能：	调用该接口，可以下载存储在设备中的录像
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szPlaybackURI	    录像URL，这个URL在录像搜索中可以得到
+szFileName		要下载录像录像名字
+options			可选参数对象：
+bDateDir			是否创建日期文件夹（true：创建，false：不创建），默认true
+返回值：成功返回一个大于等于0的下载ID，失败返回-1 （无插件直接下载）
+开始按时间下载
+函数：  I_StartDownloadRecordByTime(szDeviceIdentify, szPlaybackURI, szFileName, szStartTime,szEndTime, options)
+功能：	调用该接口，可以下载存储在设备中的录像,需要设备能力支持
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szPlaybackURI	    录像URL，这个URL在录像搜索中可以得到
+szFileName		要下载录像录像名字
+szStartTime      开始时间
+szEndTime       结束时间
+options			可选参数对象：
+bDateDir			是否创建日期文件夹（true：创建，false：不创建），默认true
+返回值：成功返回一个大于等于0的下载ID，失败返回-1 （无插件直接下载）
+云台控制
+云台控制
+函数：	I_PTZControl(iPTZIndex, bStop, options)
+功能：	云台方向控制
+参数：  iPTZIndex	操作类型（1-上，2-下，3-左，4-右，5-左上，6-左下，7-右上，8-右下，9-自转，10-调焦+， 11-调焦-, 12-F聚焦+, 13-聚焦-, 14-光圈+, 15-光圈-）
+        bStop	    是否停止iPTZIndex指定的操作，true|false
+options		    可选参数对象
+			    iWndIndex	窗口号，默认为当前选中窗口
+			    iPTZSpeed	云台速度，默认为4
+success			成功回调函数
+error			失败回调函数
+返回值：无
+设置预置点
+函数：	I_SetPreset(iPresetID, options)
+功能：	设置预置点
+参数：  iPresetID	    预置点ID
+options		    可选参数对象
+			    iWndIndex	窗口号，默认为当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+调用预置点
+函数：	I_GoPreset(iPresetID, options)
+功能：	调用预置点
+参数：  iPresetID	    预置点ID
+options		    可选参数对象
+			    iWndIndex	窗口号，默认为当前选中窗口
+success			成功回调函数
+error			失败回调函数
+返回值：无
+图像放大
+开启电子放大
+函数：	I_EnableEZoom(iWndIndex)
+功能：	开启电子放大。开启后，在窗口中鼠标左键拖动从左上到右下是放大，右下到左上是缩小。
+参数：  iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+关闭电子放大
+函数：	I_DisableEZoom(iWndIndex)
+功能：	关闭电子放大
+参数： iWndIndex	        播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+开启3D放大
+函数：	I_Enable3DZoom(iWndIndex)
+功能：	开启3D放大。开启后，在窗口中鼠标左键拖动方向从左上到右下是放大，右下到左上是缩小。
+参数： iWndIndex	        播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+关闭3D放大
+函数：	I_Disable3DZoom(iWndIndex)
+功能：	关闭3D放大
+参数：  iWndIndex	    播放窗口号，可不传，表示操作当前选中窗口
+返回值：Promise
+全屏播放
+函数：	I_FullScreen(bFull)
+功能：	全屏播放
+参数：  bFull	            是否全屏：true-全屏 false-退出全屏
+返回值：Promise
+设备维护
+导出配置参数
+函数：	I_ExportDeviceConfig(szDeviceIdentify, szDevicePassWord)
+功能：	导出设备的配置参数，该接口会自动弹出路径选择框
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szDevicePassWord	导出密码
+
+返回值：Promise
+导入配置参数
+函数：	I_ImportDeviceConfig(szDeviceIdentify, szFileName)
+功能：	导入设备的配置参数，该接口会自动弹出文件选择框。导入配置参数后设备可能会重启。
+参数： szDeviceIdentify	设备标识（IP_Port）
+       szFileName        配置文件路径
+返回值：Promise
+
+恢复默认参数
+函数：	I_RestoreDefault(szDeviceIdentify, szMode,options)
+功能：	恢复设备的默认参数
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szMode	        恢复类型：basic-简单恢复 full-完全恢复
+options	        可选参数对象
+success	  成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：		恢复完默认参数后，设备需要 重启。完全恢复默认参数会将所有的用户信息也恢复到设备的默认值。
+设备重启
+函数：	I_Restart(szDeviceIdentify, options)
+功能：	设备重启
+参数：  szDeviceIdentify	设备标识（IP_Port）
+        options	        可选参数对象
+success	   成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+说明：  成功只表示设备已经开始重启。
+开始异步升级
+函数：	I2_StartUpgrade(szDeviceIdentify, szFileName)
+功能：	开始异步升级，升级完成后，设备需要重启
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szFileName		升级文件路径
+返回值：Promise
+获取升级进度
+函数：	I_UpgradeProgress()
+功能：	获取升级的进度
+参数：  无
+返回值：Promise。回调参数：percent, upgrading；
+percent：成功返回一个大于等于0的升级进度，失败返回-1
+upgrading：是否处于升级状态
+
+重连
+函数：	I_Reconnect(szDeviceIdentify, options)
+功能：	重连
+参数：  szDeviceIdentify	设备标识（IP_Port）
+        options	        可选参数对象
+success	   成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)
+返回值：无
+插件信息维护
+获取播放窗口信息
+函数：	I_GetWindowStatus(iWndIndex)
+功能：	获取当前窗口的信息
+参数：  iWndIndex	    窗口索引
+返回值：成功返回窗口信息对象，失败返回null
+说明：  窗口信息对象:
+	iIndex		窗口索引
+	szIP			窗口中正在播放的IP地址
+	iChannelID	窗口中正在播放的通道号
+	iPlayStatus	窗口播放状态：0-没有播放，1-预览，2-回放，3-暂停，4-单帧，5-倒放，6-倒放暂停
+其它
+发送HTTP请求
+函数：	I_SendHTTPRequest(szDeviceIdentify, szURI, options)
+功能：	发送HTTP请求
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szURI     		ISAPI协议
+        options	        可选参数对象
+				async	   是否同步（true:异步方式，false:同步方式），默认异步
+				type		   GET、POST、PUT、DELETE，默认GET
+				data:	   xml数据，默认为空
+auth		   认证信息，默认当前登录设备的认证信息
+success	   成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)。
+返回值：无
+说明：接口需要登录成功后才能使用。
+获取叠加信息
+函数：	I_GetTextOverlay (szDeviceIdentify, szURI, options)
+功能：	获取叠加信息
+参数：  szDeviceIdentify	设备标识（IP_Port）
+szURI     		ISAPI协议
+        options	        可选参数对象
+success	   成功回调函数，有一个参数，表示返回的XML内容。
+error	失败回调函数，有两个参数，第一个是http状态码，第二个是设备返回的XML(可能为空)。
+返回值：无
+说明：接口需要登录成功后才能使用。

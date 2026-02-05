@@ -264,6 +264,12 @@ export const routes: RouteItem[] = [
               title: '大华 SDK Player',
             },
           },
+          {
+            path: '/feat/video-player/hk-sdk-player',
+            meta: {
+              title: '海康 SDK Player',
+            },
+          },
         ],
       },
       {
