@@ -42,6 +42,17 @@
             <div class="video-header">
               <span>实时预览</span>
               <div class="preview-controls">
+                <el-select
+                  v-model="windowSplit"
+                  size="small"
+                  style="width: 80px; margin-right: 8px;"
+                  @change="handleWindowSplitChange"
+                >
+                  <el-option label="1x1" :value="1" />
+                  <el-option label="2x2" :value="2" />
+                  <el-option label="3x3" :value="3" />
+                  <el-option label="4x4" :value="4" />
+                </el-select>
                 <el-select v-model="previewChannel" placeholder="通道" style="width: 120px;" size="small">
                   <el-option
                     v-for="item in channelList"
@@ -61,30 +72,44 @@
                 <el-button
                   type="primary"
                   size="small"
-                  :disabled="!isLogin || isPreviewing"
+                  :disabled="!isLogin"
                   style="margin-left: 8px;"
                   @click="handleStartPreview"
                 >
                   开始预览
                 </el-button>
-                <el-button size="small" :disabled="!isPreviewing" @click="handleStopPreview">
+                <el-button size="small" :disabled="!currentWindowPlaying" @click="handleStopPreview">
                   停止预览
                 </el-button>
               </div>
             </div>
           </template>
-          <!-- 预览视频区域 -->
-          <div ref="previewContainer" class="video-container preview-video">
-            <canvas ref="previewCanvasRef" class="video-canvas" />
-            <video ref="previewVideoRef" class="video-element" />
-            <div v-if="previewLoading" class="video-loading">
-              <el-icon class="is-loading"><Loading /></el-icon>
-              <span>加载中...</span>
+          <!-- 预览视频区域 - 多窗口网格 -->
+          <div ref="previewContainer" class="video-container-grid">
+            <div
+              v-for="(window, index) in previewWindows"
+              :key="index"
+              class="video-window"
+              :class="{ 'active-window': currentWindowIndex === index }"
+              :style="getWindowStyle()"
+              @click="handleSelectWindow(index)"
+            >
+              <canvas :ref="el => previewCanvasRefs[index] = el" class="video-canvas" />
+              <video :ref="el => previewVideoRefs[index] = el" class="video-element" />
+              <div v-if="window.loading" class="video-loading">
+                <el-icon class="is-loading"><Loading /></el-icon>
+                <span>加载中...</span>
+              </div>
+              <div v-if="window.channel !== null" class="window-info">
+                通道 {{ window.channel }}
+              </div>
             </div>
           </div>
           <!-- 预览控制按钮 -->
           <div class="preview-toolbar">
             <el-space wrap>
+              <span style="font-size: 12px;">窗口 {{ currentWindowIndex + 1 }}</span>
+              <el-divider direction="vertical" />
               <span style="font-size: 12px;">音量:</span>
               <el-slider
                 v-model="volume"
@@ -94,17 +119,18 @@
                 style="width: 80px;"
                 size="small"
               />
-              <el-button :disabled="!isPreviewing" size="small" @click="handleTurnOnSound">
+              <el-button :disabled="!currentWindowPlaying" size="small" @click="handleTurnOnSound">
                 <el-icon><Microphone /></el-icon> 打开声音
               </el-button>
-              <el-button :disabled="!isPreviewing" size="small" @click="handleTurnOffSound">
+              <el-button :disabled="!currentWindowPlaying" size="small" @click="handleTurnOffSound">
                 <el-icon><Mute /></el-icon> 关闭声音
               </el-button>
-              <el-button :disabled="!isPreviewing" size="small" @click="handleCapture">
+              <el-divider direction="vertical" />
+              <el-button :disabled="!currentWindowPlaying" size="small" @click="handleCapture">
                 <el-icon><Camera /></el-icon> 抓图
               </el-button>
               <el-button
-                :disabled="!isPreviewing || isRecording"
+                :disabled="!currentWindowPlaying || isRecording"
                 size="small"
                 type="success"
                 @click="handleStartRecord"
@@ -141,21 +167,21 @@
           <div class="ptz-direction">
             <div class="ptz-row">
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('LeftUp', false)"
                 @mouseup="handlePTZ('LeftUp', true)"
               >
                 ↖
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('Up', false)"
                 @mouseup="handlePTZ('Up', true)"
               >
                 ↑
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('RightUp', false)"
                 @mouseup="handlePTZ('RightUp', true)"
               >
@@ -164,14 +190,14 @@
             </div>
             <div class="ptz-row">
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('Left', false)"
                 @mouseup="handlePTZ('Left', true)"
               >
                 ←
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 type="primary"
                 @mousedown="handlePTZ('Auto', false)"
                 @mouseup="handlePTZ('Auto', true)"
@@ -179,7 +205,7 @@
                 自动
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('Right', false)"
                 @mouseup="handlePTZ('Right', true)"
               >
@@ -188,21 +214,21 @@
             </div>
             <div class="ptz-row">
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('LeftDown', false)"
                 @mouseup="handlePTZ('LeftDown', true)"
               >
                 ↙
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('Down', false)"
                 @mouseup="handlePTZ('Down', true)"
               >
                 ↓
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 @mousedown="handlePTZ('RightDown', false)"
                 @mouseup="handlePTZ('RightDown', true)"
               >
@@ -215,7 +241,7 @@
           <div class="ptz-zoom">
             <el-button-group>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 size="small"
                 @mousedown="handlePTZ('ZoomWide', false)"
                 @mouseup="handlePTZ('ZoomWide', true)"
@@ -223,7 +249,7 @@
                 变倍-
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 size="small"
                 @mousedown="handlePTZ('ZoomTele', false)"
                 @mouseup="handlePTZ('ZoomTele', true)"
@@ -233,7 +259,7 @@
             </el-button-group>
             <el-button-group style="margin-left: 8px;">
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 size="small"
                 @mousedown="handlePTZ('FocusFar', false)"
                 @mouseup="handlePTZ('FocusFar', true)"
@@ -241,7 +267,7 @@
                 聚焦-
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 size="small"
                 @mousedown="handlePTZ('FocusNear', false)"
                 @mouseup="handlePTZ('FocusNear', true)"
@@ -251,7 +277,7 @@
             </el-button-group>
             <el-button-group style="margin-left: 8px;">
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 size="small"
                 @mousedown="handlePTZ('IrisSmall', false)"
                 @mouseup="handlePTZ('IrisSmall', true)"
@@ -259,7 +285,7 @@
                 光圈-
               </el-button>
               <el-button
-                :disabled="!isPreviewing"
+                :disabled="!currentWindowPlaying"
                 size="small"
                 @mousedown="handlePTZ('IrisLarge', false)"
                 @mouseup="handlePTZ('IrisLarge', true)"
@@ -279,7 +305,7 @@
               style="width: 100px;"
             />
             <el-button
-              :disabled="!isPreviewing"
+              :disabled="!currentWindowPlaying"
               size="small"
               style="margin-left: 8px;"
               @click="handlePTZ('GotoPreset', false)"
@@ -287,14 +313,14 @@
               查看
             </el-button>
             <el-button
-              :disabled="!isPreviewing"
+              :disabled="!currentWindowPlaying"
               size="small"
               @click="handlePTZ('SetPreset', false)"
             >
               设置
             </el-button>
             <el-button
-              :disabled="!isPreviewing"
+              :disabled="!currentWindowPlaying"
               size="small"
               @click="handlePTZ('ClearPreset', false)"
             >
@@ -420,14 +446,41 @@
           <template #header>
             <span>录像列表 (共 {{ recordList.length }} 条)</span>
           </template>
+          <div class="download-toolbar">
+            <el-space wrap>
+              <el-button
+                type="success"
+                size="small"
+                :disabled="!isLogin || selectedRecords.length === 0 || isDownloading"
+                @click="handleDownloadRecords"
+              >
+                下载选中
+              </el-button>
+              <el-button
+                size="small"
+                type="danger"
+                :disabled="!isDownloading"
+                @click="handleCancelDownload"
+              >
+                取消下载
+              </el-button>
+              <span class="download-progress">下载进度: {{ downloadProgress }}%</span>
+              <span v-if="isDownloading" class="download-progress">
+                ({{ currentDownloadIndex + 1 }}/{{ downloadQueue.length }})
+              </span>
+            </el-space>
+          </div>
           <el-table
+            ref="recordTableRef"
             :data="paginatedRecords"
             style="width: 100%;"
             height="400"
             highlight-current-row
             size="small"
+            @selection-change="handleRecordSelectionChange"
             @row-dblclick="handlePlayRecord"
           >
+            <el-table-column type="selection" width="50" />
             <el-table-column type="index" label="序号" width="60" />
             <el-table-column prop="StartTime" label="开始时间" />
             <el-table-column prop="EndTime" label="结束时间" />
@@ -440,6 +493,9 @@
               <template #default="{ row, $index }">
                 <el-button type="primary" link size="small" @click="handlePlayRecord(row, $index)">
                   播放
+                </el-button>
+                <el-button type="success" link size="small" @click="handleDownloadSingleRecord(row)">
+                  下载
                 </el-button>
               </template>
             </el-table-column>
@@ -504,6 +560,15 @@ const searchForm = reactive({
 const recordList = ref([])
 const currentPage = ref(1)
 const pageSize = 10
+const recordTableRef = ref(null)
+const selectedRecords = ref([])
+
+// 下载相关
+const downloadQueue = ref([])
+const isDownloading = ref(false)
+const downloadProgress = ref(0)
+const currentDownloadIndex = ref(-1)
+const downloadPlayer = ref(null)
 
 // 视频播放
 const videoContainer = ref(null)
@@ -527,16 +592,66 @@ const streamType = ref(0)
 const volume = ref(0.5)
 const isPreviewing = ref(false)
 const isRecording = ref(false)
-const previewPlayer = ref(null)
 const recordPlayer = ref(null)
-const previewLoading = ref(false)
 const previewContainer = ref(null)
-const previewCanvasRef = ref(null)
-const previewVideoRef = ref(null)
 const streamOptions = ref([
   { label: '主码流', value: 0 },
   { label: '辅码流', value: 1 },
 ])
+
+// 窗口分割相关
+const windowSplit = ref(1)
+const currentWindowIndex = ref(0)
+const previewWindows = ref([])
+const previewCanvasRefs = ref([])
+const previewVideoRefs = ref([])
+const previewPlayers = ref([])
+
+// 初始化窗口数据
+function initWindows() {
+  const totalWindows = 16
+  previewWindows.value = Array.from({ length: totalWindows }, () => ({
+    loading: false,
+    channel: null,
+    player: null,
+  }))
+  previewPlayers.value = Array.from({ length: totalWindows }, () => null)
+  previewCanvasRefs.value = []
+  previewVideoRefs.value = []
+}
+
+// 计算每个窗口的样式
+function getWindowStyle() {
+  const split = windowSplit.value
+  if (split === 1) {
+    return { width: '100%', height: '100%' }
+  }
+  else if (split === 2) {
+    return { width: 'calc(50% - 2px)', height: 'calc(50% - 2px)' }
+  }
+  else if (split === 3) {
+    return { width: 'calc(33.333% - 2px)', height: 'calc(33.333% - 2px)' }
+  }
+  else if (split === 4) {
+    return { width: 'calc(25% - 2px)', height: 'calc(25% - 2px)' }
+  }
+  return { width: '100%', height: '100%' }
+}
+
+// 选择窗口
+function handleSelectWindow(index) {
+  currentWindowIndex.value = index
+  const window = previewWindows.value[index]
+  if (window.channel !== null) {
+    previewChannel.value = window.channel
+  }
+}
+
+// 窗口分割变化处理
+function handleWindowSplitChange() {
+  // 窗口分割变化时，重置为第一个窗口
+  currentWindowIndex.value = 0
+}
 
 // 云台控制相关
 const ptzStep = ref(5)
@@ -588,6 +703,11 @@ function ensurePlayerControl() {
 const paginatedRecords = computed(() => {
   const start = (currentPage.value - 1) * pageSize
   return recordList.value.slice(start, start + pageSize)
+})
+
+// 当前窗口是否在播放
+const currentWindowPlaying = computed(() => {
+  return previewPlayers.value[currentWindowIndex.value] !== null
 })
 
 // 进度百分比
@@ -680,13 +800,23 @@ async function handleLogin() {
 // 注销
 async function handleLogout() {
   try {
+    if (isDownloading.value) {
+      finishDownloadQueue(true)
+      downloadProgress.value = 0
+    }
+
     // 停止当前播放
     handleStop()
-    // 停止预览
-    handleStopPreview()
+    // 停止所有预览窗口
+    previewPlayers.value.forEach((player, index) => {
+      if (player) {
+        stopWindowPreview(index)
+      }
+    })
 
     await RPC.Global.logout()
     isLogin.value = false
+    isPreviewing.value = false
     channelList.value = []
     recordList.value = []
     ElMessage.success('已注销')
@@ -753,6 +883,11 @@ async function handleSearch() {
   searchLoading.value = true
   recordList.value = []
   currentPage.value = 1
+  selectedRecords.value = []
+  downloadQueue.value = []
+  downloadProgress.value = 0
+  currentDownloadIndex.value = -1
+  recordTableRef.value?.clearSelection()
 
   try {
     const params = {
@@ -808,6 +943,191 @@ async function handleSearch() {
   finally {
     searchLoading.value = false
   }
+}
+
+function handleRecordSelectionChange(rows) {
+  selectedRecords.value = rows
+}
+
+function stopDownloadPlayer(isCancel = false) {
+  const player = downloadPlayer.value
+  if (!player) return
+
+  try {
+    player.startCut(false, isCancel)
+  }
+  catch {
+    // ignore cleanup error
+  }
+
+  try {
+    player.stop()
+  }
+  catch {
+    // ignore cleanup error
+  }
+
+  try {
+    player.close()
+  }
+  catch {
+    // ignore cleanup error
+  }
+
+  downloadPlayer.value = null
+}
+
+function finishDownloadQueue(cancelled = false) {
+  stopDownloadPlayer(cancelled)
+  isDownloading.value = false
+  if (!cancelled) {
+    downloadProgress.value = 100
+    ElMessage.success('录像下载完成')
+  }
+  downloadQueue.value = []
+  currentDownloadIndex.value = -1
+}
+
+async function startDownloadItem(item, index) {
+  if (!item) {
+    finishDownloadQueue()
+    return
+  }
+
+  const { username, password } = loginForm
+  const _ip = location.hostname
+  const _port = location.port || 80
+  const options = {
+    wsURL: `ws://${_ip}:${_port}/rtspoverwebsocket`,
+    rtspURL: `rtsp://${_ip}:${_port}/${item.FilePath}`,
+    username,
+    password,
+    isPrivateProtocol: false,
+    realm: RPC.realm,
+    speed: 16,
+    playback: true,
+    isDownLoad: true,
+  }
+
+  let firstTime = 0
+  let isCutting = false
+  let isFinished = false
+
+  const finalizeCurrentItem = () => {
+    if (isFinished) return
+    isFinished = true
+    stopDownloadPlayer()
+
+    const nextIndex = index + 1
+    if (nextIndex < downloadQueue.value.length) {
+      currentDownloadIndex.value = nextIndex
+      downloadProgress.value = 0
+      startDownloadItem(downloadQueue.value[nextIndex], nextIndex)
+      return
+    }
+
+    finishDownloadQueue()
+  }
+
+  let PlayerControl
+  try {
+    PlayerControl = await ensurePlayerControl()
+  }
+  catch (err) {
+    console.error('下载播放器加载失败:', err)
+    ElMessage.error(err?.message || '下载播放器加载失败')
+    finishDownloadQueue(true)
+    return
+  }
+
+  const player = new PlayerControl(options)
+  downloadPlayer.value = player
+
+  player.on('FileOver', () => {
+    downloadProgress.value = 100
+    finalizeCurrentItem()
+  })
+
+  player.on('UpdateTimeStamp', (e) => {
+    const startAt = new Date(item.StartTime).getTime() / 1000
+    const endAt = new Date(item.EndTime).getTime() / 1000
+    const duration = Math.max(endAt - startAt, 1)
+
+    if (firstTime === 0) {
+      firstTime = e.timestamp
+    }
+
+    const process = Math.floor(((e.timestamp - firstTime) / duration) * 100)
+    downloadProgress.value = Math.min(100, Math.max(0, process))
+
+    if (e.timestamp >= firstTime && !isCutting) {
+      player.startCut(true)
+      isCutting = true
+    }
+
+    if ((e.timestamp >= endAt || process >= 100) && isCutting) {
+      player.startCut(false)
+      isCutting = false
+      downloadProgress.value = 100
+      finalizeCurrentItem()
+    }
+  })
+
+  player.on('Error', (e) => {
+    console.error('下载出错:', e)
+    ElMessage.error('下载出错，已停止队列')
+    finishDownloadQueue(true)
+  })
+
+  player.on('WorkerReady', () => {
+    player.connect(true)
+  })
+
+  player.init(canvasRef.value, videoRef.value)
+}
+
+function handleDownloadRecords() {
+  if (!selectedRecords.value.length) {
+    ElMessage.warning('请先选择要下载的录像')
+    return
+  }
+  if (isDownloading.value) {
+    ElMessage.warning('当前已有下载任务进行中')
+    return
+  }
+
+  downloadQueue.value = [...selectedRecords.value]
+  currentDownloadIndex.value = 0
+  downloadProgress.value = 0
+  isDownloading.value = true
+  ElMessage.info(`开始下载 ${downloadQueue.value.length} 条录像`)
+  startDownloadItem(downloadQueue.value[0], 0)
+}
+
+function handleDownloadSingleRecord(row) {
+  if (!row) return
+  if (!isLogin.value) {
+    ElMessage.warning('请先登录')
+    return
+  }
+  if (isDownloading.value) {
+    ElMessage.warning('当前已有下载任务进行中')
+    return
+  }
+
+  downloadQueue.value = [row]
+  currentDownloadIndex.value = 0
+  downloadProgress.value = 0
+  isDownloading.value = true
+  ElMessage.info('开始下载当前录像')
+  startDownloadItem(row, 0)
+}
+
+function handleCancelDownload() {
+  if (!isDownloading.value) return
+  finishDownloadQueue(true)
+  downloadProgress.value = 0
+  ElMessage.info('已取消下载')
 }
 
 // 播放录像
@@ -990,7 +1310,15 @@ async function handleStartPreview() {
     return
   }
 
-  previewLoading.value = true
+  const wndIndex = currentWindowIndex.value
+  const window = previewWindows.value[wndIndex]
+
+  // 如果当前窗口已经在播放，先停止
+  if (previewPlayers.value[wndIndex]) {
+    stopWindowPreview(wndIndex)
+  }
+
+  window.loading = true
   const { username, password } = loginForm
   const curChannel = previewChannel.value + 1 // 无插件通道号从1开始
   const stream = streamType.value
@@ -1014,7 +1342,7 @@ async function handleStartPreview() {
     PlayerControl = await ensurePlayerControl()
   }
   catch (e) {
-    previewLoading.value = false
+    window.loading = false
     ElMessage.error(e?.message || '播放器加载失败')
     return
   }
@@ -1022,26 +1350,29 @@ async function handleStartPreview() {
   const player = new PlayerControl(options)
 
   player.on('PlayStart', () => {
-    previewLoading.value = false
+    window.loading = false
+    window.channel = previewChannel.value
     isPreviewing.value = true
-    ElMessage.success('预览已开始')
+    ElMessage.success(`窗口 ${wndIndex + 1} 预览已开始`)
   })
 
   player.on('DecodeStart', (e) => {
+    const videoEl = previewVideoRefs.value[wndIndex]
+    const canvasEl = previewCanvasRefs.value[wndIndex]
     if (e.decodeMode === 'video') {
-      previewVideoRef.value.style.display = ''
-      previewCanvasRef.value.style.display = 'none'
+      if (videoEl) videoEl.style.display = ''
+      if (canvasEl) canvasEl.style.display = 'none'
     }
     else {
-      previewVideoRef.value.style.display = 'none'
-      previewCanvasRef.value.style.display = ''
+      if (videoEl) videoEl.style.display = 'none'
+      if (canvasEl) canvasEl.style.display = ''
     }
-    previewPlayer.value = player
+    previewPlayers.value[wndIndex] = player
   })
 
   player.on('Error', (e) => {
     console.error('预览错误:', e)
-    previewLoading.value = false
+    window.loading = false
     ElMessage.error('预览出错')
   })
 
@@ -1049,22 +1380,43 @@ async function handleStartPreview() {
     player.connect()
   })
 
-  player.init(previewCanvasRef.value, previewVideoRef.value)
+  const canvasEl = previewCanvasRefs.value[wndIndex]
+  const videoEl = previewVideoRefs.value[wndIndex]
+  if (canvasEl && videoEl) {
+    player.init(canvasEl, videoEl)
+  }
+}
+
+// 停止单个窗口的预览
+function stopWindowPreview(wndIndex) {
+  const player = previewPlayers.value[wndIndex]
+  if (player) {
+    player.stop()
+    player.close()
+    previewPlayers.value[wndIndex] = null
+
+    const canvasEl = previewCanvasRefs.value[wndIndex]
+    const videoEl = previewVideoRefs.value[wndIndex]
+    if (canvasEl) canvasEl.style.display = 'none'
+    if (videoEl) videoEl.style.display = 'none'
+
+    const window = previewWindows.value[wndIndex]
+    window.channel = null
+  }
 }
 
 // 停止预览
 function handleStopPreview() {
-  if (previewPlayer.value) {
-    previewPlayer.value.stop()
-    previewPlayer.value.close()
-    previewPlayer.value = null
+  const wndIndex = currentWindowIndex.value
+  stopWindowPreview(wndIndex)
 
-    if (previewCanvasRef.value) previewCanvasRef.value.style.display = 'none'
-    if (previewVideoRef.value) previewVideoRef.value.style.display = 'none'
-
+  // 检查是否还有其他窗口在播放
+  const hasActiveWindow = previewPlayers.value.some(player => player !== null)
+  if (!hasActiveWindow) {
     isPreviewing.value = false
-    ElMessage.info('预览已停止')
   }
+
+  ElMessage.info(`窗口 ${wndIndex + 1} 预览已停止`)
 
   // 同时停止录像
   if (isRecording.value) {
@@ -1074,26 +1426,41 @@ function handleStopPreview() {
 
 // 打开声音
 function handleTurnOnSound() {
-  if (previewPlayer.value) {
-    previewPlayer.value.setAudioVolume(volume.value)
+  const wndIndex = currentWindowIndex.value
+  const player = previewPlayers.value[wndIndex]
+  if (player) {
+    player.setAudioVolume(volume.value)
     ElMessage.info('声音已打开')
+  }
+  else {
+    ElMessage.warning('当前窗口未在播放')
   }
 }
 
 // 关闭声音
 function handleTurnOffSound() {
-  if (previewPlayer.value) {
-    previewPlayer.value.setAudioVolume(0)
+  const wndIndex = currentWindowIndex.value
+  const player = previewPlayers.value[wndIndex]
+  if (player) {
+    player.setAudioVolume(0)
     ElMessage.info('声音已关闭')
+  }
+  else {
+    ElMessage.warning('当前窗口未在播放')
   }
 }
 
 // 抓图
 function handleCapture() {
-  if (previewPlayer.value) {
+  const wndIndex = currentWindowIndex.value
+  const player = previewPlayers.value[wndIndex]
+  if (player) {
     const filename = `capture_${Date.now()}`
-    previewPlayer.value.capture(filename)
+    player.capture(filename)
     ElMessage.success('抓图成功')
+  }
+  else {
+    ElMessage.warning('当前窗口未在播放')
   }
 }
 
@@ -1148,8 +1515,10 @@ function handleStopRecord() {
 
 // 监听音量变化
 watch(volume, (newVal) => {
-  if (previewPlayer.value && isPreviewing.value) {
-    previewPlayer.value.setAudioVolume(newVal)
+  const wndIndex = currentWindowIndex.value
+  const player = previewPlayers.value[wndIndex]
+  if (player) {
+    player.setAudioVolume(newVal)
   }
 })
 
@@ -1157,9 +1526,15 @@ watch(volume, (newVal) => {
 
 // 云台控制
 function handlePTZ(type, isStop) {
-  if (!isPreviewing.value) return
+  const wndIndex = currentWindowIndex.value
+  const window = previewWindows.value[wndIndex]
 
-  const channel = previewChannel.value
+  if (!previewPlayers.value[wndIndex]) {
+    ElMessage.warning('当前窗口未在播放')
+    return
+  }
+
+  const channel = window.channel !== null ? window.channel : previewChannel.value
   const stepVal = ptzStep.value
   let arg2 = 0
 
@@ -1210,9 +1585,20 @@ function handlePTZ(type, isStop) {
 
 onMounted(() => {
   initDefaultTime()
+  initWindows()
 })
 
 onBeforeUnmount(() => {
+  if (isDownloading.value) {
+    finishDownloadQueue(true)
+  }
+
+  // 停止所有预览窗口
+  previewPlayers.value.forEach((player, index) => {
+    if (player) {
+      stopWindowPreview(index)
+    }
+  })
   handleLogout()
 })
 </script>
@@ -1234,6 +1620,47 @@ onBeforeUnmount(() => {
   height: 400px;
   overflow: hidden;
   background-color: #000;
+}
+
+.video-container-grid {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.video-window {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #000;
+  border: 1px solid rgb(125 125 125);
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: rgb(200 200 200);
+  }
+
+  &.active-window {
+    border-color: rgb(255 204 0) !important;
+  }
+}
+
+.window-info {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: #fff;
+  pointer-events: none;
+  background-color: rgb(0 0 0 / 60%);
+  border-radius: 3px;
 }
 
 .video-canvas,
@@ -1355,6 +1782,15 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+}
+
+.download-toolbar {
+  margin-bottom: 10px;
+}
+
+.download-progress {
+  font-size: 12px;
+  color: #606266;
 }
 
 :deep(.el-card__header) {
