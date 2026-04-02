@@ -344,12 +344,12 @@ export const routes: RouteItem[] = [
           title: '模型加载',
         },
       },
-      {
-        path: '/cesium/drawing-route',
-        meta: {
-          title: '航线绘制（todo）',
-        },
-      },
+      // {
+      //   path: '/cesium/drawing-route',
+      //   meta: {
+      //     title: '航线绘制（todo）',
+      //   },
+      // },
       {
         path: '/cesium/route-planner',
         meta: {

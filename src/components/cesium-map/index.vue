@@ -91,10 +91,8 @@ function initCesiumViewer() {
     fullscreenButton: false,
     vrButton: false,
     geocoder: false,
+    baseLayer: false,
   })
-
-  // 移除默认图层
-  viewer.imageryLayers.removeAll()
 
   // 配置场景
   setupScene()

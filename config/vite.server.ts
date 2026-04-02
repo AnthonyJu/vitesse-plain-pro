@@ -18,16 +18,16 @@ function serverConfig(mode: ConfigEnv['mode']): UserConfig['server'] {
       },
 
       // 大华
-      '/rtspoverwebsocket': {
-        ws: true,
-        target: 'xxx',
-        changeOrigin: true,
-      },
       '/web_caps': {
         target: 'xxx',
         changeOrigin: true,
       },
       '^/(RPC2|RPC2_Login|RPC_Loadfile)': {
+        target: 'xxx',
+        changeOrigin: true,
+      },
+      '/rtspoverwebsocket': {
+        ws: true,
         target: 'xxx',
         changeOrigin: true,
       },
@@ -38,12 +38,12 @@ function serverConfig(mode: ConfigEnv['mode']): UserConfig['server'] {
 
       // 海康
       '^/(ISAPI|SDK)': {
-        target: 'http://192.168.1.194',
+        target: 'xxx',
         changeOrigin: true,
       },
 
       '^/webSocketVideoCtrlProxy': {
-        target: 'http://192.168.1.194',
+        target: 'xxx',
         ws: true,
         changeOrigin: true,
       },

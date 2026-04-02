@@ -139,7 +139,7 @@ export class MeasureTool {
         this.segmentLineEntities.push(segLine)
         const label = this._addLabelEntity(b, '计算中...', '14px')
         this.segmentLabelEntities.push(label)
-        this._computeTerrainDistance(a, b).then((segLen) => {
+        this._computeTerrainDistanceSum(this.fixedPositions.slice(0, idx + 1)).then((segLen) => {
           if (label.label) (label.label.text as any) = this._formatDistance(segLen)
         })
       }
@@ -445,7 +445,8 @@ export class MeasureTool {
       if (!cart) return
       this.fixedPositions.push(cart)
       const isFirst = this.fixedPositions.length === 1
-      this._addPointEntity(cart, isFirst ? COLOR_POINT_START : COLOR_POINT_END, SIZE_POINT_DEFAULT)
+      const point = this._addPointEntity(cart, isFirst ? COLOR_POINT_START : COLOR_POINT_END, SIZE_POINT_DEFAULT)
+      this.pointEntities.push(point)
 
       if (this.fixedPositions.length === 1) {
         // 动态高度线与标签
@@ -464,9 +465,11 @@ export class MeasureTool {
       if (this.fixedPositions.length === 2) {
         const start = this.fixedPositions[0]
         const end = this.fixedPositions[1]
-        this._addPolyline([start, end], COLOR_HEIGHT, true)
+        const line = this._addPolyline([start, end], COLOR_HEIGHT, true)
+        this.segmentLineEntities.push(line)
         this._computeHeightDiff(start, end).then((diff) => {
-          this._addLabelEntity(end, `高度差: ${diff.toFixed(2)} m`, 'bold 16px', COLOR_LABEL_DEFAULT)
+          const label = this._addLabelEntity(end, `高度差: ${diff.toFixed(2)} m`, 'bold 16px', COLOR_LABEL_DEFAULT)
+          this.segmentLabelEntities.push(label)
         })
         if (this.dynamicEntity) {
           this.viewer.entities.remove(this.dynamicEntity)
@@ -900,9 +903,17 @@ export class MeasureTool {
       this.tempSegmentText = ''
       return
     }
-    const last = this.fixedPositions[this.fixedPositions.length - 1]
-    const dist = await this._computeTerrainDistance(last, this.tempPosition)
+    const dist = await this._computeTerrainDistanceSum(this.fixedPositions.concat([this.tempPosition]))
     this.tempSegmentText = this._formatDistance(dist)
+  }
+
+  async _computeTerrainDistanceSum(points: Cesium.Cartesian3[]) {
+    if (!points || points.length < 2) return 0
+    let total = 0
+    for (let i = 1; i < points.length; i++) {
+      total += await this._computeTerrainDistance(points[i - 1], points[i])
+    }
+    return total
   }
 
   async _updateTempArea() {

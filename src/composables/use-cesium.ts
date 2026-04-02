@@ -2,6 +2,7 @@ import type { Viewer } from 'cesium'
 
 const viewerMap = new Map<string, Viewer>()
 const readyCallbacks = new Map<string, Array<(viewer: Viewer) => void>>()
+
 // 共享的响应式状态
 const viewerRefs = new Map<string, ShallowRef<Viewer | undefined>>()
 const isReadyRefs = new Map<string, Ref<boolean>>()
