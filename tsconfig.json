@@ -6,11 +6,9 @@
       "DOM",
       "ESNext"
     ],
-    "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "Node",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "types": [

@@ -24,12 +24,14 @@
         <el-form-item prop="username">
           <el-input
             v-model="form.username"
+            :prefix-icon="User"
             placeholder="用户名：admin、user"
           />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
+            :prefix-icon="Lock"
             type="password"
             placeholder="密码：123456"
             autocomplete="new-password"
@@ -55,6 +57,7 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
+import { Lock, User } from '@element-plus/icons-vue'
 
 // 宽度小于等于820时，居中显示登录框
 const { width } = useWindowSize()

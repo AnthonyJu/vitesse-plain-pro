@@ -35,7 +35,6 @@ declare global {
   const createLoading: typeof import('./hooks/loading-msg').createLoading
   const createPinia: typeof import('pinia').createPinia
   const createReactiveFn: typeof import('@vueuse/core').createReactiveFn
-  const createRecorder: typeof import('./utils/player-utils')['createRecorder']
   const createRef: typeof import('@vueuse/core').createRef
   const createReusableTemplate: typeof import('@vueuse/core').createReusableTemplate
   const createSharedComposable: typeof import('@vueuse/core').createSharedComposable
@@ -48,11 +47,9 @@ declare global {
   const defineAsyncComponent: typeof import('vue').defineAsyncComponent
   const defineComponent: typeof import('vue').defineComponent
   const defineStore: typeof import('pinia').defineStore
-  const downloadBlob: typeof import('./utils/player-utils')['downloadBlob']
   const eagerComputed: typeof import('@vueuse/core').eagerComputed
   const effectScope: typeof import('vue').effectScope
   const eleRegexValidate: typeof import('./utils/validate').eleRegexValidate
-  const excelToJson: typeof import('./utils/excel-json-mutual-conversion')['excelToJson']
   const extendRef: typeof import('@vueuse/core').extendRef
   const flatArr: typeof import('./utils/tool-functions').flatArr
   const getActivePinia: typeof import('pinia').getActivePinia
@@ -71,7 +68,6 @@ declare global {
   const isReadonly: typeof import('vue').isReadonly
   const isRef: typeof import('vue').isRef
   const isShallow: typeof import('vue').isShallow
-  const jsonToExcel: typeof import('./utils/excel-json-mutual-conversion')['jsonToExcel']
   const jsonToXlsx: typeof import('./utils/tool-functions').jsonToXlsx
   const listToTree: typeof import('./utils/tool-functions').listToTree
   const makeDestructurable: typeof import('@vueuse/core').makeDestructurable
@@ -125,7 +121,6 @@ declare global {
   const request: typeof import('./utils/request').default
   const resolveComponent: typeof import('vue').resolveComponent
   const resolveRef: typeof import('@vueuse/core').resolveRef
-  const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const saveFile: typeof import('./utils/tool-functions').saveFile
   const setActivePinia: typeof import('pinia').setActivePinia
   const setMapStoreSuffix: typeof import('pinia').setMapStoreSuffix
@@ -136,7 +131,6 @@ declare global {
   const storeToRefs: typeof import('pinia').storeToRefs
   const syncRef: typeof import('@vueuse/core').syncRef
   const syncRefs: typeof import('@vueuse/core').syncRefs
-  const takeSnapshot: typeof import('./utils/player-utils')['takeSnapshot']
   const templateRef: typeof import('@vueuse/core').templateRef
   const throttledRef: typeof import('@vueuse/core').throttledRef
   const throttledWatch: typeof import('@vueuse/core').throttledWatch
@@ -377,7 +371,6 @@ declare module 'vue' {
     readonly DEFAULT_CESIUM_ID: UnwrapRef<typeof import('./constants/index')['DEFAULT_CESIUM_ID']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
-    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly Emitter: UnwrapRef<typeof import('./hooks/emitter')['Emitter']>
     readonly Local: UnwrapRef<typeof import('./utils/storage')['Local']>
     readonly QUERY_TAG_NAME: UnwrapRef<typeof import('./constants/index')['QUERY_TAG_NAME']>

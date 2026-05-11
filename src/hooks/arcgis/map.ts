@@ -7,7 +7,7 @@ import '@arcgis/core/assets/esri/themes/light/main.css'
 
 export function useArcgis(container: string) {
   const map = new Map({
-    basemap: 'streets-navigation-vector',
+    basemap: 'streets-vector',
   })
   const view = new MapView({
     zoom: 13,
