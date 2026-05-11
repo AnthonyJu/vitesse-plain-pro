@@ -81,6 +81,7 @@
     "@types/nprogress": "^0.2.3",
     "@types/three": "^0.183.1",
     "@unocss/eslint-config": "^66.6.8",
+    "@unocss/preset-uno": "^66.6.8",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vitejs/plugin-vue-jsx": "^5.1.5",
     "@vue/compiler-sfc": "^3.5.34",

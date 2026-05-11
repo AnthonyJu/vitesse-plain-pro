@@ -1,5 +1,4 @@
-import { presetWind3 } from '@unocss/preset-wind3'
-
+import presetUno from '@unocss/preset-uno'
 import {
   defineConfig,
   presetAttributify,
@@ -64,7 +63,7 @@ export default defineConfig({
 
   presets: [
     // 启用 基础 预设
-    presetWind3(),
+    presetUno(),
     // 启用 属性 预设
     presetAttributify(),
     // 启用 icons 预设
