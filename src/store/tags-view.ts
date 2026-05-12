@@ -46,6 +46,8 @@ export const useTagsViewStore = defineStore('tags-view', () => {
         meta: { ...route.meta, title },
       }
 
+      setActiveTag(tag)
+
       // 非多开标签，需要特殊处理，只保留一个
       if (!route.meta.isOpenMore) {
         const index = allTags.value.findIndex(tag => tag.name === route.name)
@@ -57,7 +59,6 @@ export const useTagsViewStore = defineStore('tags-view', () => {
 
       // 添加标签
       allTags.value.push(tag)
-      setActiveTag(tag)
     }
     else {
       // 设置激活标签

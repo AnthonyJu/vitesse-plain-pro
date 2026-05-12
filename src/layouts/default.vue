@@ -19,7 +19,7 @@
         <!-- 顶部主体 -->
         <Header />
         <!-- 标签栏 -->
-        <TagsView />
+        <TagsView v-if="tagsView.show" />
       </el-header>
 
       <!-- 内容 -->
@@ -28,12 +28,12 @@
           <!-- 内容主体 -->
           <MainView :style="{ height: mainHeight }" @before-enter="handleBeforeEnter" />
           <!-- 底部 -->
-          <Footer v-if="!footerFixed" />
+          <Footer v-if="footer.show && !footerFixed" />
         </el-scrollbar>
       </main>
 
       <!-- 底部 -->
-      <Footer v-if="footerFixed" />
+      <Footer v-if="footer.show && footerFixed" />
     </el-container>
 
     <!-- 关闭全屏 -->
@@ -54,10 +54,10 @@ import TagsView from './components/tags-view/index.vue'
 defineOptions({ name: 'DefaultLayout' })
 
 const themeStore = useThemeStore()
-const { fullScreen, menu, footer, mainHeight, headerHeight, menuWidth } = storeToRefs(themeStore)
+const { fullScreen, menu, footer, mainHeight, headerHeight, menuWidth, tagsView } = storeToRefs(themeStore)
 
 const asideMenu = computed(() => menu.value.aside && !menu.value.drawer)
-const footerFixed = computed(() => footer.value.show && footer.value.fixed && !fullScreen.value)
+const footerFixed = computed(() => footer.value.fixed && !fullScreen.value)
 
 const scrollbar = ref<ScrollbarInstance>()
 function handleBeforeEnter() {

@@ -1,0 +1,9 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@vaadin/vaadin-usage-statistics': true
+  core-js: true
+  es5-ext: true
+  esbuild: true
+  protobufjs: true
+  simple-git-hooks: true
+  vue-demi: true

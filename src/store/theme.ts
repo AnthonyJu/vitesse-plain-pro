@@ -68,7 +68,7 @@ export const useThemeStore = defineStore(
     const mainHeight = computed(() => {
       if (footer.value.fixed) {
         const tagsViewHeight = tagsView.value.show ? tagsView.value.height : 0
-        const footerHeight = footer.value.show ? footer.value.height : 0
+        const footerHeight = footer.value.show ? footer.value.height : 15
         return `calc(100vh - ${header.value.height + tagsViewHeight + footerHeight}px)`
       }
       else {

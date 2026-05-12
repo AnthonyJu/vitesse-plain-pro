@@ -5,7 +5,7 @@
     @click="showDrawer = true"
   >
     <div :key="menu.collapse.toString()" class="flex-center animate-bounce-in">
-      <img class="w-26px" src="@/assets/logo.svg" alt="logo">
+      <img class="w-26px" src="/favicon.svg" alt="logo">
       <span v-show="!menu.collapse" class="ml-8px text-20px text-$el-color-primary">
         vitesse plain pro
       </span>
