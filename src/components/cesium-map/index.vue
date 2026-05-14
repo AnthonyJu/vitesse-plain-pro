@@ -129,7 +129,7 @@ function setupScene() {
 // 服务域名
 const tdtUrl = 'https://t{s}.tianditu.gov.cn'
 // 天地图密钥
-const tdtToken = '436ce7e50d27eede2f2929307e6b33c0'
+const tdtToken = 'c9e1d3593f3cc3065d6546f425957ec3'
 // 服务负载子域
 const tdtSubdomains = ['0', '1', '2', '3', '4', '5', '6', '7']
 

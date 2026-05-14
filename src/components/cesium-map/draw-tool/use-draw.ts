@@ -34,6 +34,8 @@ export interface DrawResult {
   entity: Cesium.Entity | Cesium.Entity[]
 }
 
+export type DrawCompleteCallback = (result: DrawResult) => void
+
 export class DrawTool {
   viewer: Cesium.Viewer
   handler: Cesium.ScreenSpaceEventHandler | null = null
@@ -45,10 +47,17 @@ export class DrawTool {
   pointEntities: Cesium.Entity[] = []
   resultEntities: Cesium.Entity[] = []
   allDrawResults: DrawResult[] = []
+  private _onComplete?: DrawCompleteCallback
 
   constructor(viewer: Cesium.Viewer) {
     this.viewer = viewer
     this._bindEsc()
+  }
+
+  /** 设置绘制完成回调 */
+  onComplete(callback: DrawCompleteCallback) {
+    this._onComplete = callback
+    return this
   }
 
   // 开始绘制点
@@ -124,11 +133,13 @@ export class DrawTool {
       if (!cart) return
 
       const pin = this._addBillboard(cart)
-      this.allDrawResults.push({
+      const result: DrawResult = {
         type: 'pin',
         positions: [cart],
         entity: pin,
-      })
+      }
+      this.allDrawResults.push(result)
+      this._onComplete?.(result)
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
   }
 
@@ -177,17 +188,18 @@ export class DrawTool {
     const line = this._addPolyline(this.fixedPositions.slice(), COLOR_POLYLINE)
     const points = this.fixedPositions.map(p => this._addPoint(p, COLOR_POINT))
 
-    this.allDrawResults.push({
+    const result: DrawResult = {
       type: 'polyline',
       positions: this.fixedPositions.slice(),
       entity: [line, ...points],
-    })
+    }
+    this.allDrawResults.push(result)
 
     this.fixedPositions = []
     this.tempPosition = null
+    this._onComplete?.(result)
   }
 
-  // ========== 多边形绘制 ==========
   private _bindPolygonEvents() {
     let lastClickTime = 0
 
@@ -241,14 +253,16 @@ export class DrawTool {
     const outline = this._addPolyline([...this.fixedPositions, this.fixedPositions[0]], COLOR_POLYGON_OUTLINE)
     const points = this.fixedPositions.map(p => this._addPoint(p, COLOR_POINT))
 
-    this.allDrawResults.push({
+    const result: DrawResult = {
       type: 'polygon',
       positions: this.fixedPositions.slice(),
       entity: [polygon, outline, ...points],
-    })
+    }
+    this.allDrawResults.push(result)
 
     this.fixedPositions = []
     this.tempPosition = null
+    this._onComplete?.(result)
   }
 
   // ========== 圆形绘制 ==========
@@ -306,14 +320,16 @@ export class DrawTool {
     const circleOutline = this._addCircleOutline(center, radius, COLOR_CIRCLE_OUTLINE)
     const centerPoint = this._addPoint(center, COLOR_POINT)
 
-    this.allDrawResults.push({
+    const result: DrawResult = {
       type: 'circle',
       positions: [center],
       entity: [circle, circleOutline, centerPoint],
-    })
+    }
+    this.allDrawResults.push(result)
 
     this.fixedPositions = []
     this.tempPosition = null
+    this._onComplete?.(result)
   }
 
   // 生成圆形边框点位（用于 polyline 绘制）
