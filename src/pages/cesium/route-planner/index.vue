@@ -1,274 +1,371 @@
 <template>
-  <div class="full flex bg-default">
-    <div class="h-full flex-col flex-1">
-      <CesiumMap class="flex-1 overflow-hidden" />
+  <div class="full flex-col bg-default">
+    <div class="min-h-0 flex flex-1">
+      <!-- 地图区域（含浮层） -->
+      <div class="relative flex-1">
+        <CesiumMap class="h-full overflow-hidden" />
 
-      <div class="p-15px">
-        <div class="text-18px font-900">航信信息</div>
-        <div class="mt-15px max-h-135px gap-15px overflow-auto grid-fill-260px">
-          <div>区域面积：{{ result?.areaSqMeters }} m²</div>
-          <div>航线数量：{{ result?.numOfStrips }} 条</div>
-          <div>航线间距：{{ result?.distBetweenLines }} m</div>
-          <div>飞行距离：{{ result?.flightDistance }} km</div>
-          <div>飞行时间：{{ result?.flightTime }}</div>
-          <div>地面分辨率：{{ result?.groundResolution }} cm/px</div>
-          <div>照片地面覆盖：{{ result?.footprint.width }} x {{ result?.footprint.height }} m</div>
-          <div>照片数量：{{ result?.pictures }} 张</div>
-          <div>拍照频率：{{ result?.photoIntervalSec }} s</div>
-          <div>照片间隔：{{ result?.distBetweenImages }} m</div>
+        <!-- 浮在地图上的模式切换 Tab -->
+        <div class="absolute left-12px top-12px z-10">
+          <el-tabs v-model="planningMode" type="card" class="mode-tabs" @tab-change="onModeChange">
+            <el-tab-pane label="单次规划" name="single" />
+            <el-tab-pane label="大范围规划" name="large-area" />
+          </el-tabs>
         </div>
+
+        <!-- 大范围规划快速切换（地图浮层） -->
+        <div v-if="planningMode === 'large-area'" class="absolute right-12px top-52px z-10 w-200px">
+          <div class="border border-gray-200 rounded-6px bg-white px-10px py-8px shadow-sm">
+            <div class="mb-6px text-12px color-gray-600 font-600">快速切换区域</div>
+            <el-select v-model="selectedDistrict" size="small" placeholder="选择青岛区市" @change="onDistrictChange">
+              <el-option
+                v-for="opt in districtOptions"
+                :key="opt.value"
+                :label="opt.label"
+                :value="opt.value"
+              />
+            </el-select>
+          </div>
+        </div>
+
+        <!-- 浮在地图上的操作按钮 -->
+        <div class="absolute right-12px top-12px z-10 flex gap-8px">
+          <el-button
+            :type="isDrawing ? 'warning' : 'primary'"
+            size="small"
+            :disabled="isPlanning"
+            @click="startDrawArea"
+          >
+            {{ isDrawing ? '绘制中...' : '绘制区域' }}
+          </el-button>
+          <el-button
+            :type="showPhotoPoints ? 'primary' : 'default'"
+            size="small"
+            @click="onTogglePhotoPoints"
+          >
+            {{ showPhotoPoints ? '隐藏' : '显示' }}拍照点
+          </el-button>
+        </div>
+      </div>
+
+      <!-- 右侧参数面板 -->
+      <div class="w-360px overflow-auto border-l-1px border-gray-200 bg-white">
+        <RouteForm
+          v-model:form="form"
+          v-model:base-settings="baseSettings"
+          :camera-list="cameraList"
+        />
       </div>
     </div>
 
-    <div class="h-full flex-col">
-      <el-form :model="form" label-width="120px" class="m-10px">
-        <el-tabs model-value="first" type="card">
-          <el-tab-pane label="基础设置" name="first">
-            <el-form-item label="航线规划类型">
-              <el-select v-model="form.flightPattern">
-                <el-option label="S 形" value="s-shape" />
-                <el-option label="井字形" value="grid-shape" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="飞行高度(m)">
-              <el-input-number v-model.number="form.altitude" :step="10" />
-            </el-form-item>
-            <el-form-item label="前向重叠率(%)">
-              <el-input-number v-model.number="form.frontOverlap" :step="5" />
-            </el-form-item>
-            <el-form-item label="侧向重叠率(%)">
-              <el-input-number v-model.number="form.sideOverlap" :step="5" />
-            </el-form-item>
-            <el-form-item label="航线方向(度)">
-              <el-input-number v-model.number="form.flightDirectionDeg" :step="5" />
-            </el-form-item>
-            <el-form-item label="飞行速度(m/s)">
-              <el-input-number v-model.number="form.flightSpeed" :step="5" />
-            </el-form-item>
-            <el-form-item label="延长线长度(m)">
-              <el-input-number v-model.number="form.extensionCord" :step="10" />
-            </el-form-item>
-          </el-tab-pane>
+    <!-- 底部结果展示区 -->
+    <div class="h-200px flex-center overflow-auto p-10px">
+      <!-- 单次规划数据 -->
+      <RouteInfo v-if="planningMode === 'single' && singleResult" :result="singleResult" />
 
-          <el-tab-pane label="相机参数" name="second">
-            <el-form-item label="相机型号">
-              <el-select v-model="form.camera" value-key="id" placeholder="请选择相机型号">
-                <el-option
-                  v-for="item in cameraList"
-                  :key="item.value.toString()"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="焦距(mm)">
-              <el-input-number v-model.number="form.camera.focalLengthMm" />
-            </el-form-item>
-            <el-form-item label="传感器宽度(mm)">
-              <el-input-number v-model.number="form.camera.sensorWidthMm" />
-            </el-form-item>
-            <el-form-item label="传感器高度(mm)">
-              <el-input-number v-model.number="form.camera.sensorHeightMm" />
-            </el-form-item>
-            <el-form-item label="图像宽度(px)">
-              <el-input-number v-model.number="form.camera.imageWidthPx" />
-            </el-form-item>
-            <el-form-item label="图像高度(px)">
-              <el-input-number v-model.number="form.camera.imageHeightPx" />
-            </el-form-item>
-            <el-form-item label="照片拍摄方式">
-              <el-select v-model="form.camera.triggerType">
-                <el-option label="按飞行距离" value="CAM_TRIGG_DIST" />
-              </el-select>
-            </el-form-item>
-          </el-tab-pane>
-        </el-tabs>
-      </el-form>
-
-      <!-- <el-button class="mx-10px w-auto" type="success" @click="generate">应用</el-button> -->
+      <!-- 大范围规划数据 -->
+      <LargeAreaResult
+        v-if="planningMode === 'large-area' && largeAreaResult"
+        :result="largeAreaResult"
+        :altitude="form.altitude"
+        @highlight="handleSubRegionHighlight"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Viewer } from 'cesium'
-import type { MissionResult, PlanParams } from './generate-mission-route'
-import { Cartesian3, Math as CesiumMath, Color, HeightReference, VerticalOrigin } from 'cesium'
-import EndPng from '@/assets/cesium/end.png'
-import PhotoPng from '@/assets/cesium/photo.png'
-import PointPng from '@/assets/cesium/point.png'
-import StartPng from '@/assets/cesium/start.png'
+import type { BaseSettings, MissionResult, PlanParams } from './generate-mission-route'
+import type { LargeAreaResult as LargeAreaResultType, SubRegionResult } from './large-area-planner'
+import { Cartesian3, Cartographic, Math as CesiumMath } from 'cesium'
+import { DrawTool } from '@/components/cesium-map/draw-tool/use-draw'
+import LargeAreaResult from './components/LargeAreaResult.vue'
+import RouteForm from './components/RouteForm.vue'
+import RouteInfo from './components/RouteInfo.vue'
+import { QINGDAO_DISTRICTS } from './data/qingdao-districts'
+import { CAMERA_LIST, DEFAULT_POLYGON, LARGE_AREA_POLYGON } from './data/route-constants'
 import { generateMissionRoute } from './generate-mission-route'
+import { planLargeArea } from './large-area-planner'
+import { RouteRenderer } from './route-renderer'
 
 const { onViewerReady } = useCesium('cesiumId')
 
-let viewer: Viewer
+// 规划模式
+const planningMode = ref<'single' | 'large-area'>('single')
 
-// 加载模型
-onViewerReady((_viewer) => {
-  viewer = _viewer
-
-  viewer.camera.setView({
-    destination: Cartesian3.fromDegrees(120.358644, 36.715060, 2000),
-    orientation: {
-      heading: CesiumMath.toRadians(0),
-      pitch: CesiumMath.toRadians(-90),
-      roll: 0,
-    },
-  })
-
-  // // 点击获取坐标
-  // const handler = new ScreenSpaceEventHandler(viewer.scene.canvas)
-  // handler.setInputAction((movement) => {
-  //   const cartesian = viewer.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid)
-  //   if (cartesian) {
-  //     const cartographic = Cartographic.fromCartesian(cartesian)
-  //     const lon = CesiumMath.toDegrees(cartographic.longitude)
-  //     const lat = CesiumMath.toDegrees(cartographic.latitude)
-  //     console.log(`${lon}, ${lat}`)
-  //   }
-  // }, ScreenSpaceEventType.LEFT_CLICK)
-
-  generateRoute()
+// 基础设置
+const baseSettings = ref<BaseSettings>({
+  maxFlightDistance: 100,
+  maxFlightRadius: 8,
 })
 
-const cameraList = [
-  {
-    label: '索尼 ILCE-7R',
-    value: {
-      id: 'sony_ilce7r',
-      focalLengthMm: 35,
-      sensorWidthMm: 35.8,
-      sensorHeightMm: 23.9,
-      imageWidthPx: 7360,
-      imageHeightPx: 4912,
-      triggerType: 'CAM_TRIGG_DIST',
-    },
-  },
-  {
-    label: '大疆御2 专业版',
-    value: {
-      id: 'dji_mavic_2',
-      focalLengthMm: 28,
-      sensorWidthMm: 12.7,
-      sensorHeightMm: 9.6,
-      imageWidthPx: 5472,
-      imageHeightPx: 3648,
-      triggerType: 'CAM_TRIGG_DIST',
-    },
-  },
-  // {
-  //   label: '大疆御3',
-  //   value: {
-  //     focalLengthMm: 28,
-  //     sensorWidthMm: 32.2,
-  //     sensorHeightMm: 8.8,
-  //     imageWidthPx: 5472,
-  //     imageHeightPx: 3648,
-  //     triggerType: 'CAM_TRIGG_DIST',
-  //   },
-  // },
-]
-
+// 飞行参数表单
 const form = ref<PlanParams>({
-  polygon: [
-    [
-      [120.35864421632866, 36.71737770084022],
-      [120.35547511688443, 36.71563167335798],
-      [120.35902783498854, 36.71253186518270],
-      [120.36188565210843, 36.71462766632465],
-      [120.36039941397206, 36.71723496870541],
-      [120.35864421632866, 36.71737770084022],
-    ],
-  ],
+  polygon: DEFAULT_POLYGON,
   altitude: 200,
-  frontOverlap: 80,
+  frontOverlap: 80, // UI 显示 0-100，计算时转为 0-1
   sideOverlap: 85,
   flightDirectionDeg: 0,
   flightSpeed: 20,
   extensionCord: 200,
   flightPattern: 's-shape',
-  camera: {
-    id: 'sony_ilce7r',
-    focalLengthMm: 35,
-    sensorWidthMm: 35.8,
-    sensorHeightMm: 23.9,
-    imageWidthPx: 7360,
-    imageHeightPx: 4912,
-    triggerType: 'CAM_TRIGG_DIST',
-  },
+  camera: { ...CAMERA_LIST[0].value },
 })
 
+const cameraList = CAMERA_LIST
+
+// 选中的区划（空字符串 = 自定义）
+const selectedDistrict = ref('')
+
+// 区划列表（含"自定义"选项）
+const districtOptions = [
+  { label: '自定义', value: '' },
+  ...QINGDAO_DISTRICTS.map(d => ({ label: d.name, value: d.name })),
+]
+
+// 更新规划区域（从 DrawTool 绘制结果获取）
+function updatePolygon(polygon: [number, number][]) {
+  form.value.polygon = [polygon]
+  selectedDistrict.value = ''
+}
+
+// 选择区划
+function selectDistrict(name: string) {
+  selectedDistrict.value = name
+  if (!name) return
+  const district = QINGDAO_DISTRICTS.find(d => d.name === name)
+  if (district) {
+    form.value.polygon = district.polygon
+  }
+}
+
+// 渲染器
+const renderer = new RouteRenderer()
+
+// 显示控制
+const showPhotoPoints = ref(false)
+
+// 规划结果
+const singleResult = ref<MissionResult>()
+const largeAreaResult = ref<LargeAreaResultType>()
+
+// 绘制状态
+const isDrawing = ref(false)
+// 规划中状态
+const isPlanning = ref(false)
+
+let viewer: Viewer
+let drawTool: DrawTool | null = null
+
+/** 计算多边形的中心点和大致范围 */
+function getPolygonCenter(polygon: [number, number][][]): { lng: number, lat: number } {
+  const ring = polygon[0]
+  const sumLng = ring.reduce((s, p) => s + p[0], 0)
+  const sumLat = ring.reduce((s, p) => s + p[1], 0)
+  return { lng: sumLng / ring.length, lat: sumLat / ring.length }
+}
+
+/** 飞到指定多边形区域 */
+function flyToPolygon(polygon: [number, number][][], altitude?: number) {
+  if (!viewer) return
+  const center = getPolygonCenter(polygon)
+  // 计算多边形对角线距离来决定视角高度
+  const ring = polygon[0]
+  const lngSpan = Math.max(...ring.map(p => p[0])) - Math.min(...ring.map(p => p[0]))
+  const latSpan = Math.max(...ring.map(p => p[1])) - Math.min(...ring.map(p => p[1]))
+  const viewAlt = altitude ?? Math.max(lngSpan * 111000 * Math.cos(center.lat * Math.PI / 180), latSpan * 111000) * 2.5
+
+  viewer.camera.flyTo({
+    destination: Cartesian3.fromDegrees(center.lng, center.lat, viewAlt),
+    orientation: {
+      heading: CesiumMath.toRadians(0),
+      pitch: CesiumMath.toRadians(-90),
+      roll: 0,
+    },
+    duration: 1.5,
+  })
+}
+
+// 加载
+onViewerReady((_viewer) => {
+  viewer = _viewer
+  renderer.init(viewer)
+
+  // 初始化 DrawTool
+  drawTool = new DrawTool(viewer)
+
+  generateRoute()
+
+  // 初始飞到规划区域
+  flyToPolygon(form.value.polygon)
+})
+
+// 防抖触发规划
 const debounceFn = useDebounceFn(() => generateRoute(), 500)
 watch(form, debounceFn, { deep: true })
+watch(baseSettings, debounceFn, { deep: true })
 
-const result = ref<MissionResult>()
+/** 模式切换 */
+function onModeChange() {
+  if (planningMode.value === 'large-area') {
+    // 如果已选中区划，优先用区划数据
+    if (selectedDistrict.value) {
+      selectDistrict(selectedDistrict.value)
+    }
+    else {
+      form.value.polygon = LARGE_AREA_POLYGON
+    }
+  }
+  else {
+    form.value.polygon = DEFAULT_POLYGON
+    selectedDistrict.value = ''
+  }
+  flyToPolygon(form.value.polygon)
+  generateRoute()
+}
 
-function generateRoute() {
+/** 区划切换 */
+function onDistrictChange(name: string) {
+  selectDistrict(name)
+  if (name) {
+    // 选中具体区划，飞到对应区域（generateRoute 由 form watcher 自动触发）
+    flyToPolygon(form.value.polygon)
+  }
+}
+
+/** 生成航线 */
+async function generateRoute() {
+  if (!viewer || isPlanning.value)
+    return
+
+  isPlanning.value = true
+
+  try {
+    if (planningMode.value === 'single') {
+      generateSingleRoute()
+    }
+    else {
+      await generateLargeAreaRoute()
+    }
+  }
+  catch (e) {
+    console.error('规划失败:', e)
+    ElMessage.error('规划执行失败，请检查参数')
+  }
+  finally {
+    isPlanning.value = false
+  }
+}
+
+/** 单次规划 */
+function generateSingleRoute() {
   const res = generateMissionRoute({
     ...form.value,
     frontOverlap: form.value.frontOverlap / 100,
     sideOverlap: form.value.sideOverlap / 100,
   })
-  result.value = res
-  onComplete(res)
+  singleResult.value = res
+  largeAreaResult.value = undefined
+
+  renderer.renderSingleResult(form.value.polygon, res, form.value.altitude)
 }
 
-function onComplete(result: MissionResult) {
-  viewer.entities.removeAll()
+/** 大范围规划 */
+async function generateLargeAreaRoute() {
+  // 让 UI 先渲染 loading 状态
+  await new Promise(r => setTimeout(r, 50))
 
-  // 添加区域
-  viewer.entities.add({
-    polyline: {
-      positions: form.value.polygon[0].map(p => Cartesian3.fromDegrees(p[0], p[1], 0)),
-      width: 4,
-      material: Color.RED,
-      clampToGround: true,
+  const res = planLargeArea(
+    {
+      ...form.value,
+      frontOverlap: form.value.frontOverlap / 100,
+      sideOverlap: form.value.sideOverlap / 100,
+      baseSettings: { ...baseSettings.value },
     },
-  })
-
-  const height = form.value.altitude
-
-  // 添加航线
-  const points = result.waypoints.map(p =>
-    Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
+    { ...baseSettings.value },
   )
-  viewer.entities.add({
-    polyline: {
-      positions: points,
-      width: 3,
-      material: Color.YELLOW,
-      clampToGround: true,
-    },
+
+  if (!res.subRegions.length) {
+    ElMessage.warning('区域太小，无法拆分，请尝试扩大绘制范围')
+    return
+  }
+
+  largeAreaResult.value = res
+  singleResult.value = undefined
+
+  renderer.renderLargeAreaResult(form.value.polygon, res, form.value.altitude)
+}
+
+/** 开始绘制区域 */
+function startDrawArea() {
+  if (!drawTool || !viewer)
+    return
+
+  isDrawing.value = true
+
+  // 清除旧绘制结果
+  drawTool.clearAll()
+
+  // 设置完成回调
+  drawTool.onComplete((result) => {
+    if (result.type !== 'polygon' || result.positions.length < 3)
+      return
+
+    const coords: [number, number][] = result.positions.map((pos) => {
+      const cartographic = Cartographic.fromCartesian(pos)
+      const lng = CesiumMath.toDegrees(cartographic.longitude)
+      const lat = CesiumMath.toDegrees(cartographic.latitude)
+      return [lng, lat]
+    })
+
+    // 闭合多边形
+    if (coords[0][0] !== coords[coords.length - 1][0]
+      || coords[0][1] !== coords[coords.length - 1][1]) {
+      coords.push([...coords[0]])
+    }
+
+    updatePolygon(coords)
+    isDrawing.value = false
+
+    // 飞到绘制区域
+    flyToPolygon([coords])
+
+    // 直接触发规划
+    generateRoute()
   })
 
-  // 添加航点点位
-  result.waypoints.forEach((p, i) => {
-    const image = i === 0 ? StartPng : (i === result.waypoints.length - 1 ? EndPng : PointPng)
-    viewer.entities.add({
-      position: Cartesian3.fromDegrees(p.coordinates[0], p.coordinates[1], height),
-      billboard: {
-        image,
-        scale: 0.8, // 缩放比例（0.5～1.0 常用）
-        verticalOrigin: VerticalOrigin.BOTTOM, // 图标对齐位置
-        heightReference: HeightReference.CLAMP_TO_GROUND, // 贴地展示
-        disableDepthTestDistance: Number.POSITIVE_INFINITY, // 防止被地形遮挡
-      },
-    })
-  })
+  drawTool.startDrawPolygon()
+}
 
-  // 添加拍照点位
-  result.photoPoints.forEach((p) => {
-    viewer.entities.add({
-      position: Cartesian3.fromDegrees(p[0], p[1], height),
-      billboard: {
-        image: PhotoPng,
-        scale: 0.6, // 缩放比例（0.5～1.0 常用）
-        verticalOrigin: VerticalOrigin.CENTER, // 图标对齐位置
-        heightReference: HeightReference.CLAMP_TO_GROUND, // 贴地展示
-        disableDepthTestDistance: Number.POSITIVE_INFINITY, // 防止被地形遮挡
-      },
-    })
-  })
+/** 子区域高亮 */
+function handleSubRegionHighlight(subRegion: SubRegionResult | null) {
+  if (!largeAreaResult.value)
+    return
+  renderer.highlightSubRegion(subRegion, form.value.altitude, largeAreaResult.value.subRegions, form.value.polygon)
+}
+
+/** 切换拍照点显示 */
+function onTogglePhotoPoints() {
+  const next = !showPhotoPoints.value
+  showPhotoPoints.value = next
+  renderer.setShowPhotoPoints(next)
 }
 </script>
+
+<style scoped>
+.mode-tabs :deep(.el-tabs__content) {
+  display: none;
+}
+
+.mode-tabs :deep(.el-tabs__header) {
+  margin-bottom: 0;
+}
+
+.mode-tabs {
+  background: rgb(255 255 255 / 92%);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+  backdrop-filter: blur(4px);
+}
+</style>

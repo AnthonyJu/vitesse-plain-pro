@@ -1,6 +1,14 @@
 import type { Feature, LineString, Point, Polygon } from 'geojson'
 import * as turf from '@turf/turf'
 
+// 基础设置（新增参数）
+export interface BaseSettings {
+  // 最大飞行距离(km)，默认 100
+  maxFlightDistance: number
+  // 最大飞行半径(km)，默认 8
+  maxFlightRadius: number
+}
+
 // SurveyParams 描述生成航线所需的全部参数。
 export interface PlanParams {
   // 任务区多边形，WGS84，经纬度坐标。
@@ -35,6 +43,8 @@ export interface PlanParams {
     // 拍照触发方式
     triggerType: string
   }
+  // 可选：基础设置，用于超限判断和起飞点范围计算
+  baseSettings?: BaseSettings
 }
 
 // SurveyMissionResult 包含生成的航线、统计和元数据。
@@ -67,6 +77,9 @@ export interface MissionResult {
   pictures: number
   // 拍照触发方式
   triggerType: string
+
+  // 飞行距离是否超出最大限制
+  exceedsLimit: boolean
 
   // 拍照点
   photoPoints: [number, number][]
@@ -359,6 +372,12 @@ export function generateMissionRoute(params: PlanParams): MissionResult {
   const s = Math.floor(flightDistance / flightSpeed % 60)
   const flightTime = h > 0 ? `${h}小时${m % 60}分${s}秒` : `${m}分${s}秒`
 
+  // 判断是否超限
+  const baseSettings = params.baseSettings
+  const exceedsLimit = baseSettings
+    ? (flightDistance / 1000) > baseSettings.maxFlightDistance
+    : false
+
   return {
     areaSqMeters: turf.area(polyFeature).toFixed(2), // 面积平方米
     numOfStrips: routeLines.length, // 航线数
@@ -376,6 +395,8 @@ export function generateMissionRoute(params: PlanParams): MissionResult {
     pictures: photoPoints.length,
 
     triggerType: camera.triggerType,
+
+    exceedsLimit,
 
     altitude,
     waypoints,
