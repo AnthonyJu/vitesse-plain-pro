@@ -1,6 +1,5 @@
 <template>
   <Html
-    ref="obj"
     center
     :distance-factor="200"
     :position="position"
@@ -14,9 +13,6 @@
 <script setup lang="ts">
 import { Html } from '@tresjs/cientos'
 import { useControls } from '@tresjs/leches'
-import '@tresjs/leches/styles'
-
-const obj = ref()
 
 const { x, y, z } = useControls({
   x: 0,

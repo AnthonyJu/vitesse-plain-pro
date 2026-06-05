@@ -8,7 +8,8 @@ function buildConfig(mode: ConfigEnv['mode']): UserConfig['build'] {
     outDir: env.VITE_OUT_DIR,
     assetsInlineLimit: 1025 * 5, // 小于5kb的文件转换为base64
     chunkSizeWarningLimit: 1500, // 大于1500kb进行打包警告
-    rollupOptions: {
+    rolldownOptions: {
+      external: ['workbox-window'],
       output: {
         // 打包文件归类
         chunkFileNames: 'assets/js/[name].[hash].js',

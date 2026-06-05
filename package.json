@@ -17,7 +17,7 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
-    "@arcgis/core": "4.29.10",
+    "@arcgis/core": "~4.31.6",
     "@element-plus/icons-vue": "^2.3.2",
     "@leafer-in/bright": "^2.1.0",
     "@leafer-in/editor": "^2.1.0",
@@ -36,6 +36,7 @@
     "axios": "^1.16.0",
     "cesium": "^1.140.0",
     "cropperjs": "^1.6.2",
+    "dayjs": "^1.11.21",
     "echarts": "^6.0.0",
     "echarts-liquidfill": "^3.1.0",
     "echarts-wordcloud": "^2.1.0",
