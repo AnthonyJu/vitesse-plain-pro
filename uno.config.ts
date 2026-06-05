@@ -1,9 +1,9 @@
-import presetUno from '@unocss/preset-uno'
 import {
   defineConfig,
   presetAttributify,
   presetIcons,
   presetTypography,
+  presetUno,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'

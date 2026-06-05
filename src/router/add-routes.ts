@@ -23,7 +23,7 @@ export function addRoutes(router: Router, permissionPaths: string[]) {
 // 根据权限路径过滤路由
 function filterRoute(children: RouteRecordRaw[], permissionPaths: string[], flatRoutes: RouteItem[], basePath = ''): RouteRecordRaw[] {
   return children.filter((route) => {
-    // 根据 unplugin-vue-router 规则，组装完整路径
+    // 根据 vue-router 文件路由规则，组装完整路径
     const fullPath = basePath + route.path
 
     // 判断是否有权限

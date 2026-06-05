@@ -1,11 +1,9 @@
-import VueRouter from 'unplugin-vue-router/vite'
+import VueRouter from 'vue-router/vite'
 
-// https://github.com/posva/unplugin-vue-router
+// https://github.com/vuejs/router
 export function vueRouter() {
   return VueRouter({
     extensions: ['.vue'],
-    routeBlockLang: 'json',
-    dts: 'src/typed-router.d.ts',
-    exclude: ['**/components/**/*'],
+    dts: 'src/route-map.d.ts',
   })
 }

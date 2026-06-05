@@ -1,6 +1,7 @@
 import type { ConfigEnv } from 'vite'
 import { autoImports } from './plugins/auto-imports'
 import { components } from './plugins/components'
+import { devToolsJson } from './plugins/devtools-json'
 import { elementPlus } from './plugins/element-plus'
 import { generateComponentName } from './plugins/generate-component-name'
 import { svgLoader } from './plugins/svg-loader'
@@ -28,6 +29,7 @@ function pluginsConfig(command: ConfigEnv['command']) {
     unocss(),
     // cesium(),
     vueDevTools(),
+    devToolsJson(),
     vitePWA(),
   ]
 }

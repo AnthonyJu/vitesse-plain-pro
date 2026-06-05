@@ -97,7 +97,7 @@ function generateGridCells(
 /**
  * 区域切割：将大多边形切割为接近正方形的子区域
  */
-export function splitArea(options: SplitAreaOptions): SubRegion[] {
+function splitArea(options: SplitAreaOptions): SubRegion[] {
   const { polygon, cellSizeKm } = options
 
   const polyFeature = turf.polygon(polygon)
@@ -232,7 +232,7 @@ function estimateFlightDistance(
 /**
  * 二分搜索计算最大网格边长
  */
-export function computeMaxCellSize(
+function computeMaxCellSize(
   params: Omit<PlanParams, 'polygon'>,
   maxFlightDistanceKm: number,
 ): number {
