@@ -1,3 +1,7 @@
+packages: []
+
+confirmModulesPurge: false
+
 shellEmulator: true
 
 trustPolicy: no-downgrade
